@@ -1,5 +1,19 @@
 # AGENTS.md — Darb 1718 Creative R&D and Engineering
 
+## OVERRIDING CLIENT DECISION — COMPLETE V1 CREATIVE REJECTION (2026-11-02)
+
+**The client has rejected the entire Vercel website UI. No present layout or art direction is approved.** The screenshot of the actual English site shows a generic corporate header, gigantic slogan, rectangular photo, beige background and conventional image cards. The client identified repetition of unrelated Fokhara/portfolio aesthetics and explicitly requested a full creative reset using Darb's original source artworks, curatorial brief and international reference-site systems. Do NOT propose a change of colors, typeface, hero photo, or two alternate mockups; do NOT refer to a passing CI build as design approval.
+
+**Keep:** original PDF/photos, source audits, research, working AR/EN/content infrastructure, schema, CI, GitHub and Vercel automatic Preview. **Reject:** first homepage/typography/color layout and repeated cards as a visual approach. No technology banned, including GSAP, Three.js or Lenis. The next real art direction must arise from actual Darb programs, credited artwork/photography, identity materials and purpose-built interactions; compare Imaginarium/Getty/Oculi Mundi/KW as interaction and authorship systems, not visual references to paste into templates.
+
+Review source-backed replacement documents in feature branch:
+- creative/14-REJECTED-V1-CREATIVE-RESET.md
+- creative/15-EXPERIENCE-ART-DIRECTION-CONTRACT-V2.md
+- creative/16-IMAGE-RIGHTS-AND-FIDELITY-DECISIONS.md
+
+These documents are a research framework, NOT final client approval of a proposed layout. PR #2 remains Draft and the existing protected preview shows REJECTED design until replaced.
+
+
 ## Creative research must not inherit ChatGPT preferences (2 November 2026)
 
 **Separate METHOD from LOOK.** Preserve all genuine project files, source research, reference deconstruction, workflows, decision records, implementation history, experiments and tested technology choices. Do **not** infer any permanent visual style, color palette, typeface, image layout or visual grammar from the commissioner's ChatGPT memory, another client's brand, Omar's portfolio, prior assistant-generated examples, or screenshots of earlier projects.
