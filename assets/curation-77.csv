@@ -1,0 +1,78 @@
+index,pdf_page,pdf_xref,filename,visual_description,category,story_candidate,credit_check,rights_status
+1,1,308,pdf_image_0308.jpeg,"Old Cairo Darb facade with tree shade and mural",place,"origin story",photographer and artist identification needed,project_owner_supplied_cleared
+2,1,309,pdf_image_0309.png,"Transparent/black Darb 1718 logotype graphic",brand_asset,"identity master",verify graphic attribution,project_owner_supplied_cleared
+3,2,314,pdf_image_0314.jpeg,"Seated group in gallery discussion beneath photographs",community,"gathering",photographer and artist identification needed,project_owner_supplied_cleared
+4,3,320,pdf_image_0320.jpeg,"Night-time concert with dense audience and stage",performance,"music archive",photographer and artist identification needed,project_owner_supplied_cleared
+5,3,321,pdf_image_0321.jpeg,"Dark exhibition gallery with wall works",exhibition,"exhibition archive",photographer and artist identification needed,project_owner_supplied_cleared
+6,3,322,pdf_image_0322.jpeg,"Children showing handmade artworks with facilitators",community,"education",photographer and artist identification needed,project_owner_supplied_cleared
+7,3,323,pdf_image_0323.jpeg,"Pottery workshop with craftspeople at long table",craft,"Fustat workshops",photographer and artist identification needed,project_owner_supplied_cleared
+8,3,327,pdf_image_0327.png,"Small round Darb calligraphic mark",brand_asset,"identity audit",verify graphic attribution,project_owner_supplied_cleared
+9,4,332,pdf_image_0332.png,"Small round Darb calligraphic mark",brand_asset,"identity audit",verify graphic attribution,project_owner_supplied_cleared
+10,4,333,pdf_image_0333.jpeg,"Visitor among papers and children's drawings on wall",exhibition,"art and expression",photographer and artist identification needed,project_owner_supplied_cleared
+11,4,334,pdf_image_0334.jpeg,"Gallery wall with framed portrait works",exhibition,"exhibition documentation",photographer and artist identification needed,project_owner_supplied_cleared
+12,4,335,pdf_image_0335.jpeg,"Gallery visitor viewing work while wearing VR device",exhibition,"experimental formats",photographer and artist identification needed,project_owner_supplied_cleared
+13,4,336,pdf_image_0336.jpeg,"Two men speaking beside sculptural installation",exhibition,"creative exchange",photographer and artist identification needed,project_owner_supplied_cleared
+14,5,341,pdf_image_0341.png,"UNSPOKEN typographic art on black field",title_card,"UNSPOKEN exhibition",photographer and artist identification needed,project_owner_supplied_cleared
+15,5,342,pdf_image_0342.jpeg,"Visitor silhouette studying art-therapy works",exhibition,"UNSPOKEN exhibition",photographer and artist identification needed,project_owner_supplied_cleared
+16,5,343,pdf_image_0343.jpeg,"Visitors viewing drawings on exhibition wall",exhibition,"UNSPOKEN exhibition",photographer and artist identification needed,project_owner_supplied_cleared
+17,5,344,pdf_image_0344.jpeg,"Small group discussing portrait drawings",exhibition,"UNSPOKEN exhibition",photographer and artist identification needed,project_owner_supplied_cleared
+18,5,345,pdf_image_0345.jpeg,"Single visitor in warm light facing gallery works",exhibition,"UNSPOKEN exhibition",photographer and artist identification needed,project_owner_supplied_cleared
+19,6,350,pdf_image_0350.jpeg,"Visitor examining artwork wall in gallery",exhibition,"Darb fi Al-Hadiqqa",photographer and artist identification needed,project_owner_supplied_cleared
+20,6,351,pdf_image_0351.jpeg,"Group moving through bright exhibition room",exhibition,"Darb fi Al-Hadiqqa",photographer and artist identification needed,project_owner_supplied_cleared
+21,7,359,pdf_image_0359.jpeg,"White suspended textile installation",installation,"INBETWEEN exhibition",photographer and artist identification needed,project_owner_supplied_cleared
+22,7,360,pdf_image_0360.jpeg,"Monochrome art photographs placed along shelf",artwork,"INBETWEEN exhibition",photographer and artist identification needed,project_owner_supplied_cleared
+23,8,366,pdf_image_0366.jpeg,"Audience in bright white gallery among works",exhibition,"Observer Speaks",photographer and artist identification needed,project_owner_supplied_cleared
+24,8,367,pdf_image_0367.jpeg,"Two viewers looking at painting in white gallery",exhibition,"Observer Speaks",photographer and artist identification needed,project_owner_supplied_cleared
+25,8,368,pdf_image_0368.jpeg,"Two people standing beside vivid paintings",people_and_artwork,"Observer Speaks",photographer and artist identification needed,project_owner_supplied_cleared
+26,8,369,pdf_image_0369.jpeg,"Group discussing vibrant paintings",exhibition,"Observer Speaks",photographer and artist identification needed,project_owner_supplied_cleared
+27,8,370,pdf_image_0370.jpeg,"Two framed expressive paintings in one shot",artwork,"Observer Speaks",photographer and artist identification needed,project_owner_supplied_cleared
+28,8,371,pdf_image_0371.jpeg,"White gallery wall with several framed works",exhibition,"Observer Speaks",photographer and artist identification needed,project_owner_supplied_cleared
+29,9,379,pdf_image_0379.png,"Jusoor Arabic wordmark green on dark field",brand_asset,"Jusoor",verify graphic attribution,project_owner_supplied_cleared
+30,9,380,pdf_image_0380.jpeg,"Audiences watching short-film projection",film,"Jusoor film screening",photographer and artist identification needed,project_owner_supplied_cleared
+31,9,381,pdf_image_0381.jpeg,"Audience in informal film discussion circle",film,"Jusoor film screening",photographer and artist identification needed,project_owner_supplied_cleared
+32,9,382,pdf_image_0382.jpeg,"Audience/installation space under green light",film,"Jusoor event",photographer and artist identification needed,project_owner_supplied_cleared
+33,9,383,pdf_image_0383.jpeg,"Three speakers sitting on stage panel",film,"Jusoor post-screening discussion",photographer and artist identification needed,project_owner_supplied_cleared
+34,10,389,pdf_image_0389.jpeg,"Natalia Ossef holding a camera outdoors",artist_residency,"Natalia residency",photographer and artist identification needed,project_owner_supplied_cleared
+35,10,390,pdf_image_0390.jpeg,"Artist practicing red textile block printing",craft,"Natalia residency",photographer and artist identification needed,project_owner_supplied_cleared
+36,10,391,pdf_image_0391.jpeg,"Artist and local collaborators walking under palms",residency_documentary,"Natalia residency",photographer and artist identification needed,project_owner_supplied_cleared
+37,10,392,pdf_image_0392.jpeg,"Artist outdoors near architectural arch",residency_documentary,"Natalia residency",photographer and artist identification needed,project_owner_supplied_cleared
+38,10,393,pdf_image_0393.jpeg,"Artist visiting traditional fabric/craft studio",craft,"Natalia residency",photographer and artist identification needed,project_owner_supplied_cleared
+39,11,400,pdf_image_0400.jpeg,"People talking to local potter outdoors",craft,"Tales of Fustat",photographer and artist identification needed,project_owner_supplied_cleared
+40,11,401,pdf_image_0401.jpeg,"Participants sitting in workshop in bright white room",workshop,"Tales of Fustat",photographer and artist identification needed,project_owner_supplied_cleared
+41,11,402,pdf_image_0402.jpeg,"Blue cyanotype illustration of pottery vessel",artwork,"Tales of Fustat",photographer and artist identification needed,project_owner_supplied_cleared
+42,11,403,pdf_image_0403.jpeg,"Printmaking results showing blue photographic prints",artwork,"Tales of Fustat",photographer and artist identification needed,project_owner_supplied_cleared
+43,12,408,pdf_image_0408.jpeg,"Participant holding creative journal open to camera",workshop,"A Room of One's Own",photographer and artist identification needed,project_owner_supplied_cleared
+44,12,409,pdf_image_0409.jpeg,"Seated group discussion indoors",workshop,"A Room of One's Own",photographer and artist identification needed,project_owner_supplied_cleared
+45,12,410,pdf_image_0410.jpeg,"Participants composing collage and printed papers",workshop,"A Room of One's Own",photographer and artist identification needed,project_owner_supplied_cleared
+46,12,411,pdf_image_0411.jpeg,"Close view of hands making collaged material",workshop,"A Room of One's Own",photographer and artist identification needed,project_owner_supplied_cleared
+47,13,416,pdf_image_0416.jpeg,"Movement/voice group practicing in open room",performance_workshop,"Voice in Motion",photographer and artist identification needed,project_owner_supplied_cleared
+48,13,417,pdf_image_0417.jpeg,"Facilitator performing movement in gallery space",performance_workshop,"Voice in Motion",photographer and artist identification needed,project_owner_supplied_cleared
+49,13,418,pdf_image_0418.jpeg,"Small roundtable group doing vocal/movement practice",performance_workshop,"Voice in Motion",photographer and artist identification needed,project_owner_supplied_cleared
+50,13,419,pdf_image_0419.jpeg,"Participants seated in interactive voice session",performance_workshop,"Voice in Motion",photographer and artist identification needed,project_owner_supplied_cleared
+51,14,425,pdf_image_0425.jpeg,"Press panel with multiple figures on stage",sector_context,"Alexandria Biennale",photographer and artist identification needed,project_owner_supplied_cleared
+52,15,430,pdf_image_0430.jpeg,"Exhibition visitor reading large color wall text",exhibition,"Something Else",photographer and artist identification needed,project_owner_supplied_cleared
+53,16,435,pdf_image_0435.png,"Historical interior with immersive sculptural work",exhibition,"Something Else Symposium",photographer and artist identification needed,project_owner_supplied_cleared
+54,16,436,pdf_image_0436.png,"Historic domed interior with blue/colored installation",installation,"Something Else Symposium",photographer and artist identification needed,project_owner_supplied_cleared
+55,16,437,pdf_image_0437.png,"Visitor photographing oversized hanging text works",exhibition,"Something Else Symposium",photographer and artist identification needed,project_owner_supplied_cleared
+56,17,443,pdf_image_0443.png,"Bright large-scale portrait/graphic suspended in gallery",artwork,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+57,17,444,pdf_image_0444.png,"Multi-panel artwork installation on wall",artwork,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+58,17,445,pdf_image_0445.png,"Visitors in Cairo Citadel exterior under sunlight",place,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+59,17,446,pdf_image_0446.png,"Workers/people in historic Citadel courtyard",place_and_people,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+60,17,447,pdf_image_0447.png,"Dark staged three-dimensional artwork and figures",installation,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+61,17,448,pdf_image_0448.png,"Lighted projection of red/orange image on curtain",installation,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+62,17,449,pdf_image_0449.png,"Large suspended sculptural wire installation",installation,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+63,17,450,pdf_image_0450.png,"Textured mound-like artwork on ground",installation,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+64,17,451,pdf_image_0451.png,"Interior corridor installation with illuminated work",installation,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+65,17,452,pdf_image_0452.png,"Performer in red installation space",performance,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+66,18,457,pdf_image_0457.jpeg,"Old Cairo multi-floor industrial/gallery facade at dusk",architecture,"Something Else history",photographer and artist identification needed,project_owner_supplied_cleared
+67,19,463,pdf_image_0463.jpeg,"Citadel panorama with visitors in open courtyard",place,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+68,19,464,pdf_image_0464.jpeg,"Performance speaker/artist in traditional dress",performance,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+69,19,465,pdf_image_0465.jpeg,"Immersive wire and luminous sculpture in dark room",installation,"Something Else 2023",photographer and artist identification needed,project_owner_supplied_cleared
+70,20,469,pdf_image_0469.jpeg,"Audience lounging on floor cushions facing stage",community,"audience and gathering",photographer and artist identification needed,project_owner_supplied_cleared
+71,20,470,pdf_image_0470.jpeg,"Live music performance with string instruments",music,"concerts",photographer and artist identification needed,project_owner_supplied_cleared
+72,20,471,pdf_image_0471.png,"Round Darb calligraphic mark",brand_asset,"identity master",verify graphic attribution,project_owner_supplied_cleared
+73,21,482,pdf_image_0482.png,"Extremely thin vertical rule or decorative line",decorative,"ignore in narrative media",verify graphic attribution,project_owner_supplied_cleared
+74,21,686,pdf_image_0686.png,"Blank dark rectangle/crop used for page layout",decorative,"ignore in narrative media",verify graphic attribution,project_owner_supplied_cleared
+75,21,689,pdf_image_0689.jpeg,"Outdoor-space 2D architectural plan",diagram,"plans requiring verification",photographer and artist identification needed,project_owner_supplied_cleared
+76,21,698,pdf_image_0698.jpeg,"First floor 2D architectural plan",diagram,"plans requiring verification",photographer and artist identification needed,project_owner_supplied_cleared
+77,21,715,pdf_image_0715.jpeg,"Second floor 2D architectural plan",diagram,"plans requiring verification",photographer and artist identification needed,project_owner_supplied_cleared
