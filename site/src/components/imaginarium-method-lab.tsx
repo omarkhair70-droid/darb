@@ -86,7 +86,7 @@ export function ImaginariumMethodLab({lang}:{lang:Locale}){
  const contextImage="/media/pdf_image_0359.jpeg";
  return <div className={"ig-lab ig-stage-"+stage} ref={root}>
    <nav className="ig-nav" aria-label={ar?"التنقل داخل المختبر":"Laboratory navigation"}>
-     <Link href={"/"+lang+"/lab/getty-method"}>{ar?"← المختبر السابق":"← Previous study"}</Link>
+     <Link href={"/"+lang+"/lab"}>{ar?"← كل المختبرات":"← All research labs"}</Link>
      <span className="ig-lab-brand">DARB <b>/ R&D 03</b></span>
      <Link href={"/"+lang+"/archive"}>{ar?"أرشيف درب":"Darb archive"} ↗</Link>
    </nav>

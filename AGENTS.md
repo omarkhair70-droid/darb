@@ -76,3 +76,9 @@ Stage 07 marketing hero and Stage 09 dark three-image viewer are BOTH rejected. 
 - creative/21-jusoor-source-backed-editorial-walk.md — source-supported full film→maker→programme→index→participation path and original media packets
 
 These are **not new website designs**, palette choices, component directions or approved curatorial scripts. Do not regenerate a third homepage. Before replacing frontend styling, build a real named-work source packet with artist/curator and actual video/photo rights, verify current activities with Darb, then implement ONE coherent cross-site encounter with source-backed medium-specific interaction. Existing Next.js/Sanity/GSAP/Vercel/CI infrastructure is retained. No UI code changed in Stage 10.
+
+
+## Stage 15 — All previous creative work is retained in ONE integration atlas (2026-11-02)
+
+The commissioner asked to **gather all completed work anyway**, not discard labs and prior experiments. Canonical synthesis: `creative/29-CREATIVE-INTEGRATION-ATLAS.md`. Browser-accessible **PRIVATE REVIEW INDEX** at `/ar/lab` and `/en/lab`; each of the 3 reference prototypes links back to it. This index is NOT the Darb homepage, brand proposal or final design and does not replace authentic source files. It explicitly records which methods may be reused, which surfaces are artistically rejected, source/rights limitations, measured QA and one coherent route to integration. **Do not mash up three reference aesthetics** or copy a lab's colors/fonts into the site; the integration is shared evidence and user journeys, with medium-specific expression. Existing source archive, 9 project seed records, 4 film records, AR/EN, Sanity draft schema, GSAP and GitHub→Vercel preserved. PR #2 remains Draft and DESIGN REJECTED until true art direction is approved.
+

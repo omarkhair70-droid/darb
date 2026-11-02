@@ -85,3 +85,9 @@ This is not a rejection of research/source, GitHub, Vercel auto Preview, AR/EN/N
 - Production prerequisite: one truly cleared authored film/work/process packet and real editorial/venue publishing ownership. Need source-backed expressive experience, not repeating three program images or copying an award-site visual surface.
 
 - New verified source lead: SSLH Museum's director-attributed 'جدائل الهوية' by حفصة برعي, independently connected to Jusoor via supplied PDF p.9; article cover photo credited أماني بشير, NOT auto-cleared for Darb. Research source and limits: research/22-verified-artist-film-leads-jusoor-and-something-else.md. DutchCulture Something Else IV artists and an unverified INBETWEEN catalogue are kept only as leads pending source/identity confirmation.
+
+
+## Stage 15 — All previous creative work is retained in ONE integration atlas (2026-11-02)
+
+The commissioner asked to **gather all completed work anyway**, not discard labs and prior experiments. Canonical synthesis: `creative/29-CREATIVE-INTEGRATION-ATLAS.md`. Browser-accessible **PRIVATE REVIEW INDEX** at `/ar/lab` and `/en/lab`; each of the 3 reference prototypes links back to it. This index is NOT the Darb homepage, brand proposal or final design and does not replace authentic source files. It explicitly records which methods may be reused, which surfaces are artistically rejected, source/rights limitations, measured QA and one coherent route to integration. **Do not mash up three reference aesthetics** or copy a lab's colors/fonts into the site; the integration is shared evidence and user journeys, with medium-specific expression. Existing source archive, 9 project seed records, 4 film records, AR/EN, Sanity draft schema, GSAP and GitHub→Vercel preserved. PR #2 remains Draft and DESIGN REJECTED until true art direction is approved.
+

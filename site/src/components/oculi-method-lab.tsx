@@ -92,7 +92,7 @@ export function OculiMethodLab({lang}:Props){
 
  return <div className="ref-lab" ref={stage}>
   <div className="lab-instructions" aria-label={ar?"معلومات الدراسة":"Study identification"}>
-   <Link className="lab-exit" href={"/"+lang+"/archive"}>{ar?"← إلى أرشيف درب":"← Back to Darb index"}</Link>
+   <Link className="lab-exit" href={"/"+lang+"/lab"}>{ar?"← كل المختبرات":"← All research labs"}</Link>
    <div className="lab-identity"><span>R&D / REFERENCE LAB 01</span><strong>{ar?"دراسة التنقّل المكاني":"Spatial navigation study"}</strong></div>
    <span className="lab-disclaimer">{ar?"مختبر داخلي — مش تصميم درب":"INTERNAL STUDY / NOT DARB DESIGN"}</span>
   </div>

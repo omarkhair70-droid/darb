@@ -99,7 +99,7 @@ export function GettyMethodLab({lang}:{lang:Locale}){
  // A fragment link always points to the real semantic section.
  return <div className="gt-lab" ref={root}>
    <div className="gt-reading-head">
-     <Link href={"/"+lang+"/lab/oculi-method"}>{ar?"← المختبر السابق":"← Previous lab"}</Link>
+     <Link href={"/"+lang+"/lab"}>{ar?"← كل المختبرات":"← All research labs"}</Link>
      <span>RESEARCH / LAB 02 <b>GETTY METHOD</b></span>
      <Link href={"/"+lang+"/archive"}>{ar?"فهرس درب":"Darb index"} ↗</Link>
    </div>
