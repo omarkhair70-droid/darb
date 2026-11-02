@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { isLocale, ui } from "@/lib/locale";
-import { filterProjects, type ProjectKind } from "@/lib/records";
+import type { ProjectKind } from "@/lib/records";
+import { searchVisibleProjects } from "@/lib/sanity-source";
 type Search = { q?:string; type?:string };
 const types:ProjectKind[]=["exhibition","festival","workshop","programme","residency"];
 export async function generateMetadata({params}:{params:Promise<{lang:string}>}):Promise<Metadata>{
@@ -13,7 +14,7 @@ export default async function Archive({params,searchParams}:{params:Promise<{lan
  const copy=ui[lang];const search=await searchParams;
  const query=(search.q||"").slice(0,100);
  const type=types.includes(search.type as ProjectKind)?search.type!:"all";
- const matching=filterProjects(query,type);
+ const matching=await searchVisibleProjects(query,type);
  return <div className="shell interior-page">
    <header className="page-heading"><span className="section-index">INDEX / DARB 1718</span><h1>{copy.archives}</h1>
      <p>{lang==="ar"?"وثائق عن تجارب وأماكن وأشخاص. ابحث بحسب اللغة أو السنة أو نوع النشاط، واربط السجل بالحكايات المعروضة.":"Records of practices, places and people. Search across language, year and programme type, then follow the connections into stories."}</p>

@@ -1,0 +1,29 @@
+name: Darb site quality
+on:
+  pull_request:
+    paths:
+      - "site/**"
+      - ".github/workflows/darb-site-checks.yml"
+  workflow_dispatch:
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install (initial lockfile bootstrapping)
+        run: npm install --no-audit --no-fund
+      - name: Source audit tests
+        run: npm run check:content
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Next.js production build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"

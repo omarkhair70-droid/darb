@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { isLocale, ui } from "@/lib/locale";
-import { getProject } from "@/lib/records";
+import { getVisibleProjects } from "@/lib/sanity-source";
 
 const chapters=[
  {id:"tales-of-fustat",index:"01",name:{ar:"المكان يصنع أثره",en:"A place leaves its mark"}},
@@ -14,6 +14,7 @@ export async function generateMetadata({params}:{params:Promise<{lang:string}>})
 }
 export default async function Explore({params}:{params:Promise<{lang:string}>}){
  const {lang:l}=await params;const lang=isLocale(l)?l:"ar";const copy=ui[lang];
+ const all=await getVisibleProjects();const getProject=(slug:string)=>all.find(p=>p.slug===slug);
  return <div className="shell interior-page">
    <header className="page-heading"><span className="section-index">DARB / EXPLORE</span>
      <h1>{copy.exploreTitle}</h1><p>{copy.exploreIntro}</p>

@@ -3,20 +3,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectMedia } from "@/components/project-media";
 import { isLocale, locales, ui } from "@/lib/locale";
-import { getProject, projects } from "@/lib/records";
+import { projects } from "@/lib/records";
+import { getVisibleProject, getVisibleProjects } from "@/lib/sanity-source";
 type Props={params:Promise<{lang:string;slug:string}>};
 export function generateStaticParams(){
  return locales.flatMap(lang=>projects.map(p=>({lang,slug:p.slug})));
 }
 export async function generateMetadata({params}:Props):Promise<Metadata>{
- const {lang:l,slug}=await params;const lang=isLocale(l)?l:"ar";const project=getProject(slug);
+ const {lang:l,slug}=await params;const lang=isLocale(l)?l:"ar";const project=await getVisibleProject(slug);
  return{title:project?.title[lang]||ui[lang].nav.archive,description:project?.description[lang]};
 }
 export default async function ProjectDetail({params}:Props){
  const {lang:l,slug}=await params;
  if(!isLocale(l))notFound();
- const lang=l;const project=getProject(slug);if(!project)notFound();
- const copy=ui[lang];const related=project.related.map(getProject).filter((x):x is NonNullable<typeof x>=>Boolean(x));
+ const lang=l;const project=await getVisibleProject(slug);if(!project)notFound();
+ const copy=ui[lang];const all=await getVisibleProjects();const related=project.related.map(id=>all.find(p=>p.slug===id)).filter((x):x is NonNullable<typeof x>=>Boolean(x));
  return <article className="shell interior-page project-detail">
     <Link href={"/"+lang+"/archive"} className="back-link">↗ {copy.back}</Link>
     <header className="detail-heading">

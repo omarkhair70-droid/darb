@@ -2,15 +2,18 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectMedia } from "@/components/project-media";
 import { isLocale, ui } from "@/lib/locale";
-import { getProject, projects } from "@/lib/records";
+import { getVisibleProjects } from "@/lib/sanity-source";
 
 export default async function Home({params}:{params:Promise<{lang:string}>}){
   const {lang:l}=await params;
   const lang=isLocale(l)?l:"ar";
   const copy=ui[lang];
-  const hero=getProject("something-else-2023")!;
+  const projects=await getVisibleProjects();
+  const getProject=(slug:string)=>projects.find(p=>p.slug===slug);
+  const hero=getProject("something-else-2023")||projects[0];
   const featured=["tales-of-fustat","inbetween-2025","jusoor"]
     .map(getProject).filter((p):p is NonNullable<typeof p>=>Boolean(p));
+  if(!hero)return <p>{copy.noResults}</p>;
   return <>
     <section className="home-hero">
       <div className="shell hero-grid">
