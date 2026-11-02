@@ -23,6 +23,7 @@ export default async function ProjectDetail({params}:Props){
  const project=await getVisibleProject(slug);if(!project)notFound();
  const copy=ui[lang];
  const all=await getVisibleProjects();
+ const films=worksByProgramme(slug);
  const related=project.related.map(id=>all.find(p=>p.slug===id)).filter((x):x is NonNullable<typeof x>=>Boolean(x));
  return <article className="darb-workroom">
    <nav className="shell workroom-back">
