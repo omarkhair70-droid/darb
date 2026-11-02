@@ -75,3 +75,30 @@ This is not a rejection of research/source, GitHub, Vercel auto Preview, AR/EN/N
 - Added `architecture/ADR-001-conditional-tech-stack.md`: **Next.js + TS + Sanity + authored CSS + GSAP (special stories)** recommended; native scrolling first, Lenis and WebGL/3D/deep zoom conditional. AR/EN and CMS workflow from outset. Not yet installed.
 - Added `architecture/EXECUTION_HANDOFF_PREBUILD.md`: finite research/production gates and real site delivery sequence. NO code or deployment started.
 - Remaining **production blockers:** actual live/current venue and form status; artist/photographer credit and hires images; CMS/editor ownership and hosting agreement; content/consent signoff. These are bounded tasks, not more generalized moodboarding.
+
+
+## Stage 10 — Reference-to-source experience research (2 Nov 2026)
+- Read studios' own case studies for Imaginarium, Getty Tracing Art, Oculi Mundi and KW Berlin, plus collection strategy of Clyfford Still/Cooper. Established specific interaction sequence, content prerequisite, mode/routing approach and non-transferable tricks.
+- Committed research/19-reference-autopsy-experience-not-visuals.md and creative/20-whole-site-experience-kernel-v03.md.
+- Completed a realistic, source-bounded **Jusoor film** visitor journey (PDF p.9, named Sudanese shorts/directors), with explicit film media/filmmaker prompt gaps in creative/21-jusoor-source-backed-editorial-walk.md.
+- No new homepage, image carousel, new CSS or UI implementation this stage; Vercel continues to show a rejected prototype. Technical base/CI retained.
+- Production prerequisite: one truly cleared authored film/work/process packet and real editorial/venue publishing ownership. Need source-backed expressive experience, not repeating three program images or copying an award-site visual surface.
+
+- New verified source lead: SSLH Museum's director-attributed 'جدائل الهوية' by حفصة برعي, independently connected to Jusoor via supplied PDF p.9; article cover photo credited أماني بشير, NOT auto-cleared for Darb. Research source and limits: research/22-verified-artist-film-leads-jusoor-and-something-else.md. DutchCulture Something Else IV artists and an unverified INBETWEEN catalogue are kept only as leads pending source/identity confirmation.
+
+
+## Stage 15 — All previous creative work is retained in ONE integration atlas (2026-11-02)
+
+The commissioner asked to **gather all completed work anyway**, not discard labs and prior experiments. Canonical synthesis: `creative/29-CREATIVE-INTEGRATION-ATLAS.md`. Browser-accessible **PRIVATE REVIEW INDEX** at `/ar/lab` and `/en/lab`; each of the 3 reference prototypes links back to it. This index is NOT the Darb homepage, brand proposal or final design and does not replace authentic source files. It explicitly records which methods may be reused, which surfaces are artistically rejected, source/rights limitations, measured QA and one coherent route to integration. **Do not mash up three reference aesthetics** or copy a lab's colors/fonts into the site; the integration is shared evidence and user journeys, with medium-specific expression. Existing source archive, 9 project seed records, 4 film records, AR/EN, Sanity draft schema, GSAP and GitHub→Vercel preserved. PR #2 remains Draft and DESIGN REJECTED until true art direction is approved.
+
+
+
+## Stage 16 — Real-site visual authorship, integrated Open Field (2026-11-02)
+
+- New client directive: original art direction with Omar Khair's identifiable authorship THROUGH decisions and rhythm, without a signature stamp or cloning the portfolio's style.
+- IMPLEMENTED in the actual Next.js homepage rather than lab: five simultaneous genuine source fragments representing Tales of Fustat, INBETWEEN, Jusoor, Natalia Ossef and Something Else (source page IDs, AR/EN source routes), giant institutional type used as spatial backbone, accessible source links, user-initiated pointer response.
+- Designed second tier as four genuinely source-related practices; real film/maker/programme/source through Braids of Identity; programme status honest and official institutional channels visible.
+- Integrated visual wayfinding in archive and project detail routes using \`site/src/app/darb-direction-v01.css\`; source photos remain original/contained. Not everything is forced into same page template.
+- Screenshot-led correction: source image opacity during GSAP entry disabled; end-of-field visual overflow resolved with separate closing navigation strip; double-check mobile and Arabic before signoff.
+- Working files: \`site/src/components/darb-open-field.tsx\`, \`site/src/app/[lang]/page.tsx\`, \`site/src/app/[lang]/entry.css\`, \`site/src/app/darb-direction-v01.css\`, \`creative/30-DARB-OPEN-FIELD-ART-DIRECTION-V01.md\`.
+- **Still Draft PR #2; creative proposal unapproved.** High-resolution artworks and photo rights, approved institution logo and complete Arabic/Latin typography, current venue/calendar, actual Sanity publishing are outstanding.

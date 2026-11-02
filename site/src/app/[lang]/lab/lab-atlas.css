@@ -1,0 +1,61 @@
+/* INTERNAL RESEARCH INDEX — this is not Darb's future identity.
+ * Plain functional review layout with source evidence and lab links.
+ */
+body:has(.research-atlas) .site-header,body:has(.research-atlas) .site-footer{display:none}
+body:has(.research-atlas){background:#e6e8e6;color:#142326}
+.research-atlas{background:#e6e8e6;color:#142326;min-height:100svh;font-family:Arial,Helvetica,sans-serif}
+.research-atlas a{color:inherit}
+.research-atlas :focus-visible{outline:3px solid #153a46;outline-offset:5px}
+.atlas-top{padding:clamp(20px,4vw,56px) clamp(18px,4.5vw,72px) 45px;border-bottom:2px solid #142326}
+.atlas-top-line{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font:600 .7rem/1.5 ui-monospace,monospace}
+.atlas-top-line>a{text-decoration:underline;text-underline-offset:5px}
+.atlas-top-line span{letter-spacing:.07em;color:#465d60}
+.atlas-opening{padding-top:clamp(50px,9vw,145px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(200px,.4fr);gap:25px}
+.atlas-opening .atlas-eyebrow{grid-column:1/-1}
+.atlas-eyebrow,.atlas-section-head>span{font:650 .72rem/1.5 ui-monospace,monospace;letter-spacing:.065em}
+.atlas-opening h1{font-size:clamp(2.3rem,5.1vw,6.4rem);letter-spacing:-.055em;line-height:1.18;font-weight:600;margin:0}
+.atlas-opening p{align-self:end;max-width:380px;line-height:1.75;font-size:clamp(.88rem,1.1vw,1.05rem);margin:0}
+.atlas-jump{display:flex;gap:25px;flex-wrap:wrap;padding:20px clamp(18px,4.5vw,72px);border-bottom:1px solid #a1acae;font-size:.82rem}
+.atlas-jump a{text-decoration:underline;text-underline-offset:4px}
+.atlas-sections,.atlas-bottom-sections{padding:clamp(45px,5vw,90px) clamp(18px,4.5vw,72px)}
+.atlas-section-head{display:grid;grid-template-columns:minmax(120px,.28fr) 1fr;gap:26px;align-items:baseline;margin-bottom:35px}
+.atlas-section-head h2{font-size:clamp(1.8rem,2.7vw,3.7rem);font-weight:560;line-height:1.2;letter-spacing:-.045em;margin:0}
+.atlas-experiments{list-style:none;margin:0;padding:0;border-top:1px solid #849496}
+.atlas-experiment{display:grid;grid-template-columns:80px minmax(0,1fr) minmax(180px,.42fr);gap:clamp(12px,2.7vw,48px);padding:36px 0;border-bottom:1px solid #92a1a3}
+.atlas-experiment-index{font:600 1.25rem ui-monospace,monospace}
+.atlas-experiment-index>span{font-size:.65rem;color:#647477}
+.atlas-experiment-main h3{font-size:clamp(1.5rem,2.8vw,3.4rem);font-weight:560;letter-spacing:-.045em;line-height:1.2;margin:17px 0}
+.atlas-experiment-main>p{max-width:760px;font-size:clamp(.9rem,1.1vw,1.1rem);line-height:1.8;margin-bottom:26px}
+.atlas-experiment-actions{display:flex;gap:21px;flex-wrap:wrap;font-size:.84rem;font-weight:680}
+.atlas-experiment-actions a{text-decoration:underline;text-underline-offset:5px}
+.atlas-experiment-review{font-size:.81rem;line-height:1.7;border-inline-start:1px solid #96a6a8;padding-inline-start:21px}
+.atlas-experiment-review p{margin:0 0 17px}
+.atlas-experiment-review b{display:block;font:700 .63rem ui-monospace,monospace;letter-spacing:.08em;margin-bottom:6px}
+.atlas-bottom-sections{border-top:1px solid #9eabac}
+.atlas-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:25px;margin:40px 0 50px}
+.atlas-stats div{border-top:2px solid #1c3739;padding-top:13px;display:flex;flex-direction:column;gap:12px}
+.atlas-stats strong{font-size:clamp(2.3rem,4.2vw,5.2rem);font-weight:540;letter-spacing:-.08em;line-height:1.1}
+.atlas-stats span{font-size:.8rem;line-height:1.5}
+.atlas-links{border-top:1px solid #91a3a3}
+.atlas-links a{display:block;border-bottom:1px solid #91a3a3;padding:19px 4px;font-weight:600;font-size:clamp(.89rem,1.2vw,1.2rem)}
+.atlas-argument{font-size:clamp(1.25rem,2.1vw,2.5rem);letter-spacing:-.025em;line-height:1.65;max-width:1150px;margin:25px 0 30px}
+.atlas-bottom-sections>p:not(.atlas-argument){font-size:.9rem;line-height:1.7;max-width:790px}
+.atlas-master-link{display:inline-block;border-bottom:2px solid currentColor;margin-top:25px;padding:13px 0;font-size:.95rem;font-weight:700}
+.atlas-foot{padding:20px clamp(18px,4.5vw,72px);background:#203335;color:#e7efed;font:600 .64rem/1.5 ui-monospace,monospace}
+@media(max-width:960px){
+ .atlas-opening{grid-template-columns:1fr}
+ .atlas-experiment{grid-template-columns:65px 1fr;gap:18px}
+ .atlas-experiment-review{grid-column:2}
+ .atlas-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:630px){
+ .atlas-top{padding-bottom:30px}
+ .atlas-opening{padding-top:48px}
+ .atlas-section-head{grid-template-columns:1fr;gap:10px}
+ .atlas-experiment{grid-template-columns:36px 1fr;gap:10px;padding:26px 0}
+ .atlas-experiment-index{font-size:.9rem}
+ .atlas-experiment-review{padding-inline-start:12px}
+ .atlas-stats{gap:13px}
+ .atlas-stats span{font-size:.72rem}
+ .atlas-top-line{font-size:.58rem}
+}

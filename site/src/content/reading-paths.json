@@ -1,0 +1,116 @@
+[
+  {
+    "id": "material",
+    "label": {
+      "ar": "المادة والأثر",
+      "en": "Material & Trace"
+    },
+    "proposition": {
+      "ar": "إزاي بيظهر أثر المكان على العمل الفني؟",
+      "en": "How does a place leave a trace on an artwork?"
+    },
+    "summary": {
+      "ar": "قراءة بين ورشة سيانوتايب وإقامة نسيج ومعرض تركيبي. مش توثيقًا لمشروع واحد أو تعاون بين نفس الأشخاص.",
+      "en": "Read across a cyanotype workshop, a textile residency and a spatial exhibition. These are separate events, not a claimed joint project."
+    },
+    "steps": [
+      {
+        "slug": "tales-of-fustat",
+        "insight": {
+          "ar": "الطباعة الفوتوغرافية والدفاتر في حكاوي الفسطاط تخلّي الحكاية شيئًا ماديًا. تظهر المطبوعات في الصفحة ١١ من الملف.",
+          "en": "Cyanotype prints and notebooks make the neighbourhood's stories physical. The objects are documented on page 11."
+        }
+      },
+      {
+        "slug": "natalia-ossef-residency",
+        "insight": {
+          "ar": "إقامة ناتاليا أوسف بتتتبع المنسوجات وصناعتها في أماكن مختلفة. ده مسار موازٍ للبحث في المادة، مش امتدادًا لنفس الورشة.",
+          "en": "Natalia Ossef's residency followed textile traditions through several locations. This is a parallel material inquiry, not the same workshop."
+        }
+      },
+      {
+        "slug": "inbetween-2025",
+        "insight": {
+          "ar": "في INBETWEEN بنشوف النسيج والأعمال المعلقة كوجود داخل مساحة العرض. التقارب هنا تشكيلي فقط، من غير نسبة عمل لشخص غير موثق.",
+          "en": "In INBETWEEN, suspended forms make the gallery itself part of looking. The link here is formal, not a claim of shared authorship."
+        }
+      }
+    ]
+  },
+  {
+    "id": "gathering",
+    "label": {
+      "ar": "التجمّع والصوت",
+      "en": "Gathering & Voice"
+    },
+    "proposition": {
+      "ar": "إيه اللي بيحصل لما العمل الفني يقابل جمهورًا؟",
+      "en": "What happens when art meets a room of people?"
+    },
+    "summary": {
+      "ar": "السينما والكتابة والمعارض العامة طرق مختلفة للاجتماع. ترتيبها هنا تحريري، وليس تسلسلًا زمنيًا واحدًا.",
+      "en": "Film, collective writing and public exhibitions convene people differently. This is an editorial reading, not a continuous historical sequence."
+    },
+    "steps": [
+      {
+        "slug": "jusoor",
+        "insight": {
+          "ar": "جسور بيقدم عروض أفلام قصيرة وحوارًا مع صناعها؛ السينما هنا فعل اجتماعي مش مجرد شاشة.",
+          "en": "Jusoor included short film screenings and discussion with filmmakers: cinema as an encounter, not just a screen."
+        }
+      },
+      {
+        "slug": "a-room-of-ones-own",
+        "insight": {
+          "ar": "غرفة تخصنا وحدنا ورشة كتابة جماعية تناولت البيت والحيّز والحدود. مش هنعرض صور المشاركات بدون إذن واضح.",
+          "en": "A Room of One's Own approached home and boundaries through collective writing. Participant images remain withheld pending explicit permission."
+        }
+      },
+      {
+        "slug": "darb-in-the-garden-2025",
+        "insight": {
+          "ar": "درب في الحديقة معرض جماعي ضم ١٧ فنانًا وورشتين؛ شكل آخر للمشاركة العامة، لا دليل على اشتراك نفس الأشخاص مع البرنامجين السابقين.",
+          "en": "Darb fi Al-Hadiqqa brought together 17 artists and two workshops: another mode of gathering, with no claim of common participants."
+        }
+      }
+    ]
+  },
+  {
+    "id": "questions",
+    "label": {
+      "ar": "السؤال والاستمرار",
+      "en": "Questions & Continuity"
+    },
+    "proposition": {
+      "ar": "ماذا يحدث لما السؤال الفني يفضل مفتوحًا عبر السنين؟",
+      "en": "What survives when an artistic question remains open across years?"
+    },
+    "summary": {
+      "ar": "مقارنة بين أحداث مستقلة عبر السنوات. لا نساوي بين Something Else والهوية الكاملة لدرب، ولا نختزل التاريخ في هدم ٢٠٢٤.",
+      "en": "Separate programmes across years. Something Else is not the entire identity of Darb; the institution's history is not reduced to the 2024 demolition."
+    },
+    "steps": [
+      {
+        "slug": "something-else-2023",
+        "insight": {
+          "ar": "سؤال What Then? ورد في مادة Something Else 2023. ده سؤال القيّمين لهذا الحدث، مش شعار دائم لكل درب.",
+          "en": "The 'What Then?' question belongs to the 2023 Something Else curatorial context — not a permanent Darb slogan."
+        }
+      },
+      {
+        "slug": "something-else-symposium-2025",
+        "insight": {
+          "ar": "في ٢٠٢٥ الملف بيسجل Something Else Symposium، لكن ترقيم الدورات مختلف بين المصادر؛ بنحافظ على الاسم والسنة.",
+          "en": "The overview records Something Else Symposium in 2025. External sources differ on edition numbering; the year and title are kept separate."
+        }
+      },
+      {
+        "slug": "inbetween-2025",
+        "insight": {
+          "ar": "INBETWEEN مثال آخر على نشاط فني خلال ٢٠٢٥، لكنه معرض مستقل، مش امتدادًا رسميًا لسؤال ٢٠٢٣.",
+          "en": "INBETWEEN is another documented 2025 exhibition, not an official continuation of the 2023 curatorial question."
+        }
+      }
+    ]
+  }
+]

@@ -67,3 +67,27 @@ Every work item: objective / actual evidence / source URL+date / hypothesis or f
 Current **recommended baseline** (not a repo initialization): Next.js App Router, TypeScript, React, Sanity, bespoke CSS, GSAP ScrollTrigger for story chapters; native scroll by default; Lenis only if demonstrated benefit; no default Three.js or arbitrary AI; source-respecting responsive images and optional Micrio/IIIF only for actual hires art. Earlier blanket “avoid choosing stack” instructions are superseded by this *conditional architecture choice*. Exact dependencies and hosting require build-gate validation.
 
 All future visual/type/motion studies must serve **the joined website system**: Explore + searchable Archive/Index + live programmes/Participation. Don't fork into separate one-off exhibition microsites or lock visual identity based solely on 3 collages. Stage 07 has an active Draft PR #2 with actual Next.js code and tests. Continue real vertical-slice implementation and QA; do not call it a launched public site before production/editorial gates are complete.
+
+
+## Stage 10 — Sourced experience before further presentation code (2026-11-02)
+Stage 07 marketing hero and Stage 09 dark three-image viewer are BOTH rejected. **New source-backed research now exists in the feature branch:**
+- research/19-reference-autopsy-experience-not-visuals.md — maker-specific deep analysis, concrete transferable mechanism and prerequisite
+- creative/20-whole-site-experience-kernel-v03.md — continuous reversible experience topology, media-native capabilities, graph/URL/rights requirements
+- creative/21-jusoor-source-backed-editorial-walk.md — source-supported full film→maker→programme→index→participation path and original media packets
+
+These are **not new website designs**, palette choices, component directions or approved curatorial scripts. Do not regenerate a third homepage. Before replacing frontend styling, build a real named-work source packet with artist/curator and actual video/photo rights, verify current activities with Darb, then implement ONE coherent cross-site encounter with source-backed medium-specific interaction. Existing Next.js/Sanity/GSAP/Vercel/CI infrastructure is retained. No UI code changed in Stage 10.
+
+
+## Stage 15 — All previous creative work is retained in ONE integration atlas (2026-11-02)
+
+The commissioner asked to **gather all completed work anyway**, not discard labs and prior experiments. Canonical synthesis: `creative/29-CREATIVE-INTEGRATION-ATLAS.md`. Browser-accessible **PRIVATE REVIEW INDEX** at `/ar/lab` and `/en/lab`; each of the 3 reference prototypes links back to it. This index is NOT the Darb homepage, brand proposal or final design and does not replace authentic source files. It explicitly records which methods may be reused, which surfaces are artistically rejected, source/rights limitations, measured QA and one coherent route to integration. **Do not mash up three reference aesthetics** or copy a lab's colors/fonts into the site; the integration is shared evidence and user journeys, with medium-specific expression. Existing source archive, 9 project seed records, 4 film records, AR/EN, Sanity draft schema, GSAP and GitHub→Vercel preserved. PR #2 remains Draft and DESIGN REJECTED until true art direction is approved.
+
+
+
+## STAGE 16 — Original authored Darb site V01 is NOW IN THE REAL APP (2026-11-02)
+
+**Most recent client brief:** "نعمل بالطابع بتاعنا والإحساس، حاجة تحس إن عمر خير ليه أثر فيها." Interpret as **creative authorship, not inserting an Omar Khair logo or inheriting Khair's portfolio aesthetic**. A first genuinely integrated, source-grounded Darb **Open Field** art-direction candidate is now coded in real \`site/src/app/[lang]/page.tsx\` with \`site/src/components/darb-open-field.tsx\` and \`site/src/app/[lang]/entry.css\`. This explicitly retires the rejected Stage 09 three-image viewer *from the actual homepage*, without deleting the old implementation or any Labs.
+
+The new entry is a simultaneous field of 5 authentic 2026 institutional PDF programme fragments with individually linked project records, scale/motion and source IDs. A four-practice editorial score, evidenced Braids of Identity/Jusoor film thread and honestly qualified participation path follow. Institution header/archive/project page share a visual framework from \`site/src/app/darb-direction-v01.css\`; medium-specific work presentation remains independent. All three research labs and their assets are preserved at \`/[lang]/lab\`. Full rationale: \`creative/30-DARB-OPEN-FIELD-ART-DIRECTION-V01.md\`.
+
+This is a **client-review art-direction candidate**, not approved final visual identity. Deliberately verify desktop/AR/mobile screenshots beyond green CI, including readable pictures on entry and clear scroll CTA; Stage 16 QA found an initial mid-animation fade (fixed by removing alpha animation) and overlap of final source fragments with exit copy (fixed by reserving a readable bar). Archive, film, people and CMS evidence remain; official asset rights, current venue, current calendar and font/vector identity are not validated. **No new lab or return to image+headline split hero. Do not present current preview as launched official Darb.**

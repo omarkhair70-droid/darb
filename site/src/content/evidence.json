@@ -1,0 +1,37 @@
+[
+  {
+    "id": "darb-overview-jusoor-p9",
+    "label": "Darb 1718 Overview 2026, p.9",
+    "url": null,
+    "kind": "primary-commissioner-supplied",
+    "purpose": "Programme film title, named makers, Sudanese film screening; NO screening date, still rights, or official artist quotation."
+  },
+  {
+    "id": "sslh-film-ar",
+    "label": "SSLH Museum — جدائل الهوية",
+    "url": "https://www.sslh.info/ar/posts/braids-of-identity",
+    "kind": "filmmaker-attributed",
+    "purpose": "Arabic filmmaker/authorship and film thematic context. Publication date varies between cached variants; don't display a definitive one."
+  },
+  {
+    "id": "sslh-film-en",
+    "label": "SSLH Museum — Braids of Identity",
+    "url": "https://www.sslh.info/en/posts/braids-of-identity",
+    "kind": "filmmaker-attributed",
+    "purpose": "English film themes, Hafsa Borai credit and separate article cover photo © Amani Basheer, NOT a film-asset license."
+  },
+  {
+    "id": "africa-foto-fair-hafsa",
+    "label": "Africa Foto Fair 2025 — Hafsa Boraei Mohammed",
+    "url": "https://africafotofair.com/aff25-participants-2/",
+    "kind": "artist-statement",
+    "purpose": "Public professional biography and artist-first statement on Braids of Identity; paraphrase only, no reproduction of photographs."
+  },
+  {
+    "id": "sslh-official-youtube",
+    "label": "Safeguarding Sudan's Living Heritage — Braids of Identity",
+    "url": "https://www.youtube.com/watch?v=hRO8xdEWCRA",
+    "kind": "publisher-video",
+    "purpose": "Public publisher-controlled video playback; 15 February 2025 upload; player embed only if permitted and a user initiates playback, no rehost."
+  }
+]

@@ -1,0 +1,267 @@
+[
+  {
+    "slug": "something-else-2023",
+    "kind": "festival",
+    "year": 2023,
+    "sourcePage": 18,
+    "dateLabel": {
+      "ar": "٢٣ نوفمبر — ٢٣ ديسمبر ٢٠٢٣",
+      "en": "23 Nov — 23 Dec 2023"
+    },
+    "title": {
+      "ar": "Something Else — وماذا بعد؟",
+      "en": "Something Else — What Then?"
+    },
+    "description": {
+      "ar": "تجربة دولية للفن المعاصر في القلعة. يسجل ملف درب مشاركة ١٧١ فنانًا من ٤٢ دولة و٢٢ قيّمًا فنيًا؛ والبرنامج جزء من تاريخ درب الأوسع.",
+      "en": "An international contemporary art event at the Citadel. Darb's overview records 171 artists from 42 countries and 22 curators — part of Darb's broader history."
+    },
+    "image": "pdf_image_0449.png",
+    "imageAlt": {
+      "ar": "عمل تركيبي بخيوط بيضاء معلّقة في قاعة حجرية تاريخية.",
+      "en": "Suspended pale threads forming an installation inside a historic stone hall."
+    },
+    "venue": {
+      "ar": "قلعة القاهرة — مقر الفعالية التاريخي",
+      "en": "Cairo Citadel — historical event venue"
+    },
+    "people": [
+      "Moataz Nasr",
+      "Simon Njami"
+    ],
+    "related": [
+      "something-else-symposium-2025",
+      "inbetween-2025"
+    ]
+  },
+  {
+    "slug": "inbetween-2025",
+    "kind": "exhibition",
+    "year": 2025,
+    "sourcePage": 7,
+    "dateLabel": {
+      "ar": "٢٢ مايو — ٤ يونيو ٢٠٢٥",
+      "en": "22 May — 4 Jun 2025"
+    },
+    "title": {
+      "ar": "INBETWEEN — بين المساحات",
+      "en": "INBETWEEN — Thin Places, Movements, and Meetings"
+    },
+    "description": {
+      "ar": "معرض يتناول المسافات بين الأمكنة والحركة واللقاءات، وموثق بصور لأعمال تركيبية ومطبوعات داخل المساحة الفنية.",
+      "en": "An exhibition of thin places, movement, and encounters, documented through spatial installations and monochrome printed works."
+    },
+    "image": "pdf_image_0359.jpeg",
+    "imageAlt": {
+      "ar": "قطع من نسيج أبيض معلّقة داخل مساحة عرض فنية.",
+      "en": "White suspended textile forms in an exhibition space."
+    },
+    "venue": null,
+    "people": [],
+    "related": [
+      "tales-of-fustat",
+      "something-else-2023"
+    ]
+  },
+  {
+    "slug": "tales-of-fustat",
+    "kind": "workshop",
+    "year": 2026,
+    "sourcePage": 11,
+    "dateLabel": {
+      "ar": "مذكور في ملف أنشطة ٢٠٢٦؛ التاريخ التفصيلي غير محدد",
+      "en": "Documented in the 2026 overview; exact dates not stated"
+    },
+    "title": {
+      "ar": "حكاوي الفسطاط",
+      "en": "Tales of Fustat"
+    },
+    "description": {
+      "ar": "لقاءات وتصوير مع الحرفيين بالفسطاط، ثم طباعة صور بتقنية السيانوتايب وتجميع حكايات المكان في دفاتر مصوّرة.",
+      "en": "A photographic walk and conversations with Fustat craftspeople, followed by cyanotype printing and handmade notebooks of neighbourhood stories."
+    },
+    "image": "pdf_image_0403.jpeg",
+    "imageAlt": {
+      "ar": "مطبوعات سيانوتايب زرقاء ودفاتر وصور موثقة ضمن الورشة.",
+      "en": "Blue cyanotype prints, photographs and handmade notebooks from the workshop."
+    },
+    "venue": {
+      "ar": "الفسطاط — سياق البرنامج",
+      "en": "Fustat — programme context"
+    },
+    "people": [],
+    "related": [
+      "inbetween-2025",
+      "natalia-ossef-residency"
+    ]
+  },
+  {
+    "slug": "jusoor",
+    "kind": "programme",
+    "year": 2026,
+    "sourcePage": 9,
+    "dateLabel": {
+      "ar": "برنامج موثق في ملف ٢٠٢٦؛ مواعيد العروض غير محددة",
+      "en": "Recorded in the 2026 overview; screening dates not supplied"
+    },
+    "title": {
+      "ar": "جسور — السينما والحوار",
+      "en": "Jusoor — film and dialogue"
+    },
+    "description": {
+      "ar": "منصة لعروض الأفلام القصيرة والنقاش مع صناعها، تضمنت عروضًا سودانية وتعاونًا لعرض أفلام إيرانية.",
+      "en": "A platform for short films and conversations with their makers, including Sudanese film screenings and a collaboration around Iranian short cinema."
+    },
+    "image": "pdf_image_0379.png",
+    "imageAlt": {
+      "ar": "الهوية الجرافيكية الخضراء لبرنامج جسور.",
+      "en": "Green visual identity artwork for the Jusoor film programme."
+    },
+    "venue": null,
+    "people": [],
+    "related": [
+      "a-room-of-ones-own",
+      "something-else-2023"
+    ]
+  },
+  {
+    "slug": "darb-in-the-garden-2025",
+    "kind": "exhibition",
+    "year": 2025,
+    "sourcePage": 6,
+    "dateLabel": {
+      "ar": "٢٥ نوفمبر — ١٤ ديسمبر ٢٠٢٥",
+      "en": "25 Nov — 14 Dec 2025"
+    },
+    "title": {
+      "ar": "درب في الحديقة",
+      "en": "Darb fi Al-Hadiqqa — A Path in the Garden"
+    },
+    "description": {
+      "ar": "معرض جماعي متعدد الوسائط ضم ١٧ فنانًا وورشتين، كما يوثق الملف المؤسسي.",
+      "en": "A mixed-media group exhibition featuring 17 artists and two workshops, as recorded in the institution's overview."
+    },
+    "image": null,
+    "imageAlt": null,
+    "venue": null,
+    "people": [],
+    "related": [
+      "inbetween-2025",
+      "tales-of-fustat"
+    ]
+  },
+  {
+    "slug": "a-room-of-ones-own",
+    "kind": "workshop",
+    "year": 2026,
+    "sourcePage": 12,
+    "dateLabel": {
+      "ar": "أربع أسابيع؛ تاريخ الانعقاد غير محدد في الملف",
+      "en": "Four weeks; calendar dates not supplied"
+    },
+    "title": {
+      "ar": "غرفة تخصنا وحدنا",
+      "en": "A Room of One's Own"
+    },
+    "description": {
+      "ar": "تجربة كتابة جماعية بتيسير عائشة الجعدي، تناقش فكرة المنزل والمساحة الشخصية والحدود من خلال الكتابة والمشاركة.",
+      "en": "A four-week collective writing programme facilitated by Aisha Aljaedy, exploring home, private space, gender, and boundaries."
+    },
+    "image": null,
+    "imageAlt": null,
+    "venue": null,
+    "people": [
+      "Aisha Aljaedy"
+    ],
+    "related": [
+      "jusoor",
+      "tales-of-fustat"
+    ]
+  },
+  {
+    "slug": "natalia-ossef-residency",
+    "kind": "residency",
+    "year": 2026,
+    "sourcePage": 10,
+    "dateLabel": {
+      "ar": "إقامة موثقة في ملف ٢٠٢٦؛ تاريخها غير محدد",
+      "en": "Residency in the 2026 overview; dates not specified"
+    },
+    "title": {
+      "ar": "إقامة ناتاليا أوسف",
+      "en": "Natalia Ossef — Residency"
+    },
+    "description": {
+      "ar": "بحث في صناعة المنسوجات والحِرف المصرية شمل مركز رمسيس ويصا واصف والخيامية وقرية تونس في الفيوم، وانتهى باستوديو مفتوح.",
+      "en": "Research into Egyptian textile and craft practice across Ramses Wissa Wassef Art Center, khayameya and Tunis Village, concluding with an open studio."
+    },
+    "image": "pdf_image_0390.jpeg",
+    "imageAlt": {
+      "ar": "تفاصيل عمل على نسيج أحمر مزخرف ضمن صور الإقامة الفنية.",
+      "en": "Work in progress on patterned red textile documented in the residency photographs."
+    },
+    "venue": null,
+    "people": [
+      "Natalia Ossef"
+    ],
+    "related": [
+      "tales-of-fustat",
+      "inbetween-2025"
+    ]
+  },
+  {
+    "slug": "something-else-symposium-2025",
+    "kind": "festival",
+    "year": 2025,
+    "sourcePage": 16,
+    "dateLabel": {
+      "ar": "٨ — ٢٢ فبراير ٢٠٢٥",
+      "en": "8 — 22 Feb 2025"
+    },
+    "title": {
+      "ar": "Something Else — ندوة ٢٠٢٥",
+      "en": "Something Else Symposium 2025"
+    },
+    "description": {
+      "ar": "فعالية فنية دولية أقيمت في درب وبيت السناري، ضمن البرامج الممتدة لمبادرة Something Else.",
+      "en": "An international arts symposium at Darb and Bayt Al Sinnari, part of the longer-running Something Else platform."
+    },
+    "image": null,
+    "imageAlt": null,
+    "venue": {
+      "ar": "درب وبيت السناري — مواقع تاريخية",
+      "en": "Darb and Bayt Al Sinnari — historical venues"
+    },
+    "people": [],
+    "related": [
+      "something-else-2023",
+      "inbetween-2025"
+    ]
+  },
+  {
+    "slug": "unspoken-2026",
+    "kind": "exhibition",
+    "year": 2026,
+    "sourcePage": 5,
+    "dateLabel": {
+      "ar": "١٢ — ٢٥ سبتمبر ٢٠٢٦",
+      "en": "12 — 25 Sep 2026"
+    },
+    "title": {
+      "ar": "ما لم يُقال — UNSPOKEN",
+      "en": "UNSPOKEN — Ma Lam Yuqal"
+    },
+    "description": {
+      "ar": "معرض عن الفن والتعبير، ضم أعمالًا نتجت عن جلسات علاج بالفن. لا تُعرض هنا صور المشاركين أو تفاصيلهم الشخصية.",
+      "en": "An exhibition about art and expression, including works created through art-therapy sessions. No participant photographs or personal health narratives are displayed here."
+    },
+    "image": null,
+    "imageAlt": null,
+    "venue": null,
+    "people": [],
+    "related": [
+      "a-room-of-ones-own",
+      "inbetween-2025"
+    ]
+  }
+]

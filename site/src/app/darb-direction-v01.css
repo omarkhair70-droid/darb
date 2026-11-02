@@ -1,0 +1,106 @@
+/* DARB / AUTHORED SYSTEM V01 — an original site-wide implementation trial.
+ * Institutional frame ≠ artists' visual language.
+ * Source: Darb Overview 2026, identity archaeology, research integration atlas.
+ * This skin is a commissioner-review candidate, NOT officially approved.
+ * No "generic Omar house palette", no Fokhara/portfolio design inherited.
+ */
+:root{--paper:#e9ebe6;--paper-light:#f1f3ed;--ink:#182526;--subtle:#526360;--rule:#98a5a0;--accent:#2a6168;--accent-contrast:#fff}
+html{scroll-padding-top:80px}
+body{background:var(--paper);color:var(--ink)}
+body:has(.darb-author-home){overflow-x:clip}
+.site-header{background:#e8ece7;color:#172727;border-bottom:1px solid #829994;position:relative;z-index:40}
+.darb-topbar{min-height:78px;width:min(calc(100% - 58px),1640px);gap:clamp(12px,3vw,60px)}
+.darb-topbar .brand{gap:16px;display:flex;flex-shrink:0}
+.darb-wordmark{font-size:clamp(1.28rem,2.2vw,2rem);letter-spacing:-.1em;font-weight:900;line-height:1}
+.darb-wordmark strong{font-weight:400;letter-spacing:-.065em;margin-inline-start:6px}
+.darb-wordmark-sub{font:650 .57rem/1.4 ui-monospace,monospace;letter-spacing:.02em;max-width:115px;color:#4b6664}
+.darb-direct-nav{gap:clamp(12px,3.5vw,66px)}
+.darb-direct-nav a{font:700 .78rem ui-monospace,monospace;letter-spacing:.005em;position:relative;text-decoration:none}
+.darb-direct-nav a:after{position:absolute;content:"";bottom:2px;inset-inline-start:0;width:0;height:2px;background:#193e41;transition:width .3s ease}
+.darb-direct-nav a:hover:after,.darb-direct-nav a:focus-visible:after{width:100%}
+.darb-topbar .language-switch{font:750 .7rem ui-monospace,monospace;min-width:39px;letter-spacing:.02em}
+.darb-site-map summary{border:1px solid #213b3b;font:650 .72rem ui-monospace,monospace;padding:11px 14px}
+.darb-site-map summary span{font-size:1.1rem;margin-inline-start:20px}
+.darb-site-map nav{background:#ebf0e9;border-color:#24403e;box-shadow:9px 11px 0 #193d362b}
+.darb-site-map nav a{font:650 .83rem/1.4 ui-monospace,monospace;border-bottom:1px solid #b3c0b9}
+.site-footer{background:#172a29;color:#e9efe9;border-top:0;margin-top:0;padding-top:60px}
+.site-footer strong{font-size:clamp(2rem,4vw,5rem);line-height:1.12;letter-spacing:-.075em;font-weight:600}
+.site-footer p{color:#aabeb8;max-width:620px;font-size:.83rem}
+.site-footer a{font-size:.83rem}
+.site-footer .footer-inner{padding-bottom:25px}
+.site-footer .footer-inner>div:last-child{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.site-footer .footer-inner>div:last-child p{margin:0}
+/* An archive is a reading instrument, not marketing cards */
+.darb-catalog{background:#e9ebe6;padding:clamp(30px,4vw,85px) 0 110px}
+.catalog-intro{padding-bottom:45px}
+.catalog-intro>.meta-label{color:#51635d}
+.catalog-identity{display:grid;grid-template-columns:1fr minmax(200px,.45fr);align-items:end;gap:35px}
+.catalog-identity h1{font-size:clamp(4.5rem,10.5vw,13rem);font-weight:800;letter-spacing:-.12em;line-height:.9}
+html[lang=ar] .catalog-identity h1{line-height:1.25;letter-spacing:-.07em}
+.catalog-identity p{font-size:clamp(.96rem,1.2vw,1.27rem);line-height:1.7;max-width:480px}
+.catalog-controls{border-top:2px solid #1d3531;gap:20px}
+.catalog-controls label{font:700 .72rem ui-monospace,monospace}
+.catalog-controls input,.catalog-controls select{border:1px solid #8d9f98;background:#f0f2eb;border-radius:0}
+.catalog-controls button{background:#1f3f3c}
+.catalog-rows{border-top:2px solid #1c3330}
+.archive-record{grid-template-columns:43px minmax(100px,190px) minmax(0,1fr) 70px 28px;gap:clamp(12px,3vw,53px);padding:12px 13px;position:relative;transition:background .2s ease}
+.archive-record:hover{background:#d1ddd6}
+.catalog-image{height:clamp(110px,13vw,176px);background:#213535;transform:rotate(-2deg);transition:transform .4s ease}
+.catalog-rows li:nth-child(even) .catalog-image{transform:rotate(3deg)}
+.archive-record:hover .catalog-image{transform:rotate(0deg)}
+.catalog-record-name strong{font-size:clamp(1.35rem,2.9vw,3.55rem);letter-spacing:-.055em;font-weight:630}
+.catalog-record-name small{letter-spacing:.04em}
+.catalog-record-arrow{font-size:clamp(1.4rem,2.2vw,2.5rem);transition:transform .3s ease}
+.archive-record:hover .catalog-record-arrow{transform:translate(4px,-4px)}
+.catalog-work-records{border-top:2px solid #1c3530}
+/* Individual exhibition source rooms: one generous work surface, annotations afterward */
+.darb-workroom{background:#e9ebe6;padding-block:28px 110px}
+.darb-workroom .workroom-back{padding-bottom:35px}
+.darb-workroom .workroom-identity{display:block;border-top:2px solid #20342d;padding-block:24px 38px}
+.darb-workroom .workroom-identity>.workroom-record{display:flex;flex-direction:column;gap:10px}
+.darb-workroom .workroom-identity h1{font-size:clamp(3.7rem,7.8vw,10rem);max-width:1350px;font-weight:670;letter-spacing:-.075em;line-height:1.12;margin:0}
+html[lang=ar] .darb-workroom .workroom-identity h1{line-height:1.35;letter-spacing:-.044em}
+.darb-workroom .workroom-identity>p{font-size:clamp(1.1rem,1.6vw,1.65rem);max-width:980px;line-height:1.72;margin:30px 0 8px}
+.darb-workroom .workroom-view{display:flex;flex-direction:column;gap:0}
+.darb-workroom .workroom-plate{width:100%;background:#152624}
+.darb-workroom .workroom-plate .project-media{aspect-ratio:16/8.7}
+.darb-workroom .workroom-plate figcaption{padding:16px clamp(15px,3vw,45px);background:#19302c;line-height:1.7}
+.darb-workroom .workroom-sidebar{padding:32px 0 45px;border-top:0;border-bottom:1px solid #849992;display:grid;grid-template-columns:200px minmax(0,1fr) minmax(180px,.42fr);align-items:start;gap:30px}
+.darb-workroom .workroom-sidebar>.meta-label{margin-top:2px}
+.darb-workroom .workroom-sidebar dl{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}
+.darb-workroom .workroom-sidebar>p.workroom-warning{align-self:start}
+.darb-workroom .workroom-sidebar>a{grid-column:2/-1;text-decoration:underline;text-underline-offset:5px}
+.darb-workroom .workroom-plate img{object-fit:contain}
+@media(max-width:900px){
+ .darb-workroom .workroom-sidebar{grid-template-columns:1fr 1fr;gap:20px}
+ .darb-workroom .workroom-sidebar .meta-label{grid-column:1/-1}
+ .darb-workroom .workroom-sidebar dl{grid-column:1/-1}
+ .darb-workroom .workroom-sidebar>a{grid-column:1/-1}
+}
+@media(max-width:680px){
+ .darb-topbar{min-height:68px;width:calc(100% - 24px);gap:10px}
+ .darb-topbar .brand{gap:7px}
+ .darb-wordmark{font-size:1.21rem;letter-spacing:-.075em}
+ .darb-wordmark strong{margin-inline-start:3px}
+ .darb-wordmark-sub{font-size:.45rem;max-width:68px}
+ .darb-direct-nav{display:none}
+ .darb-site-map summary{padding:9px 10px;font-size:.69rem}
+ .darb-site-map summary span{margin-inline-start:6px}
+ .darb-topbar .language-switch{font-size:.66rem;min-width:26px}
+ .darb-topbar .header-actions{gap:8px}
+ .site-footer .footer-inner{flex-direction:column}
+ .catalog-identity{grid-template-columns:1fr;gap:25px}
+ .catalog-identity h1{font-size:clamp(4.1rem,19vw,7rem)}
+ .darb-workroom .workroom-identity h1{font-size:clamp(2.8rem,11vw,5rem)}
+ .darb-workroom .workroom-plate .project-media{aspect-ratio:1.25}
+ .darb-workroom .workroom-plate figcaption{flex-direction:column;gap:5px}
+ .darb-workroom .workroom-sidebar{grid-template-columns:1fr}
+ .darb-workroom .workroom-sidebar dl{grid-template-columns:1fr}
+ .archive-record{grid-template-columns:25px minmax(0,1fr) 22px;gap:10px;min-height:118px}
+ .archive-record .catalog-image{display:none}
+ .archive-record .catalog-record-year{display:none}
+ .archive-record .catalog-record-name strong{font-size:clamp(1.15rem,5vw,2rem)}
+}
+@media(prefers-reduced-motion:reduce){
+ .darb-author-home *, .archive-record,.archive-record *{transition:none!important}
+}
