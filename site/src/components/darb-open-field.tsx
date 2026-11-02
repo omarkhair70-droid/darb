@@ -24,11 +24,11 @@ export function DarbOpenField({lang,projects}:{lang:Locale;projects:Project[]}){
   if(reduced)return;
   const ctx=gsap.context(()=>{
    gsap.fromTo(".field-piece",
-     {y:28,opacity:0,scale:.96},
-     {y:0,opacity:1,scale:1,duration:1.15,stagger:{each:.1,from:"random"},ease:"power3.out",clearProps:"transform,opacity"});
+     {y:28,scale:.96},
+     {y:0,scale:1,duration:.72,stagger:{each:.065,from:"random"},ease:"power3.out",clearProps:"transform"});
    gsap.fromTo(".field-main-signature",
-     {yPercent:8,opacity:.1},
-     {yPercent:0,opacity:1,duration:1.2,ease:"power2.out"});
+     {yPercent:8},
+     {yPercent:0,duration:.85,ease:"power2.out"});
   },stage);
   return()=>ctx.revert();
  },[]);
