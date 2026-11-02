@@ -20,6 +20,7 @@ Goal: an international-quality cultural website whose experience emerges from Da
 - [2026 Overview 21-page content index](source-material/overview-2026.md)
 - [Source and verified PDF checksum](source-material/README.md)
 - [77-asset exact image/page XREF manifest](assets/manifest.csv)
+- [Archive-ingest PowerShell script (PDF + 77 images + 21 previews)](source-material/import-overview-media.ps1)
 - [All 77 image-object visual descriptions, proposed stories, credits checklist](assets/curation-77.csv)
 - [External image links & source rights](media/image-sources.md)
 - [Media, image and CMS editorial requirements](creative/08-content-and-media-spec.md)
