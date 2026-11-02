@@ -1,5 +1,11 @@
 name: Darb site quality
 on:
+  push:
+    branches:
+      - feature/darb-site-foundation-20261102
+    paths:
+      - "site/**"
+      - ".github/workflows/darb-site-checks.yml"
   pull_request:
     paths:
       - "site/**"
