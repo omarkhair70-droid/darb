@@ -23,3 +23,14 @@
 4. Present 3 authentic-image territory boards and 2 bilingual type studies.
 5. Agree which of practical content vs storytelling dominates homepage.
 6. Test concise narrative prototypes and mobile/non-motion variants before front-end architecture.
+
+
+
+## Stage 04 checkpoint — 2 November 2026 (update)
+- Completed human-reviewed first-pass visual classification of all 77 PDF embedded objects; identified 3 exact duplicate logos, 2 layout artifacts and only 6 images with width >=1600 px (one is a plan).
+- Logged 31 promising assets, 39 supporting, 5 low and 2 non-editorial; all priorities still require credits and high-res verification.
+- Documented three full no-code storyboards using exact source image IDs: *Between*, *Made by Many*, *What Then?* — **none chosen**.
+- Deepened international design research with maker-led case interviews: Getty Tracing Art, National Gallery Imaginarium, Rijksmuseum, DIA, Clyfford Still Museum.
+- Added fact-check ledger for inconsistent Something Else 2025/2026 edition naming and official venue information; no invented resolution.
+- Continued to keep 21-page source PDF, all 77 binary images and page previews in chat-delivered ZIP, **not yet committed to GitHub**. Included PowerShell import script in repo.
+- **Stage 04 next editorial gates:** direct artist/caption/consent audit, higher-resolution images, proof of current venue, staff workshop / narrative critique. No frontend build.
