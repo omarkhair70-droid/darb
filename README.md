@@ -1,28 +1,54 @@
-# Darb 1718 — Research & Visual Archive
+# Darb 1718 — Creative R&D / Living Archive
 
-An **independent, source-first research dossier** on Darb 1718, Fustat, Cairo. Research snapshot: **2026-11-02**.
+**Official website commissioned research workspace** • Research snapshot **2 Nov 2026** • **Research only, no site implementation started**.
 
-**Scope:** institution history (2001–2026), founders and publicly credited staff, cultural programmes, demolition and recovery, exhibitions and residencies, published media, image provenance, public organizational contact routes, and open verification questions.
+Goal: an international-quality cultural website whose experience emerges from Darb's **authentic work, people, artworks, Fustat place, memory and current programme** — *not* copied award-site effects.
 
-> This is an unofficial research repository, not Darb 1718's official site. Facts are distinguished from first-person claims, public source attributions, artistic concepts, and unresolved questions. No scraped personal contact profiles, speculative biographies or unlicensed third-party photo files are bundled.
+> This repository is an **unofficial research workspace** for a proposed official site, not yet a published Darb website or final approved creative direction. This public working repository distinguishes evidence, interpretation, and speculation. Programme times, staff roles and present venue require validation.
 
-## Research files
+## Start here
 
-| File | Purpose |
-|---|---|
-| [research/timeline.md](research/timeline.md) | Dated story, founding, closures, demolition, recovery |
-| [research/institution.md](research/institution.md) | Mission, services, organisational identity |
-| [research/people.md](research/people.md) | Public professional roles, Nourhan evidence |
-| [research/programmes-2025-2026.md](research/programmes-2025-2026.md) | 2025/2026 programme extracted from supplied overview |
-| [research/stories-and-angles.md](research/stories-and-angles.md) | Verified human stories and possible editorial narratives |
-| [research/contacts.md](research/contacts.md) | Public *organizational* contact channels with caveats |
-| [media/image-sources.md](media/image-sources.md) | Image/media source register and licensing guardrails |
-| [sources/bibliography.md](sources/bibliography.md) | Evidence bibliography and source reliability |
-| [source-material/overview-2026.md](source-material/overview-2026.md) | Index of supplied 21-page September 2026 PDF |
-| [research/open-questions.md](research/open-questions.md) | Follow-up investigations and interviews |
+- [PROJECT STATUS / current gate](PROJECT_STATUS.md)
+- [AGENTS.md — no-code discovery rule](AGENTS.md)
+- [Research methodology / Omar's Creative R&D workflow](creative/00-research-workflow.md)
+- [Creative & experience brief](creative/01-creative-brief.md)
+- [3 competing story territories](creative/02-narrative-territories.md)
+- [Award-winning cultural website case studies](references/award-winning-case-studies.md)
 
-## Provenance and publication
+## Source archive — 21 pages + 77 images
 
-A 21-page *Darb 1718 Overview 2026* PDF (Canva, created 2026-09-21, uploaded by the research commissioner) informed this research. Its original 31-MB binary and extracted images are **not automatically republished in this public repo**; publication and reuse rights should be confirmed first. This repo includes a citation-ready page index. Images on other websites remain on those sites; use the original publisher link and seek clearance for reproduction.
+- [2026 Overview 21-page content index](source-material/overview-2026.md)
+- [Source and verified PDF checksum](source-material/README.md)
+- [77-asset exact image/page XREF manifest](assets/manifest.csv)
+- [External image links & source rights](media/image-sources.md)
+- [Media, image and CMS editorial requirements](creative/08-content-and-media-spec.md)
 
-Research notes are in Arabic and English where appropriate. **Old location listings and hours are not verified post-demolition**.
+**Binary status:** source PDF, 77 extracted images, 21 page PNG previews, contact sheet and manifest are fully assembled in the **chat-delivered 71-MB media ZIP** `darb1718_research_media_2026-11-02.zip`. They are **not yet uploaded as GitHub binary files** due to lack of local-file binary transfer in this GitHub integration. The original PDF SHA-256 is recorded, so later ingestion can be verified. User confirmed rights for supplied project imagery; newly found independent third-party photographs have separate rights. This is explicitly an open ingestion task, not a completed GitHub media upload.
+
+## Darb story, history, people, programme
+
+- [Timeline 2001–2026](research/timeline.md)
+- [Institutional mission, place and DNA](research/institution.md)
+- [Documented people, including Nourhan Elmeligy](research/people.md)
+- [Events / residencies / exhibitions 2025–26](research/programmes-2025-2026.md)
+- [Source-led editorial human stories](research/stories-and-angles.md)
+- [Public institution contact records — historic vs current](research/contacts.md)
+- [Verification & interview backlog](research/open-questions.md)
+- [Evidence bibliography](sources/bibliography.md)
+
+## Experience, visual and technology studies
+
+- [Experience architecture / routes / content models](creative/03-story-architecture.md)
+- [Art-direction material and visual grammar research](creative/04-visual-grammar-research.md)
+- [Interaction / motion research](creative/05-motion-and-interaction.md)
+- [Technology feasibility options, not selected](creative/06-technology-research.md)
+- [Design System research](creative/07-design-system-research.md)
+- [Quality and research gates](creative/09-evaluation-scorecard.md)
+
+## No-code / no premature solutions
+
+No final palette, font, logo alteration, homepage hero, site coding, motion library, WebGL scene or CMS is chosen. The next gates are: complete media/story mapping → client/audience validation → three authentic-photo story studies → bilingual type/UX decisions → focused interaction evidence → code approval.
+
+## Cultural accuracy and attribution
+
+The 2008 founding and 2024 demolition, fundraiser and 2025/26 creative programmes have documentary sources but the **present venue, exact staff titles, fundraising outcome, early opening discrepancy and individual captions** remain open. Never make a private-person biography or a “comeback” scene from uncertain details.
