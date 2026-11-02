@@ -50,7 +50,7 @@ test("Missing current venue is not fabricated, public indexing remains blocked",
 for(const lang of ["ar","en"] as const){
   test(lang+" — source-led Explore URL/deep link, history, and language switch",async({page},info)=>{
     await page.goto("/"+lang+"/explore?path=material&step=1");
-    await expect(page.locator(".reading-narrative h2")).toContainText("Natalia Ossef");
+    await expect(page.locator(".reading-narrative h2")).toContainText(lang==="ar"?"ناتاليا أوسف":"Natalia Ossef");
     await expect(page.locator(".reading-image img")).toBeVisible();
     await expect(page.locator('button[aria-pressed="true"]')).toHaveCount(1);
     await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-explore.png",fullPage:true});
@@ -58,7 +58,7 @@ for(const lang of ["ar","en"] as const){
     await expect(page).toHaveURL(/path=material&step=2/);
     await expect(page.locator(".reading-narrative h2")).toContainText("INBETWEEN");
     await page.goBack();
-    await expect(page.locator(".reading-narrative h2")).toContainText("Natalia Ossef");
+    await expect(page.locator(".reading-narrative h2")).toContainText(lang==="ar"?"ناتاليا أوسف":"Natalia Ossef");
     await page.locator(".reading-path-selector button").nth(1).click();
     await expect(page).toHaveURL(/path=gathering&step=0/);
     await expect(page.locator(".reading-narrative h2")).toContainText(lang==="ar"?"جسور":"Jusoor");
