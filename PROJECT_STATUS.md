@@ -43,3 +43,13 @@
 - Crucial historical distinction: 2022 Aouda “Rising from the Ashes” campaign predates Jan 2024 demolition; never conflate them.
 - Proposed bilingual **House & Guest** editorial system in `creative/12-house-and-guest-identity-framework.md`: dependable institutional navigation and event service + artist-owned exhibition visual language.
 - No final direction chosen, no website implementation. Next validation: photographer/artist credit and original high-res files, client approval of operational functions, AR/EN typographic tests, actual event CTAs and artist interviews.
+
+
+
+## Stage 06 — Architecture and implementation-readiness checkpoint (2 Nov 2026)
+**User correction accepted:** stop proposing isolated homepage/exhibition design variants and aesthetic contests. Consolidate **whole website design, source architecture, UX, references, tooling and motion logic**; next actual work after remaining facts/gates will be **real product implementation**, not a website mockup.
+- Reviewed first-party Q42/Fabrique Imaginarium design+stack, Getty/Resn Tracing Art three-chapter narrative and GSAP/Lenis/three.js, Q42 Oculi Mundi CSS-3D and Explore/Research mode lessons and Rijksmuseum content+accessibility; all source-linked in `research/06-reference-experience-systems-deconstruction.md`.
+- Added `creative/13-whole-site-experience-architecture.md`: one institutional system, functional Now/Participate, editorial Explore, indexed archive and shared relational content source.
+- Added `architecture/ADR-001-conditional-tech-stack.md`: **Next.js + TS + Sanity + authored CSS + GSAP (special stories)** recommended; native scrolling first, Lenis and WebGL/3D/deep zoom conditional. AR/EN and CMS workflow from outset. Not yet installed.
+- Added `architecture/EXECUTION_HANDOFF_PREBUILD.md`: finite research/production gates and real site delivery sequence. NO code or deployment started.
+- Remaining **production blockers:** actual live/current venue and form status; artist/photographer credit and hires images; CMS/editor ownership and hosting agreement; content/consent signoff. These are bounded tasks, not more generalized moodboarding.
