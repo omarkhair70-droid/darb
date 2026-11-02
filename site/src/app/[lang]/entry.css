@@ -169,3 +169,34 @@ html[lang=ar] .darb-real-world h2{line-height:1.38}
  .field-piece{transform:none!important;opacity:1!important}
  .field-main-signature{transform:none!important;opacity:1!important}
 }
+
+
+/* Screenshot-led art-direction correction (02 Nov): source images are visible
+ * immediately; visual score must not obscure the exit/statement. 
+ * A distinct clear reading bar closes the encounter rather than letting
+ * the fifth fragment collide with the final line on mobile. */
+.darb-open-field .field-orbit{inset:0 0 116px}
+.darb-open-field .field-end{
+ inset-inline:0;bottom:0;height:116px;
+ padding:17px clamp(20px,3vw,48px);
+ display:flex;align-items:center;
+ border-top:1px solid #627a75;
+ background:#d9e4dfef;
+ backdrop-filter:blur(8px);
+}
+.darb-open-field .field-end-intro{flex-direction:row;align-items:center;gap:15px;max-width:470px}
+.darb-open-field .field-end-intro .field-tick{font-size:2.2rem}
+.darb-open-field .field-end-intro p{max-width:420px;font-size:clamp(1rem,1.5vw,1.7rem)}
+.darb-open-field .field-source-label{color:#435b56}
+@media(max-width:720px){
+ .darb-open-field .field-orbit{inset:0 0 115px}
+ .darb-open-field .field-end{height:115px;padding:12px 15px}
+ .darb-open-field .field-end-intro{flex-direction:row;gap:9px}
+ .darb-open-field .field-end-intro p{font-size:.95rem;line-height:1.45;max-width:190px}
+ .darb-open-field .field-end-intro .field-tick{font-size:1.3rem}
+ .darb-open-field .field-descend{font-size:.56rem}
+}
+@media(max-width:390px){
+ .darb-open-field .field-end-intro p{font-size:.82rem;max-width:160px}
+ .darb-open-field .field-descend{font-size:.51rem}
+}
