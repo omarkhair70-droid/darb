@@ -174,5 +174,5 @@ export function OculiMethodLab({lang}:Props){
     <span>{ar?"العلاقة بالمراجع: Oculi Mundi / Fabrique × Q42":"REFERENCE METHOD: OCULI MUNDI / FABRIQUE × Q42"}</span>
     <a target="_blank" rel="noopener noreferrer" href="https://engineering.q42.nl/oculi-mundi/">{ar?"كيف بنوها":"Maker's engineering notes"} ↗</a>
   </div>
- </main>;
+ </div>;
 }
