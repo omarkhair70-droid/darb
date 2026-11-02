@@ -7,8 +7,16 @@ $Expected = '07c59412bfd9c9c85314d54069e8a0e2a9e5db5472247ca690505969085a9b74'
 
 function Assert-Git {
     param([string[]]$GitArgs)
-    & git @GitArgs
-    if ($LASTEXITCODE -ne 0) { throw "Git failed: $($GitArgs -join ' ')" }
+    $PreviousErrorPreference = $ErrorActionPreference
+    try {
+        # Git uses stderr for normal progress messages (especially push/fetch).
+        $ErrorActionPreference = 'Continue'
+        & git @GitArgs
+        $GitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $PreviousErrorPreference
+    }
+    if ($GitCode -ne 0) { throw "Git failed (exit $GitCode): $($GitArgs -join ' ')" }
 }
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     throw 'Git missing. Install Git for Windows from git-scm.com/download/win first.'
@@ -88,8 +96,15 @@ try {
     Write-Host "2/5  Created branch $Branch" -ForegroundColor Cyan
 
     $Extractor = Join-Path $PSScriptRoot 'extract_overview_pdf.py'
-    & $Python @PyArgs $Extractor --pdf $PdfPath --repo $Repo
-    if ($LASTEXITCODE -ne 0) { throw 'PDF image extraction failed.' }
+    $PreviousErrorPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        & $Python @PyArgs $Extractor --pdf $PdfPath --repo $Repo
+        $ExtractCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $PreviousErrorPreference
+    }
+    if ($ExtractCode -ne 0) { throw "PDF image extraction failed (exit $ExtractCode)." }
     Write-Host '3/5  Extracted 77 assets and 21 page previews.' -ForegroundColor Cyan
     Assert-Git @('add','source-material/original','assets/original','assets/previews',
                   'assets/contact-sheets','assets/manifest-original.csv','assets/manifest-original.json')
