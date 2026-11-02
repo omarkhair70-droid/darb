@@ -129,3 +129,37 @@ test("other film record does not fake playable media",async({page})=>{
  await expect(page.locator(".film-stage iframe")).toHaveCount(0);
  await expect(page.locator(".film-provenance")).toContainText("Date not stated");
 });
+
+
+// REFERENCE LAB 01 — an isolated implementation of published Oculi Mundi
+// *mechanics* on Darb sources; this is not the institution's final design.
+for(const lang of ["ar","en"] as const){
+ test(lang+" — spatial reference lab has depth, real source objects and synced research mode",async({page},info)=>{
+  await page.goto("/"+lang+"/lab/oculi-method");
+  await expect(page.locator(".lab-object")).toHaveCount(7);
+  await expect(page.locator(".lab-object-focus")).toHaveCount(1);
+  await expect(page.locator(".lab-viewport")).toHaveCSS("perspective","1150px");
+  await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-oculi-lab.png",fullPage:true});
+  await page.locator(".lab-position-actions button").last().click();
+  await expect(page).toHaveURL(/mode=explore&object=craft/);
+  await expect(page.locator(".lab-object-focus")).toHaveAttribute("aria-label",/Fustat|الفسطاط/);
+  await page.getByRole("button",{name:/Research|ابحث/}).first().click();
+  await expect(page).toHaveURL(/mode=research&object=craft/);
+  await expect(page.locator(".lab-research-list li")).toHaveCount(7);
+  await page.locator(".lab-research-list li").nth(2).locator("button").click();
+  await expect(page.locator(".lab-overlay")).toBeVisible();
+  await expect(page.locator(".lab-overlay-panel")).toContainText("PDF");
+  await page.locator(".lab-close").click();
+  await page.goBack();
+  await expect(page.locator(".lab-overlay")).toBeVisible();
+ });
+}
+
+test("reference lab reduced motion still supports spatial selection and source details",async({page})=>{
+ await page.emulateMedia({reducedMotion:"reduce"});
+ await page.goto("/en/lab/oculi-method?mode=explore&object=installation");
+ await expect(page.locator(".lab-object-focus")).toHaveAttribute("aria-label",/INBETWEEN/);
+ await page.locator(".lab-position-actions button").nth(1).click();
+ await expect(page.locator(".lab-overlay-panel")).toBeVisible();
+ await expect(page.locator(".lab-overlay-panel")).toContainText("Individual photo/art rights");
+});
