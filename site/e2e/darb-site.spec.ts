@@ -208,3 +208,54 @@ test("Arabic Getty desktop keeps the artwork river outside the RTL reading colum
  expect(reading).not.toBeNull();
  expect(field!.x+field!.width,"source scene intrudes into the Arabic text column").toBeLessThan(reading!.x-40);
 });
+
+
+// REFERENCE LAB 03 — National Gallery Imaginarium "slow looking" mechanism
+// applied only to a genuine Darb photographic document. Prompts are ours, not
+// falsely attributed to a National Gallery or Darb curator.
+for (const lang of ["ar","en"] as const) {
+ test(lang+" — Imaginarium lab enters real image with limited native zoom and source context",async({page},info)=>{
+  const r=await page.goto("/"+lang+"/lab/imaginarium-method");
+  expect(r?.status()).toBe(200);
+  await expect(page.locator(".ig-stage-threshold")).toBeVisible();
+  await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-imaginarium-threshold.png"});
+  await page.locator(".ig-entry-actions button").first().click();
+  await expect(page).toHaveURL(/stage=look&mode=guided&prompt=0/);
+  await expect(page.locator(".ig-image-window img")).toHaveAttribute("src",/pdf_image_0360/);
+  await expect(page.locator(".ig-canvas-controls output")).toHaveText("100%");
+  await page.getByRole("button",{name:lang==="ar"?"تكبير":"Zoom in"}).click();
+  await expect(page.locator(".ig-canvas-controls output")).toHaveText("120%");
+  await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-imaginarium-look.png"});
+  await page.locator(".ig-prompt-control button").last().click();
+  await expect(page).toHaveURL(/prompt=1/);
+  await page.locator(".ig-prompt-control button").last().click();
+  await expect(page).toHaveURL(/prompt=2/);
+  await page.locator(".ig-prompt-control button").last().click();
+  await expect(page).toHaveURL(/stage=context/);
+  await expect(page.locator(".ig-context-pair figure")).toHaveCount(2);
+  await expect(page.locator(".ig-context-credit")).toContainText(lang==="ar"?"ملف درب":"Darb 1718 Overview");
+  await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-imaginarium-context.png"});
+ });
+}
+
+test("Imaginarium lab direct links, free mode, reduced motion and no mobile overflow",async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.emulateMedia({reducedMotion:"reduce"});
+ await page.goto("/en/lab/imaginarium-method?stage=look&mode=free&prompt=0");
+ await expect(page.locator(".ig-stage-look")).toBeVisible();
+ await expect(page.locator(".ig-question-body")).toContainText("FREE LOOKING");
+ await expect(page.locator(".ig-image-window img")).toHaveAttribute("src",/pdf_image_0360/);
+ await page.locator(".ig-context-cta").click();
+ await expect(page).toHaveURL(/stage=context&mode=free/);
+ await page.locator(".ig-context-actions button").first().click();
+ await expect(page.locator(".ig-context-reverse")).toBeVisible();
+ const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+ expect(overflow,"Slow-looking lab should not overflow 390px viewport").toBeLessThanOrEqual(2);
+});
+test("Imaginarium lab never zooms the supplied photo above its declared 160 percent limit",async({page})=>{
+ await page.goto("/en/lab/imaginarium-method?stage=look&mode=guided&prompt=0");
+ const plus=page.getByRole("button",{name:"Zoom in"});
+ for(let i=0;i<6;i++) if(await plus.isEnabled())await plus.click();
+ await expect(page.locator(".ig-canvas-controls output")).toHaveText("160%");
+ await expect(plus).toBeDisabled();
+});
