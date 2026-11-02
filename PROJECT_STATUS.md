@@ -83,3 +83,5 @@ This is not a rejection of research/source, GitHub, Vercel auto Preview, AR/EN/N
 - Completed a realistic, source-bounded **Jusoor film** visitor journey (PDF p.9, named Sudanese shorts/directors), with explicit film media/filmmaker prompt gaps in creative/21-jusoor-source-backed-editorial-walk.md.
 - No new homepage, image carousel, new CSS or UI implementation this stage; Vercel continues to show a rejected prototype. Technical base/CI retained.
 - Production prerequisite: one truly cleared authored film/work/process packet and real editorial/venue publishing ownership. Need source-backed expressive experience, not repeating three program images or copying an award-site visual surface.
+
+- New verified source lead: SSLH Museum's director-attributed 'جدائل الهوية' by حفصة برعي, independently connected to Jusoor via supplied PDF p.9; article cover photo credited أماني بشير, NOT auto-cleared for Darb. Research source and limits: research/22-verified-artist-film-leads-jusoor-and-something-else.md. DutchCulture Something Else IV artists and an unverified INBETWEEN catalogue are kept only as leads pending source/identity confirmation.
