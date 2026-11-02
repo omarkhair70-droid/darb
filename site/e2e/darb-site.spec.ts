@@ -163,3 +163,37 @@ test("reference lab reduced motion still supports spatial selection and source d
  await expect(page.locator(".lab-overlay-panel")).toBeVisible();
  await expect(page.locator(".lab-overlay-panel")).toContainText("Individual photo/art rights");
 });
+
+
+// GETTY METHOD LAB 02 — actual source-led scroll choreography.
+// Original Getty art / code is NOT present; tested values belong to this lab.
+for(const lang of ["ar","en"] as const){
+  test(lang+" — Getty method lab preserves real relation graph through scroll and entry points",async({page},info)=>{
+    const response=await page.goto("/"+lang+"/lab/getty-method");
+    expect(response?.status()).toBe(200);
+    await expect(page.locator(".gt-beat")).toHaveCount(4);
+    await expect(page.locator(".gt-artifact")).toHaveCount(4);
+    await expect(page.locator(".gt-beat[data-graph-edge=film]")).toContainText(lang==="ar"?"جدائل الهوية":"Braids of Identity");
+    await expect(page.locator(".gt-artifact-programme img")).toHaveAttribute("src",/pdf_image_0379/);
+    await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-getty-method-opening.png"});
+    const target=page.locator("#getty-beat-programme");
+    await target.scrollIntoViewIfNeeded();
+    await expect(page.locator(".gt-counter")).toContainText(lang==="ar"?"السياق":"The programme");
+    await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-getty-method-programme.png"});
+    await page.locator(".gt-rail a").nth(3).click();
+    await expect(page).toHaveURL(/#source$/);
+    await expect(page.locator(".gt-counter")).toContainText(lang==="ar"?"الدليل":"The evidence");
+    await expect(page.locator("#getty-beat-source")).toContainText(lang==="ar"?"صفحة ٠٩":"Page 09");
+  });
+}
+test("Getty lab direct source link and reduced-motion readable mode",async({page})=>{
+ await page.emulateMedia({reducedMotion:"reduce"});
+ await page.goto("/en/lab/getty-method#source");
+ await expect(page.locator(".gt-beat")).toHaveCount(4);
+ await expect(page.locator("#getty-beat-source")).toContainText("Page 09");
+ await page.locator(".gt-rail a").nth(0).click();
+ await expect(page).toHaveURL(/#film$/);
+ await expect(page.locator(".gt-counter")).toContainText("The work");
+ const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+ expect(overflow,"Getty lab must not overflow on mobile/desktop").toBeLessThanOrEqual(2);
+});
