@@ -44,11 +44,10 @@ export function DarbOpenField({lang,projects}:{lang:Locale;projects:Project[]}){
  return <section className="darb-open-field" ref={stage} onPointerMove={move} onPointerLeave={reset}
       aria-labelledby="field-name">
    <div className="field-technical-top" aria-hidden="true"><span>CAIRO / 2008 — {ar?"الآن":"PRESENT"}</span><span>{ar?"٥ مداخل / من الأرشيف":"FIVE ENTRIES / THE ARCHIVE"}</span></div>
-   <div className="field-main-signature" aria-hidden="true">
+   <h1 id="field-name" className="field-main-signature" aria-label={ar?"درب ١٧١٨ — فن معاصر وتجارب حية":"Darb 1718 — contemporary art and living practices"}>
       <span className="field-name-ghost">{ar?"درب":"DARB"}</span>
       <span className="field-digits-ghost" dir="ltr">17·18</span>
-   </div>
-   <h1 id="field-name" className="field-access-title">{ar?"درب ١٧١٨ — الفن، الناس، وصناعة التجربة":"Darb 1718 — art, people and practices"}</h1>
+   </h1>
    <div className="field-orbit" aria-label={ar?"خمسة مسارات لأعمال وبرامج موثقة":"Five documented programmes to enter through"}>
     {positions.map((position,index)=>{
      const project=projects.find(p=>p.slug===position.slug);
