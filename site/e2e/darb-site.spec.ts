@@ -218,6 +218,7 @@ for (const lang of ["ar","en"] as const) {
   const r=await page.goto("/"+lang+"/lab/imaginarium-method");
   expect(r?.status()).toBe(200);
   await expect(page.locator(".ig-stage-threshold")).toBeVisible();
+  await page.waitForTimeout(700); // capture the settled text, not a mid-tween opacity state
   await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-imaginarium-threshold.png"});
   await page.locator(".ig-entry-actions button").first().click();
   await expect(page).toHaveURL(/stage=look&mode=guided&prompt=0/);
@@ -234,6 +235,9 @@ for (const lang of ["ar","en"] as const) {
   await expect(page).toHaveURL(/stage=context/);
   await expect(page.locator(".ig-context-pair figure")).toHaveCount(2);
   await expect(page.locator(".ig-context-credit")).toContainText(lang==="ar"?"ملف درب":"Darb 1718 Overview");
+  await page.locator(".ig-context-pair figure").last().scrollIntoViewIfNeeded();
+  await expect.poll(()=>page.locator(".ig-context-pair img").evaluateAll(images=>images.every(img=>img.complete && img.naturalWidth>0))).toBe(true);
+  await page.waitForTimeout(600);
   await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-imaginarium-context.png"});
  });
 }
