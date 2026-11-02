@@ -5,6 +5,7 @@ import {isLocale,locales,ui} from "@/lib/locale";
 import {SiteHeader} from "@/components/site-header";
 import "../globals.css";
 import "../system-v2.css";
+import "../darb-direction-v01.css";
 
 type Props={children:ReactNode;params:Promise<{lang:string}>};
 export function generateStaticParams(){return locales.map(lang=>({lang}));}
