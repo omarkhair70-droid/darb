@@ -107,3 +107,18 @@ After approval build a **single integrated feature thread across entry, work, pe
 6. Only then actual new composition, typography, audio, GSAP / CSS3D / Three.js decisions tied to this authored encounter.
 
 This is a finite plan. **The rejected image viewer and marketing homepage will not be used as a design starting point.**
+
+
+---
+
+## 6. IMPORTANT UPGRADE: filmmaker-authored document found, so first real authored film can be **Braids of Identity**
+
+After completing the initial *Dukhan* evidence-path example, the research located [SSLH Museum's "جدائل الهوية" publication](https://www.sslh.info/ar/posts/braids-of-identity), publicly attributed to director/researcher **حفصة برعي**, explaining her film's subject: Sudanese traditional hairdressing/braiding (حرفة المشاط), its heritage, cultural and socioeconomic function, and risks. Darb's PDF p.9 independently lists the same filmmaker and film within Jusoor.
+
+**Meaningful new interactive premise (subject to filmmaker's approval):** examine how a documented living craft is carried across image, voice and public screening — not an image carousel of unrelated photographs. A visitor starts from the **real film and its credited maker**, chooses to learn what craft was documented, and navigates to the programme's actual history and related films. A licensed clip and filmmaker-selected detail/interpretation would unlock a genuinely cinematic encounter.
+
+**Do not overclaim**: museum text does not provide the actual film master/trailer, verified cut timestamps, Darb screening time, artist-authorised English title or permission to reproduce its cover photograph. SSLH credits publication cover photo to **أماني بشير (Amani Bashir)**; that's specifically the museum article cover, not a Darb photo credit.
+
+**Source of truth for this upgrade:** research/22-verified-artist-film-leads-jusoor-and-something-else.md. This is currently the **most research-supported candidate** for the first full-media film work. The earlier Dukhan visitor walkthrough remains a valid factual navigation skeleton, but no longer the best sourced *creative media* candidate.
+
+**Approval needed before code:** film/clip or still, filmmaker/rights clearance, an artist-approved looking/listening prompt anchored to ACTUAL film content, captions/transcript, actual screening data where available and AR/EN editorial review.
