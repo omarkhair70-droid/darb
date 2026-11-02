@@ -8,7 +8,7 @@
 3. Avoid premature **hero design, homepage code, chosen colors, fonts, stacks, Three.js, GSAP, animations or deployment**.
 4. Do not call unverified claims facts: e.g. completed new venue, employment role of Nourhan, detailed personal biography, sourced demolition losses.
 5. Reflect actual Darb material (Fustat, artists, workshops, exhibitions, film, collaboration), not copied Awwwards shots.
-6. Preserve the real 21-page PDF, 77 embedded image IDs, page preview and rights annotations. Repo currently includes **manifest and source index**; the large original binary asset ZIP is in the chat handoff, **not yet pushed to GitHub**.
+6. Preserve the real 21-page PDF, 77 embedded image IDs, page preview and rights annotations. **As of 2 Nov 2026 these binaries are merged in `main`**: `source-material/original/`, `assets/original/`, `assets/previews/`, `assets/contact-sheets/`, via PR #1.
 7. User states rights to use supplied PDF/images for official website. Online third-party images may have separate rights and should remain source-linked until cleared.
 8. For each reference, record **Source / Award evidence / Problem / Medium / Decision / Technique / Transferable principle / Not-to-copy / Darb experiment**.
 9. Use confidence labels A/B/C/D/H and bilingual AR/EN as first-class; research source dates.
@@ -21,7 +21,7 @@
 ## Asset and source handoff
 The original user-provided PDF and extracted 77 embedded media assets are available in the associated research chat ZIP:
 `darb1718_research_media_2026-11-02.zip`.
-Its source checksum is recorded in `source-material/README.md`. Do not invent binary paths in repository; check git objects before claiming they exist.
+Its source checksum is recorded in `source-material/README.md`. The binaries are now present in the repository; continue verifying individual image credits and public-use consent before site publication.
 
 ## Research issue convention
 Every work item: objective / actual evidence / source URL+date / hypothesis or fact / affected content / editorial owner / open questions / next validation.
