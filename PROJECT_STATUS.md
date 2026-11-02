@@ -5,7 +5,7 @@
 ## Confirmed research artifacts
 - Historical and institutional dossiers with attributable links.
 - Named collaborator notes and case study on unseen cultural labour; Nourhan documented by PDF metadata + independent public exhibition credits only.
-- Source 2026 Overview indexed at **21 pages**, **77 unique embedded assets**.
+- Source 2026 Overview indexed at **21 pages**, **77 individually extracted embedded assets**.
 - Local asset bundle containing original 31 MB PDF, 77 image assets, 21 rendered page previews, contact sheet, CSV/JSON manifest; delivered in chat ZIP.
 - Reference research: 2025 Nordiska Webby; 2026 National Gallery Imaginarium Webby; Getty Tracing Art 2025 Awwwards + 2026 nominee; 2021 Rijksmuseum European Design Gold; London Museum 2025 winner; Museum London 2026 UX; Oculi Mundi 2024 European Design / 2026 Webby honoree.
 - Working creative brief, 3 narrative territories, content models, initial UX/IA, visual grammar, motion radar, tech alternatives, quality scorecard.
@@ -34,3 +34,12 @@
 - Added fact-check ledger for inconsistent Something Else 2025/2026 edition naming and official venue information; no invented resolution.
 - Merged all 103 source files to GitHub `main` via [PR #1](https://github.com/omarkhair70-droid/darb/pull/1); completed binary ingestion without starting website implementation.
 - **Stage 04 next editorial gates:** direct artist/caption/consent audit, higher-resolution images, proof of current venue, staff workshop / narrative critique. No frontend build.
+
+
+## Stage 05 checkpoint — 2 November 2026
+- Research asset archive complete on `main` (PR #1) and reviewed visually.
+- Three new **static editorial art-direction studies** produced with unaltered 2026 Overview images: Between, Made by Many, What Then? Delivered in research conversation as PNG/JPG preview; the compositions' source IDs and rationale are in `creative/11-visual-direction-test-lab.md`. The composed PNGs themselves are NOT currently GitHub binaries.
+- Visual-identity history logged in `research/visual-identity-archaeology-2022-2026.md`: 2022 Aouda poster, 2026 Something Else poster, official circular mark in supplied PDF, independent/unverified 2020 Behance study, other exhibition campaigns.
+- Crucial historical distinction: 2022 Aouda “Rising from the Ashes” campaign predates Jan 2024 demolition; never conflate them.
+- Proposed bilingual **House & Guest** editorial system in `creative/12-house-and-guest-identity-framework.md`: dependable institutional navigation and event service + artist-owned exhibition visual language.
+- No final direction chosen, no website implementation. Next validation: photographer/artist credit and original high-res files, client approval of operational functions, AR/EN typographic tests, actual event CTAs and artist interviews.
