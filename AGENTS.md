@@ -1,6 +1,14 @@
-# AGENTS.md — Darb 1718 Research Mode
+# AGENTS.md — Darb 1718 Creative R&D and Engineering
 
-**2026-11-02. Commission:** research-first official-site Creative R&D. **DO NOT implement website/code until the client approves the story and explicit build gate.** This repository is a research workspace, not the website.
+## PRIORITY OVERRIDE — CREATIVE NEUTRALITY (commissioner correction, 2 November 2026)
+
+**Do not turn the commissioner's past design preferences, conversation memory, or earlier concept boards into a required visual style.** Specifically, do not default to editorial minimalism, beige/off-white paper, one burnt accent, huge serif headlines, asymmetric photo collage, retro print textures, monochrome grids or a repeated museum-style landing page. These are just prior explorations, **not Darb requirements**.
+
+**Darb art direction remains entirely unapproved.** A prior "House & Guest" framework, three montage boards, early hero composition, CSS values, typography, templates, and color tokens are **discardable experiments**, not design decisions. Preserve source provenance, Arabic/English, functional navigation, content accuracy, media rights and accessibility; all visual and interaction decisions must be justified anew by the specific material, the audience and artistic intent. Study multiple distinct visual/interaction precedents; do not mimic one example or use "we already did this before" as a reason.
+
+The `site/` application and draft PR #2 are **functional engineering scaffolding only**. Reusing components or CSS is allowed for testing data flow, but *never present its present appearance as official brand direction or completed creative design*. Don't install motion/3D libraries until a documented need arises. Keep deliberate uncertainty visible; proceed with deep creative inquiry rather than producing generic repeated visuals.
+
+**2026-11-02. Commission:** an official-site Creative R&D and real implementation effort. Research and source integrity continue; an early technical prototype exists on Draft PR #2, but **no final visual identity or public launch is approved**.
 
 ## Hard rules
 1. Read `README.md`, `creative/00-research-workflow.md`, `creative/01-creative-brief.md`, `source-material/overview-2026.md`, `assets/manifest.csv` and `research/open-questions.md` before proposing work.
