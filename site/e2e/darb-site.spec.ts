@@ -197,3 +197,14 @@ test("Getty lab direct source link and reduced-motion readable mode",async({page
  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
  expect(overflow,"Getty lab must not overflow on mobile/desktop").toBeLessThanOrEqual(2);
 });
+
+
+test("Arabic Getty desktop keeps the artwork river outside the RTL reading column",async({page})=>{
+ await page.setViewportSize({width:1440,height:900});
+ await page.goto("/ar/lab/getty-method");
+ const field=await page.locator(".gt-spline").boundingBox();
+ const reading=await page.locator(".gt-beat-copy").first().boundingBox();
+ expect(field).not.toBeNull();
+ expect(reading).not.toBeNull();
+ expect(field!.x+field!.width,"source scene intrudes into the Arabic text column").toBeLessThan(reading!.x-40);
+});
