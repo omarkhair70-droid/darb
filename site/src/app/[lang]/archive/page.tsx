@@ -1,35 +1,53 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ProjectCard } from "@/components/project-card";
-import { isLocale, ui } from "@/lib/locale";
-import type { ProjectKind } from "@/lib/records";
-import { searchVisibleProjects } from "@/lib/sanity-source";
-type Search = { q?:string; type?:string };
+import {isLocale,ui} from "@/lib/locale";
+import {searchVisibleProjects} from "@/lib/sanity-source";
+import type {ProjectKind} from "@/lib/records";
+
+type Search={q?:string;type?:string};
 const types:ProjectKind[]=["exhibition","festival","workshop","programme","residency"];
 export async function generateMetadata({params}:{params:Promise<{lang:string}>}):Promise<Metadata>{
- const {lang}=await params;return{title:lang==="ar"?"أرشيف درب":"Darb Archive"};
+ const {lang}=await params;return{title:lang==="ar"?"الأرشيف | درب":"Index | Darb"};
 }
 export default async function Archive({params,searchParams}:{params:Promise<{lang:string}>;searchParams:Promise<Search>}){
  const {lang:l}=await params;const lang=isLocale(l)?l:"ar";
- const copy=ui[lang];const search=await searchParams;
- const query=(search.q||"").slice(0,100);
- const type=types.includes(search.type as ProjectKind)?search.type!:"all";
+ const copy=ui[lang],search=await searchParams;
+ const query=(search.q||"").slice(0,100),type=types.includes(search.type as ProjectKind)?search.type!:"all";
  const matching=await searchVisibleProjects(query,type);
- return <div className="shell interior-page">
-   <header className="page-heading"><span className="section-index">INDEX / DARB 1718</span><h1>{copy.archives}</h1>
-     <p>{lang==="ar"?"وثائق عن تجارب وأماكن وأشخاص. ابحث بحسب اللغة أو السنة أو نوع النشاط، واربط السجل بالحكايات المعروضة.":"Records of practices, places and people. Search across language, year and programme type, then follow the connections into stories."}</p>
+ return <div className="darb-catalog">
+   <header className="shell catalog-intro">
+     <span className="meta-label">DARB / CATALOGUE / 2026</span>
+     <div className="catalog-identity">
+       <h1>{lang==="ar"?"السجل":"Index"}</h1>
+       <p>{lang==="ar"?"المعارض والورش والعروض اللي وثقها درب. كل سطر ليه مصدر؛ مش شرط يكون نشاطًا حاليًا.":"Documented exhibitions, workshops and events. Every entry has a source. Historical records are not today's calendar."}</p>
+     </div>
+     <nav className="catalog-view-switch" aria-label={lang==="ar"?"طرق الاستكشاف":"Ways to explore"}>
+       <Link href={"/"+lang+"/explore"}>{lang==="ar"?"تجربة الاستكشاف":"Explore experience"} ↗</Link>
+       <span aria-current="page">{lang==="ar"?"الفهرس النصي":"Research index"}</span>
+     </nav>
    </header>
-   <div className="archive-mode-switch"><Link className="mode-selected" href={"/"+lang+"/archive"} aria-current="page">{copy.index}</Link>
-     <Link href={"/"+lang+"/explore"}>{copy.nav.explore}</Link></div>
-   <form method="get" action={"/"+lang+"/archive"} className="archive-filters">
-     <label>{copy.search}<input type="search" name="q" defaultValue={query} placeholder={copy.search} maxLength={100}/></label>
-     <label>{copy.filters}<select name="type" defaultValue={type}><option value="all">{copy.all}</option>{types.map(t=><option key={t} value={t}>{copy.typeLabels[t]}</option>)}</select></label>
-     <button type="submit">{copy.searchSubmit} ↗</button>
-   </form>
-   <div className="archive-topline"><span>{matching.length} {copy.results}</span><span>{copy.historical}</span></div>
-   {matching.length?
-     <div className="archive-grid">{matching.map(p=><ProjectCard project={p} lang={lang} key={p.slug}/>)}</div>:
+   <div className="shell">
+     <form method="get" action={"/"+lang+"/archive"} className="catalog-controls">
+       <label>{copy.search}<input type="search" name="q" defaultValue={query} maxLength={100} placeholder={copy.search}/></label>
+       <label>{copy.filters}<select name="type" defaultValue={type}><option value="all">{copy.all}</option>{types.map(t=><option value={t} key={t}>{copy.typeLabels[t]}</option>)}</select></label>
+       <button type="submit">{copy.searchSubmit} ↗</button>
+     </form>
+     <div className="catalog-count"><span>{matching.length} {copy.results}</span><span>{copy.historical}</span></div>
+     {matching.length?<ol className="catalog-rows">{matching.map((p,i)=><li key={p.slug}>
+       <Link className="archive-record" href={"/"+lang+"/projects/"+p.slug}>
+         <span className="catalog-numeral">{String(i+1).padStart(2,"0")}</span>
+         <div className="catalog-image">
+           {p.image?<Image src={"/media/"+p.image} alt={p.imageAlt?.[lang]||p.title[lang]} fill sizes="(max-width:600px) 100px, 170px"/>:
+           <span>{lang==="ar"?"لا توجد صورة موثقة":"NO IMAGE"}</span>}
+         </div>
+         <div className="catalog-record-name"><strong>{p.title[lang]}</strong><small>{copy.typeLabels[p.kind]} · {copy.page} {p.sourcePage}</small></div>
+         <span className="catalog-record-year">{p.year}</span>
+         <span className="catalog-record-arrow" aria-hidden="true">↗</span>
+       </Link>
+     </li>)}</ol>:
      <p role="status" className="empty-state">{copy.noResults}</p>}
-   <p className="archive-source-note">{copy.source} · {copy.rights}</p>
+     <p className="archive-source-note">{copy.source} · {copy.rights}</p>
+   </div>
  </div>;
 }

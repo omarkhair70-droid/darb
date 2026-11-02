@@ -1,0 +1,107 @@
+/* DARB V2 EXPERIMENTAL SYSTEM — source-first visual operations.
+   This does NOT claim to be Darb's approved logo, palette or identity.
+   The former generic hero/card grammar is not used in the new home/index/detail. */
+:root{--paper:#e3e8ea;--paper-light:#eaf0f1;--ink:#10171e;--subtle:#3e4b55;--rule:#98a5ad;--accent:#244968;--accent-contrast:#f4f6f6;}
+body{background:var(--paper);color:var(--ink);}
+.site-header{background:#f2f4f3;border:0;border-bottom:1px solid #94a0a7;}
+.darb-topbar{min-height:76px;}
+.darb-topbar .brand{display:flex;align-items:center;gap:15px;font-size:1.1rem;}
+.darb-wordmark{font-family:Arial,Helvetica,sans-serif;font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:950;letter-spacing:-.07em;white-space:nowrap;}
+.darb-wordmark strong{font-weight:500;letter-spacing:-.055em;}
+.darb-wordmark-sub{font:600 .56rem/1.4 ui-monospace,monospace;letter-spacing:.09em;max-width:95px;white-space:normal;}
+.darb-direct-nav{gap:clamp(20px,3vw,60px)}
+.darb-direct-nav a{font:650 .82rem/1.4 Arial,Helvetica,sans-serif;padding-block:8px}
+.darb-topbar .language-switch{width:auto;min-width:60px;border:0;border-bottom:1px solid currentColor;border-radius:0;height:auto;padding:8px 0;background:none;color:inherit}
+.darb-topbar .language-switch:hover{background:none;color:inherit}
+.darb-site-map{display:block;position:relative}
+.darb-site-map summary{list-style:none;cursor:pointer;font-size:.83rem;font-weight:800;border:1px solid #26343e;padding:9px 14px;white-space:nowrap}
+.darb-site-map summary span{margin-inline-start:15px}
+.darb-site-map summary::-webkit-details-marker{display:none}
+.darb-site-map nav{position:absolute;top:calc(100% + 12px);inset-inline-end:0;inset-inline-start:auto;background:#eef1f0;border:1px solid #26343e;padding:15px 24px;min-width:235px;z-index:30;box-shadow:0 14px 36px #10171e22}
+.darb-site-map nav a{display:block;padding:12px 4px;border-bottom:1px solid #a5afb5;font-weight:620;font-size:.91rem}
+.site-footer{background:#f2f4f3;border-top:1px solid #8a989e;margin-top:0}
+.darb-catalog{padding-block:52px 100px}
+.darb-catalog .meta-label,.darb-workroom .meta-label{font:700 .69rem/1.3 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
+.catalog-intro{padding-bottom:35px}
+.catalog-identity{display:flex;align-items:flex-end;justify-content:space-between;gap:35px;padding-top:38px}
+.catalog-identity h1{font-size:clamp(2.2rem,5.7vw,6rem);font-weight:580;letter-spacing:-.07em;line-height:1.05;margin:0}
+.catalog-identity p{font-size:1rem;max-width:590px;line-height:1.6;margin:0}
+.catalog-view-switch{display:flex;flex-wrap:wrap;gap:35px;margin-top:37px;font-size:.85rem}
+.catalog-view-switch a{text-decoration:underline;text-underline-offset:5px}
+.catalog-view-switch span[aria-current]{font-weight:750;border-bottom:2px solid var(--ink)}
+.catalog-controls{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;gap:12px;align-items:end;border-top:2px solid var(--ink);padding:24px 0}
+.catalog-controls label{display:grid;gap:11px;font-size:.75rem;font-weight:700}
+.catalog-controls input,.catalog-controls select{min-height:46px;border:1px solid #84939c;background:transparent;padding:10px 14px;color:inherit;width:100%}
+.catalog-controls button{background:var(--ink);color:white;border:0;padding:13px 23px;min-height:46px}
+.catalog-count{display:flex;justify-content:space-between;gap:15px;font:650 .7rem ui-monospace,monospace;text-transform:uppercase;margin:23px 0 15px}
+.catalog-rows{list-style:none;padding:0;margin:0;border-top:1px solid #8797a2}
+.catalog-rows li{margin:0}
+.archive-record{display:grid;grid-template-columns:43px minmax(110px,180px) minmax(0,1fr) 64px 30px;gap:clamp(12px,3vw,48px);align-items:center;padding:12px 8px;border-bottom:1px solid #9ba8b0;transition:background .16s ease}
+.archive-record:hover{background:#d1dce1;text-decoration:none}
+.catalog-numeral,.catalog-record-year,.catalog-record-arrow,.catalog-record-name small{font:650 .77rem/1.4 ui-monospace,monospace;color:#465765}
+.catalog-image{height:105px;position:relative;overflow:hidden;background:#c4cdd1}
+.catalog-image img{object-fit:contain}
+.catalog-image>span{display:flex;height:100%;align-items:center;justify-content:center;padding:10px;font:.6rem ui-monospace,monospace}
+.catalog-record-name{display:flex;flex-direction:column;gap:12px}
+.catalog-record-name strong{font-size:clamp(1.15rem,2.2vw,2.4rem);font-weight:580;letter-spacing:-.05em;line-height:1.3}
+.catalog-record-year{text-align:end}
+.catalog-record-arrow{font-size:1.4rem}
+.darb-workroom{padding-block:25px 110px}
+.workroom-back{display:flex;justify-content:space-between;gap:15px;font:.74rem ui-monospace,monospace;padding-bottom:24px}
+.workroom-back a{text-decoration:underline;text-underline-offset:5px}
+.workroom-identity{border-top:2px solid var(--ink);padding-block:35px 45px;display:grid;grid-template-columns:1.2fr .8fr;align-items:end;gap:7vw}
+.workroom-identity h1{font-size:clamp(2.15rem,4vw,5.1rem);font-weight:600;letter-spacing:-.055em;line-height:1.18;margin:20px 0 0;max-width:950px}
+.workroom-identity>p{font-size:clamp(1rem,1.35vw,1.3rem);line-height:1.7;margin:0}
+.workroom-view{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(240px,.45fr);gap:25px}
+.workroom-plate{padding:0;margin:0;min-width:0;background:#111820}
+.workroom-plate .project-media{aspect-ratio:16/10;background:#151c24}
+.workroom-plate .archive-image{object-fit:contain!important}
+.workroom-plate .image-unavailable{background:#343c43;color:white}
+.workroom-plate figcaption{display:flex;justify-content:space-between;gap:20px;padding:13px 18px;font:.7rem/1.5 ui-monospace,monospace;color:#e4e6e4}
+.workroom-sidebar{border-top:1px solid var(--ink);padding-top:20px;min-width:0}
+.workroom-sidebar dl{margin:30px 0 0}
+.workroom-sidebar dl>div{border-bottom:1px solid #9ba8b0;padding:15px 0}
+.workroom-sidebar dt{font:.71rem/1.4 ui-monospace,monospace;margin-bottom:9px}
+.workroom-sidebar dd{font-size:.98rem;line-height:1.6;margin:0}
+.workroom-warning{font-size:.78rem;line-height:1.7;margin:28px 0}
+.workroom-sidebar>a{display:inline-block;font-weight:750;text-decoration:underline;text-underline-offset:5px}
+.workroom-secondary{display:grid;grid-template-columns:.5fr 1fr;gap:30px;border-top:1px solid #a3adb3;margin-top:75px;padding-top:25px}
+.workroom-secondary>div>p{font-size:.96rem;line-height:1.7;margin-top:25px;max-width:480px}
+.workroom-secondary figure{margin:0;background:#111820;padding:20px}
+.workroom-secondary figure img{max-height:460px;margin:auto;object-fit:contain}
+.workroom-secondary figcaption{text-align:end;font:.68rem ui-monospace,monospace;color:white;margin-top:10px}
+.workroom-connections{margin-top:75px}
+.workroom-connections ol{margin:22px 0 0;padding:0;list-style:none;border-top:1px solid var(--ink)}
+.workroom-connections li a{display:grid;grid-template-columns:30px 1fr 70px 20px;gap:20px;align-items:center;padding:23px 4px;border-bottom:1px solid #9ba8b0}
+.workroom-connections strong{font-size:clamp(1.2rem,2vw,2rem);font-weight:600}
+.workroom-connections small{font-family:ui-monospace,monospace}
+@media(max-width:950px){
+.darb-wordmark-sub{display:none}
+.workroom-view{grid-template-columns:1fr}
+.workroom-sidebar{display:block}
+}
+@media(max-width:650px){
+.darb-topbar{min-height:65px}
+.darb-direct-nav{display:none}
+.darb-topbar .brand{gap:0}
+.darb-site-map summary span{margin-inline-start:3px}
+.darb-catalog{padding-block:33px 70px}
+.catalog-identity{display:block;padding-top:25px}
+.catalog-identity p{margin-top:22px}
+.catalog-controls{grid-template-columns:1fr}
+.archive-record{grid-template-columns:25px 88px minmax(0,1fr) 18px;gap:11px}
+.catalog-image{height:75px}
+.catalog-record-year{display:none}
+.catalog-record-name strong{font-size:1.15rem}
+.catalog-record-name small{font-size:.61rem}
+.workroom-identity{grid-template-columns:1fr;gap:25px}
+.workroom-identity h1{font-size:2.65rem}
+.workroom-plate .project-media{aspect-ratio:4/3}
+.workroom-plate figcaption{display:block}
+.workroom-secondary{grid-template-columns:1fr}
+.workroom-connections li a{grid-template-columns:25px 1fr 20px}
+.workroom-connections small{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+.archive-record,.passage-link,.encounter-choice button{transition:none!important}
+}

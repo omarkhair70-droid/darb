@@ -1,0 +1,71 @@
+/* 2 Nov 2026 — Interactive entry RESEARCH BUILD (not accepted Darb brand).
+   A media viewer and index driven by real PDF source, not a giant headline/hero. */
+.darb-entry {background:#11151b;color:#f1f2ed}
+.darb-entry .meta-label {font:600 .66rem/1.4 ui-monospace,monospace;letter-spacing:.13em;text-transform:uppercase}
+.encounter-shell {min-height:min(860px,calc(100svh - 88px));padding:22px clamp(18px,3vw,55px) 18px;display:flex;flex-direction:column;gap:14px}
+.encounter-orientation {display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr);align-items:end;gap:44px;border-bottom:1px solid #5e646e;padding-bottom:18px}
+.encounter-current h1 {font-size:clamp(1.3rem,2.2vw,2.6rem);line-height:1.25;font-weight:540;letter-spacing:-.045em;margin:6px 0}
+.encounter-current p {font-size:.84rem;max-width:450px;color:#b6bcc6;line-height:1.6;margin:0}
+.encounter-choice {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.encounter-choice button {border:0;border-inline-start:1px solid #626875;background:none;color:inherit;display:flex;min-width:0;flex-direction:column;gap:8px;text-align:start;padding:8px clamp(10px,1.6vw,26px) 8px;cursor:pointer;transition:background .2s ease}
+.encounter-choice button:hover,.encounter-choice button[aria-pressed="true"] {background:#303743}
+.encounter-choice button[aria-pressed="true"]{box-shadow:inset 0 -3px #e6c4a2}
+.encounter-num,.encounter-choice-type {font:600 .67rem/1.2 ui-monospace,monospace;letter-spacing:.06em;color:#adb5c1}
+.encounter-choice-name {font-size:clamp(.92rem,1.22vw,1.34rem);font-weight:650;line-height:1.35}
+.encounter-stage {display:grid;grid-template-columns:minmax(0,1.65fr) minmax(250px,.65fr);gap:clamp(12px,1.8vw,30px);min-height:0;flex:1}
+.encounter-object {position:relative;min-height:360px;background:#222831;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.encounter-object-image {object-fit:contain;object-position:center}
+.encounter-inscription {border-top:1px solid #747d89;padding:17px 0 10px;display:flex;flex-direction:column;gap:18px;justify-content:space-between}
+.encounter-index {display:flex;justify-content:space-between;gap:16px;font:600 .69rem ui-monospace,monospace;color:#b9c0ca}
+.encounter-words {max-width:480px}
+.encounter-medium {font-size:.85rem;color:#b8bec7;margin-bottom:14px}
+.encounter-inscription h2 {font-size:clamp(2.0rem,3.5vw,4.7rem);line-height:1.17;font-weight:570;letter-spacing:-.065em;margin:0 0 16px}
+html[lang="ar"] .encounter-inscription h2 {line-height:1.35}
+.encounter-words>p:last-child {font-size:clamp(.84rem,1vw,1rem);line-height:1.8;color:#d1d4d8;margin:0}
+.encounter-provenance {border-top:1px solid #5d6570;padding-top:14px}
+.encounter-provenance p {font:500 .68rem/1.5 ui-monospace,monospace;letter-spacing:.015em;color:#abb5c2;margin:0 0 5px}
+.encounter-provenance a {display:inline-block;border-bottom:1px solid #f0f0ec;margin-top:16px;font-size:.91rem;font-weight:700;padding-bottom:8px}
+.encounter-footer {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;border-top:1px solid #5e646e;padding-top:12px}
+.encounter-counter {font:.73rem ui-monospace,monospace;display:flex;gap:18px}
+.encounter-stepper {display:flex;gap:10px}
+.encounter-stepper button {background:none;color:inherit;border:1px solid #7c838d;padding:9px 18px;cursor:pointer}
+.encounter-stepper button:disabled {opacity:.25;cursor:default}
+.encounter-index-link {font-weight:750;font-size:.84rem;text-decoration:underline;text-underline-offset:5px}
+.entry-passage {display:grid;grid-template-columns:.55fr 1fr;gap:5vw;padding-block:90px}
+.passage-preamble>p:last-child {font-size:clamp(1.35rem,2.2vw,2.6rem);line-height:1.5;letter-spacing:-.04em}
+.passage-list {border-top:1px solid #7b828d}
+.passage-link {display:grid;grid-template-columns:36px 1fr 120px 20px;gap:15px;align-items:center;padding:21px 8px;border-bottom:1px solid #666f7c;transition:background .18s ease}
+.passage-link:hover {text-decoration:none;background:#303743}
+.passage-id,.passage-type {font:.68rem ui-monospace,monospace;color:#afb7c2}
+.passage-name {font-size:clamp(1.05rem,1.5vw,1.6rem);font-weight:580}
+.entry-active {background:#d7e2eb;color:#17232e;padding-block:38px}
+.entry-active-inner {display:flex;align-items:center;flex-wrap:wrap;gap:25px}
+.entry-active-inner>p {font-size:.88rem;line-height:1.6;flex:1;min-width:200px;margin:0}
+.entry-active-inner a {text-decoration:underline;text-underline-offset:4px;font-size:.84rem;font-weight:700}
+@media (max-width:950px){
+.encounter-orientation {grid-template-columns:1fr;gap:18px}
+.encounter-stage {grid-template-columns:1fr}
+.encounter-object {min-height:450px}
+.encounter-inscription {display:grid;grid-template-columns:1fr 1.2fr;gap:18px}
+.encounter-provenance {grid-column:1/-1}
+.entry-passage {grid-template-columns:1fr;gap:35px}
+}
+@media (max-width:650px){
+.encounter-shell {padding:15px 13px}
+.encounter-choice button {padding:10px;gap:5px}
+.encounter-choice-type {display:none}
+.encounter-choice-name {font-size:.81rem}
+.encounter-object {min-height:310px;aspect-ratio:1.15}
+.encounter-inscription {display:block}
+.encounter-words {padding-top:18px}
+.encounter-inscription h2 {font-size:2.4rem}
+.encounter-provenance {margin-top:22px}
+.encounter-footer {gap:18px}
+.encounter-stepper {width:100%;justify-content:space-between}
+.entry-passage {padding-block:55px}
+.passage-link {grid-template-columns:26px 1fr 15px;gap:8px}
+.passage-type {display:none}
+}
+@media(prefers-reduced-motion:reduce){
+.encounter-object,.encounter-inscription {opacity:1!important;visibility:visible!important;transform:none!important}
+}

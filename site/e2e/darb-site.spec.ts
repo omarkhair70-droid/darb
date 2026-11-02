@@ -7,16 +7,16 @@ for (const lang of ["ar","en"] as const) {
     await expect(page.locator("html")).toHaveAttribute("lang",lang);
     await expect(page.locator("html")).toHaveAttribute("dir",lang==="ar"?"rtl":"ltr");
     await expect(page.locator("h1").first()).toBeVisible();
-    await expect(page.locator(".hero-art img")).toBeVisible();
+    await expect(page.locator(".encounter-object img")).toBeVisible();
     await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-home.png",fullPage:true});
     const archive=await page.goto("/"+lang+"/archive");
     expect(archive?.status()).toBe(200);
-    await expect(page.locator(".project-card")).toHaveCount(9);
+    await expect(page.locator(".archive-record")).toHaveCount(9);
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     expect(overflow,"Unexpected horizontal overflow in archive").toBeLessThanOrEqual(2);
     const project=await page.goto("/"+lang+"/projects/tales-of-fustat");
     expect(project?.status()).toBe(200);
-    await expect(page.locator(".detail-media img")).toBeVisible();
+    await expect(page.locator(".workroom-plate img")).toBeVisible();
     await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-project.png",fullPage:true});
     if(info.project.name==="mobile-chromium"){
       await page.locator(".mobile-menu summary").click();
@@ -27,8 +27,8 @@ for (const lang of ["ar","en"] as const) {
 
 test("Filtering archive retains URL parameters and returns verified record",async({page})=>{
   await page.goto("/en/archive?q=inbetween&type=exhibition");
-  await expect(page.locator(".project-card")).toHaveCount(1);
-  await expect(page.locator(".project-card h3")).toContainText("INBETWEEN");
+  await expect(page.locator(".archive-record")).toHaveCount(1);
+  await expect(page.locator(".catalog-record-name strong")).toContainText("INBETWEEN");
   await expect(page.locator("select[name=type]")).toHaveValue("exhibition");
 });
 test("Locale switch retains a real project path",async({page})=>{
@@ -75,4 +75,31 @@ test("reduced-motion navigation retains full story access",async({page})=>{
   await expect(page.locator(".reading-narrative h2")).toContainText("Something Else Symposium");
   await page.getByRole("button",{name:"Next",exact:true}).click();
   await expect(page.locator(".reading-narrative h2")).toContainText("INBETWEEN");
+});
+
+
+for(const lang of ["ar","en"] as const){
+ test(lang+" — first encounter changes actual art and documents source",async({page})=>{
+   await page.goto("/"+lang);
+   await expect(page.locator(".encounter-object img")).toHaveAttribute("src",/pdf_image_0360/);
+   await expect(page.locator(".encounter-provenance")).toContainText("7");
+   await page.locator(".encounter-choice button").nth(1).click();
+   await expect(page.locator(".encounter-object img")).toHaveAttribute("src",/pdf_image_0323/);
+   await expect(page.locator(".encounter-provenance")).toContainText("3");
+   await expect(page.locator(".encounter-choice button").nth(1)).toHaveAttribute("aria-pressed","true");
+   await page.locator(".encounter-choice button").nth(2).click();
+   await expect(page.locator(".encounter-object img")).toHaveAttribute("src",/pdf_image_0470/);
+   await expect(page.locator(".encounter-provenance")).toContainText("20");
+ });
+}
+test("research mode keeps all source records and no marketing cards",async({page})=>{
+ await page.goto("/en/archive");
+ await expect(page.locator(".archive-record")).toHaveCount(9);
+ await expect(page.locator(".project-card")).toHaveCount(0);
+ await expect(page.locator(".catalog-identity h1")).toContainText("Index");
+});
+test("home has no rejected copy or two-column marketing hero",async({page})=>{
+ await page.goto("/en");
+ await expect(page.locator(".hero-grid")).toHaveCount(0);
+ await expect(page.getByText("Art, people, and what happens between them")).toHaveCount(0);
 });
