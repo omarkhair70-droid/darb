@@ -263,3 +263,20 @@ test("Imaginarium lab never zooms the supplied photo above its declared 160 perc
  await expect(page.locator(".ig-canvas-controls output")).toHaveText("160%");
  await expect(plus).toBeDisabled();
 });
+
+
+for(const lang of ["ar","en"] as const){
+ test(lang+" — research integration atlas connects every tested lab and its source",async({page},info)=>{
+   const response=await page.goto("/"+lang+"/lab");
+   expect(response?.status()).toBe(200);
+   await expect(page.locator(".atlas-experiment")).toHaveCount(3);
+   for(const id of ["oculi-method","getty-method","imaginarium-method"]){
+      await expect(page.locator('a[data-lab-id="'+id+'"]')).toHaveAttribute("href","/"+lang+"/lab/"+id);
+   }
+   await expect(page.locator(".atlas-master-link")).toHaveAttribute("href",/29-CREATIVE-INTEGRATION-ATLAS/);
+   await expect(page.locator(".atlas-stats")).toContainText("77");
+   await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-integration-atlas.png",fullPage:true});
+   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+   expect(overflow,"Integration atlas must remain usable without horizontal clipping").toBeLessThanOrEqual(2);
+ });
+}
