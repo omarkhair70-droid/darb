@@ -35,3 +35,12 @@ test("bilingual text is distinct and complete",()=>{
   }
  }
 });
+
+test("source-based reading paths declare comparison, not same-event claims",async()=>{
+  const paths=JSON.parse(await readFile(path.join(site,"src/content/reading-paths.json"),"utf8"));
+  assert.equal(paths.length,3);
+  for(const route of paths){
+    assert(route.summary.en.length>30 && route.summary.ar.length>30);
+    for(const scene of route.steps)assert(slugs.has(scene.slug));
+  }
+});

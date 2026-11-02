@@ -195,8 +195,11 @@
       "ar": "بحث في صناعة المنسوجات والحِرف المصرية شمل مركز رمسيس ويصا واصف والخيامية وقرية تونس في الفيوم، وانتهى باستوديو مفتوح.",
       "en": "Research into Egyptian textile and craft practice across Ramses Wissa Wassef Art Center, khayameya and Tunis Village, concluding with an open studio."
     },
-    "image": null,
-    "imageAlt": null,
+    "image": "pdf_image_0390.jpeg",
+    "imageAlt": {
+      "ar": "تفاصيل عمل على نسيج أحمر مزخرف ضمن صور الإقامة الفنية.",
+      "en": "Work in progress on patterned red textile documented in the residency photographs."
+    },
     "venue": null,
     "people": [
       "Natalia Ossef"

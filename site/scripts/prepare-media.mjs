@@ -14,6 +14,7 @@ const selected = [
   "pdf_image_0359.jpeg", // INBETWEEN installation, page 7
   "pdf_image_0360.jpeg", // INBETWEEN print series, page 7
   "pdf_image_0379.png",  // Jusoor programme graphic, page 9
+  "pdf_image_0390.jpeg", // textile practice documented on page 10
   "pdf_image_0402.jpeg", // Fustat cyanotype, page 11
   "pdf_image_0403.jpeg", // Fustat prints and notebooks, page 11
   "pdf_image_0445.png",  // Something Else / Citadel, page 17

@@ -45,3 +45,33 @@ test("Missing current venue is not fabricated, public indexing remains blocked",
   const robots=await res.text();
   expect(robots).toContain("Disallow: /");
 });
+
+
+for(const lang of ["ar","en"] as const){
+  test(lang+" — source-led Explore URL/deep link, history, and language switch",async({page},info)=>{
+    await page.goto("/"+lang+"/explore?path=material&step=1");
+    await expect(page.locator(".reading-narrative h2")).toContainText("Natalia Ossef");
+    await expect(page.locator(".reading-image img")).toBeVisible();
+    await expect(page.locator('button[aria-pressed="true"]')).toHaveCount(1);
+    await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-explore.png",fullPage:true});
+    await page.getByRole("button",{name:lang==="ar"?"التالي":"Next",exact:true}).click();
+    await expect(page).toHaveURL(/path=material&step=2/);
+    await expect(page.locator(".reading-narrative h2")).toContainText("INBETWEEN");
+    await page.goBack();
+    await expect(page.locator(".reading-narrative h2")).toContainText("Natalia Ossef");
+    await page.locator(".reading-path-selector button").nth(1).click();
+    await expect(page).toHaveURL(/path=gathering&step=0/);
+    await expect(page.locator(".reading-narrative h2")).toContainText(lang==="ar"?"جسور":"Jusoor");
+    await page.locator(".language-switch").click();
+    await expect(page).toHaveURL(new RegExp("/"+(lang==="ar"?"en":"ar")+"/explore\\?path=gathering&step=0"));
+  });
+}
+
+test("reduced-motion navigation retains full story access",async({page})=>{
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await page.goto("/en/explore?path=questions&step=1");
+  await expect(page.locator(".reading-narrative h2")).toBeVisible();
+  await expect(page.locator(".reading-narrative h2")).toContainText("Something Else Symposium");
+  await page.getByRole("button",{name:"Next",exact:true}).click();
+  await expect(page.locator(".reading-narrative h2")).toContainText("INBETWEEN");
+});
