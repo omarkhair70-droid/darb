@@ -1,19 +1,19 @@
 # AGENTS.md — Darb 1718 Creative R&D and Engineering
 
-## PRIORITY OVERRIDE — CREATIVE NEUTRALITY (commissioner correction, 2 November 2026)
+## Creative research must not inherit ChatGPT preferences (2 November 2026)
 
-**Do not turn the commissioner's past design preferences, conversation memory, or earlier concept boards into a required visual style.** Specifically, do not default to editorial minimalism, beige/off-white paper, one burnt accent, huge serif headlines, asymmetric photo collage, retro print textures, monochrome grids or a repeated museum-style landing page. These are just prior explorations, **not Darb requirements**.
+**Separate METHOD from LOOK.** Preserve all genuine project files, source research, reference deconstruction, workflows, decision records, implementation history, experiments and tested technology choices. Do **not** infer any permanent visual style, color palette, typeface, image layout or visual grammar from the commissioner's ChatGPT memory, another client's brand, Omar's portfolio, prior assistant-generated examples, or screenshots of earlier projects.
 
-**Darb art direction remains entirely unapproved.** A prior "House & Guest" framework, three montage boards, early hero composition, CSS values, typography, templates, and color tokens are **discardable experiments**, not design decisions. Preserve source provenance, Arabic/English, functional navigation, content accuracy, media rights and accessibility; all visual and interaction decisions must be justified anew by the specific material, the audience and artistic intent. Study multiple distinct visual/interaction precedents; do not mimic one example or use "we already did this before" as a reason.
+Every aesthetic is a candidate, not a forbidden or mandatory style. Research and select Darb's visual and interaction language from Darb's own artworks, authorship, context, intended experience and constraints. The early `site/` CSS and homepage are functional prototypes, **not a locked visual identity**; they may change completely without throwing away the working content architecture.
 
-The `site/` application and draft PR #2 are **functional engineering scaffolding only**. Reusing components or CSS is allowed for testing data flow, but *never present its present appearance as official brand direction or completed creative design*. Don't install motion/3D libraries until a documented need arises. Keep deliberate uncertainty visible; proceed with deep creative inquiry rather than producing generic repeated visuals.
+**Do not confuse correcting personalization with removing tools.** Restore and retain the researched implementation options: Next.js, TypeScript, Sanity and **GSAP/ScrollTrigger** as a creative-motion baseline. Other technologies, including Three.js/R3F, Lenis, CSS 3D and deep zoom, remain legitimate options that may be selected if the actual experience calls for them. Do not remove a dependency or ban a technique because it appeared in earlier work. Conversely, don't force it into every project merely because it's installed.
 
 **2026-11-02. Commission:** an official-site Creative R&D and real implementation effort. Research and source integrity continue; an early technical prototype exists on Draft PR #2, but **no final visual identity or public launch is approved**.
 
 ## Hard rules
 1. Read `README.md`, `creative/00-research-workflow.md`, `creative/01-creative-brief.md`, `source-material/overview-2026.md`, `assets/manifest.csv` and `research/open-questions.md` before proposing work.
-2. Stay in discovery: history, sources, image/video research, interviews, reference site decomposition, three competing art directions, typography/experience studies, editorial IA, CMS/tech options, tested hypotheses.
-3. Avoid premature **hero design, homepage code, chosen colors, fonts, stacks, Three.js, GSAP, animations or deployment**.
+2. Continue source-led creative research while implementing the real app in Draft PR #2. Preserve approved research, workflow files and technology decision records; never assume a style from user memory.
+3. Treat all present styling as provisional; evaluate colors, type, composition, GSAP, 3D and other approaches on their project-specific merits. Implement/test meaningful interactions without treating prior aesthetic experiments as a template.
 4. Do not call unverified claims facts: e.g. completed new venue, employment role of Nourhan, detailed personal biography, sourced demolition losses.
 5. Reflect actual Darb material (Fustat, artists, workshops, exhibitions, film, collaboration), not copied Awwwards shots.
 6. Preserve the real 21-page PDF, 77 embedded image IDs, page preview and rights annotations. **As of 2 Nov 2026 these binaries are merged in `main`**: `source-material/original/`, `assets/original/`, `assets/previews/`, `assets/contact-sheets/`, via PR #1.
@@ -24,7 +24,7 @@ The `site/` application and draft PR #2 are **functional engineering scaffolding
 11. No fabricated local events, testimonials, artist portraits, 3D mock archives, success/award claims.
 
 ## Sequence
-`Source & Content Inventory → Audience Goals → Reference Analysis → Three Narrative Directions → Experience/IA → Visual/Type/Motion Grammar → Editorial CMS Decisions → Focused Prototype Critique → Approval → Code/QA/Release`.
+`Source & Content Inventory → Audience Goals → Reference Systems Decomposition → Project-specific Art Direction & Experience Architecture → Evidence-led Tech Decision → Real Code/QA → Editorial & Visual Review → Refinement/Release`. Revisit stages when new project evidence requires it; neither visual identity nor tooling is inherited from a different project.
 
 ## Asset and source handoff
 The original user-provided PDF and extracted 77 embedded media assets are available in the associated research chat ZIP:
@@ -43,4 +43,4 @@ Every work item: objective / actual evidence / source URL+date / hypothesis or f
 
 Current **recommended baseline** (not a repo initialization): Next.js App Router, TypeScript, React, Sanity, bespoke CSS, GSAP ScrollTrigger for story chapters; native scroll by default; Lenis only if demonstrated benefit; no default Three.js or arbitrary AI; source-respecting responsive images and optional Micrio/IIIF only for actual hires art. Earlier blanket “avoid choosing stack” instructions are superseded by this *conditional architecture choice*. Exact dependencies and hosting require build-gate validation.
 
-All future visual/type/motion studies must serve **the joined website system**: Explore + searchable Archive/Index + live programmes/Participation. Don't fork into separate one-off exhibition microsites or lock visual identity based solely on 3 collages. Tech spikes may be real coded vertical tests only after the explicit implementation gate; no pretend full site deployments.
+All future visual/type/motion studies must serve **the joined website system**: Explore + searchable Archive/Index + live programmes/Participation. Don't fork into separate one-off exhibition microsites or lock visual identity based solely on 3 collages. Stage 07 has an active Draft PR #2 with actual Next.js code and tests. Continue real vertical-slice implementation and QA; do not call it a launched public site before production/editorial gates are complete.
