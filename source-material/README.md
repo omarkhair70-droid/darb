@@ -5,8 +5,8 @@
 - 21 page full-size previews and **77 embedded photos/graphic assets** were programmatically extracted from the exact PDF.
 - Original PDF SHA-256: `07c59412bfd9c9c85314d54069e8a0e2a9e5db5472247ca690505969085a9b74` **verified against source binary**.
 - [77-image inventory](../assets/manifest.csv): exact page-to-image XREF mapping and source provenance.
-- The project-working **ZIP containing original PDF, images, page previews and contact sheet** was exported with the chat delivery and retained there. **These large binary assets are not yet committed to the public GitHub repository.** GitHub integration available in this session writes UTF-8 content and cannot directly upload 31 MB of local binary source; **never mark binary ingestion complete**.
-- Recommended permanent locations once binary upload is possible: `source-material/original/Darb_1718_Overview_2026.pdf`, `assets/original/pdf_image_*.jpeg|png`, `assets/previews/page_XX.png`, `assets/contact-sheet.jpg`.
+- **GitHub ingestion complete (2026-11-02):** uploaded from the verified local original source and merged into `main` through [PR #1](https://github.com/omarkhair70-droid/darb/pull/1). The original PDF, 77 extracted assets, 21 rendered pages, 2 contact sheets and CSV/JSON manifests are accessible in this repo. The chat ZIP is an optional backup, not the only media store.
+- Committed locations: `source-material/original/Darb_1718_Overview_2026.pdf`, `assets/original/pdf_image_*.jpeg|png`, `assets/previews/page_XX.png`, `assets/contact-sheets/`, `assets/manifest-original.csv` and `assets/manifest-original.json`.
 
 ## 21-page content index
 
