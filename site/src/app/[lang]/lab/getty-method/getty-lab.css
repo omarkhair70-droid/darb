@@ -113,3 +113,20 @@ html[lang=ar] .gt-beat-copy h1{line-height:1.3;letter-spacing:-.02em}
  .gt-lab *{scroll-behavior:auto!important;transition:none!important}
  .gt-artifact{will-change:auto}
 }
+
+
+/* Arabic composition is deliberately authored, NOT an LTR mirror by luck.
+ * Earlier 1440px screenshot showed the source cards overlapping Arabic copy.
+ * Move the object river into a separate left-of-text zone at desktop sizes. */
+html[lang="ar"] .gt-beat-copy h1,
+html[lang="ar"] .gt-artifact-film strong,
+html[lang="ar"] .gt-artifact-maker strong,
+html[lang="ar"] .gt-counter strong{
+ font-family:"Noto Naskh Arabic","Amiri","Traditional Arabic",serif;
+ font-weight:500;
+}
+@media (min-width:701px){
+ html[lang="ar"] .gt-spline{left:11%;right:43%}
+ html[lang="ar"] .gt-beat-copy{width:min(365px,27vw)}
+ html[lang="ar"] .gt-path-caption{bottom:10%}
+}
