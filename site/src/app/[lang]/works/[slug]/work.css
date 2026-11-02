@@ -62,3 +62,26 @@ html[lang="ar"] .film-work-heading h1{line-height:1.32;letter-spacing:-.04em}
 @media(max-width:850px){.film-work-heading,.film-work-body,.film-evidence{grid-template-columns:1fr}.film-screening{margin:0}.film-stage{min-height:240px}}
 @media(max-width:530px){.darb-film-work{padding-inline:18px}.film-work-heading h1{font-size:clamp(2.5rem,12vw,4.5rem)}.film-watch-action button{font-size:1.35rem}.film-before-play{padding:18px}.film-work-body{gap:30px}.film-other-links>a{grid-template-columns:1fr 20px}.film-other-links>a small{display:none}.film-provenance dl>div{grid-template-columns:1fr;gap:8px}}
 @media(prefers-reduced-motion:reduce){.darb-film-work *{scroll-behavior:auto!important}}
+
+/* Mobile navigation hit-target fix identified by real Playwright pointer-event
+ * collision: avoid RTL breadcrumb/header overlap and all horizontal overflow.
+ * This is utility/access correction, NOT a Darb visual identity decision. */
+html:has(.darb-film-work){scroll-behavior:auto}
+body:has(.darb-film-work){overflow-x:clip}
+.darb-film-work{min-width:0;max-width:100%;overflow-x:clip}
+.film-context-nav{isolation:isolate;position:relative}
+.film-context-nav a{position:relative;z-index:1}
+.film-work-heading>*{min-width:0}
+.film-work-heading h1,.film-byline p,.film-context-nav span{overflow-wrap:anywhere}
+@media(max-width:650px){
+ body:has(.darb-film-work) .darb-topbar{gap:8px}
+ body:has(.darb-film-work) .header-actions{gap:7px}
+ body:has(.darb-film-work) .darb-topbar .language-switch{min-width:32px}
+ body:has(.darb-film-work) .darb-site-map summary{padding:7px 10px;font-size:.76rem}
+ .darb-film-work{padding-inline:14px}
+ .film-context-nav{display:grid;grid-template-columns:max-content min-content minmax(0,1fr);justify-content:stretch;gap:11px 9px;padding:18px 0}
+ .film-context-nav a:first-child{padding:9px 0;white-space:nowrap}
+ .film-context-nav span:not([aria-hidden]){min-width:0;overflow-wrap:anywhere}
+ .film-context-nav .film-index-link{grid-column:1/-1;justify-self:start;margin:0;padding:8px 0}
+ .film-work-heading h1{font-size:clamp(2.1rem,10vw,4rem);overflow-wrap:anywhere}
+}
