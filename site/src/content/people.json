@@ -1,0 +1,62 @@
+[
+  {
+    "id": "hafsa-borai",
+    "name": {
+      "ar": "حفصة برعي",
+      "en": "Hafsa Borai"
+    },
+    "role": {
+      "ar": "مخرجة وباحثة ومصوّرة سودانية",
+      "en": "Sudanese filmmaker, researcher and photographer"
+    },
+    "bio": {
+      "ar": "قدمت فيلم جدائل الهوية عن حرفة المشاط السوداني، وكتبت عن دور الحرفة في الذاكرة والهوية. يضم Africa Foto Fair نبذة عنها وبيانًا فنيًا منشورًا باسمها.",
+      "en": "Director of Braids of Identity, examining Sudanese braiding traditions and their ties to belonging, livelihood and memory. Her published Africa Foto Fair profile includes an artist's statement."
+    },
+    "sourceIds": [
+      "sslh-film-ar",
+      "sslh-film-en",
+      "africa-foto-fair-hafsa"
+    ],
+    "image": null
+  },
+  {
+    "id": "mohamed-subahi",
+    "name": {
+      "ar": "محمد صبحي",
+      "en": "Mohamed Subahi"
+    },
+    "role": null,
+    "bio": null,
+    "sourceIds": [
+      "darb-overview-jusoor-p9"
+    ],
+    "image": null
+  },
+  {
+    "id": "mohannad-bilal",
+    "name": {
+      "ar": "مهند بلال",
+      "en": "Mohannad Bilal"
+    },
+    "role": null,
+    "bio": null,
+    "sourceIds": [
+      "darb-overview-jusoor-p9"
+    ],
+    "image": null
+  },
+  {
+    "id": "alargam-muzmail",
+    "name": {
+      "ar": "الأرقم مزمل",
+      "en": "Alargam Muzmail"
+    },
+    "role": null,
+    "bio": null,
+    "sourceIds": [
+      "darb-overview-jusoor-p9"
+    ],
+    "image": null
+  }
+]

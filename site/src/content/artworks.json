@@ -1,0 +1,138 @@
+[
+  {
+    "slug": "braids-of-identity",
+    "type": "film",
+    "title": {
+      "ar": "جدائل الهوية",
+      "en": "Braids of Identity"
+    },
+    "creatorId": "hafsa-borai",
+    "creatorRole": {
+      "ar": "إخراج وبحث",
+      "en": "Director & researcher"
+    },
+    "programmeId": "jusoor",
+    "subject": {
+      "ar": "حرفة المشاط السوداني، الذاكرة والهوية ودور الحرفة الاجتماعي والاقتصادي.",
+      "en": "Sudanese hair braiding (mashat), cultural memory and identity, and the craft's social and economic role."
+    },
+    "artisticContext": {
+      "ar": "تصف المخرجة الحرفة بوصفها ممارسة حية تحفظ الذاكرة والروابط مع المكان في ظل التهجير. ده تلخيص لبيانها المنشور في Africa Foto Fair، وليس اقتباسًا من حوار داخل الفيلم.",
+      "en": "In her Africa Foto Fair statement, the filmmaker frames braiding as a living practice carrying memory, belonging and continuity amid displacement. This paraphrases the artist's published statement, not dialogue taken from the film."
+    },
+    "sourceIds": [
+      "darb-overview-jusoor-p9",
+      "sslh-film-ar",
+      "sslh-film-en",
+      "africa-foto-fair-hafsa",
+      "sslh-official-youtube"
+    ],
+    "media": {
+      "kind": "official-embed",
+      "provider": "youtube",
+      "id": "hRO8xdEWCRA",
+      "videoUrl": "https://www.youtube.com/watch?v=hRO8xdEWCRA",
+      "publishedBy": "Safeguarding Sudan's Living Heritage",
+      "uploadedAt": "2025-02-15",
+      "internalLicense": "not-held",
+      "mode": "on-demand-third-party"
+    },
+    "screeningDate": null,
+    "currentEvent": null,
+    "publicationState": "research-preview",
+    "rightsNotes": {
+      "ar": "النسخة الرسمية منشورة على حساب الجهة المنتجة. المشغّل يحيل للمصدر نفسه، ولا يمنحنا حقوق تنزيل الفيلم أو إعادة مونتاجه. استخدام إضافي وصور الغلاف يحتاج موافقة.",
+      "en": "Official playback is provided by the publisher. Embedding the original player does not grant a license to download, edit, reproduce stills or publish cover photos independently."
+    }
+  },
+  {
+    "slug": "dukhan",
+    "type": "film",
+    "title": {
+      "ar": "دخان",
+      "en": "Dukhan"
+    },
+    "creatorId": "mohamed-subahi",
+    "creatorRole": {
+      "ar": "صانع الفيلم بحسب ملف درب",
+      "en": "Filmmaker credited in Darb overview"
+    },
+    "programmeId": "jusoor",
+    "subject": null,
+    "artisticContext": null,
+    "sourceIds": [
+      "darb-overview-jusoor-p9"
+    ],
+    "media": {
+      "kind": "no-media",
+      "internalLicense": "not-held"
+    },
+    "screeningDate": null,
+    "currentEvent": null,
+    "publicationState": "research-preview",
+    "rightsNotes": {
+      "ar": "لا يوجد ملف فيلم أو صورة مرخّصة مؤكدة.",
+      "en": "No verified licensed film or still currently available."
+    }
+  },
+  {
+    "slug": "the-last-henna",
+    "type": "film",
+    "title": {
+      "ar": "الحنة الأخيرة",
+      "en": "The Last Henna"
+    },
+    "creatorId": "mohannad-bilal",
+    "creatorRole": {
+      "ar": "صانع الفيلم بحسب ملف درب",
+      "en": "Filmmaker credited in Darb overview"
+    },
+    "programmeId": "jusoor",
+    "subject": null,
+    "artisticContext": null,
+    "sourceIds": [
+      "darb-overview-jusoor-p9"
+    ],
+    "media": {
+      "kind": "no-media",
+      "internalLicense": "not-held"
+    },
+    "screeningDate": null,
+    "currentEvent": null,
+    "publicationState": "research-preview",
+    "rightsNotes": {
+      "ar": "لا يوجد ملف فيلم أو صورة مرخّصة مؤكدة.",
+      "en": "No verified licensed film or still currently available."
+    }
+  },
+  {
+    "slug": "motive",
+    "type": "film",
+    "title": {
+      "ar": "الدافع",
+      "en": "Motive"
+    },
+    "creatorId": "alargam-muzmail",
+    "creatorRole": {
+      "ar": "صانع الفيلم بحسب ملف درب",
+      "en": "Filmmaker credited in Darb overview"
+    },
+    "programmeId": "jusoor",
+    "subject": null,
+    "artisticContext": null,
+    "sourceIds": [
+      "darb-overview-jusoor-p9"
+    ],
+    "media": {
+      "kind": "no-media",
+      "internalLicense": "not-held"
+    },
+    "screeningDate": null,
+    "currentEvent": null,
+    "publicationState": "research-preview",
+    "rightsNotes": {
+      "ar": "لا يوجد ملف فيلم أو صورة مرخّصة مؤكدة.",
+      "en": "No verified licensed film or still currently available."
+    }
+  }
+]

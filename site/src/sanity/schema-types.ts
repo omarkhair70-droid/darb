@@ -126,4 +126,34 @@ const opportunity=defineType({
     defineField({name:"confirmedByStaff",type:"boolean",initialValue:false}),
   ]
 });
-export const schemaTypes=[localizedString,localizedText,project,event,place,person,artwork,mediaRecord,story,source,opportunity];
+// This is a review-ready schema, not an active institutional CMS dataset.
+// Film and contribution records must not publish from a URL alone.
+const film=defineType({
+ name:"film",title:"Film — authored work",type:"document",
+ fields:[
+  defineField({name:"title",type:"localizedString",validation:r=>r.required()}),
+  defineField({name:"slug",type:"slug",options:{source:"title.en"},validation:r=>r.required()}),
+  defineField({name:"director",type:"reference",to:[{type:"person"}],validation:r=>r.required()}),
+  defineField({name:"programme",type:"reference",to:[{type:"project"}]}),
+  defineField({name:"context",type:"localizedText"}),
+  defineField({name:"officialVideoUrl",type:"url",description:"Official publisher link only, not an uploaded film master."}),
+  defineField({name:"publisherName",type:"string"}),
+  defineField({name:"screeningDate",type:"date",description:"Only after programme/staff verification."}),
+  defineField({name:"screeningVenue",type:"reference",to:[{type:"place"}]}),
+  defineField({name:"evidence",type:"array",of:[{type:"reference",to:[{type:"source"}]}]}),
+  defineField({name:"mediaRightsStatus",type:"string",options:{list:["pending","official-link-only","licensed","restricted"]},initialValue:"pending"}),
+  defineField({name:"editorialApproved",type:"boolean",initialValue:false}),
+  defineField({name:"published",type:"boolean",initialValue:false})
+ ]
+});
+const contribution=defineType({
+ name:"contribution",title:"Credited contribution",type:"document",
+ fields:[
+   defineField({name:"person",type:"reference",to:[{type:"person"}],validation:r=>r.required()}),
+   defineField({name:"film",type:"reference",to:[{type:"film"}],validation:r=>r.required()}),
+   defineField({name:"role",type:"string",options:{list:["director","researcher","cinematographer","sound","editor","curator","other"]},validation:r=>r.required()}),
+   defineField({name:"source",type:"reference",to:[{type:"source"}],validation:r=>r.required()}),
+   defineField({name:"verified",type:"boolean",initialValue:false})
+ ]
+});
+export const schemaTypes=[localizedString,localizedText,project,event,place,person,artwork,film,contribution,mediaRecord,story,source,opportunity];

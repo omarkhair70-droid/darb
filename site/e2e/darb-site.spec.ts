@@ -103,3 +103,29 @@ test("home has no rejected copy or two-column marketing hero",async({page})=>{
  await expect(page.locator(".hero-grid")).toHaveCount(0);
  await expect(page.getByText("Art, people, and what happens between them")).toHaveCount(0);
 });
+
+
+for(const lang of ["ar","en"] as const){
+  test(lang+" — genuine film -> filmmaker -> Jusoor routes with evidence",async({page})=>{
+    const r=await page.goto("/"+lang+"/works/braids-of-identity");
+    expect(r?.status()).toBe(200);
+    await expect(page.locator(".film-work-heading h1")).toContainText(lang==="ar"?"جدائل الهوية":"Braids of Identity");
+    await expect(page.locator(".film-evidence-list li")).toHaveCount(5);
+    await expect(page.locator(".film-stage iframe")).toHaveCount(0);
+    await page.getByRole("button",{name:lang==="ar"?"تشغيل الفيلم من يوتيوب":"Play the publisher's YouTube film"}).click();
+    await expect(page.locator(".film-stage iframe")).toHaveAttribute("src",/youtube-nocookie\.com\/embed\/hRO8xdEWCRA/);
+    await expect(page.locator(".film-byline a")).toHaveAttribute("href",new RegExp("/"+lang+"/people/hafsa-borai$"));
+    await page.locator(".film-byline a").click();
+    await expect(page.locator("h1")).toContainText(lang==="ar"?"حفصة برعي":"Hafsa Borai");
+    await page.locator('.film-other-links a[href*="braids-of-identity"]').click();
+    await expect(page.locator(".film-work-heading h1")).toBeVisible();
+    await page.locator('.film-context-nav a[href*="/projects/jusoor"]').click();
+    await expect(page.locator(".workroom-connections").first()).toContainText(lang==="ar"?"جدائل الهوية":"Braids of Identity");
+  });
+}
+test("other film record does not fake playable media",async({page})=>{
+ await page.goto("/en/works/dukhan");
+ await expect(page.locator(".film-unavailable")).toBeVisible();
+ await expect(page.locator(".film-stage iframe")).toHaveCount(0);
+ await expect(page.locator(".film-provenance")).toContainText("Date not stated");
+});

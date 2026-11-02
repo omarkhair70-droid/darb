@@ -4,6 +4,7 @@ import Link from "next/link";
 import {isLocale,ui} from "@/lib/locale";
 import {searchVisibleProjects} from "@/lib/sanity-source";
 import type {ProjectKind} from "@/lib/records";
+import {workRecords,personById} from "@/lib/work-graph";
 
 type Search={q?:string;type?:string};
 const types:ProjectKind[]=["exhibition","festival","workshop","programme","residency"];
@@ -47,6 +48,13 @@ export default async function Archive({params,searchParams}:{params:Promise<{lan
        </Link>
      </li>)}</ol>:
      <p role="status" className="empty-state">{copy.noResults}</p>}
+     <section className="catalog-work-records" aria-label={lang==="ar"?"الأفلام المرتبطة بالبرنامج":"Film works linked to the programme"}>
+       <h2>{lang==="ar"?"أعمال موثقة بشكل مستقل":"Individual film records"}</h2>
+       <p>{lang==="ar"?"الأفلام دي مذكورة ضمن جسور في ملف درب، صفحة ٩. تقدر تفتح كل فيلم وتشوف مصادره، حتى لو رابط المشاهدة لسه ناقص.":"These films are individually named in Darb's Jusoor overview, p.9. Each has its own evidence-backed record, including those without official playback."}</p>
+       <ol>{workRecords.map(item=><li key={item.slug}>
+         <Link href={"/"+lang+"/works/"+item.slug}><strong>{item.title[lang]}</strong><span>{personById(item.creatorId)?.name[lang]||""}</span><span aria-hidden="true">↗</span></Link>
+       </li>)}</ol>
+     </section>
      <p className="archive-source-note">{copy.source} · {copy.rights}</p>
    </div>
  </div>;

@@ -40,3 +40,28 @@ for(const pathRecord of paths){
   }
 }
 console.log("Validated "+paths.length+" bilingual thematic reading paths with real source records.");
+
+const films=JSON.parse(await readFile(path.join(root,"src/content/artworks.json"),"utf8"));
+const people=JSON.parse(await readFile(path.join(root,"src/content/people.json"),"utf8"));
+const evidence=JSON.parse(await readFile(path.join(root,"src/content/evidence.json"),"utf8"));
+const personIds=new Set(people.map(p=>p.id)),sourceIds=new Set(evidence.map(s=>s.id));
+const filmSlugs=new Set();
+for(const film of films){
+ assert(film.type==="film" && film.title.ar && film.title.en,"Incomplete film");
+ assert(!filmSlugs.has(film.slug),"Duplicate film slug");
+ filmSlugs.add(film.slug);
+ assert(personIds.has(film.creatorId),"Film missing credited maker: "+film.slug);
+ assert(slugs.has(film.programmeId),"Film missing programme: "+film.slug);
+ assert(film.sourceIds.length>0 && film.sourceIds.every(id=>sourceIds.has(id)),"Film ungrounded");
+ assert(film.screeningDate===null && film.currentEvent===null,"No invented current or historic screening date");
+ assert(film.media.internalLicense==="not-held","No invented licensed media");
+ if(film.media.kind==="official-embed"){
+   assert(film.media.provider==="youtube" && /^[A-Za-z0-9_-]{11}$/.test(film.media.id),"Invalid publisher embed");
+   assert(film.media.videoUrl==="https://www.youtube.com/watch?v="+film.media.id,"External publisher URL mismatch");
+ }
+}
+for(const person of people){
+ assert(person.sourceIds.every(id=>sourceIds.has(id)),"Person lacks evidence");
+ assert(person.name.ar && person.name.en,"Person needs both languages");
+}
+console.log("Validated "+films.length+" attributed film records, "+people.length+" people and "+evidence.length+" source entries.");

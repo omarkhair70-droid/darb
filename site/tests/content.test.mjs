@@ -44,3 +44,17 @@ test("source-based reading paths declare comparison, not same-event claims",asyn
     for(const scene of route.steps)assert(slugs.has(scene.slug));
   }
 });
+
+test("film source graph is real and has no fabricated playback or dates",async()=>{
+ const film=JSON.parse(await readFile(path.join(site,"src/content/artworks.json"),"utf8"));
+ const people=JSON.parse(await readFile(path.join(site,"src/content/people.json"),"utf8"));
+ const refs=JSON.parse(await readFile(path.join(site,"src/content/evidence.json"),"utf8"));
+ assert.equal(film.length,4);
+ assert.equal(film.filter(f=>f.media.kind==="official-embed").length,1);
+ assert.equal(film.find(f=>f.slug==="braids-of-identity").media.id,"hRO8xdEWCRA");
+ assert(film.every(f=>f.screeningDate===null&&f.currentEvent===null));
+ assert(film.every(f=>people.some(p=>p.id===f.creatorId)));
+ assert(film.every(f=>f.sourceIds.every(id=>refs.some(s=>s.id===id))));
+ assert(refs.some(x=>x.id==="darb-overview-jusoor-p9" && x.kind==="primary-commissioner-supplied"));
+ assert(!film.some(f=>f.media.kind==="file-upload"));
+});

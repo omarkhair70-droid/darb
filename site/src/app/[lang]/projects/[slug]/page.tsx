@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {notFound} from "next/navigation";
+import {worksByProgramme,personById} from "@/lib/work-graph";
 import {ProjectMedia} from "@/components/project-media";
 import {isLocale,locales,ui} from "@/lib/locale";
 import {projects} from "@/lib/records";
@@ -55,6 +56,14 @@ export default async function ProjectDetail({params}:Props){
       <div><span className="meta-label">SECOND DOCUMENT / PDF 07</span>
        <p>{lang==="ar"?"لقطة توثيق إضافية من نفس صفحة المعرض. محتاجين أسماء الفنانين واعتمادات المصوّرين عشان تتحول لسجل أعمال مستقل.":"A second documentary photograph on the same exhibition page. Artist and photographer records are required before this becomes an individual artwork entry."}</p></div>
       <figure><Image src="/media/pdf_image_0360.jpeg" width={960} height={540} alt={lang==="ar"?"مطبوعات أحادية اللون موثقة في INBETWEEN":"Monochrome print series documented in INBETWEEN"}/><figcaption>2026 OVERVIEW / PDF 07</figcaption></figure>
+   </section>}
+   {films.length>0&&<section className="shell workroom-connections" aria-label={lang==="ar"?"أفلام البرنامج":"Films in this programme"}>
+      <p className="meta-label">{lang==="ar"?"الأفلام الموثقة في الملف، صفحة ٩":"DOCUMENTED FILMS / OVERVIEW P. 9"}</p>
+      <ol>{films.map((film,i)=><li key={film.slug}><Link href={"/"+lang+"/works/"+film.slug}>
+        <span>{String(i+1).padStart(2,"0")}</span><strong>{film.title[lang]}</strong>
+        <small>{personById(film.creatorId)?.name[lang]||""}</small><span aria-hidden="true">↗</span>
+      </Link></li>)}</ol>
+      <p>{lang==="ar"?"العمل المعروض بالنسخة الرسمية يُفتح من صفحته. مواعيد العروض داخل درب لم تتأكد.":"An officially published film opens from its own work record. Exact Darb screening dates are unverified."}</p>
    </section>}
    {related.length>0&&<section className="shell workroom-connections">
       <p className="meta-label">{copy.related} / {lang==="ar"?"مقارنات تحريرية وليست إثباتًا لتعاون فني":"EDITORIAL RELATIONS, NOT PROOF OF COLLABORATION"}</p>

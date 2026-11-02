@@ -105,3 +105,15 @@ body{background:var(--paper);color:var(--ink);}
 @media(prefers-reduced-motion:reduce){
 .archive-record,.passage-link,.encounter-choice button{transition:none!important}
 }
+
+/* Stage 11 / FILM AS A SOURCE ENTITY, not a card type.
+ * No new institution-wide palette or homepage decision implied. */
+.catalog-work-records{border-top:2px solid var(--ink);padding-top:38px;margin-top:70px}
+.catalog-work-records h2{font-size:clamp(1.8rem,3vw,3.8rem);font-weight:580;letter-spacing:-.045em}
+.catalog-work-records>p{max-width:810px;font-size:.92rem;line-height:1.7;margin-bottom:27px}
+.catalog-work-records ol{list-style:none;padding:0;margin:0;border-top:1px solid #8797a2}
+.catalog-work-records li a{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(90px,.6fr) 24px;align-items:center;gap:18px;border-bottom:1px solid #9ba8b0;padding:25px 0}
+.catalog-work-records li a:hover{background:#d1dce1;text-decoration:none}
+.catalog-work-records li strong{font-size:clamp(1.15rem,2vw,2.1rem);letter-spacing:-.035em;font-weight:610}
+.catalog-work-records li span{font-size:.87rem}
+@media(max-width:600px){.catalog-work-records li a{grid-template-columns:1fr 20px}.catalog-work-records li a span:nth-child(2){display:none}}
