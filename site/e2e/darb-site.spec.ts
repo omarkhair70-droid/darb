@@ -51,6 +51,7 @@ for(const lang of ["ar","en"] as const){
   test(lang+" — source-led Explore URL/deep link, history, and language switch",async({page},info)=>{
     await page.goto("/"+lang+"/explore?path=material&step=1");
     await expect(page.locator(".reading-narrative h2")).toContainText(lang==="ar"?"ناتاليا أوسف":"Natalia Ossef");
+    await expect(page.locator(".reading-narrative h2")).toBeVisible();
     await expect(page.locator(".reading-image img")).toBeVisible();
     await expect(page.locator('button[aria-pressed="true"]')).toHaveCount(1);
     await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-explore.png",fullPage:true});
