@@ -16,6 +16,7 @@ type Props={
 export function ExperienceAtlas({lang,paths,initial}:Props){
   const [selection,setSelection]=useState<Selection>(initial);
   const panel=useRef<HTMLDivElement>(null);
+  const hasMounted=useRef(false);
   const current=paths.find(x=>x.id===selection.pathId)||paths[0];
   const step=Math.max(0,Math.min(selection.step,(current?.steps.length||1)-1));
   const beat=current?.steps[step];
@@ -48,6 +49,12 @@ export function ExperienceAtlas({lang,paths,initial}:Props){
   },[paths]);
 
   useEffect(()=>{
+    // The first real/source page is visible immediately; never hide SSR
+    // content behind a hydration-triggered entrance animation.
+    if(!hasMounted.current){
+      hasMounted.current=true;
+      return;
+    }
     const target=panel.current;
     if(!target || window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
     const ctx=gsap.context(()=>{
