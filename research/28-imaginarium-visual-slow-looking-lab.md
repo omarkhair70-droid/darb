@@ -52,3 +52,16 @@ This is NOT Imaginarium's deep zoom: no approved individual hi-res artwork maste
 - Image zoom cap enforced; absence of confirmed work artist displayed rather than guessed.
 - Browser QA screenshots / Playwright source graph checks, and Vercel READY before labeling deliverable verified.
 - Qualitative art-direction review follows, because **green CI ≠ creative approval**.
+
+
+## F. Actual screenshot review and honest visual assessment (after QA)
+
+GitHub Actions run #41455145294 passed 52/52 Playwright tests, including AR/EN, desktop/mobile, guided/free paths, source-image loading, 160% zoom cap and reduced motion. Vercel Preview for code commit 865807ede3b5acf60e29f1d85d9c8a7103a5a8be reached READY. https://github.com/omarkhair70-droid/darb/actions/runs/41455145294
+
+Screenshot review issue 1: first entrance-copy screenshot was captured partly translucent during GSAP reveal. The animation now begins at 88% opacity, and evidence capture waits for the settled state. Text is legible from the beginning.
+
+Screenshot review issue 2: initial mobile context screenshot showed the second image as a dark rectangle because it was lazy loading at capture time. Browser tests now scroll to that image and wait for actual image naturalWidth > 0 for both authentic source photographs. The corrected screenshot shows both.
+
+CRITICAL CREATIVE CRITIQUE: the threshold still reads as a large photograph adjacent to a large title. This resembles the same visual layout grammar rejected in Darb V1. DO NOT carry this entrance composition into the final public homepage. The valuable reusable part is progressive proximity, free/guided observation, bounded native zoom, evidence questions and source context. A distinctive artist-led threshold is still unresolved.
+
+Green CI is not visual approval. No Q42/Fabrique original font or camera timing was claimed; artist/curator approvals, original artwork master rights and true institutional editing workflow remain separate gates.
