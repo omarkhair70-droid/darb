@@ -75,3 +75,11 @@ This is not a rejection of research/source, GitHub, Vercel auto Preview, AR/EN/N
 - Added `architecture/ADR-001-conditional-tech-stack.md`: **Next.js + TS + Sanity + authored CSS + GSAP (special stories)** recommended; native scrolling first, Lenis and WebGL/3D/deep zoom conditional. AR/EN and CMS workflow from outset. Not yet installed.
 - Added `architecture/EXECUTION_HANDOFF_PREBUILD.md`: finite research/production gates and real site delivery sequence. NO code or deployment started.
 - Remaining **production blockers:** actual live/current venue and form status; artist/photographer credit and hires images; CMS/editor ownership and hosting agreement; content/consent signoff. These are bounded tasks, not more generalized moodboarding.
+
+
+## Stage 10 — Reference-to-source experience research (2 Nov 2026)
+- Read studios' own case studies for Imaginarium, Getty Tracing Art, Oculi Mundi and KW Berlin, plus collection strategy of Clyfford Still/Cooper. Established specific interaction sequence, content prerequisite, mode/routing approach and non-transferable tricks.
+- Committed research/19-reference-autopsy-experience-not-visuals.md and creative/20-whole-site-experience-kernel-v03.md.
+- Completed a realistic, source-bounded **Jusoor film** visitor journey (PDF p.9, named Sudanese shorts/directors), with explicit film media/filmmaker prompt gaps in creative/21-jusoor-source-backed-editorial-walk.md.
+- No new homepage, image carousel, new CSS or UI implementation this stage; Vercel continues to show a rejected prototype. Technical base/CI retained.
+- Production prerequisite: one truly cleared authored film/work/process packet and real editorial/venue publishing ownership. Need source-backed expressive experience, not repeating three program images or copying an award-site visual surface.
