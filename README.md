@@ -65,3 +65,12 @@ The 2008 founding and 2024 demolition, fundraiser and 2025/26 creative programme
 - [Deep maker-led international comparison](references/deep-comparative-research.md): Getty/Resn, National Gallery, Rijksmuseum, Clyfford Still Museum, Detroit Institute of Arts and Darb's own *No Problem: The People*.
 - [2026 source disagreements](research/fact-check-and-discrepancies-2026.md) — Something Else 2025/26 numbering, venue and authorship caveats.
 - [Source import script](source-material/upload_from_pdf.ps1) — used for the completed upload. Source image and PDF binaries are now merged to `main` in [PR #1](https://github.com/omarkhair70-droid/darb/pull/1).
+
+## Stage 05 — visual research after source ingestion (2 Nov 2026)
+
+- [Three non-final, source-photo editorial art-direction territories](creative/11-visual-direction-test-lab.md): **Between**, **Made by Many**, **What Then?**. Their original-photo montage previews were delivered as PNG files in the ChatGPT handoff, not site implementation assets.
+- [Visual identity archaeology](research/visual-identity-archaeology-2022-2026.md): institution logo versus exhibition-specific posters; Aouda 2022 pre-dates 2024 demolition; 2020 Behance work isn't presumed official branding.
+- [House & Guest identity framework](creative/12-house-and-guest-identity-framework.md): permanent Darb navigation/credibility with flexible project-specific visual identities, AR/EN typography and two-speed visitor journeys.
+- [77-image quality audit](assets/source-image-quality-qa.md): 77 embedded objects include duplicates and non-photo layout art; request original hires photos and author credits for flagship work.
+
+**Still NOT selected:** final logo treatment, typefaces, palette, homepage, motion stack, interactive narrative or any website code. Visual composition boards are research tests; photographed objects were not edited or invented.
