@@ -1,0 +1,32 @@
+{
+  "name": "darb1718-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prepare:media": "node scripts/prepare-media.mjs",
+    "predev": "npm run prepare:media",
+    "dev": "next dev",
+    "prebuild": "npm run prepare:media && npm run check:content",
+    "build": "next build",
+    "start": "next start",
+    "check:content": "node scripts/check-content.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "next-sanity": "^13.1.5",
+    "sanity": "^4.0.0",
+    "gsap": "^3.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
