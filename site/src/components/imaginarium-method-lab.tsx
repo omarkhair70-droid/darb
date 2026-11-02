@@ -62,7 +62,7 @@ export function ImaginariumMethodLab({lang}:{lang:Locale}){
  useEffect(()=>{
    if(!hydrated||reduce||!root.current)return;
    const ctx=gsap.context(()=>{
-     gsap.fromTo(".ig-active-copy",{autoAlpha:0,y:16},{
+     gsap.fromTo(".ig-active-copy",{autoAlpha:.88,y:10},{
        autoAlpha:1,y:0,duration:.55,ease:"power2.out",stagger:.06,overwrite:"auto"
      });
    },root);
