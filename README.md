@@ -54,3 +54,14 @@ No final palette, font, logo alteration, homepage hero, site coding, motion libr
 ## Cultural accuracy and attribution
 
 The 2008 founding and 2024 demolition, fundraiser and 2025/26 creative programmes have documentary sources but the **present venue, exact staff titles, fundraising outcome, early opening discrepancy and individual captions** remain open. Never make a private-person biography or a “comeback” scene from uncertain details.
+
+
+## Stage 04 — verified visual research checkpoint (2 Nov 2026)
+
+- [77-image individual visual audit + research priority](assets/visual-audit-77.md) — 31 high-potential, 39 supporting, 5 low, 2 layout artifacts.
+- [77-image audit CSV](assets/visual-audit-77.csv) — per-object PDF page, XREF, visual description, proposed use and validation gate.
+- [Image quality / duplication / dimensions check](assets/source-image-quality-qa.md) — 77 objects, 75 binary-unique streams; artwork and photographer captions pending.
+- [Three source-grounded storyboards, without website UI](creative/10-story-prototypes-on-paper.md): *Between*, *Made by Many*, *What Then?*.
+- [Deep maker-led international comparison](references/deep-comparative-research.md): Getty/Resn, National Gallery, Rijksmuseum, Clyfford Still Museum, Detroit Institute of Arts and Darb's own *No Problem: The People*.
+- [2026 source disagreements](research/fact-check-and-discrepancies-2026.md) — Something Else 2025/26 numbering, venue and authorship caveats.
+- [Media ZIP import script (Windows)](source-material/import-overview-media.ps1) — verifies PDF hash and 77 image files, then pushes binary assets in separate branch **when locally run**. No binary upload falsely claimed here.
