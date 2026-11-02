@@ -118,3 +118,13 @@ Read in order, not all 270 repo paths:
 
 **Acceptance:** a commissioner can navigate ALL research prototypes from a single internal entry; a collaborator can tell which mechanics are verified, which design choices were rejected, which assets are source-backed, what remains blocked and what the ONE next integrated project slice is. None of this claims a completed Darb visual design.
 
+
+
+## POST-INVENTORY: Stage 16 original Darb art-direction V01 is in REAL website routes (2026-11-02)
+
+The integration plan in this atlas was not abandoned or restarted as another Lab. Its first **actual website slice** has now been implemented, preserving all originals:
+- Source-based **Open Field** of 5 programme fragments replaces rejected 3-image viewer at homepage; full source/project links, bilingual accessible typography, distinct media scale.
+- Four programme/practice voices + film provenance + honest current-programme/participation routes, not only design prototypes.
+- Shared functional institutional architecture on header/index/exhibition pages; separate film and work media retain their own visual integrity.
+- Documentation of art-direction decisions/limitations: \`creative/30-DARB-OPEN-FIELD-ART-DIRECTION-V01.md\`.
+- **Unapproved proposal**, NOT public release. Specific photography, poster masters, artists' permissions, official vector logo and venue/time approvals still to get. Must compare actual desktop/mobile screenshots with both prior rejected Darb versions and labs.
