@@ -1,6 +1,19 @@
 # PROJECT_STATUS — Darb 1718 Creative R&D
 
-**Date:** November 2, 2026. **Phase:** Stage 00–03 source and reference research (in progress). **Implementation:** NOT STARTED.
+## ⚠️ CLIENT REJECTION — V1 WEBSITE DESIGN (2 NOVEMBER 2026)
+
+Client reviewed the actual protected Vercel desktop screenshot and **rejected the entire current visual system**, citing strong resemblance to earlier unrelated Fokhara/portfolio site presentation: conventional header, giant generic tagline, rectangular hero artwork, beige/charcoal colors and repetitive cards. The redesign must NOT start with another template, visual palette swap, or screenshot selection.
+
+This is not a rejection of research/source, GitHub, Vercel auto Preview, AR/EN/Next.js routes, CMS model, test infrastructure or technology options. The prior 16/16 or later browser checks only prove engineering behavior, NOT aesthetic or curatorial approval.
+
+- Existing V1 UI is rejected experimental scaffolding and is still visible on protected Vercel Preview until it is replaced. No production/public release.
+- Draft PR #2 remains open as a *technical foundation only* and is explicitly marked DESIGN REJECTED.
+- New implementation contract on feature branch: creative/14-REJECTED-V1-CREATIVE-RESET.md, creative/15-EXPERIENCE-ART-DIRECTION-CONTRACT-V2.md, creative/16-IMAGE-RIGHTS-AND-FIDELITY-DECISIONS.md.
+- Creative next step: real artwork/artist and exhibition identity evidence + reference-site behavior deconstruction -> a connected site-wide cultural experience -> replacement UI/interaction in same tested app -> actual protected Vercel review.
+- No inherited colors, fonts, single layout, art direction from client memory, fake museum building, or blanket removal of GSAP/Three.js/Lenis.
+
+
+**Date:** November 2, 2026. **Phase:** Creative redesign after complete V1 visual rejection. **Implementation:** real prototype app and Vercel protected Preview exist on feature branch but artistic UI is REJECTED.
 
 ## Confirmed research artifacts
 - Historical and institutional dossiers with attributable links.
