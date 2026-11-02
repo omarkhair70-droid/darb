@@ -1,5 +1,14 @@
 # AGENTS.md — Darb 1718 Creative R&D and Engineering
 
+## OVERRIDING CLIENT DECISION — STAGE 09 IMAGE VIEWER ALSO REJECTED (2026-11-02)
+
+**The commissioner has explicitly confirmed that the second iteration is also not an acceptable Darb website.** The interactive 3-image “encounter stage” (INBETWEEN, Fustat craft, performance), dark background, scene buttons, list archive and GSAP fade constitute an **Image Viewer** rather than the deeply authored, connected cultural experience sought. DO NOT treat Stage 09 or the Vercel READY state or 24/24 passing Playwright tests as a design breakthrough or accepted direction. Do not polish the Image Viewer or create a third superficial homepage variant.
+
+**Preserve all original research and technical infrastructure**, including the repository archive, Git/Vercel integration, AR/EN, content provenance, CI, GSAP and valid 3D/interactive options. Freeze new presentation/visual-code changes until **a source-driven integrated experience specification** is worked out: actual artworks/creators, media affordances, active participation/venues, entry-to-work-to-person-to-context-to-action journeys, interaction purpose and fallback; use the international references at mechanism and creative authorship level, rather than transferring visual surfaces or selecting packages first.
+
+**Current site/ branch**: engineering testbed with two visually rejected stages. Neither is Darb's creative direction. Continue source research, concept validation and concrete media requirements; resume frontend rebuild when these decisions are joined across the whole site, not for an image demo.
+
+
 ## OVERRIDING CLIENT DECISION — COMPLETE V1 CREATIVE REJECTION (2026-11-02)
 
 **The client has rejected the entire Vercel website UI. No present layout or art direction is approved.** The screenshot of the actual English site shows a generic corporate header, gigantic slogan, rectangular photo, beige background and conventional image cards. The client identified repetition of unrelated Fokhara/portfolio aesthetics and explicitly requested a full creative reset using Darb's original source artworks, curatorial brief and international reference-site systems. Do NOT propose a change of colors, typeface, hero photo, or two alternate mockups; do NOT refer to a passing CI build as design approval.
