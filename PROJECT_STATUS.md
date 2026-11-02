@@ -12,8 +12,8 @@
 
 ## Repository upload reality
 - **Committed:** Markdown research, creative planning, bibliography, reference atlas, 21-page content index, 77-image XREF CSV manifest.
-- **NOT YET in GitHub:** original PDF and 77 image binary bytes; 21 page PNGs/contact sheet. Files are available in research chat ZIP, prepared for binary `git lfs` or normal push after a connector/path with byte-transfer support is available.
-- Do NOT state that all PDF/image files are stored on GitHub yet.
+- **NOW IN GITHUB `main` (2026-11-02):** original PDF, 77 embedded images, 21 page PNG previews, 2 contact sheets and original CSV/JSON manifest; merged via [PR #1](https://github.com/omarkhair70-droid/darb/pull/1), commit `f0d4ba92ad356c73f491d51ff3afd7310d93031c`.
+- Verified by GitHub comparison: 103 new files in source media merge. This does **not** validate individual artist credits, image resolution or consent.
 - User confirmed rights for use of *supplied material* in official website project; individual credit/consent metadata remains for editorial review.
 
 ## Next questions
@@ -32,5 +32,5 @@
 - Documented three full no-code storyboards using exact source image IDs: *Between*, *Made by Many*, *What Then?* — **none chosen**.
 - Deepened international design research with maker-led case interviews: Getty Tracing Art, National Gallery Imaginarium, Rijksmuseum, DIA, Clyfford Still Museum.
 - Added fact-check ledger for inconsistent Something Else 2025/2026 edition naming and official venue information; no invented resolution.
-- Continued to keep 21-page source PDF, all 77 binary images and page previews in chat-delivered ZIP, **not yet committed to GitHub**. Included PowerShell import script in repo.
+- Merged all 103 source files to GitHub `main` via [PR #1](https://github.com/omarkhair70-droid/darb/pull/1); completed binary ingestion without starting website implementation.
 - **Stage 04 next editorial gates:** direct artist/caption/consent audit, higher-resolution images, proof of current venue, staff workshop / narrative critique. No frontend build.
