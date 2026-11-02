@@ -7,7 +7,7 @@ for (const lang of ["ar","en"] as const) {
     await expect(page.locator("html")).toHaveAttribute("lang",lang);
     await expect(page.locator("html")).toHaveAttribute("dir",lang==="ar"?"rtl":"ltr");
     await expect(page.locator("h1").first()).toBeVisible();
-    await expect(page.locator(".encounter-object img")).toBeVisible();
+    await expect(page.locator(".field-piece img").first()).toBeVisible();
     await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-home.png",fullPage:true});
     const archive=await page.goto("/"+lang+"/archive");
     expect(archive?.status()).toBe(200);
@@ -79,17 +79,20 @@ test("reduced-motion navigation retains full story access",async({page})=>{
 
 
 for(const lang of ["ar","en"] as const){
- test(lang+" — first encounter changes actual art and documents source",async({page})=>{
+ test(lang+" — authored homepage keeps five genuine cultural fields linked to source records",async({page},info)=>{
    await page.goto("/"+lang);
-   await expect(page.locator(".encounter-object img")).toHaveAttribute("src",/pdf_image_0360/);
-   await expect(page.locator(".encounter-provenance")).toContainText("7");
-   await page.locator(".encounter-choice button").nth(1).click();
-   await expect(page.locator(".encounter-object img")).toHaveAttribute("src",/pdf_image_0323/);
-   await expect(page.locator(".encounter-provenance")).toContainText("3");
-   await expect(page.locator(".encounter-choice button").nth(1)).toHaveAttribute("aria-pressed","true");
-   await page.locator(".encounter-choice button").nth(2).click();
-   await expect(page.locator(".encounter-object img")).toHaveAttribute("src",/pdf_image_0470/);
-   await expect(page.locator(".encounter-provenance")).toContainText("20");
+   await expect(page.locator(".darb-open-field h1")).toBeVisible();
+   await expect(page.locator(".field-piece")).toHaveCount(5);
+   await expect(page.locator(".field-piece img")).toHaveCount(5);
+   await expect(page.locator(".field-piece-cinema")).toHaveAttribute("href","/"+lang+"/projects/jusoor");
+   await expect(page.locator(".field-piece-inbetween .field-piece-provenance")).toContainText("PDF 07");
+   await expect(page.locator(".practice-entry")).toHaveCount(4);
+   await expect(page.locator(".film-inset-type a")).toHaveAttribute("href","/"+lang+"/works/braids-of-identity");
+   const width=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+   expect(width,"Darb authored home should have no horizontal overflow").toBeLessThanOrEqual(2);
+   await page.screenshot({path:"test-results/"+lang+"-"+info.project.name+"-authored-darb-full.png",fullPage:true});
+   await page.locator(".field-piece-cinema").click();
+   await expect(page).toHaveURL(new RegExp("/"+lang+"/projects/jusoor$"));
  });
 }
 test("research mode keeps all source records and no marketing cards",async({page})=>{
