@@ -19,7 +19,6 @@
     "react-dom": "^19.2.2",
     "next-sanity": "^13.1.5",
     "sanity": "^5.29.0",
-    "gsap": "^3.14.0",
     "styled-components": "^6.1.15"
   },
   "devDependencies": {
