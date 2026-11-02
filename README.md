@@ -74,3 +74,15 @@ The 2008 founding and 2024 demolition, fundraiser and 2025/26 creative programme
 - [77-image quality audit](assets/source-image-quality-qa.md): 77 embedded objects include duplicates and non-photo layout art; request original hires photos and author credits for flagship work.
 
 **Still NOT selected:** final logo treatment, typefaces, palette, homepage, motion stack, interactive narrative or any website code. Visual composition boards are research tests; photographed objects were not edited or invented.
+
+
+## Stage 06 — Whole-Site Architecture Consolidation (2 Nov 2026)
+
+**The commissioner rejected the workflow of designing isolated exhibition/homepage variants first.** The correct next step is a holistic site contract and stack decision, then actual product implementation. Prior boards are research evidence, **not candidate standalone sites**.
+
+- [Live reference systems deconstructed](research/06-reference-experience-systems-deconstruction.md) — National Gallery Imaginarium, Getty/Resn Tracing Art, Oculi Mundi, Rijksmuseum; art strategy, internal tools, interaction, accessibility and performance choices.
+- [Whole-site experience & content architecture](creative/13-whole-site-experience-architecture.md) — House/Guest identity, Explore + Index/Archive + What's On/Participate, shared relational schema, AR/EN, routes and publishing workflow.
+- [ADR-001 preferred technology baseline](architecture/ADR-001-conditional-tech-stack.md) — Next.js / TypeScript / Sanity / authored CSS / GSAP for special chapters; conditional Lenis, CSS 3D, R3F, deep zoom and forms.
+- [Real execution handoff and finite gates](architecture/EXECUTION_HANDOFF_PREBUILD.md) — full product vertical slices, content/approval/technology probes, no code yet.
+
+**State:** research supports a strong conditional stack and whole-site model. The client must still confirm editorial ownership, current venues/open forms, artwork and photographer credits, production infrastructure and any purpose-specific immersive module. No actual Next.js website or CMS instance has been built.
