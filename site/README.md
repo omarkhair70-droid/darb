@@ -1,5 +1,7 @@
 # Darb 1718 — first real website foundation
 
+> **Visual direction not selected.** Current CSS, hero arrangement, colors, typography, cards and editorial rhythm are disposable engineering scaffolding. In particular, do not infer Darb's look from client memory preferences, prior assistant moodboards, or an assumed minimalist/museum aesthetic. Only the grounded data and functioning accessibility/navigation foundation are retained as requirements. No universal motion/3D stack is committed.
+
 This is the **real Next.js application**, intentionally separate from the source-research folders. It is an implementation in progress, not a released or officially approved Darb public website.
 
 ## Getting started
