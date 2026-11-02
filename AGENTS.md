@@ -67,3 +67,12 @@ Every work item: objective / actual evidence / source URL+date / hypothesis or f
 Current **recommended baseline** (not a repo initialization): Next.js App Router, TypeScript, React, Sanity, bespoke CSS, GSAP ScrollTrigger for story chapters; native scroll by default; Lenis only if demonstrated benefit; no default Three.js or arbitrary AI; source-respecting responsive images and optional Micrio/IIIF only for actual hires art. Earlier blanket “avoid choosing stack” instructions are superseded by this *conditional architecture choice*. Exact dependencies and hosting require build-gate validation.
 
 All future visual/type/motion studies must serve **the joined website system**: Explore + searchable Archive/Index + live programmes/Participation. Don't fork into separate one-off exhibition microsites or lock visual identity based solely on 3 collages. Stage 07 has an active Draft PR #2 with actual Next.js code and tests. Continue real vertical-slice implementation and QA; do not call it a launched public site before production/editorial gates are complete.
+
+
+## Stage 10 — Sourced experience before further presentation code (2026-11-02)
+Stage 07 marketing hero and Stage 09 dark three-image viewer are BOTH rejected. **New source-backed research now exists in the feature branch:**
+- research/19-reference-autopsy-experience-not-visuals.md — maker-specific deep analysis, concrete transferable mechanism and prerequisite
+- creative/20-whole-site-experience-kernel-v03.md — continuous reversible experience topology, media-native capabilities, graph/URL/rights requirements
+- creative/21-jusoor-source-backed-editorial-walk.md — source-supported full film→maker→programme→index→participation path and original media packets
+
+These are **not new website designs**, palette choices, component directions or approved curatorial scripts. Do not regenerate a third homepage. Before replacing frontend styling, build a real named-work source packet with artist/curator and actual video/photo rights, verify current activities with Darb, then implement ONE coherent cross-site encounter with source-backed medium-specific interaction. Existing Next.js/Sanity/GSAP/Vercel/CI infrastructure is retained. No UI code changed in Stage 10.
