@@ -17,7 +17,6 @@ export function SiteHeader({lang}:{lang:Locale}) {
   return <header className="site-header">
     <div className="shell topbar">
       <Link href={"/"+lang} className="brand" aria-label={copy.name+" — "+copy.nav.home}>
-        <span className="brand-symbol" aria-hidden="true">✳</span>
         <span>{copy.name}</span>
       </Link>
       <nav className="desktop-navigation" aria-label={lang==="ar"?"التنقل الرئيسي":"Primary navigation"}>

@@ -9,16 +9,17 @@
     "prebuild": "npm run prepare:media && npm run check:content",
     "build": "next build",
     "start": "next start",
-    "check:content": "node scripts/check-content.mjs",
+    "check:content": "node scripts/check-content.mjs && node --test tests/*.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "^16.0.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
     "next-sanity": "^13.1.5",
-    "sanity": "^4.0.0",
-    "gsap": "^3.14.0"
+    "sanity": "^5.29.0",
+    "gsap": "^3.14.0",
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
