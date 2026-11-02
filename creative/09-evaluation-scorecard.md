@@ -21,7 +21,7 @@ Score each 1–5; reviewers should attach evidence and screenshots. **No design 
 - [x] Online case-study source register and awards evidence.
 - [x] Working brief, narrative territories, initial IA and stack radar documented.
 - [ ] Full 77-image caption/artist/photographer rights annotations confirmed by institution.
-- [ ] Original 21-page PDF and binary media actually ingested to GitHub (still pending due to connector limit).
+- [x] Original 21-page PDF and 77 image assets, 21 page renders, 2 contact sheets and CSV/JSON manifest ingested and merged via [PR #1](https://github.com/omarkhair70-droid/darb/pull/1) on 2 Nov 2026.
 - [ ] Current venue status, full staff roles and programme operations confirmed directly.
 - [ ] Three real-image narrative prototype boards critiqued by team.
 - [ ] Motion and AR/EN mobile experiments run.
