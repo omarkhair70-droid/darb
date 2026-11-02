@@ -200,3 +200,11 @@ html[lang=ar] .darb-real-world h2{line-height:1.38}
  .darb-open-field .field-end-intro p{font-size:.82rem;max-width:160px}
  .darb-open-field .field-descend{font-size:.51rem}
 }
+
+
+/* Preserve a measured clear zone before the 116px wayfinding strip.
+ * Avoid the paper fragments concealing the invitation to continue. */
+@media(min-width:721px){
+ .darb-open-field .field-piece-residency{top:51%}
+ .darb-open-field .field-piece-something{top:49%}
+}
