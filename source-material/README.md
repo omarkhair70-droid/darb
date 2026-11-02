@@ -3,7 +3,7 @@
 **Supplied by project commissioner**: `Darb 1718 Overview 2026`, 21-page PDF, Canva creator, metadata Author: **Nourhan Elmeligy**, created **2026-09-21**. Commissioner affirmed permission to use provided photos for the official website project. This is not proof of permissions for independently discovered media.
 
 - 21 page full-size previews and **77 embedded photos/graphic assets** were programmatically extracted from the exact PDF.
-- Original PDF SHA-256: `2d37fbc02f6b155caf4a215ba45ec267e44bfa3f0c428ded9b8f2e5365f67e3cc` **PLACEHOLDER — DO NOT USE; needs verification**.
+- Original PDF SHA-256: `07c59412bfd9c9c85314d54069e8a0e2a9e5db5472247ca690505969085a9b74` **verified against source binary**.
 - [77-image inventory](../assets/manifest.csv): exact page-to-image XREF mapping and source provenance.
 - The project-working **ZIP containing original PDF, images, page previews and contact sheet** was exported with the chat delivery and retained there. **These large binary assets are not yet committed to the public GitHub repository.** GitHub integration available in this session writes UTF-8 content and cannot directly upload 31 MB of local binary source; **never mark binary ingestion complete**.
 - Recommended permanent locations once binary upload is possible: `source-material/original/Darb_1718_Overview_2026.pdf`, `assets/original/pdf_image_*.jpeg|png`, `assets/previews/page_XX.png`, `assets/contact-sheet.jpg`.
