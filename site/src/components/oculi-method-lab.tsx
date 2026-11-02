@@ -21,7 +21,7 @@ export function OculiMethodLab({lang}:Props){
  const [reduced,setReduced]=useState(false);
  const stage=useRef<HTMLDivElement>(null);
  const camera=useRef<HTMLDivElement>(null);
- const previous=useRef({mode:"explore" as Mode,focus:referenceObjects[0].id});
+ const previous=useRef<{mode:Mode;focus:string}>({mode:"explore",focus:referenceObjects[0].id});
  const lastWheel=useRef(0);
  const selected=referenceObjects.find(x=>x.id===focus)||referenceObjects[0];
  const selectedIndex=referenceObjects.findIndex(x=>x.id===selected.id);
@@ -90,7 +90,7 @@ export function OculiMethodLab({lang}:Props){
    [o.title.ar,o.title.en,o.kind,String(o.page)].some(v=>v.toLowerCase().includes(filter.toLowerCase()))
  );
 
- return <main className="ref-lab" ref={stage}>
+ return <div className="ref-lab" ref={stage}>
   <div className="lab-instructions" aria-label={ar?"معلومات الدراسة":"Study identification"}>
    <Link className="lab-exit" href={"/"+lang+"/archive"}>{ar?"← إلى أرشيف درب":"← Back to Darb index"}</Link>
    <div className="lab-identity"><span>R&D / REFERENCE LAB 01</span><strong>{ar?"دراسة التنقّل المكاني":"Spatial navigation study"}</strong></div>
