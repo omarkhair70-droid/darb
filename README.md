@@ -25,7 +25,7 @@ Goal: an international-quality cultural website whose experience emerges from Da
 - [External image links & source rights](media/image-sources.md)
 - [Media, image and CMS editorial requirements](creative/08-content-and-media-spec.md)
 
-**Binary status:** source PDF, 77 extracted images, 21 page PNG previews, contact sheet and manifest are fully assembled in the **chat-delivered 71-MB media ZIP** `darb1718_research_media_2026-11-02.zip`. They are **not yet uploaded as GitHub binary files** due to lack of local-file binary transfer in this GitHub integration. The original PDF SHA-256 is recorded, so later ingestion can be verified. User confirmed rights for supplied project imagery; newly found independent third-party photographs have separate rights. This is explicitly an open ingestion task, not a completed GitHub media upload.
+**Binary archive status: COMPLETE — merged to `main` in [PR #1](https://github.com/omarkhair70-droid/darb/pull/1) on 2 Nov 2026.** Original [21-page PDF](source-material/original/Darb_1718_Overview_2026.pdf), [77 extracted image assets](assets/original/), [21 page previews](assets/previews/), [two contact sheets](assets/contact-sheets/), [original JSON](assets/manifest-original.json) and [CSV manifest](assets/manifest-original.csv) are now in this repo. PDF SHA-256 was checked during upload. Commissioner confirmed permission to use supplied material for website; individual photographer/artwork credit and participant consent are still editorial gates. Separate external media has separate rights.
 
 ## Darb story, history, people, programme
 
@@ -64,4 +64,4 @@ The 2008 founding and 2024 demolition, fundraiser and 2025/26 creative programme
 - [Three source-grounded storyboards, without website UI](creative/10-story-prototypes-on-paper.md): *Between*, *Made by Many*, *What Then?*.
 - [Deep maker-led international comparison](references/deep-comparative-research.md): Getty/Resn, National Gallery, Rijksmuseum, Clyfford Still Museum, Detroit Institute of Arts and Darb's own *No Problem: The People*.
 - [2026 source disagreements](research/fact-check-and-discrepancies-2026.md) — Something Else 2025/26 numbering, venue and authorship caveats.
-- [Media ZIP import script (Windows)](source-material/import-overview-media.ps1) — verifies PDF hash and 77 image files, then pushes binary assets in separate branch **when locally run**. No binary upload falsely claimed here.
+- [Source import script](source-material/upload_from_pdf.ps1) — used for the completed upload. Source image and PDF binaries are now merged to `main` in [PR #1](https://github.com/omarkhair70-droid/darb/pull/1).
