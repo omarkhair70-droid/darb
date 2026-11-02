@@ -25,3 +25,14 @@ Its source checksum is recorded in `source-material/README.md`. The binaries are
 
 ## Research issue convention
 Every work item: objective / actual evidence / source URL+date / hypothesis or fact / affected content / editorial owner / open questions / next validation.
+
+
+
+## COMMISSIONER CORRECTION — Stage 06 whole-site research → real build (2026-11-02)
+**Do not propose next to make one or two page mockups and compare them, or to generate an isolated image to “choose a design.”** The commissioner explicitly wants to consolidate the entire website's **experience architecture, editorial source system, full UX, international reference systems and the chosen technology rationale** and then proceed to **real production implementation**, not decorative demos.
+
+**Read these before any new tasks:** `research/06-reference-experience-systems-deconstruction.md`, `creative/13-whole-site-experience-architecture.md`, `architecture/ADR-001-conditional-tech-stack.md`, `architecture/EXECUTION_HANDOFF_PREBUILD.md`.
+
+Current **recommended baseline** (not a repo initialization): Next.js App Router, TypeScript, React, Sanity, bespoke CSS, GSAP ScrollTrigger for story chapters; native scroll by default; Lenis only if demonstrated benefit; no default Three.js or arbitrary AI; source-respecting responsive images and optional Micrio/IIIF only for actual hires art. Earlier blanket “avoid choosing stack” instructions are superseded by this *conditional architecture choice*. Exact dependencies and hosting require build-gate validation.
+
+All future visual/type/motion studies must serve **the joined website system**: Explore + searchable Archive/Index + live programmes/Participation. Don't fork into separate one-off exhibition microsites or lock visual identity based solely on 3 collages. Tech spikes may be real coded vertical tests only after the explicit implementation gate; no pretend full site deployments.
