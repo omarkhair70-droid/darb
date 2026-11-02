@@ -44,11 +44,30 @@ if (-not $Python) {
     throw 'Python 3 missing. Install Python from python.org/downloads/windows and rerun.'
 }
 Write-Host '1/5  Original PDF verified.' -ForegroundColor Cyan
-& $Python @PyArgs -c 'import fitz; from PIL import Image' 2>$null
-if ($LASTEXITCODE -ne 0) {
-    Write-Host 'Installing PDF/image extraction tools...'
-    & $Python @PyArgs -m pip install --disable-pip-version-check 'pymupdf>=1.23' 'Pillow>=10'
-    if ($LASTEXITCODE -ne 0) { throw 'Installing PyMuPDF/Pillow failed; check Python and internet.' }
+# Windows PowerShell 5.1 promotes redirected native stderr to an ErrorRecord.
+# Probe expected missing imports with Continue; do not let the preliminary check abort.
+$PreviousErrorPreference = $ErrorActionPreference
+$ModulesAvailable = $false
+try {
+    $ErrorActionPreference = 'Continue'
+    & $Python @PyArgs -c 'import fitz; from PIL import Image' 2>$null | Out-Null
+    $ModulesAvailable = ($LASTEXITCODE -eq 0)
+} finally {
+    $ErrorActionPreference = $PreviousErrorPreference
+}
+if (-not $ModulesAvailable) {
+    Write-Host 'Missing PyMuPDF or Pillow. Installing image extraction dependencies...' -ForegroundColor Yellow
+    $PreviousErrorPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        & $Python @PyArgs -m pip install --disable-pip-version-check 'pymupdf>=1.23' 'Pillow>=10'
+        $InstallCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $PreviousErrorPreference
+    }
+    if ($InstallCode -ne 0) { throw 'Installing PyMuPDF/Pillow failed. Run: py -3 -m pip install pymupdf Pillow' }
+    & $Python @PyArgs -c 'import fitz; from PIL import Image'
+    if ($LASTEXITCODE -ne 0) { throw 'Python image extraction dependencies still unavailable after installation.' }
 }
 
 Push-Location $Repo
