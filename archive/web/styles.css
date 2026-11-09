@@ -418,3 +418,8 @@ html[lang="ar"] .zone-label strong{font-family:"Noto Naskh Arabic",serif;letter-
   background:linear-gradient(0deg,#dce9e8ed 0%,#dce9e8d9 22%,transparent 54%)
  }
 }
+
+
+/* Encounter exits the dark opening's typography palette even at chapter zero. */
+.experience[data-mode="encounter"] .identity,
+.experience[data-mode="encounter"] .chrome-center{color:#1b3932}
