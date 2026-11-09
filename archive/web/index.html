@@ -1,100 +1,91 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <meta name="theme-color" content="#171918"/>
-  <meta name="description" content="Darb Archive — The Living Memory. A source-led interactive exploration of Tales of Fustat."/>
-  <title>Darb Archive — The Living Memory</title>
-  <link rel="stylesheet" href="/styles.css"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#edeee9"/>
+<meta name="description" content="Darb Archive — The Living Memory. Follow an ever-changing constellation of artworks, people, and places."/>
+<title>Darb Archive / The Living Memory</title>
+<link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
-  <a class="skip-link" href="#experience">Skip to the story</a>
-  <div class="site-shell">
-    <header class="topbar">
-      <a href="#entry" class="wordmark" aria-label="Darb Archive home"><span class="mark">D<span class="mark-gap">/</span>A</span><span class="wordmark-text">DARB<br/>ARCHIVE</span></a>
-      <span class="topbar-sub" data-i18n="collection">THE LIVING MEMORY / RESEARCH EDITION</span>
-      <nav class="controls" aria-label="Experience controls">
-        <button id="storyToggle" type="button" class="nav-chip is-active">STORY</button>
-        <button id="traceToggle" type="button" class="nav-chip">TRACE <span class="diagonal">↗</span></button>
-        <span class="thin-rule" aria-hidden="true"></span>
-        <button id="langToggle" type="button" class="nav-chip lang-chip" aria-label="Switch language">عربي</button>
-        <button id="quietToggle" type="button" class="quiet-chip" aria-pressed="false" title="Toggle quiet, reduced-motion reading mode">◌ <span data-i18n="quiet">QUIET</span></button>
-      </nav>
-    </header>
-
-    <main id="experience">
-      <section id="entry" class="entry">
-        <div class="entry-topline"><span>01 — 001</span><span data-i18n="introLabel">A LIVING RECORD OF ART, PEOPLE & PLACE</span><span>CAIRO, EGYPT</span></div>
-        <div class="hero-word">
-          <span class="hero-eyebrow" data-i18n="eyebrow">ONE PLACE. MANY TRACES.</span>
-          <h1><span data-i18n="heroOne">Memory</span><span class="italic" data-i18n="heroTwo"> moves.</span></h1>
-          <p class="hero-desc" data-i18n="heroDesc">Not a wall of images. An invitation to follow what connects a place, the people around it, and what they make.</p>
-        </div>
-        <div class="hero-art" aria-label="Archival material from Tales of Fustat">
-          <div class="hero-field" aria-hidden="true"></div>
-          <div class="hero-object hero-a"><img src="/media/39.jpeg" alt="" loading="eager"/><span>FIG. 01 / ENCOUNTER</span></div>
-          <div class="hero-object hero-b"><img src="/media/41.jpeg" alt="" loading="eager"/><span>FIG. 03 / THE TRACE</span></div>
-          <div class="hero-object hero-c"><img src="/media/42.jpeg" alt="" loading="eager"/><span>FIG. 04 / MEMORY</span></div>
-          <svg class="hero-thread" aria-hidden="true" viewBox="0 0 800 600" preserveAspectRatio="none"><path d="M115 425 C210 395 300 135 420 240 S580 410 710 150"/></svg>
-          <div class="hero-vertical">T / F — 001 <span>·</span> 2026 OVERVIEW</div>
-        </div>
-        <div class="entry-bottom">
-          <a href="#chapter-0" class="enter-link"><span data-i18n="begin">ENTER THE STORY</span><span class="enter-icon">↓</span></a>
-          <span class="meta-quiet" data-i18n="heroFoot">Tales of Fustat · Five encounters · Follow your own path</span>
-          <span class="tiny-cross" aria-hidden="true">✳</span>
-        </div>
-      </section>
-
-      <section class="story-introduction" aria-label="Project introduction">
-        <span>THE ARCHIVE / 001</span>
-        <p data-i18n="storyIntro">A photograph is a beginning, not an ending. Follow the work backwards into the hands, places and conversations that give it meaning.</p>
-        <span class="intro-line" aria-hidden="true"></span>
-      </section>
-
-      <div class="story-area" id="storyArea">
-        <div class="story-column" id="chapters" aria-label="Story chapters"></div>
-        <aside class="visual-column" aria-label="Archival imagery and its connected context">
-          <div class="visual-stage" id="visualStage">
-            <div class="stage-grain" aria-hidden="true"></div>
-            <div class="stage-index">DARB ARCHIVE <span class="stage-index-right">TALES OF FUSTAT / SOURCE P.11</span></div>
-            <svg id="visualThread" class="visual-thread" viewBox="0 0 800 650" preserveAspectRatio="none" aria-hidden="true">
-              <path class="thread-secondary" d="M110,200 C240,70 485,495 700,190"/>
-              <path class="thread-main" d="M110,200 C240,70 485,495 700,190"/>
-            </svg>
-            <div class="scene-image image-39" data-image="39"><img src="/media/39.jpeg" alt="Archival photograph of a group conversation" loading="lazy"/><span>001 / TALKING</span></div>
-            <div class="scene-image image-40" data-image="40"><img src="/media/40.jpeg" alt="Archival photograph of a photography workshop" loading="lazy"/><span>002 / LOOKING</span></div>
-            <div class="scene-image image-41" data-image="41"><img src="/media/41.jpeg" alt="Blue cyanotype print documented in the programme" loading="lazy"/><span>003 / PRINTING</span></div>
-            <div class="scene-image image-42" data-image="42"><img src="/media/42.jpeg" alt="Prints and notebooks documented in the programme" loading="lazy"/><span>004 / RECORDING</span></div>
-            <div class="stage-orbit stage-orbit-one" aria-hidden="true"></div>
-            <div class="stage-orbit stage-orbit-two" aria-hidden="true"></div>
-            <div class="stage-note" id="stageNote">SOURCE OBJECTS / DAR​​B 1718 OVERVIEW · P. 11</div>
-            <div class="stage-progress"><span id="stepLabel">01 / 05</span><span class="stage-progress-line"><i id="progressBar"></i></span></div>
-          </div>
-        </aside>
-      </div>
-
-      <section class="exit-room">
-        <span class="exit-index">ARCHIVE / CONNECTIONS</span>
-        <h2 data-i18n="exitHeadline">Nothing ends at <em>one image.</em></h2>
-        <p data-i18n="exitBody">The story is one path through the material. Step outside it to explore the source connections yourself.</p>
-        <button id="openGraph" type="button" class="cta-trace"><span data-i18n="explore">TRACE THE CONNECTIONS</span><span>↗</span></button>
-      </section>
-      <footer class="footer"><span>DARB / ARCHIVE — THE LIVING MEMORY</span><span data-i18n="footer">INDEPENDENT WORKING EXPERIENCE · NOT AN OFFICIAL PUBLIC LAUNCH</span><span>© 2026 / RESEARCH</span></footer>
-    </main>
-
-    <section id="graphView" class="graph-view" hidden aria-label="Trace connections">
-      <div class="graph-head"><div><span>02 / THE THREAD</span><h2 data-i18n="graphTitle">Trace the connections.</h2></div><button id="closeGraph" type="button" class="graph-close"><span data-i18n="backStory">BACK TO STORY</span> ↙</button></div>
-      <div class="graph-layout">
-        <div class="graph-canvas" id="graphCanvas" aria-label="Interactive connection map">
-          <svg class="graph-lines" id="graphLines" aria-hidden="true"></svg>
-          <div class="graph-node-layer" id="graphNodeLayer"></div>
-          <div class="graph-hint" data-i18n="graphHint">SELECT A NODE · FOLLOW THE THREAD</div>
-        </div>
-        <aside class="graph-inspector" id="graphInspector" aria-live="polite"></aside>
-      </div>
-    </section>
+<a class="skip" href="#reading">Skip to readable archive</a>
+<div class="experience" id="experience" data-mode="journey">
+  <div class="canvas" id="canvas" aria-label="A spatial archive of Darb cultural projects">
+    <div class="world" id="world" aria-hidden="false">
+      <svg class="world-links" id="worldLinks" viewBox="0 0 5200 3000" aria-hidden="true"></svg>
+      <div id="artifacts"></div>
+      <div class="world-provenance" id="worldProvenance" aria-hidden="true">DARB / 1718<br>AN ARCHIVE OF ENCOUNTERS</div>
+    </div>
+    <div class="atmosphere" aria-hidden="true"></div>
   </div>
-  <script type="module" src="/app.mjs"></script>
+  <div class="veil" id="veil" aria-hidden="true"></div>
+
+  <header class="chrome">
+    <button class="identity" id="homeBtn" type="button" aria-label="Return to archive beginning">
+      <span class="identity-symbol">D<span>∕</span>A</span>
+      <span class="identity-name">DARB<br>ARCHIVE</span>
+    </button>
+    <div class="chrome-center"><span class="chrome-cross">✳</span><span data-i18n="memory">THE LIVING MEMORY</span></div>
+    <nav class="chrome-actions" aria-label="Experience controls">
+      <button id="localeBtn" class="chrome-button language" type="button" aria-label="Change language">عربي</button>
+      <button id="modeBtn" class="chrome-button view-switch" type="button" aria-pressed="false"><span class="mode-icon" aria-hidden="true">✧</span><span data-i18n="explore">EXPLORE</span></button>
+      <button id="indexBtn" class="menu-button" type="button" aria-label="Open archive index" aria-expanded="false"><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main class="narrative" id="narrative" aria-live="off">
+    <div class="narrative-overline" id="narrativeOverline">ARCHIVE NO. 001 / CAIRO</div>
+    <h1 class="statement" id="statement"><span id="statementA">An archive</span><em id="statementB">is never still.</em></h1>
+    <p class="narrative-body" id="narrativeBody">A place is shaped by the people, encounters and experiments that pass through it.</p>
+    <div class="chapter-source" id="chapterSource">DARB 1718 · OVERVIEW 2026</div>
+  </main>
+
+  <div class="axis" id="axis" role="group" aria-label="Journey chapters">
+    <span class="axis-number" id="axisNumber">01 / 07</span>
+    <div class="axis-track" id="axisTrack"><i id="axisFill"></i></div>
+    <button id="nextBtn" class="axis-next" type="button" aria-label="Continue to next moment">↓</button>
+  </div>
+
+  <div class="instruction" id="instruction">
+    <span class="instruction-line"></span>
+    <span id="instructionText">SCROLL TO TRAVEL THROUGH THE ARCHIVE</span>
+  </div>
+
+  <div class="spatial-hint" id="spatialHint" hidden>
+    <span data-i18n="spatialHint">DRAG TO WANDER · SCROLL TO ZOOM · SELECT AN IMAGE</span>
+  </div>
+
+  <aside class="object-detail" id="detail" hidden aria-live="polite">
+    <button class="detail-dismiss" id="closeDetail" type="button" aria-label="Close object details">×</button>
+    <div class="detail-marker" id="detailMarker">ARCHIVE OBJECT / 001</div>
+    <h2 id="detailTitle"></h2>
+    <p id="detailText"></p>
+    <div class="detail-meta" id="detailMeta"></div>
+    <div class="detail-controls">
+      <button id="followBtn" type="button" class="text-action" hidden>FOLLOW THIS THREAD ↗</button>
+      <button id="sourceBtn" type="button" class="text-action">VIEW RECORD ↗</button>
+    </div>
+  </aside>
+
+  <div class="index" id="index" hidden>
+    <div class="index-top"><span>DARB ARCHIVE / 001</span><button id="closeIndex" type="button" aria-label="Close index">CLOSE ×</button></div>
+    <h2 data-i18n="indexTitle">A map of the experience.</h2>
+    <div class="index-items" id="indexItems"></div>
+    <div class="index-foot"><span data-i18n="indexFoot">ONE CONNECTED SPACE · SEVEN MOMENTS</span><span>AR / EN</span></div>
+  </div>
+
+  <div class="scroll-runway" id="runway" aria-hidden="true"></div>
+</div>
+
+<section class="reading" id="reading">
+  <div class="reading-top"><span>DARB ARCHIVE / TEXT RECORD</span><button id="backToScene" type="button">↑ <span data-i18n="returnScene">RETURN TO EXPERIENCE</span></button></div>
+  <h2 data-i18n="readingTitle">A quieter way to follow the archive.</h2>
+  <p data-i18n="readingIntro">The same source-linked story, without spatial motion.</p>
+  <ol id="readingList"></ol>
+  <p class="reading-foot" data-i18n="readingFoot">Working research experience — independent of the official Darb website.</p>
+</section>
+
+<script type="module" src="/app.mjs"></script>
 </body>
 </html>
