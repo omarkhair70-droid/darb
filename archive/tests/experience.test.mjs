@@ -10,6 +10,7 @@ const read=(path)=>readFile(resolve(root,path),"utf8");
 const catalog=JSON.parse(await read("data/media-catalog.json"));
 const chapters=JSON.parse(await read("data/world-chapters.json"));
 const atlas=layoutCatalog(catalog);
+const threads=JSON.parse(await read("data/curatorial-threads.json"));
 const indexed=new Map(catalog.items.map(item=>[item.id,item]));
 
 test("all 77 original source objects survive, including graphics and architectural plans",async()=>{
@@ -94,4 +95,28 @@ test("known Fustat images retain exact archival references",()=>{
  assert.equal(indexed.get(51).cluster,"sector");
  assert.equal(indexed.get(75).role,"plan");
  assert.equal(indexed.get(73).display,false);
+});
+
+
+test("curatorial bridges are named comparisons with distinct programme source pages",()=>{
+ assert.equal(threads.connections.length,9);
+ for(const thread of threads.connections){
+  assert.equal(thread.type,"editorial-comparison");
+  const from=indexed.get(thread.fromId),to=indexed.get(thread.toId);
+  assert.equal(from.cluster,thread.fromCluster);
+  assert.equal(to.cluster,thread.toCluster);
+  assert.notEqual(from.cluster,to.cluster);
+  assert.deepEqual(thread.sourcePages,[from.page,to.page]);
+  assert.ok(thread.title.ar&&thread.title.en&&thread.description.ar&&thread.description.en);
+ }
+});
+
+test("cross-programme paths remain in the spatial scene and explain their editorial nature",async()=>{
+ const app=await read("web/app.mjs"),css=await read("web/styles.css"),build=await read("scripts/build.mjs");
+ assert.ok(app.includes("threads.connections"));
+ assert.ok(app.includes('thread.type!=="editorial-comparison"'));
+ assert.ok(app.includes("OTHER PRACTICES · CURATED CONNECTIONS"));
+ assert.ok(css.includes(".curatorial-thread"));
+ assert.ok(css.includes(".thread-item"));
+ assert.ok(build.includes("curatorial-threads.json"));
 });
