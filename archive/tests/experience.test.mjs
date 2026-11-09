@@ -3,77 +3,95 @@ import assert from "node:assert/strict";
 import {readFile,access} from "node:fs/promises";
 import {resolve} from "node:path";
 import {fileURLToPath} from "node:url";
+import {layoutCatalog,validateAtlas,WORLD_WIDTH,WORLD_HEIGHT,CLUSTERS} from "../src/world-layout.mjs";
 
 const root=resolve(fileURLToPath(new URL("..",import.meta.url)));
 const read=(path)=>readFile(resolve(root,path),"utf8");
-const references=[
- [1,308,"jpeg"],[7,323,"jpeg"],[21,359,"jpeg"],[22,360,"jpeg"],
- [29,379,"png"],[30,380,"jpeg"],[34,389,"jpeg"],[35,390,"jpeg"],
- [38,393,"jpeg"],[39,400,"jpeg"],[40,401,"jpeg"],[41,402,"jpeg"],
- [42,403,"jpeg"],[53,435,"png"],[56,443,"png"],[61,448,"png"],
- [70,469,"jpeg"],[71,470,"jpeg"]
-];
+const catalog=JSON.parse(await read("data/media-catalog.json"));
+const chapters=JSON.parse(await read("data/world-chapters.json"));
+const atlas=layoutCatalog(catalog);
+const indexed=new Map(catalog.items.map(item=>[item.id,item]));
 
-test("the experience is one continuous spatial scene, not a collection of sections",async()=>{
- const html=await read("web/index.html");
- const script=await read("web/app.mjs");
- for(const id of ['id="canvas"','id="world"','id="artifacts"','id="runway"','id="narrative"','id="reading"','id="index"','id="detail"']){
+test("all 77 original source objects survive, including graphics and architectural plans",async()=>{
+ assert.equal(catalog.items.length,77);
+ assert.deepEqual(catalog.items.map(item=>item.id),Array.from({length:77},(_,i)=>i+1));
+ assert.equal(new Set(catalog.items.map(item=>item.xref)).size,77);
+ assert.equal(atlas.length,72);
+ assert.deepEqual(catalog.items.filter(x=>!x.display).map(x=>x.id),[8,9,72,73,74]);
+ assert.deepEqual(validateAtlas(catalog,atlas),[]);
+ const rootRepo=resolve(root,"..");
+ for(const item of catalog.items){
+  await access(resolve(rootRepo,"assets","original",item.sourceFilename));
+  assert.equal(item.src,"/media/"+item.id+"."+item.sourceFilename.split(".").pop());
+  assert.ok(item.page>=1&&item.page<=21);
+  assert.ok(item.project.ar&&item.project.en&&item.title.ar&&item.title.en);
+ }
+});
+
+test("each editorial cluster has a stable place and the world can be explored continuously",()=>{
+ const clusters=new Set(atlas.map(item=>item.cluster));
+ assert.equal(clusters.size,17);
+ for(const group of clusters)assert.ok(CLUSTERS[group],group);
+ assert.ok(WORLD_WIDTH>=9000&&WORLD_HEIGHT>=6000);
+ const first=layoutCatalog(catalog);
+ assert.deepEqual(first.map(x=>[x.id,x.x,x.y]),atlas.map(x=>[x.id,x.x,x.y]));
+});
+
+test("sixteen source-led moments visit diverse programmes, with no fabricated person relations",()=>{
+ assert.equal(chapters.chapters.length,16);
+ assert.equal(new Set(chapters.chapters.map(x=>x.id)).size,16);
+ const programClusters=new Set();
+ for(const chapter of chapters.chapters){
+  assert.equal(chapter.title.ar.length,2);
+  assert.equal(chapter.title.en.length,2);
+  assert.ok(chapter.body.ar&&chapter.body.en);
+  if(chapter.focusId!==null){
+   const item=indexed.get(chapter.focusId);
+   assert.ok(item&&item.display);
+   assert.equal(chapter.sourcePage,item.page);
+   programClusters.add(item.cluster);
+  }
+ }
+ assert.ok(programClusters.size>=10);
+ for(const no of [39,41,42])assert.ok(chapters.chapters.some(ch=>ch.focusId===no));
+});
+
+test("the source world remains one scene with search, contextual threads and variable camera",async()=>{
+ const html=await read("web/index.html"),app=await read("web/app.mjs"),css=await read("web/styles.css");
+ for(const id of ['id="canvas"','id="world"','id="artifacts"','id="runway"','id="reading"','id="index"','id="detail"','id="archiveSearch"','id="relatedObjects"']){
   assert.ok(html.includes(id),id);
  }
- assert.ok(!html.includes("chapter-0"),"Legacy section-by-section story reintroduced");
- assert.ok(!html.includes('class="story-area"'),"Legacy split-column viewer reintroduced");
- for(const keyword of ["cameraForProgress","positionWorld","scrollProgress","pointermove","wheel","setLanguage","renderReading"]){
-  assert.ok(script.includes(keyword),"Missing spatial mechanic: "+keyword);
+ assert.ok(!html.includes('class="story-area"'));
+ for(const keyword of ["layoutCatalog","validateAtlas","cameraForProgress","positionWorld","scrollProgress","pointermove","wheel","renderSearch","nearestChapterFor","renderReading","setLanguage"]){
+  assert.ok(app.includes(keyword),keyword);
  }
+ assert.ok(css.includes("1600svh"));
+ assert.ok(css.includes(".zone-label")&&css.includes(".related-item"));
+ assert.ok(css.includes("@media(max-width:800px)"));
+ assert.ok(css.includes("prefers-reduced-motion"));
 });
 
-test("visual and interaction states are authored for real exploration",async()=>{
- const code=await read("web/app.mjs");
- const style=await read("web/styles.css");
- assert.match(code,/mode==="explore"/);
- assert.match(code,/setPointerCapture/);
- assert.match(code,/requestAnimationFrame/);
- assert.match(code,/document\.documentElement\.dir/);
- assert.ok(style.includes('.experience[data-mode="explore"]'));
- assert.ok(style.includes(".object-detail"));
- assert.ok(style.includes("@media(max-width:800px)"));
- assert.ok(style.includes("prefers-reduced-motion"));
- assert.ok(style.includes(".world"));
-});
-
-test("every source media entry exists in the supplied archive",async()=>{
- const repository=resolve(root,"..");
- const app=await read("web/app.mjs");
- for(const [id,xref,ext] of references){
-  const path=resolve(repository,"assets","original","pdf_image_0"+xref+"."+ext);
-  await access(path);
-  assert.ok(app.includes("id:"+id+",xref:"+xref),"Missing authored source metadata for image "+id);
- }
- assert.ok(!/images\.unsplash|picsum|placeholder\.com/.test(app));
-});
-
-test("the media build references the exact original image IDs",async()=>{
+test("build copies every original media format without pretending PNGs are JPEGs",async()=>{
  const script=await read("scripts/build.mjs");
- for(const [id,xref,ext] of references){
-  assert.ok(script.includes("["+id+","+xref+",\""+ext+"\"]"),"Missing media from build: "+id);
- }
- assert.ok(script.includes('id="canvas"'));
- assert.ok(script.includes("media.length"));
+ assert.ok(script.includes("catalog.items"));
+ assert.ok(script.includes("sourceFilename"));
+ assert.ok(script.includes("77"));
+ assert.ok(script.includes("media-catalog.json"));
+ assert.ok(script.includes("world-chapters.json"));
+ assert.equal(indexed.get(29).sourceFilename.endsWith(".png"),true);
+ assert.equal(indexed.get(53).sourceFilename.endsWith(".png"),true);
+ assert.equal(indexed.get(56).sourceFilename.endsWith(".png"),true);
+ assert.equal(indexed.get(61).sourceFilename.endsWith(".png"),true);
 });
 
-test("the same content remains readable without spatial movement",async()=>{
- const app=await read("web/app.mjs");
- const html=await read("web/index.html");
- assert.ok(app.includes("renderReading()"));
- assert.ok(app.includes('$("#readingList")'));
- assert.ok(html.includes('id="backToScene"'));
- assert.ok(html.includes('class="skip"'));
- assert.ok(app.includes('setLanguage("en")'));
-});
-
-test("source assets are never silently remapped to other programs",async()=>{
- const app=await read("web/app.mjs");
- for(const id of [39,40,41,42]){
-  assert.ok(app.includes("id:"+id+",xref:"+(id+361)+",page:11,project:\"Tales of Fustat\""));
+test("known Fustat images retain exact archival references",()=>{
+ for(const no of [39,40,41,42]){
+  const item=indexed.get(no);
+  assert.equal(item.page,11);
+  assert.equal(item.xref,no+361);
+  assert.equal(item.cluster,"fustat");
  }
+ assert.equal(indexed.get(51).cluster,"sector");
+ assert.equal(indexed.get(75).role,"plan");
+ assert.equal(indexed.get(73).display,false);
 });
