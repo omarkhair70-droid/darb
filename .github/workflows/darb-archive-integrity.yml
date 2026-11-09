@@ -25,3 +25,36 @@ jobs:
       - name: Test archive and produce production build
         run: npm run check
         working-directory: archive
+
+  archive-browser:
+    needs: archive-graph
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install browser test tools
+        run: npm install --no-package-lock
+        working-directory: archive
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: archive
+      - name: Build research experience
+        run: npm run build
+        working-directory: archive
+      - name: Exercise spatial navigation on desktop and mobile
+        run: npm run test:browser
+        working-directory: archive
+      - name: Retain visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: darb-archive-visual-evidence
+          path: archive/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
