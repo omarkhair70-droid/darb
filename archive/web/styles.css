@@ -249,3 +249,20 @@ html[lang="ar"] .zone-label strong{font-family:"Noto Naskh Arabic",serif;letter-
  .index-search input{font-size:17px}
  .zone-label strong{font-size:65px}
 }
+
+/* Authored programme connections. Dotted threads are labelled editorial parallels. */
+.world-links path.curatorial-thread{stroke:#5c918d;stroke-opacity:.35;stroke-width:3.5;stroke-dasharray:7 21}
+.world-annotations{transition:opacity .22s ease}
+.related-item span strong{display:block;font-size:13px;font-weight:500;line-height:1.35}
+.related-item span small{display:block;margin-top:4px;font-size:10px;color:#6d897d}
+.thread-title{margin-top:15px;padding-top:18px;border-top:1px solid #50746755}
+.thread-item{background:rgba(178,210,198,.12)}
+.experience[data-beat="6"] .narrative{left:63%;top:20%;max-width:33%;text-align:left}
+.experience[data-beat="6"] .statement{font-size:clamp(49px,6.8vw,103px)}
+.experience[data-beat="6"] .narrative-body{margin-left:0;margin-right:0}
+.experience[data-beat="6"] .veil{background:linear-gradient(270deg,#eef0e9ed,#eef0e98c 37%,transparent 78%)}
+@media(max-width:800px){
+ .experience[data-beat="6"] .narrative{left:22px;right:22px;top:auto;bottom:13%;max-width:calc(100% - 44px)}
+ .experience[data-beat="6"] .statement{font-size:clamp(44px,10.4vw,76px)}
+ .experience[data-beat="6"] .veil{background:linear-gradient(0deg,#edf0e9f7 0%,#edf0e9d6 30%,transparent 72%)}
+}
