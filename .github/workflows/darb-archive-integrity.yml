@@ -58,3 +58,11 @@ jobs:
           path: archive/test-results/
           if-no-files-found: ignore
           retention-days: 7
+      - name: Save tested static archive build
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: darb-archive-stage04-build
+          path: archive/dist/
+          if-no-files-found: error
+          retention-days: 7
