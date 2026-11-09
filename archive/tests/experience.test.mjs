@@ -131,3 +131,9 @@ test("each cinematic camera beat has a deliberate, safe framing point",async()=>
  assert.ok(source.includes("camera.fx=ch.frameX"));
  assert.ok(source.includes("focusX=viewport.w"));
 });
+
+test("DOM iteration never mistakes a single element for a NodeList",async()=>{
+ const app=await read("web/app.mjs");
+ // "$" = querySelector; "$$" = querySelectorAll. ForEach requires the latter.
+ assert.doesNotMatch(app,/(^|[^$])\$\([^\n]*?\)\.forEach\s*\(/gm);
+});
