@@ -136,6 +136,17 @@ test("D identity grows from real archive knots into an artwork, then reverses wi
  expect(panelStyle.background).toBe("rgba(0, 0, 0, 0)");
  expect(panelStyle.shadow).toBe("none");
  expect(panelStyle.position).toBe("fixed");
+ await page.waitForTimeout(1700);
+ const focus=await page.locator('.artifact[data-id="41"]').evaluate(element=>{
+  const r=element.getBoundingClientRect();
+  return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,
+    viewportWidth:innerWidth,viewportHeight:innerHeight};
+ });
+ expect(focus.right).toBeGreaterThan(focus.viewportWidth*.27);
+ expect(focus.left).toBeLessThan(focus.viewportWidth*.92);
+ expect(focus.bottom).toBeGreaterThan(focus.viewportHeight*.12);
+ expect(focus.top).toBeLessThan(focus.viewportHeight*.88);
+ expect(focus.width).toBeGreaterThan(90);
  await page.screenshot({path:"test-results/"+info.project.name+"-cyanotype-encounter.png"});
  await page.locator("#relatedObjects .thread-item").first().click();
  await expect(page.locator("#detailMeta")).toContainText("Natalia Ossef residency");
