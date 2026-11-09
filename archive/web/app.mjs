@@ -313,7 +313,7 @@ function fillDetail(id){
      escaped(local(thread.title))+'</strong><small>'+escaped(local(target.project))+
      '</small></span><b>↗</b>';
    btn.title=local(thread.description);
-   btn.addEventListener("click",()=>{if(mode!=="explore")enterMode("explore");inspect(target.id);});
+   btn.addEventListener("click",()=>inspect(target.id));
    host.append(btn);
   }
  }
