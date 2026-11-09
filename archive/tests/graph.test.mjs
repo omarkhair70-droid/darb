@@ -66,3 +66,8 @@ test("all five story beats provide non-motion reading routes", () => {
     assert.ok(step.quietMode && step.interaction);
   }
 });
+
+test("even a same-node public path cannot expose research-only content", () => {
+  assert.equal(findEvidencePath(archive,"media:39","media:39",{publicMode:true}),null);
+  assert.deepEqual(findEvidencePath(archive,"media:39","media:39").nodes,["media:39"]);
+});
