@@ -17,7 +17,7 @@ test("seventy-two archival objects inhabit a continuous world, on desktop and mo
  await page.locator('.artifact[data-id="39"] button').evaluate(button=>button.click());
  await expect(page.locator("#detail")).toBeVisible();
  await expect(page.locator("#detail")).toContainText("Tales of Fustat");
- await expect(page.locator("#relatedObjects .related-item")).toHaveCount(3);
+ await expect(page.locator("#relatedObjects .related-item:not(.thread-item)")).toHaveCount(3);
  await page.locator("#localeBtn").click();
  await expect(page.locator("html")).toHaveAttribute("lang","ar");
  await expect(page.locator("#detailTitle")).toContainText("الفسطاط");
