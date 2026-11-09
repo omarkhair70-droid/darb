@@ -232,7 +232,8 @@ function inspect(id){
  const item=mediaRecord(id);if(!item)return;
  if(!encounter){
   encounter={originMode:mode,originCamera:{...current},originTarget:{...target},
-   scroll:scrollY,history:[],focus:document.activeElement};
+   scroll:scrollY,history:[],focus:document.activeElement,bodyOverflow:document.body.style.overflow};
+  document.body.style.overflow="hidden";
  }
  if(encounter.history.at(-1)!==id)encounter.history.push(id);
  openItem=id;
@@ -243,9 +244,19 @@ function inspect(id){
   item.kind.includes("installation")?"installation":"paper";
  $("#detail").hidden=false;
  target=encounterCamera(item);
- $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===id));
+ $(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===id));
+ emphasizeSourceThreads(item);
  fillDetail(id);
  $("#closeDetail").setAttribute("aria-label",lang==="ar"?"ارجع في الأرشيف":"Return through the archive");
+}
+function emphasizeSourceThreads(item){
+ const relevant=new Set(threads.connections
+   .filter(t=>t.fromCluster===item.cluster||t.toCluster===item.cluster)
+   .map(t=>t.id));
+ $("#worldLinks path").forEach(path=>path.classList.toggle(
+  "is-active-source-thread",
+  path.dataset.cluster===item.cluster||relevant.has(path.dataset.thread)
+ ));
 }
 function retraceEncounter(){
  if(!encounter)return;
@@ -257,7 +268,8 @@ function retraceEncounter(){
   target=encounterCamera(previous);
   $("#canvas").dataset.material=previous.id===41||previous.id===42?"cyanotype":
    previous.kind.includes("photo")?"photography":"paper";
-  $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===previous.id));
+  $(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===previous.id));
+  emphasizeSourceThreads(previous);
   fillDetail(previous.id);
  }else closeDetail();
 }
@@ -319,6 +331,8 @@ function closeDetail(){
   target={...previous.originTarget};
   $("#canvas").removeAttribute("data-material");
   $(".artifact").forEach(fig=>fig.classList.remove("is-encounter"));
+  $("#worldLinks path").forEach(path=>path.classList.remove("is-active-source-thread"));
+  document.body.style.overflow=previous.bodyOverflow;
   encounter=null;
   if(mode==="journey")updateScroll();
   if(previous.focus?.isConnected)previous.focus.focus({preventScroll:true});
