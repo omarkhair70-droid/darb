@@ -33,7 +33,7 @@ const copy={
 };
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0;
-let viewport={w:innerWidth,h:innerHeight},target={x:4600,y:3200,z:.2,r:0},current={...target};
+let viewport={w:innerWidth,h:innerHeight},target={x:4600,y:3200,z:.2,r:0,fx:.5},current={...target};
 let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
 const imageOf=(id)=>mediaRecord(id)?.src ?? "";
 const mediaRecord=(id)=>media.find(item=>item.id===id);
@@ -164,7 +164,7 @@ function cameraForProgress(progress){
  // A gentle cubic blend makes camera acceleration continuous at every waypoint.
  const t=f*f*(3-2*f);
  const ca=moments[a].camera,cb=moments[b].camera;
- return {x:lerp(ca.x,cb.x,t),y:lerp(ca.y,cb.y,t),z:lerp(ca.z,cb.z,t),r:lerp(ca.r,cb.r,t)};
+ return {x:lerp(ca.x,cb.x,t),y:lerp(ca.y,cb.y,t),z:lerp(ca.z,cb.z,t),r:lerp(ca.r,cb.r,t),fx:lerp(ca.fx??.5,cb.fx??.5,t)};
 }
 function scrollProgress(){
  const root=$("#experience"), top=root.offsetTop;
@@ -185,14 +185,15 @@ function positionWorld(){
  const cx=current.x*Math.cos(rad)-current.y*Math.sin(rad);
  const cy=current.x*Math.sin(rad)+current.y*Math.cos(rad);
  const focusY=viewport.h*(viewport.w<800?lerp(.38,.31,clamp((current.z-.6)/.7,0,1)):.50);
- const dx=viewport.w*.5-zoom*cx,dy=focusY-zoom*cy;
+ const focusX=viewport.w*(viewport.w<800?.5:current.fx??.5);
+ const dx=focusX-zoom*cx,dy=focusY-zoom*cy;
  $("#world").style.transform="translate3d("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px,0) scale("+zoom.toFixed(5)+") rotate("+current.r.toFixed(3)+"deg)";
  const zoneLabels=$(".world-annotations");
  if(zoneLabels)zoneLabels.style.opacity=String(clamp((.85-current.z)/.55,0,1));
 }
 function frame(){
  const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.32 : 0.085;
- for(const key of ["x","y","z","r"])current[key]=lerp(current[key],target[key],speed);
+ for(const key of ["x","y","z","r","fx"])current[key]=lerp(current[key],target[key],speed);
  positionWorld();
  rafId=requestAnimationFrame(frame);
 }
@@ -452,6 +453,7 @@ async function boot(){
    if(ch.focusId!==null&&!focus)throw new Error("Unresolved chapter focus "+ch.id);
    const camera=focus?cameraForObject(focus,{zoom:ch.zoom,rotation:ch.rotation}):
      {x:WORLD_WIDTH/2,y:WORLD_HEIGHT/2,z:ch.zoom,r:ch.rotation};
+   camera.fx=ch.frameX??.5;
    return {...ch,en:ch.title.en,ar:ch.title.ar,camera};
   });
   // A camera waypoint is a viewpoint into one field, never a new page.
