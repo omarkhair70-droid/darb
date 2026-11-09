@@ -33,7 +33,7 @@ test("seventy-two archival objects inhabit a continuous world, on desktop and mo
 
 test("the full archive is searchable, indexable and accessible as real source assets",async({page})=>{
  await page.goto("/");
- for(const path of ["/media/1.jpeg","/media/39.jpeg","/media/40.jpeg","/media/41.jpeg","/media/42.jpeg","/media/53.png","/media/56.png","/media/61.png","/media/75.png","/catalog.json","/chapters.json"]){
+ for(const path of ["/media/1.jpeg","/media/39.jpeg","/media/40.jpeg","/media/41.jpeg","/media/42.jpeg","/media/53.png","/media/56.png","/media/61.png","/media/75.jpeg","/catalog.json","/chapters.json"]){
   const response=await page.request.get(path);
   expect(response.status(),path).toBe(200);
  }
