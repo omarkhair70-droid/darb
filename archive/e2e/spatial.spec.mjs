@@ -68,3 +68,18 @@ test("all program clusters and source captions survive locale switching",async({
  await page.locator("#archiveSearch").fill("جسور");
  await expect(page.locator("#searchResults .search-hit")).toHaveCount(5);
 });
+
+
+test("a visitor can follow a labelled editorial thread between different programmes",async({page})=>{
+ await page.goto("/");
+ const threads=await (await page.request.get("/threads.json")).json();
+ expect(threads.connections).toHaveLength(9);
+ await page.locator("#modeBtn").click();
+ await page.locator('.artifact[data-id="41"] button').evaluate(button=>button.click());
+ await expect(page.locator("#detail")).toBeVisible();
+ await expect(page.locator("#detailMeta")).toContainText("Tales of Fustat");
+ await expect(page.locator("#relatedObjects .thread-item")).toHaveCount(2);
+ await page.locator("#relatedObjects .thread-item").first().click();
+ await expect(page.locator("#detailMeta")).toContainText("Natalia Ossef residency");
+ await expect(page.locator("#detailTitle")).not.toContainText("Cyanotype");
+});
