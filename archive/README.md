@@ -1,5 +1,18 @@
 # DARB ARCHIVE — The Living Memory
-### Stage 03 / Source Atlas, 9 thematic threads, 16 spatial narrative moments
+### Stage 04 — The Woven D / Object Encounter (iterating in the **same** archive)
+
+- One **D-shaped spatial filament** formed from real source images #39–42 from Tales of Fustat; it is a first working letter, not the completed D-A-R-B identity.
+- The very first camera viewpoint is a deep moss-colored living network, not a hero section. Its source-image knots can be selected with mouse, touch or keyboard.
+- Selecting an object enters an **encounter camera state** inside the existing archive world: the chosen source work stays in place; contextual narrative and source information appear around it rather than in the old boxed right drawer.
+- Documentary photography and cyanotype use different environment tones; nonselected works recede, while relevant programme and curated cross-programme paths remain visible.
+- Visitors can travel to a connected source and **retrace their precise relationship history**, eventually restoring the originating journey or free-wander state. Scrolling is locked during inspection and restored afterwards.
+- The camera now interpolates based on elapsed time, not per-frame assumptions, so slow-frame-rate devices don't cause indefinitely prolonged moves.
+- Source names, filament knots and encounter labels support AR/EN. A text-first reading alternative and reduced-motion controls remain.
+- Playwright tests require an actual selected source image to occupy the viewport and test first D entry → cyanotype → curated relationship → retrace → archive on desktop and mobile.
+
+This is an iterative high-end creative slice, not an assertion of Getty/Oculi final quality, award acceptance, or a finished audio installation. Complete visual review and browser QA on each new slice before adding further letters and the sound layer.
+
+## Stage 03 / Source Atlas, 9 thematic threads, 16 spatial narrative moments
 
 A standalone cultural exploration built from Darb 1718's supplied 2026 institutional overview. Not the older rejected Darb corporate-site experiment. **This is an iterative creative build, not an announcement of final Getty-level quality.**
 
