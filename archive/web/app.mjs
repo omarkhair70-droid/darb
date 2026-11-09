@@ -151,7 +151,7 @@ function positionWorld(){
  $("#world").style.transform="translate3d("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px,0) scale("+zoom.toFixed(5)+") rotate("+current.r.toFixed(3)+"deg)";
 }
 function frame(){
- const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches?.32:.085;
+ const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.32 : 0.085;
  for(const key of ["x","y","z","r"])current[key]=lerp(current[key],target[key],speed);
  positionWorld();
  rafId=requestAnimationFrame(frame);
