@@ -205,6 +205,7 @@ function enterMode(next){
  $("#modeBtn").setAttribute("aria-pressed",String(mode==="explore"));
  $("#modeBtn").lastElementChild.textContent=mode==="journey"?copy[lang].explore:copy[lang].journey;
  $("#spatialHint").hidden=mode!=="explore";
+ $("#spatialControls").hidden=mode!=="explore";
  $("#instruction").hidden=mode==="explore";
  if(mode==="explore"){
   target={...current};
@@ -370,26 +371,57 @@ function installInput(){
  addEventListener("resize",()=>{viewport={w:innerWidth,h:innerHeight};updateScroll();},{passive:true});
  addEventListener("keydown",event=>{
   if(event.key==="Escape"){if(!$("#index").hidden)closeIndex();else closeDetail();return;}
+  if(mode==="explore"&&event.target.tagName!=="INPUT"){
+   if(event.key==="+"||event.key==="="){target.z=clamp(target.z*1.2,.2,2.7);return;}
+   if(event.key==="-"){target.z=clamp(target.z/1.2,.2,2.7);return;}
+  }
   if($("#index").hidden && mode==="journey" && event.target.tagName!=="BUTTON"){
    if(event.key==="ArrowDown"||event.key==="ArrowRight"){event.preventDefault();jumpTo(Math.min(moments.length-1,currentBeat+1));}
    if(event.key==="ArrowUp"||event.key==="ArrowLeft"){event.preventDefault();jumpTo(Math.max(0,currentBeat-1));}
   }
  });
+ $("#zoomIn").addEventListener("click",()=>{target.z=clamp(target.z*1.25,.2,2.7);});
+ $("#zoomOut").addEventListener("click",()=>{target.z=clamp(target.z/1.25,.2,2.7);});
+ $("#resetView").addEventListener("click",()=>{target={...moments[moments.length-1].camera};closeDetail();});
  const canvas=$("#canvas");
+ const pointers=new Map();
+ let gesture=null;
+ const startGesture=()=>{
+  const pts=[...pointers.values()];
+  if(!pts.length)return null;
+  const a=pts[0],b=pts[1]||a;
+  return {count:Math.min(2,pts.length),cx:(a.x+b.x)/2,cy:(a.y+b.y)/2,
+    distance:Math.max(1,Math.hypot(b.x-a.x,b.y-a.y)),x:target.x,y:target.y,z:target.z};
+ };
  canvas.addEventListener("pointerdown",event=>{
   if(mode!=="explore"||event.target.closest("button"))return;
-  drag={startX:event.clientX,startY:event.clientY,x:target.x,y:target.y,zoom:target.z};
+  pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
   canvas.setPointerCapture(event.pointerId);
+  gesture=startGesture();
  });
  canvas.addEventListener("pointermove",event=>{
-  if(!drag||mode!=="explore")return;
-  const ratio=clamp(Math.min(innerWidth/1340,1),.43,1);
-  const z=Math.max(.1,drag.zoom*ratio);
-  target.x=clamp(drag.x-(event.clientX-drag.startX)/z,0,WORLD_WIDTH);
-  target.y=clamp(drag.y-(event.clientY-drag.startY)/z,0,WORLD_HEIGHT);
- });
- const end=()=>drag=null;
- canvas.addEventListener("pointerup",end);canvas.addEventListener("pointercancel",end);
+  if(mode!=="explore"||!pointers.has(event.pointerId))return;
+  pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+  const pts=[...pointers.values()];
+  if(!gesture||gesture.count!==Math.min(2,pts.length)){gesture=startGesture();return;}
+  const a=pts[0],b=pts[1]||a;
+  const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+  if(pts.length>1){
+   const distance=Math.max(1,Math.hypot(b.x-a.x,b.y-a.y));
+   target.z=clamp(gesture.z*distance/gesture.distance,.2,2.7);
+  }
+  const responsive=clamp(Math.min(innerWidth/1340,1),.43,1);
+  const scale=Math.max(.08,target.z*responsive);
+  target.x=clamp(gesture.x-(mx-gesture.cx)/scale,0,WORLD_WIDTH);
+  target.y=clamp(gesture.y-(my-gesture.cy)/scale,0,WORLD_HEIGHT);
+ },{passive:true});
+ const release=event=>{
+  pointers.delete(event.pointerId);
+  gesture=startGesture();
+  if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId);
+ };
+ canvas.addEventListener("pointerup",release);
+ canvas.addEventListener("pointercancel",release);
  canvas.addEventListener("wheel",event=>{
   if(mode!=="explore")return;
   event.preventDefault();
