@@ -83,3 +83,34 @@ test("a visitor can follow a labelled editorial thread between different program
  await expect(page.locator("#detailMeta")).toContainText("Natalia Ossef residency");
  await expect(page.locator("#detailTitle")).not.toContainText("Cyanotype");
 });
+
+
+test("real pointer interaction reaches visible archive objects; scale controls work",async({page})=>{
+ await page.goto("/");
+ await page.locator("#modeBtn").click();
+ await expect(page.locator("#spatialControls")).toBeVisible();
+ await page.waitForTimeout(500);
+ const hit=await page.evaluate(()=>{
+  const viewWidth=innerWidth,viewHeight=innerHeight;
+  for(const button of document.querySelectorAll(".artifact-inner")){
+   const r=button.getBoundingClientRect();
+   const cx=(Math.max(0,r.left)+Math.min(viewWidth,r.right))/2;
+   const cy=(Math.max(0,r.top)+Math.min(viewHeight,r.bottom))/2;
+   if(r.width<8||r.height<8||r.right<0||r.bottom<0||r.left>viewWidth||r.top>viewHeight)continue;
+   const element=document.elementFromPoint(cx,cy);
+   if(element?.closest(".artifact-inner")===button)return {x:cx,y:cy,id:button.parentElement.dataset.id};
+  }
+  return null;
+ });
+ expect(hit).not.toBeNull();
+ await page.mouse.click(hit.x,hit.y);
+ await expect(page.locator("#detail")).toBeVisible();
+ await page.locator("#closeDetail").click();
+ const before=await page.locator("#world").evaluate(el=>el.style.transform);
+ await page.locator("#zoomIn").click();
+ await page.waitForTimeout(550);
+ const after=await page.locator("#world").evaluate(el=>el.style.transform);
+ expect(after).not.toBe(before);
+ await page.locator("#resetView").click();
+ await expect(page.locator("#detail")).toBeHidden();
+});
