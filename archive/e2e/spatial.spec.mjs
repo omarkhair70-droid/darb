@@ -43,7 +43,7 @@ test("the full archive is searchable, indexable and accessible as real source as
  await expect(page.locator("#searchResults .search-hit")).toHaveCount(2);
  await page.locator("#searchResults .search-hit").first().click();
  await expect(page.locator("#index")).toBeHidden();
- await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
  await expect(page.locator("#detail")).toBeVisible();
  await page.locator("#closeDetail").click();
  await page.locator("#indexBtn").click();
