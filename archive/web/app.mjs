@@ -1,240 +1,305 @@
-import {getConnections, startVisit, followEdge, retrace, validateArchive} from "/graph.mjs";
-
-const $ = (s,root=document)=>root.querySelector(s);
-const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
-const labels = {
+import {validateArchive,getConnections,findEvidencePath} from "/graph.mjs";
+const $=(selector,root=document)=>root.querySelector(selector);
+const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
+const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const local=(v)=>v?.[lang]||v?.en||"";
+const sourceBase="https://github.com/omarkhair70-droid/darb/blob/main/source-material/original/Darb_1718_Overview_2026.pdf#page=";
+const escaped=(v)=>String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+const copy={
  en:{
- collection:"THE LIVING MEMORY / RESEARCH EDITION",introLabel:"A LIVING RECORD OF ART, PEOPLE & PLACE",
- eyebrow:"ONE PLACE. MANY TRACES.",heroOne:"Memory",heroTwo:"moves.",
- heroDesc:"Not a wall of images. An invitation to follow what connects a place, the people around it, and what they make.",
- begin:"ENTER THE STORY",heroFoot:"Tales of Fustat · Five encounters · Follow your own path",
- storyIntro:"A photograph is a beginning, not an ending. Follow the work backwards into the hands, places and conversations that give it meaning.",
- quiet:"QUIET",exitHeadline:"Nothing ends at <em>one image.</em>",
- exitBody:"The story is one path through the material. Step outside it to explore the source connections yourself.",
- explore:"TRACE THE CONNECTIONS",footer:"INDEPENDENT WORKING EXPERIENCE · NOT AN OFFICIAL PUBLIC LAUNCH",
- graphTitle:"Trace the connections.",graphHint:"SELECT A NODE · FOLLOW THE THREAD",
- backStory:"BACK TO STORY",source:"SOURCE / OVERVIEW 2026 · P.11",follow:"EXPLORE THIS CONNECTION",
- inspect:"OPEN THE RELATIONSHIP MAP",path:"YOUR PATH",evidence:"EVIDENCE",
- research:"RESEARCH RECORD",return:"RETRACE ONE STEP",
- noConnections:"No further documented links from this record.",
- rights:"IMAGE PUBLICATION CREDIT: EDITORIAL REVIEW",
- graphNote:"Links describe connections in the programme, not assumed relationships between photographed people.",
- story:"STORY",trace:"TRACE"
+  memory:"THE LIVING MEMORY",explore:"WANDER",journey:"FOLLOW STORY",
+  spatialHint:"DRAG TO WANDER · SCROLL TO ZOOM · SELECT AN IMAGE",indexTitle:"There is no single beginning.",
+  indexFoot:"ONE CONTINUOUS WORLD · SEVEN MOMENTS",returnScene:"RETURN TO THE EXPERIENCE",
+  readingTitle:"Every image holds a way in.",readingIntro:"An uninterrupted, readable path through the same source material.",
+  readingFoot:"Research experience built from the Darb 1718 institutional overview · not the official public website.",
+  source:"SEE SOURCE RECORD ↗",follow:"FOLLOW THIS MOMENT ↗",
+  direction:"SCROLL TO MOVE THROUGH THE ARCHIVE",wander:"DRAG · EXPLORE · OPEN OBJECTS",
+  video:"REFERENCE: 2026 OVERVIEW / DARB 1718",
+  index:["A place, in motion","The larger constellation","A conversation","The act of looking","Light becomes an image","A story you can hold","No final frame"]
  },
  ar:{
- collection:"الذاكرة الحية / نسخة بحثية",introLabel:"أرشيف حي للفن والناس والمكان",
- eyebrow:"مكان واحد. آثار كتير.",heroOne:"الذاكرة",heroTwo:"بتتحرك.",
- heroDesc:"مش حائط صور. دي دعوة تكتشف العلاقة بين المكان والناس والحاجات اللي بيصنعوها.",
- begin:"ادخل الحكاية",heroFoot:"حكاوي الفسطاط · خمس محطات · اختار طريقك",
- storyIntro:"الصورة بداية، مش نهاية. كل صورة ممكن تفتح طريق للناس والأماكن والحكايات اللي حواليها.",
- quiet:"هادئ",exitHeadline:"الحكاية مش بتنتهي عند <em>صورة واحدة.</em>",
- exitBody:"ده طريق واحد وسط الأرشيف. اخرج منه واكتشف العلاقات الموثقة بنفسك.",
- explore:"تتبّع العلاقات",footer:"تجربة بحثية مستقلة · ليست إطلاقًا رسميًا",
- graphTitle:"اتبع الخيط.",graphHint:"اختار عنصر · واتبع العلاقة",
- backStory:"ارجع للحكاية",source:"المصدر / ملف درب 2026 · ص 11",
- follow:"اكتشف العلاقة دي",inspect:"افتح خريطة العلاقات",
- path:"المسار بتاعك",evidence:"الدليل",research:"سجل بحثي",
- return:"ارجع خطوة",noConnections:"مفيش علاقات تانية موثقة من العنصر ده.",
- rights:"بيانات الصورة للنشر قيد الاستكمال",
- graphNote:"العلاقات هنا بين عناصر البرنامج، مش افتراضات عن الأشخاص الظاهرين في الصور.",
- story:"الحكاية",trace:"العلاقات"
+  memory:"الذاكرة الحية",explore:"تجوّل",journey:"اتبع الحكاية",
+  spatialHint:"اسحب عشان تتجوّل · مرّر للتقريب · اختار صورة",indexTitle:"مفيش بداية واحدة للحكاية.",
+  indexFoot:"مساحة واحدة مستمرة · سبع لحظات",returnScene:"ارجع للتجربة",
+  readingTitle:"كل صورة ليها مدخل.",readingIntro:"مسار قراءة واضح لنفس المادة الأرشيفية، بدون حركة.",
+  readingFoot:"تجربة بحثية من ملف درب 1718 · مش الموقع الرسمي للمؤسسة.",
+  source:"افتح المصدر ↗",follow:"اتبع اللحظة دي ↗",
+  direction:"مرّر عشان تتنقل جوّه الأرشيف",wander:"اسحب · اكتشف · افتح صورة",
+  video:"المصدر: ملف درب 2026",
+  index:["مكان بيتحرك","الأرشيف الأوسع","حوار","فعل النظر","الضوء والصورة","حكاية ملموسة","مفيش نهاية واحدة"]
  }
 };
-const coordinates={
- "project:tales":[51,48],"place:fustat":[20,17],
- "practice:photowalk":[30,37],"practice:interviews":[17,66],
- "practice:cyanotype":[74,34],"object:notebooks":[79,69],
- "media:39":[6,37],"media:40":[30,82],"media:41":[83,14],"media:42":[57,84]
-};
-let archive, language="en", quiet=matchMedia("(prefers-reduced-motion: reduce)").matches;
-let visit, graphOpen=false, currentStep=-1, scrollCallback;
-const label=(value)=>value?.[language]||value?.en||"";
-const t=(key)=>labels[language][key];
-const escape=(s)=>String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
-const mediaSrc=(node)=>node.type==="media"?"/media/"+node.media.assetNo+".jpeg":null;
-
-function renderCopy(){
- document.documentElement.lang=language;
- document.documentElement.dir=language==="ar"?"rtl":"ltr";
- $$("[data-i18n]").forEach(el=>{
-   const key=el.dataset.i18n;
-   if(key==="exitHeadline")el.innerHTML=t(key);
-   else el.textContent=t(key);
+const moments=[
+ {en:["A place","never stays still."],ar:["المكان","عمره ما بيثبت."],body:{en:"An archive is made from moments that continue to meet, even when the people and places change.",ar:"الأرشيف بيتكوّن من لحظات بتفضل تتقاطع، حتى لما الناس والأماكن بتتغير."},label:"DARB 1718 / AN INDEPENDENT ARCHIVE",camera:{x:2520,y:1450,z:.37,r:0}},
+ {en:["Every image","belongs somewhere."],ar:["كل صورة","وراها مكان."],body:{en:"Across Darb's programmes, images lead to making, gatherings, performances and conversations.",ar:"صور درب بتفتح أبواب للورش واللقاءات والعروض والحكايات."},label:"MANY PRACTICES / ONE ARCHIVE",camera:{x:2590,y:1150,z:.57,r:-1.1}},
+ {en:["Before the image,","a conversation."],ar:["قبل الصورة،","فيه حكاية."],body:{en:"Tales of Fustat documented neighbourhood conversations and interviews with craftspeople.",ar:"حكاوي الفسطاط جمعت حوارات ومقابلات مع حرفيين من الحي."},label:"TALES OF FUSTAT / IMAGE 39 / PDF P.11",camera:{x:2080,y:1040,z:1.34,r:.6}},
+ {en:["Looking","becomes listening."],ar:["النظر","ممكن يبقى إنصات."],body:{en:"A photography walk and shared workshop turn observation into a collective practice.",ar:"جولة تصوير وورشة مشتركة بتحوّل النظر لممارسة جماعية."},label:"TALES OF FUSTAT / IMAGE 40 / PDF P.11",camera:{x:2825,y:675,z:1.32,r:-1}},
+ {en:["Light","leaves a trace."],ar:["الضوء","بيسيب أثر."],body:{en:"Cyanotype gives photographic memory a different, blue material form.",ar:"السيانوتايب بيدي للذاكرة المصوّرة شكل مادي أزرق مختلف."},label:"TALES OF FUSTAT / IMAGE 41 / PDF P.11",camera:{x:3650,y:1340,z:1.30,r:.3}},
+ {en:["A story","you can hold."],ar:["حكاية","تقدر تمسكها."],body:{en:"The programme also produced prints and photographic notebooks: images made into objects.",ar:"التجربة اتجمعت كمان في مطبوعات ودفاتر فوتوغرافية؛ صور بقت أشياء ملموسة."},label:"TALES OF FUSTAT / IMAGE 42 / PDF P.11",camera:{x:4370,y:970,z:1.30,r:1.2}},
+ {en:["Nothing ends","at one image."],ar:["مفيش نهاية","عند صورة واحدة."],body:{en:"Pull back to the larger archive. Wander between programmes, or follow another documented thread.",ar:"ارجع للصورة الكبيرة. اتجوّل بين البرامج، أو اتبع خيط تاني من الأرشيف."},label:"DARB ARCHIVE / THE WIDER FIELD",camera:{x:2550,y:1430,z:.38,r:0}}
+];
+const media=[
+ {id:1,xref:308,page:1,project:"Darb 1718",category:"place",x:290,y:220,w:640,h:380,r:-7,title:{en:"The Darb exterior",ar:"واجهة درب التاريخية"},desc:{en:"The historic exterior shown on the archive overview cover.",ar:"صورة الواجهة التاريخية الموجودة على غلاف ملف درب."}},
+ {id:7,xref:323,page:3,project:"Darb workshops",category:"craft",x:1190,y:1850,w:485,h:355,r:5,title:{en:"Working with clay",ar:"العمل بالخزف"},desc:{en:"Craft practice shown in the Darb institutional overview.",ar:"ممارسة حرفية موثقة في الملف التعريفي لدرب."}},
+ {id:21,xref:359,page:7,project:"INBETWEEN",category:"installation",x:3550,y:150,w:595,h:460,r:-4,title:{en:"INBETWEEN installation",ar:"تركيب فني من INBETWEEN"},desc:{en:"Suspended textiles in the 2025 INBETWEEN exhibition.",ar:"منسوجات معلّقة من معرض INBETWEEN سنة 2025."}},
+ {id:22,xref:360,page:7,project:"INBETWEEN",category:"art",x:4370,y:290,w:390,h:300,r:8,title:{en:"Works in INBETWEEN",ar:"أعمال من INBETWEEN"},desc:{en:"Monochrome artwork documentation from the exhibition.",ar:"توثيق لأعمال أحادية اللون من المعرض."}},
+ {id:29,xref:379,page:9,project:"Jusoor",category:"identity",x:360,y:1390,w:330,h:280,r:-6,title:{en:"Jusoor",ar:"جسور"},desc:{en:"Programme identity for the short-film screenings and conversations.",ar:"هوية برنامج عروض الأفلام القصيرة والنقاشات."}},
+ {id:30,xref:380,page:9,project:"Jusoor",category:"cinema",x:810,y:960,w:510,h:355,r:4,title:{en:"Cinema as gathering",ar:"السينما كلقاء"},desc:{en:"Audience at a film screening in the Jusoor programme.",ar:"جمهور خلال عرض سينمائي في برنامج جسور."}},
+ {id:34,xref:389,page:10,project:"Residency",category:"portrait",x:4200,y:1890,w:360,h:435,r:-3,title:{en:"Natalia Ossef residency",ar:"إقامة ناتاليا أوسيف"},desc:{en:"Documentary image from the artist residency.",ar:"صورة توثيقية من الإقامة الفنية."}},
+ {id:35,xref:390,page:10,project:"Residency",category:"craft",x:4640,y:1510,w:380,h:370,r:7,title:{en:"Textile process",ar:"العمل على النسيج"},desc:{en:"Textile making during the residency research.",ar:"عملية صنع النسيج ضمن بحث الإقامة الفنية."}},
+ {id:38,xref:393,page:10,project:"Residency",category:"craft",x:4740,y:2310,w:400,h:300,r:6,title:{en:"Collaborative textiles",ar:"تجربة نسيج مشتركة"},desc:{en:"Textile collaboration documented in the overview.",ar:"تعاون في النسيج موثق في الملف."}},
+ {id:39,xref:400,page:11,project:"Tales of Fustat",category:"conversation",x:1780,y:830,w:630,h:390,r:-2,title:{en:"Listening in Fustat",ar:"الحوار في الفسطاط"},desc:{en:"Group interviews and conversation documented in Tales of Fustat.",ar:"مقابلات وحوار جماعي ضمن برنامج حكاوي الفسطاط."}},
+ {id:40,xref:401,page:11,project:"Tales of Fustat",category:"workshop",x:2500,y:460,w:650,h:430,r:4,title:{en:"Learning to look",ar:"نتعلّم النظر"},desc:{en:"A shared photography workshop, documented as part of Tales of Fustat.",ar:"ورشة تصوير جماعية موثقة ضمن حكاوي الفسطاط."}},
+ {id:41,xref:402,page:11,project:"Tales of Fustat",category:"cyanotype",x:3380,y:1120,w:590,h:490,r:-5,title:{en:"A blue impression",ar:"طبعة زرقاء"},desc:{en:"Cyanotype image of a craft form made during the programme.",ar:"طبعة سيانوتايب لشكل حرفي ضمن البرنامج."}},
+ {id:42,xref:403,page:11,project:"Tales of Fustat",category:"cyanotype",x:4060,y:770,w:630,h:420,r:3,title:{en:"Printed memory",ar:"ذاكرة مطبوعة"},desc:{en:"Photographic prints, cyanotypes and notebooks documented in Tales of Fustat.",ar:"مطبوعات وصور ودفاتر موثقة في حكاوي الفسطاط."}},
+ {id:53,xref:435,page:16,project:"Something Else",category:"exhibition",x:240,y:2280,w:575,h:370,r:3,title:{en:"Something Else symposium",ar:"ملتقى Something Else"},desc:{en:"Artworks in a historic interior at the 2025 symposium.",ar:"أعمال فنية داخل مكان تاريخي في ملتقى 2025."}},
+ {id:56,xref:443,page:17,project:"Something Else",category:"art",x:2940,y:2180,w:440,h:400,r:8,title:{en:"Something Else artwork",ar:"عمل من Something Else"},desc:{en:"Artwork documented during Something Else at the Citadel.",ar:"عمل فني موثّق خلال Something Else بالقلعة."}},
+ {id:61,xref:448,page:17,project:"Something Else",category:"installation",x:3650,y:2300,w:580,h:360,r:-6,title:{en:"Light in a historic space",ar:"ضوء في مكان تاريخي"},desc:{en:"A projection installation at Something Else, Citadel.",ar:"تركيب بالضوء ضمن Something Else بالقلعة."}},
+ {id:70,xref:469,page:20,project:"Live performance",category:"performance",x:1910,y:2360,w:520,h:340,r:-4,title:{en:"Listening together",ar:"الإنصات مع بعض"},desc:{en:"Audience gathered for a live performance, documented in the archive.",ar:"جمهور خلال عرض حي موثّق في الأرشيف."}},
+ {id:71,xref:470,page:20,project:"Live performance",category:"performance",x:1290,y:350,w:390,h:310,r:5,title:{en:"Musicians in performance",ar:"موسيقى حية"},desc:{en:"Performers and audience in a live music event.",ar:"عازفون وجمهور خلال عرض موسيقي."}}
+];
+const keyFocus=[null,null,39,40,41,42,null];
+let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0;
+let viewport={w:innerWidth,h:innerHeight},target={...moments[0].camera},current={...target};
+let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
+const imageOf=(id)=>"/media/"+id+".jpeg";
+const mediaRecord=(id)=>media.find(item=>item.id===id);
+function makeWorld(){
+ const root=$("#artifacts");
+ media.forEach(item=>{
+  const figure=document.createElement("figure");figure.className="artifact";
+  figure.dataset.id=String(item.id);
+  figure.dataset.category=item.category;
+  figure.style.left=item.x+"px";figure.style.top=item.y+"px";
+  figure.style.width=item.w+"px";figure.style.height=item.h+"px";
+  figure.style.transform="rotate("+item.r+"deg)";
+  const button=document.createElement("button");button.type="button";button.className="artifact-inner";
+  button.setAttribute("aria-label","Open archive image "+item.id+": "+local(item.title));
+  const image=document.createElement("img");image.alt=local(item.title);image.src=imageOf(item.id);
+  image.loading=[39,40,41,42].includes(item.id)?"eager":"lazy";image.decoding="async";
+  image.addEventListener("error",()=>{figure.classList.add("image-error");button.textContent="ARCHIVE / "+item.id;});
+  button.append(image);button.addEventListener("click",()=>inspect(item.id));
+  const caption=document.createElement("figcaption");
+  caption.textContent=local(item.title)+" · "+item.project;
+  figure.append(button,caption);root.append(figure);
  });
- $("#langToggle").textContent=language==="en"?"عربي":"EN";
- $("#storyToggle").textContent=t("story");
- $("#traceToggle").textContent=t("trace")+" ↗";
- document.title=language==="en"?"Darb Archive — The Living Memory":"أرشيف درب — الذاكرة الحية";
+ const link=$("#worldLinks");
+ link.innerHTML='<path d="M 2050 1020 C 2370 800, 2630 840, 2810 650 S 3220 1200, 3640 1310 S 4030 990, 4370 950"/>';
 }
-function renderChapters(){
- const container=$("#chapters");container.innerHTML="";
- archive.storySteps.forEach((step,i)=>{
-   const article=document.createElement("article");article.className="chapter";
-   article.id="chapter-"+i;article.dataset.index=String(i);
-   const top=["THE PLACE","THE ENCOUNTER","THE LOOK","THE PRINT","THE RECORD"][i];
-   article.innerHTML='<div class="chapter-top"><span>'+String(i+1).padStart(2,"0")+
-    ' / 05</span><span class="line"></span><span>'+top+'</span></div>'+
-    '<h2>'+escape(label(step.heading))+'</h2><p>'+escape(label(step.body))+'</p>'+
-    '<div class="chapter-tag">'+escape(t("research"))+' / '+escape(t("source"))+'</div>'+
-    '<div class="chapter-actions"><button class="chapter-action" type="button">'+escape(t("inspect"))+
-    ' ↗</button><span class="chapter-source">PDF 11 · '+escape(step.media||"PROJECT")+'</span></div>'+
-    '<span class="chapter-overline">DARB ARCHIVE / TALES OF FUSTAT / '+String(i+1).padStart(2,"0")+'</span>';
-   $(".chapter-action",article).addEventListener("click",()=>openGraph(step.media||step.focus));
-   container.append(article);
+function renderNarrative(beat){
+ const m=moments[beat];
+ $("#narrativeOverline").textContent=String(beat+1).padStart(2,"0")+" / 07 — "+(lang==="en"?"THE LIVING MEMORY":"الذاكرة الحية");
+ $("#statementA").textContent=m[lang][0];
+ $("#statementB").textContent=m[lang][1];
+ $("#narrativeBody").textContent=local(m.body);
+ $("#chapterSource").textContent=m.label;
+ $("#axisNumber").textContent=String(beat+1).padStart(2,"0")+" / 07";
+ $("#axisFill").style.width=((beat+1)/moments.length*100)+"%";
+ $("#nextBtn").textContent=beat===moments.length-1?"↺":"↓";
+ $("#canvas").dataset.beat=String(beat);
+ $("#experience").dataset.beat=String(beat);
+ const focusId=keyFocus[beat];
+ $$(".artifact").forEach(fig=>{
+  fig.classList.toggle("is-focus",Number(fig.dataset.id)===focusId);
  });
- observeScroll();
-}
-function setStep(i){
- if(currentStep===i)return;
- currentStep=i;
- $("#visualStage").dataset.step=String(i);
- $("#stepLabel").textContent=String(i+1).padStart(2,"0")+" / 05";
- $("#progressBar").style.width=((i+1)/archive.storySteps.length*100)+"%";
-}
-function observeScroll(){
- if(scrollCallback)removeEventListener("scroll",scrollCallback);
- let pending=false;
- scrollCallback=()=>{
-  if(pending||graphOpen)return;
-  pending=true;
-  requestAnimationFrame(()=>{
-   pending=false;const middle=innerHeight*.56;
-   const items=$$(".chapter");
-   let result=0, distance=Infinity;
-   items.forEach((el,i)=>{
-    const r=el.getBoundingClientRect();
-    const d=r.top<=middle&&r.bottom>=middle?0:Math.min(Math.abs(r.top-middle),Math.abs(r.bottom-middle));
-    if(d<distance){distance=d;result=i;}
-   });
-   setStep(result);
-  });
- };
- addEventListener("scroll",scrollCallback,{passive:true});scrollCallback();
-}
-function setQuiet(on){
- quiet=Boolean(on);document.documentElement.classList.toggle("is-quiet",quiet);
- $("#quietToggle").setAttribute("aria-pressed",String(quiet));
 }
 function setLanguage(next){
- language=next;renderCopy();renderChapters();
- if(graphOpen){renderNodes();renderInspector();}
-}
-function renderNodes(){
- const layer=$("#graphNodeLayer");layer.innerHTML="";
- archive.nodes.forEach(node=>{
-  const button=document.createElement("button");button.type="button";button.className="graph-node";
-  const active=visit.current===node.id;
-  if(active)button.classList.add("is-selected");
-  button.dataset.nodeId=node.id;button.dataset.type=node.type;button.setAttribute("aria-pressed",String(active));
-  button.style.left=(coordinates[node.id]||[50,50])[0]+"%";
-  button.style.top=(coordinates[node.id]||[50,50])[1]+"%";
-  const src=mediaSrc(node);
-  button.innerHTML=(src?'<img src="'+src+'" alt="" loading="lazy"/>':'<small>'+escape(node.type.toUpperCase())+'</small>')+
-    '<strong>'+escape(label(node.title))+'</strong>';
-  button.setAttribute("aria-label",label(node.title));
-  button.addEventListener("click",()=>selectNode(node.id));
-  layer.append(button);
+ lang=next;document.documentElement.lang=lang;
+ document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ $$("[data-i18n]").forEach(el=>el.textContent=copy[lang][el.dataset.i18n]);
+ $("#localeBtn").textContent=lang==="en"?"عربي":"EN";
+ $("#modeBtn").lastElementChild.textContent=mode==="journey"?copy[lang].explore:copy[lang].journey;
+ $("#instructionText").textContent=copy[lang].direction;
+ $$(".artifact").forEach(fig=>{
+  const item=mediaRecord(Number(fig.dataset.id));
+  fig.querySelector("figcaption").textContent=local(item.title)+" · "+item.project;
+  fig.querySelector("button").setAttribute("aria-label",local(item.title));
+  fig.querySelector("img").alt=local(item.title);
  });
- requestAnimationFrame(drawLines);
+ renderNarrative(currentBeat);renderIndex();renderReading();
+ if(openItem!==null)fillDetail(openItem);
 }
-function drawLines(){
- if(!graphOpen)return;
- const host=$("#graphCanvas"), bounds=host.getBoundingClientRect(),svg=$("#graphLines");
- if(!bounds.width||!bounds.height)return;
- svg.setAttribute("viewBox","0 0 "+bounds.width+" "+bounds.height);
- const elements=new Map($$(".graph-node").map(el=>[el.dataset.nodeId,el]));
- svg.innerHTML=archive.edges.map(edge=>{
-  const a=elements.get(edge.from)?.getBoundingClientRect(),b=elements.get(edge.to)?.getBoundingClientRect();
-  if(!a||!b)return "";
-  const x1=a.left+a.width/2-bounds.left,y1=a.top+a.height/2-bounds.top;
-  const x2=b.left+b.width/2-bounds.left,y2=b.top+b.height/2-bounds.top;
-  const cx=(x1+x2)/2,cy=(y1+y2)/2-Math.min(Math.hypot(x2-x1,y2-y1)*.17,65);
-  const selected=edge.from===visit.current||edge.to===visit.current;
-  return '<path class="'+(selected?"is-selected":"")+'" d="M '+x1+' '+y1+' Q '+cx+' '+cy+' '+x2+' '+y2+'"/>';
- }).join("");
+function cameraForProgress(progress){
+ const a=Math.floor(progress),b=Math.min(moments.length-1,a+1);
+ const f=progress-a;
+ // A gentle cubic blend makes camera acceleration continuous at every waypoint.
+ const t=f*f*(3-2*f);
+ const ca=moments[a].camera,cb=moments[b].camera;
+ return {x:lerp(ca.x,cb.x,t),y:lerp(ca.y,cb.y,t),z:lerp(ca.z,cb.z,t),r:lerp(ca.r,cb.r,t)};
 }
-function selectNode(id){
- const relation=getConnections(archive,visit.current).find(edge=>edge.to===id);
- visit=relation?followEdge(archive,visit,relation.edgeId):startVisit(archive,id);
- renderNodes();renderInspector();
+function scrollProgress(){
+ const root=$("#experience"), top=root.offsetTop;
+ scrollEnd=Math.max(1,root.offsetHeight-innerHeight);
+ return clamp((scrollY-top)/scrollEnd,0,1)*(moments.length-1);
 }
-function renderInspector(){
- const node=archive.nodes.find(n=>n.id===visit.current),links=getConnections(archive,node.id);
- const inspector=$("#graphInspector"),src=mediaSrc(node);
- inspector.innerHTML='<div class="inspector-kicker">'+escape(t("research"))+" / "+escape(node.type.toUpperCase())+'</div>'+
-   '<h3>'+escape(label(node.title))+'</h3>'+
-   (src?'<img class="inspect-photo" src="'+src+'" alt="'+escape(label(node.title))+'"/>':"")+
-   '<p>'+escape(t("graphNote"))+'</p>'+
-   '<div class="inspect-evidence">'+escape(t("evidence"))+'<br/>'+node.evidence.map(escape).join(" · ")+
-   (node.type==="media"?"<br/>"+escape(t("rights")):"")+'</div>'+
-   '<div class="inspector-kicker">'+escape(t("follow"))+" / "+links.length+'</div>'+
-   '<div id="inspectRelations"></div>'+
-   '<button class="inspect-back" id="retraceButton" type="button">'+escape(t("return"))+' ↶</button>'+
-   '<p class="inspector-empty">'+escape(t("path"))+" · "+visit.history.length+'</p>';
- const relationList=$("#inspectRelations");
- if(!links.length)relationList.innerHTML='<p class="inspector-empty">'+escape(t("noConnections"))+'</p>';
- links.forEach(link=>{
-  const target=archive.nodes.find(n=>n.id===link.to);
-  const button=document.createElement("button");button.className="inspect-link";button.type="button";
-  button.innerHTML='<span>'+escape(link.relation.replaceAll("-"," ").toUpperCase())+'</span>'+escape(label(target.title))+' ↗';
-  button.addEventListener("click",()=>{
-   visit=followEdge(archive,visit,link.edgeId);renderNodes();renderInspector();
-  });
-  relationList.append(button);
+function updateScroll(){
+ if(mode!=="journey")return;
+ const progress=scrollProgress();const beat=clamp(Math.round(progress),0,moments.length-1);
+ target=cameraForProgress(progress);
+ if(beat!==currentBeat){currentBeat=beat;renderNarrative(beat);}
+ dirty=true;
+}
+function positionWorld(){
+ const responsive=clamp(Math.min(viewport.w/1340,1),.43,1);
+ const zoom=current.z*responsive;
+ const rad=current.r*Math.PI/180;
+ const cx=current.x*Math.cos(rad)-current.y*Math.sin(rad);
+ const cy=current.x*Math.sin(rad)+current.y*Math.cos(rad);
+ const focusY=viewport.h*(viewport.w<800?.38:.50);
+ const dx=viewport.w*.5-zoom*cx,dy=focusY-zoom*cy;
+ $("#world").style.transform="translate3d("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px,0) scale("+zoom.toFixed(5)+") rotate("+current.r.toFixed(3)+"deg)";
+}
+function frame(){
+ const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches?.32:.085;
+ for(const key of ["x","y","z","r"])current[key]=lerp(current[key],target[key],speed);
+ positionWorld();
+ rafId=requestAnimationFrame(frame);
+}
+function jumpTo(beat){
+ const root=$("#experience");const limit=Math.max(1,root.offsetHeight-innerHeight);
+ window.scrollTo({top:root.offsetTop+limit*beat/(moments.length-1),behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
+}
+function enterMode(next){
+ mode=next;$("#experience").dataset.mode=mode;
+ $("#modeBtn").setAttribute("aria-pressed",String(mode==="explore"));
+ $("#modeBtn").lastElementChild.textContent=mode==="journey"?copy[lang].explore:copy[lang].journey;
+ $("#spatialHint").hidden=mode!=="explore";
+ $("#instruction").hidden=mode==="explore";
+ if(mode==="explore"){
+  target={...moments[6].camera};
+  // The exploratory field starts at a legible overview, with free pan and zoom.
+  $("#canvas").dataset.beat="6";
+ }else{
+  updateScroll();
+ }
+ closeDetail();
+ dirty=true;
+}
+function inspect(id){
+ const item=mediaRecord(id);if(!item)return;
+ openItem=id;fillDetail(id);$("#detail").hidden=false;
+ if(mode==="explore"){
+  target={x:item.x+item.w/2,y:item.y+item.h/2,z:Math.min(1.12,1200/item.w),r:0};
+ }
+}
+function fillDetail(id){
+ const item=mediaRecord(id);if(!item)return;
+ $("#detailMarker").textContent="ARCHIVE IMAGE "+String(id).padStart(2,"0")+" / PDF "+item.page;
+ $("#detailTitle").textContent=local(item.title);
+ $("#detailText").textContent=local(item.desc);
+ $("#detailMeta").textContent=item.project+" · DARB 1718 OVERVIEW 2026 · P."+item.page;
+ $("#sourceBtn").textContent=copy[lang].source;
+ $("#followBtn").textContent=copy[lang].follow;
+ $("#followBtn").hidden=![39,40,41,42].includes(id);
+}
+function closeDetail(){$("#detail").hidden=true;openItem=null}
+function renderIndex(){
+ const wrap=$("#indexItems");wrap.innerHTML="";
+ moments.forEach((m,i)=>{
+  const btn=document.createElement("button");btn.type="button";btn.className="index-item";
+  btn.innerHTML="<small>"+String(i+1).padStart(2,"0")+"</small><strong>"+escaped(copy[lang].index[i])+"</strong><em>↗</em>";
+  btn.addEventListener("click",()=>{closeIndex();enterMode("journey");jumpTo(i);});
+  wrap.append(btn);
  });
- $("#retraceButton").disabled=visit.history.length<2;
- $("#retraceButton").addEventListener("click",()=>{
-  visit=retrace(visit);renderNodes();renderInspector();
+}
+function openIndex(){
+ $("#index").hidden=false;$("#indexBtn").setAttribute("aria-expanded","true");
+ $("#closeIndex").focus();
+}
+function closeIndex(){
+ $("#index").hidden=true;$("#indexBtn").setAttribute("aria-expanded","false");
+ $("#indexBtn").focus({preventScroll:true});
+}
+function renderReading(){
+ const ol=$("#readingList");ol.innerHTML="";
+ moments.forEach((m,i)=>{
+  const li=document.createElement("li");
+  const heading=document.createElement("h3");heading.textContent=m[lang].join(" ");
+  const p=document.createElement("p");p.textContent=local(m.body);
+  const desc=document.createElement("div");desc.append(heading,p);
+  const prefix=document.createElement("span");prefix.textContent=String(i+1).padStart(2,"0");
+  li.append(prefix,desc);
+  const focusId=keyFocus[i];
+  if(focusId){
+   const item=mediaRecord(focusId), fig=document.createElement("figure");
+   const image=document.createElement("img");image.src=imageOf(focusId);image.alt=local(item.title);image.loading="lazy";
+   const caption=document.createElement("figcaption");
+   caption.textContent=local(item.title)+" · PDF p."+item.page;
+   fig.append(image,caption);li.append(fig);
+  }
+  ol.append(li);
  });
 }
-function openGraph(start="project:tales"){
- visit=startVisit(archive,archive.nodes.some(n=>n.id===start)?start:"project:tales");
- graphOpen=true;$("#graphView").hidden=false;document.body.style.overflow="hidden";
- $("#storyToggle").classList.remove("is-active");$("#traceToggle").classList.add("is-active");
- renderNodes();renderInspector();$("#closeGraph").focus({preventScroll:true});
-}
-function closeGraph(){
- graphOpen=false;$("#graphView").hidden=true;document.body.style.overflow="";
- $("#traceToggle").classList.remove("is-active");$("#storyToggle").classList.add("is-active");
- $("#traceToggle").focus({preventScroll:true});scrollCallback?.();
-}
-function installControls(){
- $("#langToggle").addEventListener("click",()=>setLanguage(language==="en"?"ar":"en"));
- $("#quietToggle").addEventListener("click",()=>setQuiet(!quiet));
- $("#traceToggle").addEventListener("click",()=>openGraph());
- $("#openGraph").addEventListener("click",()=>openGraph());
- $("#storyToggle").addEventListener("click",()=>{
-  if(graphOpen)closeGraph();
-  else $("#chapter-0")?.scrollIntoView({behavior:quiet?"instant":"smooth"});
+function installInput(){
+ $("#localeBtn").addEventListener("click",()=>setLanguage(lang==="en"?"ar":"en"));
+ $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":"journey"));
+ $("#homeBtn").addEventListener("click",()=>{enterMode("journey");jumpTo(0);});
+ $("#nextBtn").addEventListener("click",()=>{
+  if(currentBeat===moments.length-1){enterMode("explore");return;}
+  jumpTo(currentBeat+1);
  });
- $("#closeGraph").addEventListener("click",closeGraph);
+ $("#indexBtn").addEventListener("click",()=>$("#index").hidden?openIndex():closeIndex());
+ $("#closeIndex").addEventListener("click",closeIndex);
+ $("#closeDetail").addEventListener("click",closeDetail);
+ $("#followBtn").addEventListener("click",()=>{
+  if(openItem===null)return;
+  const next={39:2,40:3,41:4,42:5}[openItem];
+  closeDetail();enterMode("journey");jumpTo(next);
+ });
+ $("#sourceBtn").addEventListener("click",()=>{
+  if(openItem===null)return;
+  const item=mediaRecord(openItem);
+  window.open(sourceBase+item.page,"_blank","noopener,noreferrer");
+ });
+ $("#backToScene").addEventListener("click",()=>jumpTo(currentBeat));
+ addEventListener("scroll",()=>{
+  updateScroll();
+  const threshold=$("#reading").getBoundingClientRect().top;
+  const now=threshold<innerHeight*.64;
+  if(reading!==now){reading=now;document.body.classList.toggle("is-reading",reading);}
+ },{passive:true});
+ addEventListener("resize",()=>{viewport={w:innerWidth,h:innerHeight};updateScroll();},{passive:true});
  addEventListener("keydown",event=>{
-  if(event.key==="Escape"&&graphOpen)closeGraph();
-  if(graphOpen&&event.key==="Backspace"&&!["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){
-   event.preventDefault();visit=retrace(visit);renderNodes();renderInspector();
+  if(event.key==="Escape"){if(!$("#index").hidden)closeIndex();else closeDetail();return;}
+  if($("#index").hidden && mode==="journey" && event.target.tagName!=="BUTTON"){
+   if(event.key==="ArrowDown"||event.key==="ArrowRight"){event.preventDefault();jumpTo(Math.min(6,currentBeat+1));}
+   if(event.key==="ArrowUp"||event.key==="ArrowLeft"){event.preventDefault();jumpTo(Math.max(0,currentBeat-1));}
   }
  });
- addEventListener("resize",()=>requestAnimationFrame(drawLines),{passive:true});
- $$(".scene-image").forEach(el=>{
-  const id="media:"+el.dataset.image,action=()=>openGraph(id);
-  el.tabIndex=0;el.setAttribute("role","button");el.setAttribute("aria-label","Trace archive image "+el.dataset.image);
-  el.addEventListener("click",action);
-  el.addEventListener("keydown",event=>{
-   if(event.key==="Enter"||event.key===" "){event.preventDefault();action();}
-  });
+ const canvas=$("#canvas");
+ canvas.addEventListener("pointerdown",event=>{
+  if(mode!=="explore"||event.target.closest("button"))return;
+  drag={startX:event.clientX,startY:event.clientY,x:target.x,y:target.y,zoom:target.z};
+  canvas.setPointerCapture(event.pointerId);
  });
+ canvas.addEventListener("pointermove",event=>{
+  if(!drag||mode!=="explore")return;
+  const ratio=clamp(Math.min(innerWidth/1340,1),.43,1);
+  const z=Math.max(.1,drag.zoom*ratio);
+  target.x=clamp(drag.x-(event.clientX-drag.startX)/z,0,5200);
+  target.y=clamp(drag.y-(event.clientY-drag.startY)/z,0,3000);
+ });
+ const end=()=>drag=null;
+ canvas.addEventListener("pointerup",end);canvas.addEventListener("pointercancel",end);
+ canvas.addEventListener("wheel",event=>{
+  if(mode!=="explore")return;
+  event.preventDefault();
+  target.z=clamp(target.z*Math.exp(-event.deltaY*.0008),.2,2.7);
+ },{passive:false});
 }
 async function boot(){
  try{
   const response=await fetch("/story.json",{cache:"no-cache"});
-  if(!response.ok)throw new Error("Could not load archive story: "+response.status);
-  archive=await response.json();
-  const errors=validateArchive(archive);
-  if(errors.length)throw new Error(errors.join("; "));
-  renderCopy();setQuiet(quiet);renderChapters();installControls();setStep(0);
+  if(!response.ok)throw new Error("Archive source unavailable: "+response.status);
+  story=await response.json();
+  const issues=validateArchive(story);
+  if(issues.length)throw new Error("Archive evidence invalid: "+issues.join("; "));
+  makeWorld();renderIndex();renderReading();installInput();setLanguage("en");renderNarrative(0);
+  updateScroll();rafId=requestAnimationFrame(frame);
  }catch(error){
   console.error(error);
-  $("#chapters").innerHTML='<article class="chapter"><h2>Archive unavailable.</h2><p>Research material could not load.</p></article>';
+  $("#narrativeBody").textContent="Archive material could not load. The readable experience is temporarily unavailable.";
  }
 }
 boot();
