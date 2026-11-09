@@ -11,7 +11,7 @@ const copy={
  en:{
   memory:"THE LIVING MEMORY",explore:"WANDER",journey:"FOLLOW STORY",
   spatialHint:"DRAG TO WANDER · SCROLL TO ZOOM · SELECT AN IMAGE",indexTitle:"There is no single beginning.",
-  indexFoot:"ONE CONTINUOUS WORLD · SEVEN MOMENTS",returnScene:"RETURN TO THE EXPERIENCE",
+  indexFoot:"ONE CONTINUOUS WORLD · 77 SOURCE RECORDS",searchLabel:"SEARCH THE ARCHIVE",searchPlaceholder:"Search artworks, programmes, practices...",returnScene:"RETURN TO THE EXPERIENCE",
   readingTitle:"Every image holds a way in.",readingIntro:"An uninterrupted, readable path through the same source material.",
   readingFoot:"Research experience built from the Darb 1718 institutional overview · not the official public website.",
   source:"SEE SOURCE RECORD ↗",follow:"FOLLOW THIS MOMENT ↗",
@@ -22,7 +22,7 @@ const copy={
  ar:{
   memory:"الذاكرة الحية",explore:"تجوّل",journey:"اتبع الحكاية",
   spatialHint:"اسحب عشان تتجوّل · مرّر للتقريب · اختار صورة",indexTitle:"مفيش بداية واحدة للحكاية.",
-  indexFoot:"مساحة واحدة مستمرة · سبع لحظات",returnScene:"ارجع للتجربة",
+  indexFoot:"عالم واحد مستمر · ٧٧ عنصرًا أرشيفيًا",searchLabel:"ابحث في الأرشيف",searchPlaceholder:"عمل، معرض، ورشة، برنامج...",returnScene:"ارجع للتجربة",
   readingTitle:"كل صورة ليها مدخل.",readingIntro:"مسار قراءة واضح لنفس المادة الأرشيفية، بدون حركة.",
   readingFoot:"تجربة بحثية من ملف درب 1718 · مش الموقع الرسمي للمؤسسة.",
   source:"افتح المصدر ↗",follow:"اتبع اللحظة دي ↗",
@@ -33,7 +33,7 @@ const copy={
 };
 let moments=[],media=[],catalog=null,chapterBook=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0;
-let viewport={w:innerWidth,h:innerHeight},target={...moments[0].camera},current={...target};
+let viewport={w:innerWidth,h:innerHeight},target={x:4600,y:3200,z:.2,r:0},current={...target};
 let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
 const imageOf=(id)=>mediaRecord(id)?.src ?? "";
 const mediaRecord=(id)=>media.find(item=>item.id===id);
@@ -126,21 +126,29 @@ function renderNarrative(beat){
 }
 
 function setLanguage(next){
- lang=next;document.documentElement.lang=lang;
+ lang=next;
+ document.documentElement.lang=lang;
  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
- $$("[data-i18n]").forEach(el=>el.textContent=copy[lang][el.dataset.i18n]);
+ $$("[data-i18n]").forEach(el=>el.textContent=copy[lang][el.dataset.i18n]||"");
  $("#localeBtn").textContent=lang==="en"?"عربي":"EN";
  $("#modeBtn").lastElementChild.textContent=mode==="journey"?copy[lang].explore:copy[lang].journey;
  $("#instructionText").textContent=copy[lang].direction;
+ $("#archiveSearch").placeholder=copy[lang].searchPlaceholder;
  $$(".artifact").forEach(fig=>{
   const item=mediaRecord(Number(fig.dataset.id));
-  fig.querySelector("figcaption").textContent=local(item.title)+" · "+item.project;
-  fig.querySelector("button").setAttribute("aria-label",local(item.title));
-  fig.querySelector("img").alt=local(item.title);
+  fig.querySelector("figcaption").textContent=local(item.title)+" · "+local(item.project);
+  const button=fig.querySelector("button");
+  button.setAttribute("aria-label",local(item.title));
+  const image=fig.querySelector("img");
+  if(image)image.alt=local(item.title);
  });
- renderNarrative(currentBeat);renderIndex();renderReading();
+ $$(".zone-label").forEach(el=>{const zone=CLUSTERS[el.dataset.cluster];el.querySelector("strong").textContent=lang==="ar"?zone.ar:zone.en;});
+ renderNarrative(currentBeat);
+ renderIndex();
+ renderReading();
  if(openItem!==null)fillDetail(openItem);
 }
+
 function cameraForProgress(progress){
  const a=Math.floor(progress),b=Math.min(moments.length-1,a+1);
  const f=progress-a;
@@ -201,29 +209,76 @@ function inspect(id){
  const item=mediaRecord(id);if(!item)return;
  openItem=id;fillDetail(id);$("#detail").hidden=false;
  if(mode==="explore"){
-  target={x:item.x+item.w/2,y:item.y+item.h/2,z:Math.min(1.12,1200/item.w),r:0};
+  target=cameraForObject(item,{zoom:Math.min(1.18,1250/item.w),rotation:0});
  }
 }
 function fillDetail(id){
  const item=mediaRecord(id);if(!item)return;
- $("#detailMarker").textContent="ARCHIVE IMAGE "+String(id).padStart(2,"0")+" / PDF "+item.page;
+ $("#detailMarker").textContent="ARCHIVE / "+String(id).padStart(2,"0")+" · PDF "+item.page+" / XREF "+item.xref;
  $("#detailTitle").textContent=local(item.title);
- $("#detailText").textContent=local(item.desc);
- $("#detailMeta").textContent=item.project+" · DARB 1718 OVERVIEW 2026 · P."+item.page;
+ $("#detailText").textContent=lang==="en"
+  ? item.title.en+" — a source record from "+item.project.en+"."
+  : item.title.ar+" — عنصر أرشيفي من برنامج "+item.project.ar+".";
+ $("#detailMeta").textContent=local(item.project)+" · DARB 1718 OVERVIEW 2026 · P."+item.page;
  $("#sourceBtn").textContent=copy[lang].source;
  $("#followBtn").textContent=copy[lang].follow;
- $("#followBtn").hidden=![39,40,41,42].includes(id);
+ const beat=nearestChapterFor(item);
+ $("#followBtn").hidden=beat<0;
+ const related=media.filter(other=>other.cluster===item.cluster&&other.id!==item.id).slice(0,8);
+ const host=$("#relatedObjects");host.replaceChildren();
+ const heading=document.createElement("div");heading.className="related-title";
+ heading.textContent=lang==="ar"?"من نفس البرنامج · "+related.length:"FROM THE SAME PROGRAMME · "+related.length;
+ host.append(heading);
+ for(const record of related){
+  const btn=document.createElement("button");btn.type="button";btn.className="related-item";
+  btn.innerHTML='<img src="'+record.src+'" loading="lazy" alt=""/><span>'+escaped(local(record.title))+'</span><b>↗</b>';
+  btn.addEventListener("click",()=>inspect(record.id));
+  host.append(btn);
+ }
+}
+function nearestChapterFor(item){
+ let index=moments.findIndex(ch=>ch.focusId===item.id);
+ if(index>=0)return index;
+ return moments.findIndex(ch=>ch.focusId!==null&&mediaRecord(ch.focusId)?.cluster===item.cluster);
 }
 function closeDetail(){$("#detail").hidden=true;openItem=null}
+
 function renderIndex(){
- const wrap=$("#indexItems");wrap.innerHTML="";
+ const wrap=$("#indexItems");wrap.replaceChildren();
  moments.forEach((m,i)=>{
   const btn=document.createElement("button");btn.type="button";btn.className="index-item";
-  btn.innerHTML="<small>"+String(i+1).padStart(2,"0")+"</small><strong>"+escaped(copy[lang].index[i])+"</strong><em>↗</em>";
+  const title=escaped(m[lang].join(" "));
+  btn.innerHTML="<small>"+String(i+1).padStart(2,"0")+"</small><strong>"+title+"</strong><em>↗</em>";
   btn.addEventListener("click",()=>{closeIndex();enterMode("journey");jumpTo(i);});
   wrap.append(btn);
  });
+ renderSearch();
 }
+function renderSearch(){
+ const query=$("#archiveSearch").value.trim().toLocaleLowerCase();
+ const results=$("#searchResults");
+ const index=$("#indexItems");
+ results.replaceChildren();
+ results.hidden=!query;
+ index.hidden=Boolean(query);
+ if(!query)return;
+ const hits=media.filter(item=>
+  [item.title.en,item.title.ar,item.project.en,item.project.ar,item.kind,String(item.id)]
+    .some(field=>field?.toLocaleLowerCase().includes(query)));
+ for(const item of hits.slice(0,30)){
+  const btn=document.createElement("button");btn.className="search-hit";btn.type="button";
+  btn.innerHTML='<img src="'+item.src+'" alt="" loading="lazy"/><span><strong>'+escaped(local(item.title))+
+    '</strong><small>'+escaped(local(item.project))+" · PDF "+item.page+
+    '</small></span><b>↗</b>';
+  btn.addEventListener("click",()=>{closeIndex();enterMode("explore");inspect(item.id);});
+  results.append(btn);
+ }
+ if(!hits.length){
+  const p=document.createElement("p");p.textContent=lang==="ar"?"مفيش نتائج مطابقة.":"No matching archival records.";
+  results.append(p);
+ }
+}
+
 function openIndex(){
  $("#index").hidden=false;$("#indexBtn").setAttribute("aria-expanded","true");
  $("#closeIndex").focus();
@@ -233,7 +288,7 @@ function closeIndex(){
  $("#indexBtn").focus({preventScroll:true});
 }
 function renderReading(){
- const ol=$("#readingList");ol.innerHTML="";
+ const ol=$("#readingList");ol.replaceChildren();
  moments.forEach((m,i)=>{
   const li=document.createElement("li");
   const heading=document.createElement("h3");heading.textContent=m[lang].join(" ");
@@ -241,17 +296,17 @@ function renderReading(){
   const desc=document.createElement("div");desc.append(heading,p);
   const prefix=document.createElement("span");prefix.textContent=String(i+1).padStart(2,"0");
   li.append(prefix,desc);
-  const focusId=keyFocus[i];
-  if(focusId){
-   const item=mediaRecord(focusId), fig=document.createElement("figure");
-   const image=document.createElement("img");image.src=imageOf(focusId);image.alt=local(item.title);image.loading="lazy";
+  if(m.focusId){
+   const item=mediaRecord(m.focusId),fig=document.createElement("figure");
+   const image=document.createElement("img");image.src=item.src;image.alt=local(item.title);image.loading="lazy";
    const caption=document.createElement("figcaption");
-   caption.textContent=local(item.title)+" · PDF p."+item.page;
+   caption.textContent=local(item.title)+" · "+local(item.project)+" · PDF p."+item.page;
    fig.append(image,caption);li.append(fig);
   }
   ol.append(li);
  });
 }
+
 function installInput(){
  $("#localeBtn").addEventListener("click",()=>setLanguage(lang==="en"?"ar":"en"));
  $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":"journey"));
@@ -262,16 +317,18 @@ function installInput(){
  });
  $("#indexBtn").addEventListener("click",()=>$("#index").hidden?openIndex():closeIndex());
  $("#closeIndex").addEventListener("click",closeIndex);
+ $("#archiveSearch").addEventListener("input",renderSearch);
  $("#closeDetail").addEventListener("click",closeDetail);
  $("#followBtn").addEventListener("click",()=>{
   if(openItem===null)return;
-  const next={39:2,40:3,41:4,42:5}[openItem];
+  const item=mediaRecord(openItem),next=item?nearestChapterFor(item):-1;
+  if(next<0)return;
   closeDetail();enterMode("journey");jumpTo(next);
  });
  $("#sourceBtn").addEventListener("click",()=>{
   if(openItem===null)return;
   const item=mediaRecord(openItem);
-  window.open(sourceBase+item.page,"_blank","noopener,noreferrer");
+  window.open(sourceBase+(item.id+1),"_blank","noopener,noreferrer");
  });
  $("#backToScene").addEventListener("click",()=>jumpTo(currentBeat));
  addEventListener("scroll",()=>{
@@ -284,7 +341,7 @@ function installInput(){
  addEventListener("keydown",event=>{
   if(event.key==="Escape"){if(!$("#index").hidden)closeIndex();else closeDetail();return;}
   if($("#index").hidden && mode==="journey" && event.target.tagName!=="BUTTON"){
-   if(event.key==="ArrowDown"||event.key==="ArrowRight"){event.preventDefault();jumpTo(Math.min(6,currentBeat+1));}
+   if(event.key==="ArrowDown"||event.key==="ArrowRight"){event.preventDefault();jumpTo(Math.min(moments.length-1,currentBeat+1));}
    if(event.key==="ArrowUp"||event.key==="ArrowLeft"){event.preventDefault();jumpTo(Math.max(0,currentBeat-1));}
   }
  });
@@ -298,8 +355,8 @@ function installInput(){
   if(!drag||mode!=="explore")return;
   const ratio=clamp(Math.min(innerWidth/1340,1),.43,1);
   const z=Math.max(.1,drag.zoom*ratio);
-  target.x=clamp(drag.x-(event.clientX-drag.startX)/z,0,5200);
-  target.y=clamp(drag.y-(event.clientY-drag.startY)/z,0,3000);
+  target.x=clamp(drag.x-(event.clientX-drag.startX)/z,0,WORLD_WIDTH);
+  target.y=clamp(drag.y-(event.clientY-drag.startY)/z,0,WORLD_HEIGHT);
  });
  const end=()=>drag=null;
  canvas.addEventListener("pointerup",end);canvas.addEventListener("pointercancel",end);
@@ -311,16 +368,31 @@ function installInput(){
 }
 async function boot(){
  try{
-  const response=await fetch("/story.json",{cache:"no-cache"});
-  if(!response.ok)throw new Error("Archive source unavailable: "+response.status);
-  story=await response.json();
+  const endpoints=["/story.json","/catalog.json","/chapters.json"];
+  const responses=await Promise.all(endpoints.map(path=>fetch(path,{cache:"no-cache"})));
+  for(let i=0;i<responses.length;i++) if(!responses[i].ok)throw new Error("Archive source unavailable: "+endpoints[i]);
+  const records=await Promise.all(responses.map(response=>response.json()));
+  [story,catalog,chapterBook]=records;
   const issues=validateArchive(story);
-  if(issues.length)throw new Error("Archive evidence invalid: "+issues.join("; "));
-  makeWorld();renderIndex();renderReading();installInput();setLanguage("en");renderNarrative(0);
+  if(issues.length)throw new Error("Story evidence invalid: "+issues.join("; "));
+  media=layoutCatalog(catalog);
+  const layoutIssues=validateAtlas(catalog,media);
+  if(layoutIssues.length)throw new Error("Atlas invalid: "+layoutIssues.join("; "));
+  moments=chapterBook.chapters.map(ch=>{
+   const focus=ch.focusId===null?null:mediaRecord(ch.focusId);
+   if(ch.focusId!==null&&!focus)throw new Error("Unresolved chapter focus "+ch.id);
+   const camera=focus?cameraForObject(focus,{zoom:ch.zoom,rotation:ch.rotation}):
+     {x:WORLD_WIDTH/2,y:WORLD_HEIGHT/2,z:ch.zoom,r:ch.rotation};
+   return {...ch,en:ch.title.en,ar:ch.title.ar,camera};
+  });
+  // A camera waypoint is a viewpoint into one field, never a new page.
+  target={...moments[0].camera};current={...target};
+  makeWorld();installInput();setLanguage("en");renderNarrative(0);
   updateScroll();rafId=requestAnimationFrame(frame);
  }catch(error){
   console.error(error);
-  $("#narrativeBody").textContent="Archive material could not load. The readable experience is temporarily unavailable.";
+  $("#narrativeBody").textContent="Archive material could not load. The reading mode is temporarily unavailable.";
  }
 }
+
 boot();
