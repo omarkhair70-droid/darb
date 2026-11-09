@@ -7,7 +7,7 @@ test("a single spatial world is navigable in story and wander modes",async({page
  await expect(page.locator("#canvas")).toBeVisible();
  await expect(page.locator(".artifact")).toHaveCount(18);
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
- await expect(page.locator("#statement")).toContainText("An archive");
+ await expect(page.locator("#statement")).toContainText("A place");
  await expect(page.locator("#readingList li")).toHaveCount(7);
  await page.waitForTimeout(1200);
  await page.screenshot({path:"test-results/"+info.project.name+"-opening.png"});
