@@ -1,10 +1,11 @@
 import {validateArchive,getConnections,findEvidencePath} from "/graph.mjs";
+import {layoutCatalog,validateAtlas,cameraForObject,WORLD_WIDTH,WORLD_HEIGHT,CLUSTERS} from "/world-layout.mjs";
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const local=(v)=>v?.[lang]||v?.en||"";
-const sourceBase="https://github.com/omarkhair70-droid/darb/blob/main/source-material/original/Darb_1718_Overview_2026.pdf#page=";
+const sourceBase="https://github.com/omarkhair70-droid/darb/blob/main/assets/visual-audit-77.csv#L";
 const escaped=(v)=>String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 const copy={
  en:{
@@ -30,40 +31,11 @@ const copy={
   index:["مكان بيتحرك","الأرشيف الأوسع","حوار","فعل النظر","الضوء والصورة","حكاية ملموسة","مفيش نهاية واحدة"]
  }
 };
-const moments=[
- {en:["A place","never stays still."],ar:["المكان","عمره ما بيثبت."],body:{en:"An archive is made from moments that continue to meet, even when the people and places change.",ar:"الأرشيف بيتكوّن من لحظات بتفضل تتقاطع، حتى لما الناس والأماكن بتتغير."},label:"DARB 1718 / AN INDEPENDENT ARCHIVE",camera:{x:2520,y:1450,z:.37,r:0}},
- {en:["Every image","belongs somewhere."],ar:["كل صورة","وراها مكان."],body:{en:"Across Darb's programmes, images lead to making, gatherings, performances and conversations.",ar:"صور درب بتفتح أبواب للورش واللقاءات والعروض والحكايات."},label:"MANY PRACTICES / ONE ARCHIVE",camera:{x:2590,y:1150,z:.57,r:-1.1}},
- {en:["Before the image,","a conversation."],ar:["قبل الصورة،","فيه حكاية."],body:{en:"Tales of Fustat documented neighbourhood conversations and interviews with craftspeople.",ar:"حكاوي الفسطاط جمعت حوارات ومقابلات مع حرفيين من الحي."},label:"TALES OF FUSTAT / IMAGE 39 / PDF P.11",camera:{x:2080,y:1040,z:1.34,r:.6}},
- {en:["Looking","becomes listening."],ar:["النظر","ممكن يبقى إنصات."],body:{en:"A photography walk and shared workshop turn observation into a collective practice.",ar:"جولة تصوير وورشة مشتركة بتحوّل النظر لممارسة جماعية."},label:"TALES OF FUSTAT / IMAGE 40 / PDF P.11",camera:{x:2825,y:675,z:1.32,r:-1}},
- {en:["Light","leaves a trace."],ar:["الضوء","بيسيب أثر."],body:{en:"Cyanotype gives photographic memory a different, blue material form.",ar:"السيانوتايب بيدي للذاكرة المصوّرة شكل مادي أزرق مختلف."},label:"TALES OF FUSTAT / IMAGE 41 / PDF P.11",camera:{x:3650,y:1340,z:1.30,r:.3}},
- {en:["A story","you can hold."],ar:["حكاية","تقدر تمسكها."],body:{en:"The programme also produced prints and photographic notebooks: images made into objects.",ar:"التجربة اتجمعت كمان في مطبوعات ودفاتر فوتوغرافية؛ صور بقت أشياء ملموسة."},label:"TALES OF FUSTAT / IMAGE 42 / PDF P.11",camera:{x:4370,y:970,z:1.30,r:1.2}},
- {en:["Nothing ends","at one image."],ar:["مفيش نهاية","عند صورة واحدة."],body:{en:"Pull back to the larger archive. Wander between programmes, or follow another documented thread.",ar:"ارجع للصورة الكبيرة. اتجوّل بين البرامج، أو اتبع خيط تاني من الأرشيف."},label:"DARB ARCHIVE / THE WIDER FIELD",camera:{x:2550,y:1430,z:.38,r:0}}
-];
-const media=[
- {id:1,xref:308,page:1,project:"Darb 1718",category:"place",x:290,y:220,w:640,h:380,r:-7,title:{en:"The Darb exterior",ar:"واجهة درب التاريخية"},desc:{en:"The historic exterior shown on the archive overview cover.",ar:"صورة الواجهة التاريخية الموجودة على غلاف ملف درب."}},
- {id:7,xref:323,page:3,project:"Darb workshops",category:"craft",x:1190,y:1850,w:485,h:355,r:5,title:{en:"Working with clay",ar:"العمل بالخزف"},desc:{en:"Craft practice shown in the Darb institutional overview.",ar:"ممارسة حرفية موثقة في الملف التعريفي لدرب."}},
- {id:21,xref:359,page:7,project:"INBETWEEN",category:"installation",x:3550,y:150,w:595,h:460,r:-4,title:{en:"INBETWEEN installation",ar:"تركيب فني من INBETWEEN"},desc:{en:"Suspended textiles in the 2025 INBETWEEN exhibition.",ar:"منسوجات معلّقة من معرض INBETWEEN سنة 2025."}},
- {id:22,xref:360,page:7,project:"INBETWEEN",category:"art",x:4370,y:290,w:390,h:300,r:8,title:{en:"Works in INBETWEEN",ar:"أعمال من INBETWEEN"},desc:{en:"Monochrome artwork documentation from the exhibition.",ar:"توثيق لأعمال أحادية اللون من المعرض."}},
- {id:29,xref:379,page:9,project:"Jusoor",category:"identity",x:360,y:1390,w:330,h:280,r:-6,title:{en:"Jusoor",ar:"جسور"},desc:{en:"Programme identity for the short-film screenings and conversations.",ar:"هوية برنامج عروض الأفلام القصيرة والنقاشات."}},
- {id:30,xref:380,page:9,project:"Jusoor",category:"cinema",x:810,y:960,w:510,h:355,r:4,title:{en:"Cinema as gathering",ar:"السينما كلقاء"},desc:{en:"Audience at a film screening in the Jusoor programme.",ar:"جمهور خلال عرض سينمائي في برنامج جسور."}},
- {id:34,xref:389,page:10,project:"Residency",category:"portrait",x:4200,y:1890,w:360,h:435,r:-3,title:{en:"Natalia Ossef residency",ar:"إقامة ناتاليا أوسيف"},desc:{en:"Documentary image from the artist residency.",ar:"صورة توثيقية من الإقامة الفنية."}},
- {id:35,xref:390,page:10,project:"Residency",category:"craft",x:4640,y:1510,w:380,h:370,r:7,title:{en:"Textile process",ar:"العمل على النسيج"},desc:{en:"Textile making during the residency research.",ar:"عملية صنع النسيج ضمن بحث الإقامة الفنية."}},
- {id:38,xref:393,page:10,project:"Residency",category:"craft",x:4740,y:2310,w:400,h:300,r:6,title:{en:"Collaborative textiles",ar:"تجربة نسيج مشتركة"},desc:{en:"Textile collaboration documented in the overview.",ar:"تعاون في النسيج موثق في الملف."}},
- {id:39,xref:400,page:11,project:"Tales of Fustat",category:"conversation",x:1780,y:830,w:630,h:390,r:-2,title:{en:"Listening in Fustat",ar:"الحوار في الفسطاط"},desc:{en:"Group interviews and conversation documented in Tales of Fustat.",ar:"مقابلات وحوار جماعي ضمن برنامج حكاوي الفسطاط."}},
- {id:40,xref:401,page:11,project:"Tales of Fustat",category:"workshop",x:2500,y:460,w:650,h:430,r:4,title:{en:"Learning to look",ar:"نتعلّم النظر"},desc:{en:"A shared photography workshop, documented as part of Tales of Fustat.",ar:"ورشة تصوير جماعية موثقة ضمن حكاوي الفسطاط."}},
- {id:41,xref:402,page:11,project:"Tales of Fustat",category:"cyanotype",x:3380,y:1120,w:590,h:490,r:-5,title:{en:"A blue impression",ar:"طبعة زرقاء"},desc:{en:"Cyanotype image of a craft form made during the programme.",ar:"طبعة سيانوتايب لشكل حرفي ضمن البرنامج."}},
- {id:42,xref:403,page:11,project:"Tales of Fustat",category:"cyanotype",x:4060,y:770,w:630,h:420,r:3,title:{en:"Printed memory",ar:"ذاكرة مطبوعة"},desc:{en:"Photographic prints, cyanotypes and notebooks documented in Tales of Fustat.",ar:"مطبوعات وصور ودفاتر موثقة في حكاوي الفسطاط."}},
- {id:53,xref:435,page:16,project:"Something Else",category:"exhibition",x:240,y:2280,w:575,h:370,r:3,title:{en:"Something Else symposium",ar:"ملتقى Something Else"},desc:{en:"Artworks in a historic interior at the 2025 symposium.",ar:"أعمال فنية داخل مكان تاريخي في ملتقى 2025."}},
- {id:56,xref:443,page:17,project:"Something Else",category:"art",x:2940,y:2180,w:440,h:400,r:8,title:{en:"Something Else artwork",ar:"عمل من Something Else"},desc:{en:"Artwork documented during Something Else at the Citadel.",ar:"عمل فني موثّق خلال Something Else بالقلعة."}},
- {id:61,xref:448,page:17,project:"Something Else",category:"installation",x:3650,y:2300,w:580,h:360,r:-6,title:{en:"Light in a historic space",ar:"ضوء في مكان تاريخي"},desc:{en:"A projection installation at Something Else, Citadel.",ar:"تركيب بالضوء ضمن Something Else بالقلعة."}},
- {id:70,xref:469,page:20,project:"Live performance",category:"performance",x:1910,y:2360,w:520,h:340,r:-4,title:{en:"Listening together",ar:"الإنصات مع بعض"},desc:{en:"Audience gathered for a live performance, documented in the archive.",ar:"جمهور خلال عرض حي موثّق في الأرشيف."}},
- {id:71,xref:470,page:20,project:"Live performance",category:"performance",x:1290,y:350,w:390,h:310,r:5,title:{en:"Musicians in performance",ar:"موسيقى حية"},desc:{en:"Performers and audience in a live music event.",ar:"عازفون وجمهور خلال عرض موسيقي."}}
-];
-const keyFocus=[null,null,39,40,41,42,null];
+let moments=[],media=[],catalog=null,chapterBook=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0;
 let viewport={w:innerWidth,h:innerHeight},target={...moments[0].camera},current={...target};
 let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
-const imageOf=(id)=>"/media/"+id+([29,53,56,61].includes(id)?".png":".jpeg");
+const imageOf=(id)=>mediaRecord(id)?.src ?? "";
 const mediaRecord=(id)=>media.find(item=>item.id===id);
 function makeWorld(){
  const root=$("#artifacts");
