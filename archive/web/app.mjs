@@ -193,8 +193,13 @@ function positionWorld(){
  const zoneLabels=$(".world-annotations");
  if(zoneLabels)zoneLabels.style.opacity=String(clamp((.85-current.z)/.55,0,1));
 }
-function frame(){
- const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.32 : 0.085;
+let lastFrameAt=0;
+function frame(now=0){
+ const elapsed=lastFrameAt?Math.min(250,Math.max(1,now-lastFrameAt)):16.67;
+ lastFrameAt=now;
+ // Time-dependent easing: slow/mobile browsers cannot stretch a camera move indefinitely.
+ const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ? 1 : 1-Math.exp(-elapsed/280);
  for(const key of ["x","y","z","r","fx"])current[key]=lerp(current[key],target[key],speed);
  positionWorld();
  rafId=requestAnimationFrame(frame);
