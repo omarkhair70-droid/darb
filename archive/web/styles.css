@@ -266,3 +266,15 @@ html[lang="ar"] .zone-label strong{font-family:"Noto Naskh Arabic",serif;letter-
  .experience[data-beat="6"] .statement{font-size:clamp(44px,10.4vw,76px)}
  .experience[data-beat="6"] .veil{background:linear-gradient(0deg,#edf0e9f7 0%,#edf0e9d6 30%,transparent 72%)}
 }
+
+
+/* Discreet scale controls are a touch and keyboard affordance, not a toolbar. */
+.spatial-controls{position:fixed;z-index:32;right:clamp(16px,3.4vw,62px);bottom:43px;display:flex;gap:4px}
+.spatial-controls button{background:#f3f5edda;border:1px solid #34594b70;min-width:42px;height:43px;
+ color:#183a2f;font-size:23px;font-weight:300;backdrop-filter:blur(12px)}
+.spatial-controls button:hover{background:#204539;color:white}
+@media(max-width:800px){
+ .spatial-controls{bottom:76px;right:17px}
+ .spatial-controls button{min-width:40px;height:40px}
+ .spatial-hint{bottom:26px}
+}
