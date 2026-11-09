@@ -31,7 +31,7 @@ const copy={
   index:["مكان بيتحرك","الأرشيف الأوسع","حوار","فعل النظر","الضوء والصورة","حكاية ملموسة","مفيش نهاية واحدة"]
  }
 };
-let moments=[],media=[],catalog=null,chapterBook=null;
+let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0;
 let viewport={w:innerWidth,h:innerHeight},target={x:4600,y:3200,z:.2,r:0},current={...target};
 let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
@@ -103,6 +103,15 @@ function makeWorld(){
    const mx=(p[0]+q[0])/2;
    paths.push('<path data-cluster="'+key+'" d="M '+p[0]+' '+p[1]+' Q '+mx+' '+(p[1]+q[1])/2+' '+q[0]+' '+q[1]+'"/>');
   }
+ }
+ for(const thread of threads.connections){
+  const from=mediaRecord(thread.fromId),to=mediaRecord(thread.toId);
+  if(!from||!to)continue;
+  const ax=from.x+from.w/2,ay=from.y+from.h/2;
+  const bx=to.x+to.w/2,by=to.y+to.h/2;
+  const dx=bx-ax,dy=by-ay;
+  paths.push('<path class="curatorial-thread" data-thread="'+thread.id+
+    '" d="M '+ax+' '+ay+' C '+(ax+dx*.37)+' '+(ay-210)+' '+(bx-dx*.27)+' '+(by+180)+' '+bx+' '+by+'"/>');
  }
  link.innerHTML=paths.join("");
 }
@@ -234,6 +243,25 @@ function fillDetail(id){
   btn.innerHTML='<img src="'+record.src+'" loading="lazy" alt=""/><span>'+escaped(local(record.title))+'</span><b>↗</b>';
   btn.addEventListener("click",()=>inspect(record.id));
   host.append(btn);
+ }
+ const thematic=threads.connections.filter(t=>
+  t.fromCluster===item.cluster||t.toCluster===item.cluster);
+ if(thematic.length){
+  const name=document.createElement("div");name.className="related-title thread-title";
+  name.textContent=lang==="ar"?"خيوط لممارسات تانية · مقارنة تحريرية":"OTHER PRACTICES · CURATED CONNECTIONS";
+  host.append(name);
+  for(const thread of thematic){
+   const targetId=thread.fromCluster===item.cluster?thread.toId:thread.fromId;
+   const target=mediaRecord(targetId);
+   if(!target)continue;
+   const btn=document.createElement("button");btn.type="button";btn.className="related-item thread-item";
+   btn.innerHTML='<img src="'+target.src+'" loading="lazy" alt=""/><span><strong>'+
+     escaped(local(thread.title))+'</strong><small>'+escaped(local(target.project))+
+     '</small></span><b>↗</b>';
+   btn.title=local(thread.description);
+   btn.addEventListener("click",()=>{if(mode!=="explore")enterMode("explore");inspect(target.id);});
+   host.append(btn);
+  }
  }
 }
 function nearestChapterFor(item){
@@ -368,14 +396,21 @@ function installInput(){
 }
 async function boot(){
  try{
-  const endpoints=["/story.json","/catalog.json","/chapters.json"];
+  const endpoints=["/story.json","/catalog.json","/chapters.json","/threads.json"];
   const responses=await Promise.all(endpoints.map(path=>fetch(path,{cache:"no-cache"})));
   for(let i=0;i<responses.length;i++) if(!responses[i].ok)throw new Error("Archive source unavailable: "+endpoints[i]);
   const records=await Promise.all(responses.map(response=>response.json()));
-  [story,catalog,chapterBook]=records;
+  [story,catalog,chapterBook,threads]=records;
   const issues=validateArchive(story);
   if(issues.length)throw new Error("Story evidence invalid: "+issues.join("; "));
   media=layoutCatalog(catalog);
+  for(const thread of threads.connections){
+   const from=mediaRecord(thread.fromId),to=mediaRecord(thread.toId);
+   if(!from||!to||from.cluster!==thread.fromCluster||to.cluster!==thread.toCluster)
+    throw new Error("Invalid cross-programme thread "+thread.id);
+   if(thread.type!=="editorial-comparison"||thread.sourcePages.length<2)
+    throw new Error("Unlabelled thematic relationship "+thread.id);
+  }
   const layoutIssues=validateAtlas(catalog,media);
   if(layoutIssues.length)throw new Error("Atlas invalid: "+layoutIssues.join("; "));
   moments=chapterBook.chapters.map(ch=>{
