@@ -85,7 +85,7 @@ export function getConnections(archive, nodeId, {publicMode = false} = {}) {
 
 // Returns an *evidence trail*, never a claim that the start and end are directly linked.
 export function findEvidencePath(archive, startId, endId, opts = {}) {
-  if (startId === endId) return archive.nodes.some((n) => n.id === startId) ? {nodes:[startId],connections:[]} : null;
+  if (startId === endId) return archive.nodes.some((n) => n.id === startId && allowed(n, opts.publicMode ?? false)) ? {nodes:[startId],connections:[]} : null;
   const queue = [{at:startId, nodes:[startId], connections:[]}];
   const visited = new Set([startId]);
   while (queue.length) {
