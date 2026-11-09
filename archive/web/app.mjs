@@ -146,7 +146,7 @@ function positionWorld(){
  const rad=current.r*Math.PI/180;
  const cx=current.x*Math.cos(rad)-current.y*Math.sin(rad);
  const cy=current.x*Math.sin(rad)+current.y*Math.cos(rad);
- const focusY=viewport.h*(viewport.w<800?.38:.50);
+ const focusY=viewport.h*(viewport.w<800?lerp(.38,.31,clamp((current.z-.6)/.7,0,1)):.50);
  const dx=viewport.w*.5-zoom*cx,dy=focusY-zoom*cy;
  $("#world").style.transform="translate3d("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px,0) scale("+zoom.toFixed(5)+") rotate("+current.r.toFixed(3)+"deg)";
 }
