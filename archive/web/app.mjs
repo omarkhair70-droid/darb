@@ -17,6 +17,7 @@ const copy={
   source:"SEE SOURCE RECORD ↗",follow:"FOLLOW THIS MOMENT ↗",
   direction:"SCROLL TO MOVE THROUGH THE ARCHIVE",wander:"DRAG · EXPLORE · OPEN OBJECTS",
   video:"REFERENCE: 2026 OVERVIEW / DARB 1718",
+  signatureWhisper:"NOT WRITTEN OVER THE ARCHIVE. WOVEN FROM IT.",
   index:["A place, in motion","The larger constellation","A conversation","The act of looking","Light becomes an image","A story you can hold","No final frame"]
  },
  ar:{
@@ -28,11 +29,12 @@ const copy={
   source:"افتح المصدر ↗",follow:"اتبع اللحظة دي ↗",
   direction:"مرّر عشان تتنقل جوّه الأرشيف",wander:"اسحب · اكتشف · افتح صورة",
   video:"المصدر: ملف درب 2026",
+  signatureWhisper:"مش اسم فوق الأرشيف. ده اسم منسوج من حكاياته.",
   index:["مكان بيتحرك","الأرشيف الأوسع","حوار","فعل النظر","الضوء والصورة","حكاية ملموسة","مفيش نهاية واحدة"]
  }
 };
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
-let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0;
+let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
 let viewport={w:innerWidth,h:innerHeight},target={x:4600,y:3200,z:.2,r:0,fx:.5},current={...target};
 let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
 const imageOf=(id)=>mediaRecord(id)?.src ?? "";
@@ -172,7 +174,7 @@ function scrollProgress(){
  return clamp((scrollY-top)/scrollEnd,0,1)*(moments.length-1);
 }
 function updateScroll(){
- if(mode!=="journey")return;
+ if(mode!=="journey"||encounter)return;
  const progress=scrollProgress();const beat=clamp(Math.round(progress),0,moments.length-1);
  target=cameraForProgress(progress);
  if(beat!==currentBeat){currentBeat=beat;renderNarrative(beat);}
@@ -202,6 +204,7 @@ function jumpTo(beat){
  window.scrollTo({top:root.offsetTop+limit*beat/(moments.length-1),behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
 }
 function enterMode(next){
+ if(encounter)closeDetail();
  mode=next;$("#experience").dataset.mode=mode;
  $("#modeBtn").setAttribute("aria-pressed",String(mode==="explore"));
  $("#modeBtn").lastElementChild.textContent=mode==="journey"?copy[lang].explore:copy[lang].journey;
@@ -218,20 +221,55 @@ function enterMode(next){
  closeDetail();
  dirty=true;
 }
+function encounterCamera(item){
+ const responsive=clamp(Math.min(viewport.w/1340,1),.43,1);
+ const desiredWidth=viewport.w*(viewport.w<800?.78:.43);
+ const desiredHeight=viewport.h*(viewport.w<800?.42:.68);
+ const zoom=clamp(Math.min(desiredWidth/(item.w*responsive),desiredHeight/(item.h*responsive)),.72,2.45);
+ return {...cameraForObject(item,{zoom,rotation:-item.r}),fx:viewport.w<800?.5:.69};
+}
 function inspect(id){
  const item=mediaRecord(id);if(!item)return;
- openItem=id;fillDetail(id);$("#detail").hidden=false;
- if(mode==="explore"){
-  target=cameraForObject(item,{zoom:Math.min(1.18,1250/item.w),rotation:0});
+ if(!encounter){
+  encounter={originMode:mode,originCamera:{...current},originTarget:{...target},
+   scroll:scrollY,history:[],focus:document.activeElement};
  }
+ if(encounter.history.at(-1)!==id)encounter.history.push(id);
+ openItem=id;
+ mode="encounter";
+ $("#experience").dataset.mode="encounter";
+ $("#canvas").dataset.material=id===41||id===42?"cyanotype":
+  item.kind.includes("photo")?"photography":
+  item.kind.includes("installation")?"installation":"paper";
+ $("#detail").hidden=false;
+ target=encounterCamera(item);
+ $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===id));
+ fillDetail(id);
+ $("#closeDetail").setAttribute("aria-label",lang==="ar"?"ارجع في الأرشيف":"Return through the archive");
+}
+function retraceEncounter(){
+ if(!encounter)return;
+ if(encounter.history.length>1){
+  encounter.history.pop();
+  const previous=mediaRecord(encounter.history.at(-1));
+  if(!previous){closeDetail();return;}
+  openItem=previous.id;
+  target=encounterCamera(previous);
+  $("#canvas").dataset.material=previous.id===41||previous.id===42?"cyanotype":
+   previous.kind.includes("photo")?"photography":"paper";
+  $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===previous.id));
+  fillDetail(previous.id);
+ }else closeDetail();
 }
 function fillDetail(id){
  const item=mediaRecord(id);if(!item)return;
  $("#detailMarker").textContent="ARCHIVE / "+String(id).padStart(2,"0")+" · PDF "+item.page+" / XREF "+item.xref;
  $("#detailTitle").textContent=local(item.title);
- $("#detailText").textContent=lang==="en"
-  ? item.title.en+" — a source record from "+item.project.en+"."
-  : item.title.ar+" — عنصر أرشيفي من برنامج "+item.project.ar+".";
+ $("#detailText").textContent=item.id===41
+  ? (lang==="ar"?"أثر الضوء على السطح. السيانوتايب هنا جزء من تجربة حكاوي الفسطاط.":"Light leaves a physical record. Cyanotype is one practice documented in Tales of Fustat.")
+  : item.id===39
+  ? (lang==="ar"?"المكان بيتحكي من خلال الناس. صورة للقاءات ضمن حكاوي الفسطاط.":"A neighbourhood is told through its encounters. A conversation documented in Tales of Fustat.")
+  : (lang==="ar"?"عنصر من أرشيف "+item.project.ar+". افتح خيطًا من نفس البرنامج أو انتقل لعمل مرتبط.":"An object from "+item.project.en+". Follow a record from this programme or take a related path.");
  $("#detailMeta").textContent=local(item.project)+" · DARB 1718 OVERVIEW 2026 · P."+item.page;
  $("#sourceBtn").textContent=copy[lang].source;
  $("#followBtn").textContent=copy[lang].follow;
@@ -273,7 +311,21 @@ function nearestChapterFor(item){
  if(index>=0)return index;
  return moments.findIndex(ch=>ch.focusId!==null&&mediaRecord(ch.focusId)?.cluster===item.cluster);
 }
-function closeDetail(){$("#detail").hidden=true;openItem=null}
+function closeDetail(){
+ if(encounter){
+  const previous=encounter;
+  mode=previous.originMode;
+  $("#experience").dataset.mode=mode;
+  target={...previous.originTarget};
+  $("#canvas").removeAttribute("data-material");
+  $(".artifact").forEach(fig=>fig.classList.remove("is-encounter"));
+  encounter=null;
+  if(mode==="journey")updateScroll();
+  if(previous.focus?.isConnected)previous.focus.focus({preventScroll:true});
+ }
+ $("#detail").hidden=true;
+ openItem=null;
+}
 
 function renderIndex(){
  const wrap=$("#indexItems");wrap.replaceChildren();
@@ -341,8 +393,9 @@ function renderReading(){
 
 function installInput(){
  $("#localeBtn").addEventListener("click",()=>setLanguage(lang==="en"?"ar":"en"));
- $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":"journey"));
+ $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":mode==="encounter"&&encounter?.originMode==="journey"?"explore":"journey"));
  $("#homeBtn").addEventListener("click",()=>{enterMode("journey");jumpTo(0);});
+ $("[data-open-object]").forEach(button=>button.addEventListener("click",()=>inspect(Number(button.dataset.openObject))));
  $("#nextBtn").addEventListener("click",()=>{
   if(currentBeat===moments.length-1){enterMode("explore");return;}
   jumpTo(currentBeat+1);
@@ -350,7 +403,7 @@ function installInput(){
  $("#indexBtn").addEventListener("click",()=>$("#index").hidden?openIndex():closeIndex());
  $("#closeIndex").addEventListener("click",closeIndex);
  $("#archiveSearch").addEventListener("input",renderSearch);
- $("#closeDetail").addEventListener("click",closeDetail);
+ $("#closeDetail").addEventListener("click",retraceEncounter);
  $("#followBtn").addEventListener("click",()=>{
   if(openItem===null)return;
   const item=mediaRecord(openItem),next=item?nearestChapterFor(item):-1;
@@ -371,7 +424,7 @@ function installInput(){
  },{passive:true});
  addEventListener("resize",()=>{viewport={w:innerWidth,h:innerHeight};updateScroll();},{passive:true});
  addEventListener("keydown",event=>{
-  if(event.key==="Escape"){if(!$("#index").hidden)closeIndex();else closeDetail();return;}
+  if(event.key==="Escape"){if(!$("#index").hidden)closeIndex();else if(encounter)retraceEncounter();else closeDetail();return;}
   if(mode==="explore"&&event.target.tagName!=="INPUT"){
    if(event.key==="+"||event.key==="="){target.z=clamp(target.z*1.2,.2,2.7);return;}
    if(event.key==="-"){target.z=clamp(target.z/1.2,.2,2.7);return;}
