@@ -63,7 +63,7 @@ const keyFocus=[null,null,39,40,41,42,null];
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0;
 let viewport={w:innerWidth,h:innerHeight},target={...moments[0].camera},current={...target};
 let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
-const imageOf=(id)=>"/media/"+id+".jpeg";
+const imageOf=(id)=>"/media/"+id+(id===29?".png":".jpeg");
 const mediaRecord=(id)=>media.find(item=>item.id===id);
 function makeWorld(){
  const root=$("#artifacts");
