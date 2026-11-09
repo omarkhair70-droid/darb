@@ -406,3 +406,15 @@ html[lang="ar"] .zone-label strong{font-family:"Noto Naskh Arabic",serif;letter-
 .experience[data-beat="0"] .signature-whisper{color:#d3e6d8;font-weight:500}
 .experience[data-beat="0"] .signature-knot{border-color:#d5e7d6a8;box-shadow:0 9px 36px #0008}
 .experience[data-beat="0"] .memory-signature{filter:drop-shadow(0 0 27px #78a9943d)}
+
+
+/* Final 04 composition pass: source image and text win over background residue. */
+.experience[data-mode="encounter"] .artifact:not(.is-encounter){opacity:.11;filter:saturate(.5)}
+.experience[data-mode="encounter"] .veil{
+ background:linear-gradient(90deg,#dce9e8f5 0%,#dce9e8eb 24%,#dce9e8a8 38%,transparent 60%)
+}
+@media(max-width:800px){
+ .experience[data-mode="encounter"] .veil{
+  background:linear-gradient(0deg,#dce9e8ed 0%,#dce9e8d9 22%,transparent 54%)
+ }
+}
