@@ -69,7 +69,7 @@ export function layoutCatalog(catalog){
  return results.sort((a,b)=>a.id-b.id);
 }
 export function cameraForObject(item,{zoom=.88,rotation=0}={}){
- return {x:item.x+item.w/2,y:item.y+item.h/2,z:zoom,r:rotation};
+ return {x:item.x+item.w/2,y:item.y+item.h/2,z:zoom,r:rotation,fx:.5};
 }
 export function validateAtlas(catalog,atlas){
  const problems=[];
