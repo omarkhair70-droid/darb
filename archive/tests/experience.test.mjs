@@ -120,3 +120,14 @@ test("cross-programme paths remain in the spatial scene and explain their editor
  assert.ok(css.includes(".thread-item"));
  assert.ok(build.includes("curatorial-threads.json"));
 });
+
+
+test("each cinematic camera beat has a deliberate, safe framing point",async()=>{
+ for(const chapter of chapters.chapters){
+  assert.ok(chapter.frameX>=.30&&chapter.frameX<=.70,chapter.id);
+ }
+ const source=await read("web/app.mjs");
+ assert.ok(source.includes("fx:lerp("));
+ assert.ok(source.includes("camera.fx=ch.frameX"));
+ assert.ok(source.includes("focusX=viewport.w"));
+});
