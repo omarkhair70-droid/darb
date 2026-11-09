@@ -18,6 +18,7 @@ const copy={
   direction:"SCROLL TO MOVE THROUGH THE ARCHIVE",wander:"DRAG · EXPLORE · OPEN OBJECTS",
   video:"REFERENCE: 2026 OVERVIEW / DARB 1718",
   signatureWhisper:"NOT WRITTEN OVER THE ARCHIVE. WOVEN FROM IT.",
+  knotOne:"01 / ENCOUNTER",knotTwo:"02 / PRACTICE",knotThree:"03 / TRACE",knotFour:"04 / MEMORY",
   index:["A place, in motion","The larger constellation","A conversation","The act of looking","Light becomes an image","A story you can hold","No final frame"]
  },
  ar:{
@@ -30,6 +31,7 @@ const copy={
   direction:"مرّر عشان تتنقل جوّه الأرشيف",wander:"اسحب · اكتشف · افتح صورة",
   video:"المصدر: ملف درب 2026",
   signatureWhisper:"مش اسم فوق الأرشيف. ده اسم منسوج من حكاياته.",
+  knotOne:"٠١ / لقاء",knotTwo:"٠٢ / ممارسة",knotThree:"٠٣ / أثر",knotFour:"٠٤ / ذاكرة",
   index:["مكان بيتحرك","الأرشيف الأوسع","حوار","فعل النظر","الضوء والصورة","حكاية ملموسة","مفيش نهاية واحدة"]
  }
 };
@@ -142,6 +144,10 @@ function setLanguage(next){
  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
  $$("[data-i18n]").forEach(el=>el.textContent=copy[lang][el.dataset.i18n]||"");
  $("#localeBtn").textContent=lang==="en"?"عربي":"EN";
+ $("[data-open-object]").forEach(button=>{
+  const object=mediaRecord(Number(button.dataset.openObject));
+  button.setAttribute("aria-label",local(object?.title)||"Archive object");
+ });
  $("#modeBtn").lastElementChild.textContent=mode==="journey"?copy[lang].explore:copy[lang].journey;
  $("#instructionText").textContent=copy[lang].direction;
  $("#archiveSearch").placeholder=copy[lang].searchPlaceholder;
