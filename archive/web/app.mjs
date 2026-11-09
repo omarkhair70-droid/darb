@@ -244,7 +244,7 @@ function inspect(id){
   item.kind.includes("installation")?"installation":"paper";
  $("#detail").hidden=false;
  target=encounterCamera(item);
- $(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===id));
+ $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===id));
  emphasizeSourceThreads(item);
  fillDetail(id);
  $("#closeDetail").setAttribute("aria-label",lang==="ar"?"ارجع في الأرشيف":"Return through the archive");
@@ -253,7 +253,7 @@ function emphasizeSourceThreads(item){
  const relevant=new Set(threads.connections
    .filter(t=>t.fromCluster===item.cluster||t.toCluster===item.cluster)
    .map(t=>t.id));
- $("#worldLinks path").forEach(path=>path.classList.toggle(
+ $$("#worldLinks path").forEach(path=>path.classList.toggle(
   "is-active-source-thread",
   path.dataset.cluster===item.cluster||relevant.has(path.dataset.thread)
  ));
@@ -268,7 +268,7 @@ function retraceEncounter(){
   target=encounterCamera(previous);
   $("#canvas").dataset.material=previous.id===41||previous.id===42?"cyanotype":
    previous.kind.includes("photo")?"photography":"paper";
-  $(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===previous.id));
+  $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===previous.id));
   emphasizeSourceThreads(previous);
   fillDetail(previous.id);
  }else closeDetail();
@@ -330,8 +330,8 @@ function closeDetail(){
   $("#experience").dataset.mode=mode;
   target={...previous.originTarget};
   $("#canvas").removeAttribute("data-material");
-  $(".artifact").forEach(fig=>fig.classList.remove("is-encounter"));
-  $("#worldLinks path").forEach(path=>path.classList.remove("is-active-source-thread"));
+  $$(".artifact").forEach(fig=>fig.classList.remove("is-encounter"));
+  $$("#worldLinks path").forEach(path=>path.classList.remove("is-active-source-thread"));
   document.body.style.overflow=previous.bodyOverflow;
   encounter=null;
   if(mode==="journey")updateScroll();
@@ -409,7 +409,7 @@ function installInput(){
  $("#localeBtn").addEventListener("click",()=>setLanguage(lang==="en"?"ar":"en"));
  $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":mode==="encounter"&&encounter?.originMode==="journey"?"explore":"journey"));
  $("#homeBtn").addEventListener("click",()=>{enterMode("journey");jumpTo(0);});
- $("[data-open-object]").forEach(button=>button.addEventListener("click",()=>inspect(Number(button.dataset.openObject))));
+ $$("[data-open-object]").forEach(button=>button.addEventListener("click",()=>inspect(Number(button.dataset.openObject))));
  $("#nextBtn").addEventListener("click",()=>{
   if(currentBeat===moments.length-1){enterMode("explore");return;}
   jumpTo(currentBeat+1);
