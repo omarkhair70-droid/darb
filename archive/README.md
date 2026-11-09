@@ -1,6 +1,20 @@
 # Darb Archive — The Living Memory
 
-A separate, bilingual, interactive cultural archive. Its first **running research experience** is Tales of Fustat; it does not replace the institutional Darb website, and this experience is **not a final Getty-level release**.
+An **independent creative archive experience** for Darb 1718, not the institutional Darb website.
+
+## Stage 02 — A continuous spatial experience
+
+**The previous Stage 01 scroll-sections + sticky image panel + separate graph UI have been replaced**, after reviewing the user-supplied screen recording of Getty/Resn's *Tracing Art*. That recording shows meaningful differences in interaction: a continuous visual field, scale changes from a constellation of works to single artworks and back, type as part of scene choreography, and an optional chapter index that does not turn the site into conventional page navigation.
+
+What is working in Stage 02:
+
+- One **spatial world** populated with 18 image objects from the supplied Darb 1718 Overview 2026 (cover, craft, INBETWEEN, Jusoor, residency, Tales of Fustat, Something Else, performance).
+- A guided journey with seven camera waypoints; scrolling interpolates the **camera through one coherent arrangement**, never showing ordinary stacked sections.
+- An independently usable **Wander** mode: drag to pan the field, wheel to zoom, click individual authentic objects to inspect context and return to a narrative moment.
+- Source-linked object labels and page-level references; original PDF media files only.
+- AR/EN language switching, keyboard navigation, small-screen camera adaptation, and a fully readable no-spatial-motion route.
+- An optional full-screen, seven-moment index.
+- Build and automated evidence + source-media integrity tests.
 
 ## Run
 
@@ -11,20 +25,16 @@ npm run dev
 # http://localhost:4173
 ```
 
-Uses Node >=22.12; no runtime dependencies. `npm run build` generates `dist/` and copies original media #39–42 from the repository into the static output. For Vercel set **Root Directory: archive**, framework Other, build `npm run build`, output `dist`. The research deployment is protected by Vercel Authentication.
+Node >=22.12, no npm install necessary. Vercel project: `darb-living-memory`, root `archive`, build `npm run build`, output `dist`. Research previews stay protected with Vercel Authentication.
 
-## What is built
+## Creative direction / what is still open
 
-- `web/index.html`, `web/styles.css`, `web/app.mjs`: a five-beat editorial scroll experience with actual archival media and distinct compositional states; click any source image to open its graph context.
-- **Story / Trace**: related but distinct modes; spatial connection map with source-backed relationships, navigation, reversibility and inspector.
-- Arabic/English toggle with bilingual narrative/data; reduced-motion toggle; responsive stage layout and keyboard-enabled source exploration.
-- `data/tales-of-fustat-001.json`: programme-level evidence graph (10 nodes, 9 documented edges, 5 editorial story beats), original PDF page/media IDs.
-- `src/graph.mjs`: validated and reversible navigation, references and public-data status controls.
-- `tests/`: source-link, media, accessibility-contract and graph guardrail tests.
-- `QUALITY_GATE.md`: Getty/Resn production standard and unpassed art-direction/QA gates.
+Stage 02 is a **genuine replacement of the interaction architecture**, not Getty-level final polish. Its camera is currently composed with browser DOM/CSS 2.5D, so it is a deliberately testable spatial foundation; not a claimed custom 3D WebGL production. Further work: inspect the actual result visually on desktop and phones, refactor source data into richer interconnected chapters and spatial relationships, improve timeline easings/scene typography, test real interactions and accessibility in browsers, and conduct performance and editorial review.
 
-## What is *not* claimed
+Getty is a standard for **integrated creative craft**, not copied choreography, image-sphere composition or visual assets. The supplied video is a reference for behavior and transitions; it has not been committed or reproduced.
 
-This is the first custom interactive experience, **not** a finished visual system nor Getty parity. The original site stage 08/09 remains rejected and untouched. The design awaits visual comparison on desktop/mobile, interaction polish, actual curatorial art direction, high-resolution media and publication approvals. Programme-level edges cannot establish named artist-to-work authorship, participant identities or photo chronology.
+## Important distinctions
 
-No final site domain has been transferred; no mainstream public launch is authorized. Continue on the research branch until artistic and technical review.
+The first five Tales of Fustat images/stories derive from page 11 of the institutional source. The wider 18-image archive constellation holds **different** Darb projects and doesn't assert that the displayed people and makers were collaborating on one project. Those other images are contextual doorways, not automatically historical cross-project links.
+
+Code remains on Draft PR #4 until substantive visual and functional evaluation. The previously rejected institutional site is unchanged.
