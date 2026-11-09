@@ -278,3 +278,104 @@ html[lang="ar"] .zone-label strong{font-family:"Noto Naskh Arabic",serif;letter-
  .spatial-controls button{min-width:40px;height:40px}
  .spatial-hint{bottom:26px}
 }
+
+
+/* STAGE 04 — One source-anchored encounter, not a floating information card. */
+.memory-signature{position:fixed;z-index:18;left:50%;top:48%;width:min(41vw,560px);
+ aspect-ratio:520/560;transform:translate(-50%,-50%);pointer-events:none;
+ opacity:1;transition:opacity .7s ease,transform 1.4s cubic-bezier(.19,1,.22,1)}
+.signature-threads{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 10px 10px #213a3215)}
+.signature-threads path{fill:none;stroke:#355a50;stroke-width:1.7}
+.signature-threads .signature-main{stroke-width:2.4;stroke-dasharray:2000;stroke-dashoffset:2000;
+ animation:signature-reveal 4.1s cubic-bezier(.25,.72,.3,1) both}
+.signature-threads .signature-fine{opacity:.35;stroke-width:.9;stroke-dasharray:4 9}
+.signature-threads circle{fill:#24483e;stroke:#dce8df;stroke-width:3}
+.signature-knot{position:absolute;width:80px;min-height:81px;padding:0;background:#edf1eb;
+ border:1px solid #3d625874;box-shadow:0 8px 20px #334e4428;pointer-events:auto;
+ transform:translate(-50%,-50%);transition:transform .65s cubic-bezier(.19,1,.22,1),background .4s}
+.signature-knot:hover,.signature-knot:focus-visible{transform:translate(-50%,-50%) scale(1.18);z-index:5;background:#fafbf7}
+.signature-knot img{display:block;width:100%;height:62px;object-fit:cover}
+.signature-knot span{display:block;padding:5px 4px;font-size:8px;letter-spacing:.11em;color:#33564b;white-space:nowrap}
+.knot-one{left:27.5%;top:13%}
+.knot-two{left:27.5%;top:78%}
+.knot-three{left:84%;top:45%}
+.knot-four{left:56%;top:13%}
+.signature-whisper{position:absolute;left:50%;bottom:-29px;transform:translateX(-50%);
+ white-space:nowrap;font-size:10px;letter-spacing:.23em;color:#527568}
+.experience[data-beat]:not([data-beat="0"]) .memory-signature,
+.experience[data-mode="explore"] .memory-signature,
+.experience[data-mode="encounter"] .memory-signature{opacity:0;pointer-events:none;visibility:hidden}
+.experience[data-beat="0"] .narrative{opacity:0;pointer-events:none}
+.experience[data-mode="encounter"] .narrative,.experience[data-mode="encounter"] .axis,
+.experience[data-mode="encounter"] .instruction,.experience[data-mode="encounter"] .spatial-hint,
+.experience[data-mode="encounter"] .spatial-controls{opacity:0;pointer-events:none}
+.experience[data-mode="encounter"] .veil{background:linear-gradient(90deg,#eef1eceb 0%,#eef1ecb0 23%,transparent 50%,#eef1ec25 85%);pointer-events:none}
+.experience[data-mode="encounter"] .canvas[data-material="cyanotype"]{background:#d4e4e8}
+.experience[data-mode="encounter"] .canvas[data-material="photography"]{background:#dadfd8}
+.experience[data-mode="encounter"] .canvas[data-material="installation"]{background:#d9d8d2}
+.experience[data-mode="encounter"] .canvas[data-material="paper"]{background:#e5e2d9}
+.experience[data-mode="encounter"] .artifact:not(.is-encounter){opacity:.22;filter:saturate(.65)}
+.experience[data-mode="encounter"] .artifact{transition:opacity .9s ease,filter 1s ease}
+.experience[data-mode="encounter"] .artifact.is-encounter{z-index:10;filter:drop-shadow(0 24px 32px #324f4d36)}
+.experience[data-mode="encounter"] .artifact.is-encounter .artifact-inner{box-shadow:0 25px 80px #14292b36}
+.experience[data-mode="encounter"] .world-links path{opacity:.1}
+.experience[data-mode="encounter"] .world-annotations{opacity:0!important}
+/* The object remains inside the moving world. Text and next paths are annotations around it. */
+.experience[data-mode="encounter"] .object-detail{position:fixed;z-index:38;left:clamp(22px,6vw,112px);right:auto;
+ top:22%;bottom:auto;max-height:none;overflow:visible;width:min(29vw,410px);
+ padding:0;background:transparent;border:0;box-shadow:none;backdrop-filter:none}
+.experience[data-mode="encounter"] .detail-dismiss{position:fixed;right:clamp(20px,3.4vw,62px);top:96px;
+ width:46px;height:46px;border:1px solid #38574a68;border-radius:50%;
+ background:#e7ede7cc;font-size:27px;z-index:43}
+.experience[data-mode="encounter"] .detail-marker{font-size:10px;letter-spacing:.19em;font-weight:700;color:#487268}
+.experience[data-mode="encounter"] .object-detail h2{font-size:clamp(39px,4.1vw,76px);
+ margin:23px 0 22px;line-height:1;letter-spacing:-.057em;color:#223c37}
+.experience[data-mode="encounter"] .object-detail p{font-size:clamp(14px,1.15vw,17px);line-height:1.7;
+ max-width:340px;margin:0;color:#3a5850}
+.experience[data-mode="encounter"] .detail-meta{border-top:1px solid #385a4c66;margin-top:26px;
+ padding-top:16px;color:#3c665b;font-size:10px}
+.experience[data-mode="encounter"] .detail-controls{display:flex;flex-wrap:wrap;gap:14px;margin-top:20px}
+.experience[data-mode="encounter"] .text-action{font-size:10px;letter-spacing:.12em;padding:9px 0}
+.experience[data-mode="encounter"] .related{position:fixed;left:auto;right:clamp(22px,3.5vw,65px);
+ bottom:25px;z-index:43;width:min(65vw,940px);max-width:none;max-height:163px;
+ display:flex;align-items:stretch;gap:13px;overflow-x:auto;overflow-y:hidden;
+ border-top:1px solid #3e6a5a55;padding:13px 0 0;margin:0;background:transparent;scrollbar-width:thin}
+.experience[data-mode="encounter"] .related-title{flex:0 0 120px;max-width:120px;align-self:center;
+ color:#446c60;font-size:9px;line-height:1.5;letter-spacing:.12em}
+.experience[data-mode="encounter"] .related-item{flex:0 0 100px;display:flex;flex-direction:column;
+ align-items:flex-start;gap:7px;padding:0 0 7px;border:0;border-bottom:1px solid #60817566;
+ background:transparent;min-height:110px}
+.experience[data-mode="encounter"] .related-item img{height:67px;width:100%;object-fit:contain;background:#c8d4cd99}
+.experience[data-mode="encounter"] .related-item span{width:100%;font-size:10px;line-height:1.2}
+.experience[data-mode="encounter"] .related-item span strong{font-size:10px}
+.experience[data-mode="encounter"] .related-item b{display:none}
+.experience[data-mode="encounter"] .thread-title{border-top:0;margin-top:0;padding-top:0}
+@keyframes signature-reveal{from{stroke-dashoffset:2000;opacity:.1}to{stroke-dashoffset:0;opacity:1}}
+@media(max-width:800px){
+ .memory-signature{width:min(80vw,440px);top:41%}
+ .signature-knot{width:57px;min-height:62px}
+ .signature-knot img{height:45px}
+ .signature-knot span{font-size:6px}
+ .signature-whisper{font-size:7px;letter-spacing:.09em;bottom:-16px}
+ .experience[data-mode="encounter"] .veil{background:linear-gradient(0deg,#e8eee8ed 0%,#e8eee8b6 19%,transparent 56%)}
+ .experience[data-mode="encounter"] .object-detail{left:22px;right:22px;top:auto;bottom:137px;
+ width:auto;max-width:none;max-height:26svh;overflow:auto}
+ .experience[data-mode="encounter"] .detail-dismiss{top:82px;right:19px;width:42px;height:42px}
+ .experience[data-mode="encounter"] .detail-marker{font-size:8px}
+ .experience[data-mode="encounter"] .object-detail h2{font-size:clamp(26px,7vw,39px);
+ margin:7px 0;max-width:85%}
+ .experience[data-mode="encounter"] .object-detail p{font-size:12px;line-height:1.35}
+ .experience[data-mode="encounter"] .detail-meta{font-size:8px;margin-top:7px;padding-top:7px}
+ .experience[data-mode="encounter"] .detail-controls{margin-top:3px}
+ .experience[data-mode="encounter"] .text-action{font-size:9px;padding:6px 0}
+ .experience[data-mode="encounter"] .related{left:12px;right:12px;width:auto;bottom:13px;
+ max-height:111px;gap:9px;padding-top:8px}
+ .experience[data-mode="encounter"] .related-title{flex-basis:79px;max-width:79px;font-size:8px}
+ .experience[data-mode="encounter"] .related-item{flex-basis:73px;min-height:90px}
+ .experience[data-mode="encounter"] .related-item img{height:51px}
+ .experience[data-mode="encounter"] .related-item span,.experience[data-mode="encounter"] .related-item span strong{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .signature-threads .signature-main{animation:none;stroke-dashoffset:0}
+ .memory-signature,.experience[data-mode="encounter"] .artifact{transition:none!important}
+}
