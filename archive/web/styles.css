@@ -379,3 +379,9 @@ html[lang="ar"] .zone-label strong{font-family:"Noto Naskh Arabic",serif;letter-
  .signature-threads .signature-main{animation:none;stroke-dashoffset:0}
  .memory-signature,.experience[data-mode="encounter"] .artifact{transition:none!important}
 }
+
+
+.experience[data-mode="encounter"] .world-links path.is-active-source-thread{
+ opacity:.95;stroke-opacity:.78;stroke-width:3;stroke-dasharray:6 12
+}
+.experience[data-mode="encounter"] .signature-knot{pointer-events:none}
