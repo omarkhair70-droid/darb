@@ -1,0 +1,27 @@
+name: Darb Archive research integrity
+on:
+  pull_request:
+    paths:
+      - "archive/**"
+      - ".github/workflows/darb-archive-integrity.yml"
+  push:
+    branches:
+      - "research/darb-archive-living-memory-20261109"
+    paths:
+      - "archive/**"
+      - ".github/workflows/darb-archive-integrity.yml"
+jobs:
+  archive-graph:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run archive evidence integrity tests
+        run: npm test
+        working-directory: archive
