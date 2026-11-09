@@ -23,7 +23,8 @@ const files=[
  ["src/world-layout.mjs","world-layout.mjs"],
  ["data/tales-of-fustat-001.json","story.json"],
  ["data/media-catalog.json","catalog.json"],
- ["data/world-chapters.json","chapters.json"]
+ ["data/world-chapters.json","chapters.json"],
+ ["data/curatorial-threads.json","threads.json"]
 ].map(([src,dst])=>[join(root,src),join(out,dst)]);
 
 for(const item of catalog.items){
