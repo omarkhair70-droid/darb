@@ -114,3 +114,46 @@ test("real pointer interaction reaches visible archive objects; scale controls w
  await page.locator("#resetView").click();
  await expect(page.locator("#detail")).toBeHidden();
 });
+
+
+test("D identity grows from real archive knots into an artwork, then reverses without a drawer",async({page},info)=>{
+ const errors=[];
+ page.on("pageerror",error=>errors.push(String(error)));
+ await page.goto("/");
+ await expect(page.locator("#memorySignature")).toBeVisible();
+ await expect(page.locator("#memorySignature [data-open-object]")).toHaveCount(4);
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
+ await page.locator('.signature-knot[data-open-object="41"]').click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
+ await expect(page.locator("#canvas")).toHaveAttribute("data-material","cyanotype");
+ await expect(page.locator("#detail")).toBeVisible();
+ await expect(page.locator("#detailTitle")).toContainText("blue");
+ await expect(page.locator('.artifact[data-id="41"]')).toHaveClass(/is-encounter/);
+ const panelStyle=await page.locator("#detail").evaluate(el=>{
+  const s=getComputedStyle(el);
+  return {background:s.backgroundColor,shadow:s.boxShadow,position:s.position};
+ });
+ expect(panelStyle.background).toBe("rgba(0, 0, 0, 0)");
+ expect(panelStyle.shadow).toBe("none");
+ expect(panelStyle.position).toBe("fixed");
+ await page.screenshot({path:"test-results/"+info.project.name+"-cyanotype-encounter.png"});
+ await page.locator("#relatedObjects .thread-item").first().click();
+ await expect(page.locator("#detailMeta")).toContainText("Natalia Ossef residency");
+ await page.keyboard.press("Escape");
+ await expect(page.locator("#detailMeta")).toContainText("Tales of Fustat");
+ await page.keyboard.press("Escape");
+ await expect(page.locator("#detail")).toBeHidden();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
+ await expect(page.locator("#memorySignature")).toBeVisible();
+ expect(errors).toEqual([]);
+});
+
+test("a documentary image has its own contextual atmosphere and Arabic copy",async({page})=>{
+ await page.goto("/");
+ await page.locator('.signature-knot[data-open-object="39"]').click();
+ await expect(page.locator("#canvas")).toHaveAttribute("data-material","photography");
+ await page.locator("#localeBtn").click();
+ await expect(page.locator("#detailTitle")).toContainText("الفسطاط");
+ await page.locator("#closeDetail").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
+});
