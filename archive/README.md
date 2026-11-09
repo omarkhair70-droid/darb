@@ -1,40 +1,57 @@
-# Darb Archive — The Living Memory
+# DARB ARCHIVE — The Living Memory
+### Stage 03 / Source Atlas, 9 thematic threads, 16 spatial narrative moments
 
-An **independent creative archive experience** for Darb 1718, not the institutional Darb website.
+A standalone cultural exploration built from Darb 1718's supplied 2026 institutional overview. Not the older rejected Darb corporate-site experiment. **This is an iterative creative build, not an announcement of final Getty-level quality.**
 
-## Stage 02 — A continuous spatial experience
+## What changed since the Getty screen-recording review
 
-**The previous Stage 01 scroll-sections + sticky image panel + separate graph UI have been replaced**, after reviewing the user-supplied screen recording of Getty/Resn's *Tracing Art*. That recording shows meaningful differences in interaction: a continuous visual field, scale changes from a constellation of works to single artworks and back, type as part of scene choreography, and an optional chapter index that does not turn the site into conventional page navigation.
-
-What is working in Stage 02:
-
-- One **spatial world** populated with 18 image objects from the supplied Darb 1718 Overview 2026 (cover, craft, INBETWEEN, Jusoor, residency, Tales of Fustat, Something Else, performance).
-- A guided journey with seven camera waypoints; scrolling interpolates the **camera through one coherent arrangement**, never showing ordinary stacked sections.
-- An independently usable **Wander** mode: drag to pan the field, wheel to zoom, click individual authentic objects to inspect context and return to a narrative moment.
-- Source-linked object labels and page-level references; original PDF media files only.
-- AR/EN language switching, keyboard navigation, small-screen camera adaptation, and a fully readable no-spatial-motion route.
-- An optional full-screen, seven-moment index.
-- Build and automated evidence + source-media integrity tests.
+- One permanent 9,200 × 6,400 source-led world, composed from genuine archival media rather than a conventional header/hero/sections workflow.
+- **77 original PDF source records** indexed in \`data/media-catalog.json\`, with exact PDF page, XREF, source filename, editorial kind, programme and Arabic/English labels.
+- **72 positioned archive objects** in \`src/world-layout.mjs\`, spanning **17 programme/context clusters**. Five non-editorial layout fragments / repeated logos stay in the source index but do not clutter the stage.
+- **16 authored camera viewpoints** in \`data/world-chapters.json\`: move continuously between exhibitions, crafts, residencies, Jusoor, INBETWEEN, workshops, performances, and Tales of Fustat.
+- **Nine explicitly editorial thematic connections** between different programme clusters in \`data/curatorial-threads.json\`; these never masquerade as factual person-to-person historical connections.
+- Wander: free drag, wheel/pinch zoom and visible scale controls, touch/keyboard affordances, object focus and related-image navigation.
+- Index: jump between moments, bilingual archive search, deep entry into source objects.
+- Reading route: the chapter text and source images remain accessible without camera movement.
+- Source/media build uses exact original extensions; cannot accidentally reinterpret PNGs as JPEGs.
 
 ## Run
 
-```sh
+\`\`\`sh
 cd archive
 npm run check
 npm run dev
 # http://localhost:4173
-```
+\`\`\`
 
-Node >=22.12, no npm install necessary. Vercel project: `darb-living-memory`, root `archive`, build `npm run build`, output `dist`. Research previews stay protected with Vercel Authentication.
+Node >=22.12. Browser QA:
 
-## Creative direction / what is still open
+\`\`\`sh
+cd archive
+npm install --no-package-lock
+npx playwright install chromium
+npm run build
+npm run test:browser
+\`\`\`
 
-Stage 02 is a **genuine replacement of the interaction architecture**, not Getty-level final polish. Its camera is currently composed with browser DOM/CSS 2.5D, so it is a deliberately testable spatial foundation; not a claimed custom 3D WebGL production. Further work: inspect the actual result visually on desktop and phones, refactor source data into richer interconnected chapters and spatial relationships, improve timeline easings/scene typography, test real interactions and accessibility in browsers, and conduct performance and editorial review.
+Vercel: project \`darb-living-memory\`, root \`archive\`, framework Other, build \`npm run build\`, output \`dist\`, deployment protection enabled. Work proceeds in Draft PR #4. Do **not** merge into the institutional site or change its official domain.
 
-Getty is a standard for **integrated creative craft**, not copied choreography, image-sphere composition or visual assets. The supplied video is a reference for behavior and transitions; it has not been committed or reproduced.
+## Source foundation
 
-## Important distinctions
+- \`data/media-catalog.json\` lists 77 records grounded in \`assets/visual-audit-77.csv\` and \`assets/manifest.csv\`.
+- \`data/tales-of-fustat-001.json\` and \`src/graph.mjs\` preserve an evidence-linked Fustat micrograph and rights/publication guardrails.
+- \`data/curatorial-threads.json\` is separate from source-level relationships; it provides **labelled comparisons** across projects.
+- \`data/world-chapters.json\` is an editorial camera/story sequence, not proof of chronological event or collaboration.
 
-The first five Tales of Fustat images/stories derive from page 11 of the institutional source. The wider 18-image archive constellation holds **different** Darb projects and doesn't assert that the displayed people and makers were collaborating on one project. Those other images are contextual doorways, not automatically historical cross-project links.
+## Creative quality still to be earned
 
-Code remains on Draft PR #4 until substantive visual and functional evaluation. The previously rejected institutional site is unchanged.
+This stage covers the breadth of the supplied PDF but **not a complete art historical archive** of Darb since 2008. More independently sourced work records and richer participant/creator context must be added as material becomes available. The spatial renderer is still DOM/CSS 2.5D; stronger purpose-built cinematography, artwork-level slow-looking interactions, material-specific motion, sound/video where recorded, device performance tuning, spatial accessibility, editorial QA, and curator review remain creative and engineering work.
+
+Getty/Resn *Tracing Art* is a **standard for integration and craft**, never a visual interface to replicate. The user-provided Getty screen capture informed the move away from page sections into a continuous visual world. See \`VIDEO_REFERENCE_CREATIVE_REVIEW.md\` and \`QUALITY_GATE.md\`.
+
+## Acceptance
+
+- All 77 records and source file locations survive CI.
+- 72 substantive objects render in the interactive field and 16 guided moments are internally consistent.
+- Real pointer/camera, search, cross-programme links, bilingual state, media loading and mobile interaction pass browser QA.
+- Aesthetic review and published-release requirements are **not** implied by passing automated checks.
