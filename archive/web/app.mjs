@@ -39,43 +39,92 @@ const imageOf=(id)=>mediaRecord(id)?.src ?? "";
 const mediaRecord=(id)=>media.find(item=>item.id===id);
 function makeWorld(){
  const root=$("#artifacts");
- media.forEach(item=>{
-  const figure=document.createElement("figure");figure.className="artifact";
+ root.replaceChildren();
+ const frag=document.createDocumentFragment();
+ media.forEach((item,i)=>{
+  const figure=document.createElement("figure");
+  figure.className="artifact";
   figure.dataset.id=String(item.id);
-  figure.dataset.category=item.category;
-  figure.style.left=item.x+"px";figure.style.top=item.y+"px";
-  figure.style.width=item.w+"px";figure.style.height=item.h+"px";
+  figure.dataset.category=item.kind;
+  figure.dataset.cluster=item.cluster;
+  figure.style.left=item.x+"px";
+  figure.style.top=item.y+"px";
+  figure.style.width=item.w+"px";
+  figure.style.height=item.h+"px";
   figure.style.transform="rotate("+item.r+"deg)";
-  const button=document.createElement("button");button.type="button";button.className="artifact-inner";
-  button.setAttribute("aria-label","Open archive image "+item.id+": "+local(item.title));
-  const image=document.createElement("img");image.alt=local(item.title);image.src=imageOf(item.id);
-  image.loading=[39,40,41,42].includes(item.id)?"eager":"lazy";image.decoding="async";
-  image.addEventListener("error",()=>{figure.classList.add("image-error");button.textContent="ARCHIVE / "+item.id;});
-  button.append(image);button.addEventListener("click",()=>inspect(item.id));
+  const button=document.createElement("button");
+  button.type="button";
+  button.className="artifact-inner";
+  button.setAttribute("aria-label",local(item.title));
+  const image=document.createElement("img");
+  image.alt=local(item.title);
+  // The atlas uses genuine embedded source art, with browser-native defer for distant objects.
+  image.src=item.src;
+  image.loading=i<18?"eager":"lazy";
+  image.decoding="async";
+  image.addEventListener("error",()=>{
+   figure.classList.add("image-error");
+   button.innerHTML="<span>ARCHIVE IMAGE "+item.id+"</span>";
+  });
+  button.append(image);
+  button.addEventListener("click",()=>inspect(item.id));
   const caption=document.createElement("figcaption");
-  caption.textContent=local(item.title)+" · "+item.project;
-  figure.append(button,caption);root.append(figure);
+  caption.textContent=local(item.title)+" · "+local(item.project);
+  figure.append(button,caption);
+  frag.append(figure);
  });
+ root.append(frag);
+ // Archive program labels are part of the same scene, not conventional page headings.
+ const annotations=document.createElement("div");
+ annotations.className="world-annotations";
+ for(const [key,cluster] of Object.entries(CLUSTERS)){
+  const group=media.filter(x=>x.cluster===key);
+  if(!group.length)continue;
+  const div=document.createElement("div");
+  div.className="zone-label";
+  div.dataset.cluster=key;
+  div.style.left=cluster.x+"px";
+  div.style.top=(cluster.y+530)+"px";
+  div.innerHTML="<span>ARCHIVE / "+String(group.length).padStart(2,"0")+"</span>"+
+    "<strong>"+escaped(lang==="ar"?cluster.ar:cluster.en)+"</strong>";
+  annotations.append(div);
+ }
+ root.append(annotations);
+ // The thin links here denote shared programme records only; they do not assert person-to-person authorship.
  const link=$("#worldLinks");
- link.innerHTML='<path d="M 2050 1020 C 2370 800, 2630 840, 2810 650 S 3220 1200, 3640 1310 S 4030 990, 4370 950"/>';
+ link.setAttribute("viewBox","0 0 "+WORLD_WIDTH+" "+WORLD_HEIGHT);
+ let paths=[];
+ for(const [key,cluster] of Object.entries(CLUSTERS)){
+  const group=media.filter(x=>x.cluster===key);
+  if(group.length<2)continue;
+  const pts=group.map(x=>[x.x+x.w/2,x.y+x.h/2]);
+  for(let j=1;j<pts.length;j++){
+   const p=pts[j-1],q=pts[j];
+   const mx=(p[0]+q[0])/2;
+   paths.push('<path data-cluster="'+key+'" d="M '+p[0]+' '+p[1]+' Q '+mx+' '+(p[1]+q[1])/2+' '+q[0]+' '+q[1]+'"/>');
+  }
+ }
+ link.innerHTML=paths.join("");
 }
+
 function renderNarrative(beat){
  const m=moments[beat];
- $("#narrativeOverline").textContent=String(beat+1).padStart(2,"0")+" / 07 — "+(lang==="en"?"THE LIVING MEMORY":"الذاكرة الحية");
+ const count=String(moments.length).padStart(2,"0");
+ $("#narrativeOverline").textContent=String(beat+1).padStart(2,"0")+" / "+count+
+   " — "+(lang==="en"?"THE LIVING MEMORY":"الذاكرة الحية");
  $("#statementA").textContent=m[lang][0];
  $("#statementB").textContent=m[lang][1];
  $("#narrativeBody").textContent=local(m.body);
- $("#chapterSource").textContent=m.label;
- $("#axisNumber").textContent=String(beat+1).padStart(2,"0")+" / 07";
+ $("#chapterSource").textContent=local(m.label);
+ $("#axisNumber").textContent=String(beat+1).padStart(2,"0")+" / "+count;
  $("#axisFill").style.width=((beat+1)/moments.length*100)+"%";
  $("#nextBtn").textContent=beat===moments.length-1?"↺":"↓";
  $("#canvas").dataset.beat=String(beat);
  $("#experience").dataset.beat=String(beat);
- const focusId=keyFocus[beat];
- $$(".artifact").forEach(fig=>{
-  fig.classList.toggle("is-focus",Number(fig.dataset.id)===focusId);
- });
+ const focusId=m.focusId;
+ $$(".artifact").forEach(fig=>fig.classList.toggle("is-focus",Number(fig.dataset.id)===focusId));
 }
+
 function setLanguage(next){
  lang=next;document.documentElement.lang=lang;
  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
