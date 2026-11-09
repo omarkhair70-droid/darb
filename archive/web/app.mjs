@@ -144,7 +144,7 @@ function setLanguage(next){
  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
  $$("[data-i18n]").forEach(el=>el.textContent=copy[lang][el.dataset.i18n]||"");
  $("#localeBtn").textContent=lang==="en"?"عربي":"EN";
- $("[data-open-object]").forEach(button=>{
+ $$("[data-open-object]").forEach(button=>{
   const object=mediaRecord(Number(button.dataset.openObject));
   button.setAttribute("aria-label",local(object?.title)||"Archive object");
  });
