@@ -385,3 +385,24 @@ html[lang="ar"] .zone-label strong{font-family:"Noto Naskh Arabic",serif;letter-
  opacity:.95;stroke-opacity:.78;stroke-width:3;stroke-dasharray:6 12
 }
 .experience[data-mode="encounter"] .signature-knot{pointer-events:none}
+
+
+/* Stage 04 opening: a legible filament constellation, not an archive homepage. */
+.canvas[data-beat="0"]{background:#182b28}
+.experience[data-beat="0"] .veil{background:radial-gradient(ellipse 34% 56% at 50% 47%,
+ transparent 0%,#0c1e1a24 68%,#0c1e1a5f 100%)}
+.experience[data-beat="0"] .artifact:not(.is-encounter){opacity:.19;filter:saturate(.48) brightness(.66);
+ transition:opacity .95s ease,filter .95s ease}
+.experience[data-beat="0"] .world-links path{stroke:#8faf9a;stroke-opacity:.33}
+.experience[data-beat="0"] .zone-label{opacity:0}
+.experience[data-beat="0"] .identity,.experience[data-beat="0"] .chrome-center,
+.experience[data-beat="0"] .axis-number,.experience[data-beat="0"] .instruction{color:#edf4e9}
+.experience[data-beat="0"] .axis-track{background:#d8e7d260}
+.experience[data-beat="0"] .axis-track i{background:#e8f0df}
+.experience[data-beat="0"] .axis-next{color:#edf3ec;border-color:#bbd4c8;background:#203b34bb}
+.experience[data-beat="0"] .signature-threads path{stroke:#c0d8cd}
+.experience[data-beat="0"] .signature-threads .signature-fine{opacity:.59}
+.experience[data-beat="0"] .signature-threads circle{fill:#b7d3c4;stroke:#2e4a40}
+.experience[data-beat="0"] .signature-whisper{color:#d3e6d8;font-weight:500}
+.experience[data-beat="0"] .signature-knot{border-color:#d5e7d6a8;box-shadow:0 9px 36px #0008}
+.experience[data-beat="0"] .memory-signature{filter:drop-shadow(0 0 27px #78a9943d)}
