@@ -196,7 +196,7 @@ function enterMode(next){
  $("#spatialHint").hidden=mode!=="explore";
  $("#instruction").hidden=mode==="explore";
  if(mode==="explore"){
-  target={...moments[6].camera};
+  target={...current};
   // The exploratory field starts at a legible overview, with free pan and zoom.
   $("#canvas").dataset.beat="6";
  }else{
