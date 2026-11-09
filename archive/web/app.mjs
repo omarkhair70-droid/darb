@@ -187,6 +187,8 @@ function positionWorld(){
  const focusY=viewport.h*(viewport.w<800?lerp(.38,.31,clamp((current.z-.6)/.7,0,1)):.50);
  const dx=viewport.w*.5-zoom*cx,dy=focusY-zoom*cy;
  $("#world").style.transform="translate3d("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px,0) scale("+zoom.toFixed(5)+") rotate("+current.r.toFixed(3)+"deg)";
+ const zoneLabels=$(".world-annotations");
+ if(zoneLabels)zoneLabels.style.opacity=String(clamp((.85-current.z)/.55,0,1));
 }
 function frame(){
  const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.32 : 0.085;
