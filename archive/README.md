@@ -1,23 +1,30 @@
 # Darb Archive — The Living Memory
-An **independent interactive archive**, not the institutional Darb website, and not a re-skin of an existing rejected prototype.
 
-Current status: an **experimental, source-linked narrative kernel**, not a public-facing website. Work proceeds on a dedicated research branch; do not deploy as Darb's official archive without curatorial, rights and technical acceptance.
+A separate, bilingual, interactive cultural archive. Its first **running research experience** is Tales of Fustat; it does not replace the institutional Darb website, and this experience is **not a final Getty-level release**.
 
-## Current proof
-- \`data/tales-of-fustat-001.json\`: bilingual source graph (project, place, activities, outcome, four PDF-linked media entries), five editorial story beats, explicit research/rights statuses.
-- \`src/graph.mjs\`: validation, evidence-only relationship navigation, backtracking and search for traceable connection paths.
-- \`tests/graph.test.mjs\`: evidence, source integrity, bilingual coverage, rights gating, reversible traversal.
-- \`QUALITY_GATE.md\`: creative and engineering acceptance contract benchmarked against Getty/Resn.
+## Run
 
-## Run the data-level tests
-\`\`\`sh
+```sh
 cd archive
-node --version # >= 22.12
-npm test
-\`\`\`
-No install or runtime dependencies required.
+npm run check
+npm run dev
+# http://localhost:4173
+```
 
-## Boundaries
-Graph connections are programme-level evidence. They are **not** proof that two pictured people know each other, that someone made an artwork, or that individual images are in chronological order. All supplied image extracts currently have public-display blocked pending granular credits/consent/high-resolution checks. The archive source programme is undated in the supplied reference; do not invent dates.
+Uses Node >=22.12; no runtime dependencies. `npm run build` generates `dist/` and copies original media #39–42 from the repository into the static output. For Vercel set **Root Directory: archive**, framework Other, build `npm run build`, output `dist`. The research deployment is protected by Vercel Authentication.
 
-This module is an early *functional* content/traversal foundation. A full bespoke interface, scroll choreography, art direction, mobile behavior and public launch are **not yet implemented**. Never describe a passing content test as Getty-level visual quality.
+## What is built
+
+- `web/index.html`, `web/styles.css`, `web/app.mjs`: a five-beat editorial scroll experience with actual archival media and distinct compositional states; click any source image to open its graph context.
+- **Story / Trace**: related but distinct modes; spatial connection map with source-backed relationships, navigation, reversibility and inspector.
+- Arabic/English toggle with bilingual narrative/data; reduced-motion toggle; responsive stage layout and keyboard-enabled source exploration.
+- `data/tales-of-fustat-001.json`: programme-level evidence graph (10 nodes, 9 documented edges, 5 editorial story beats), original PDF page/media IDs.
+- `src/graph.mjs`: validated and reversible navigation, references and public-data status controls.
+- `tests/`: source-link, media, accessibility-contract and graph guardrail tests.
+- `QUALITY_GATE.md`: Getty/Resn production standard and unpassed art-direction/QA gates.
+
+## What is *not* claimed
+
+This is the first custom interactive experience, **not** a finished visual system nor Getty parity. The original site stage 08/09 remains rejected and untouched. The design awaits visual comparison on desktop/mobile, interaction polish, actual curatorial art direction, high-resolution media and publication approvals. Programme-level edges cannot establish named artist-to-work authorship, participant identities or photo chronology.
+
+No final site domain has been transferred; no mainstream public launch is authorized. Continue on the research branch until artistic and technical review.
