@@ -325,6 +325,9 @@ function followMaterialTrace(targetId){
  if(!origin||!destination||!route||route.to!==targetId){inspect(targetId);return;}
  const serial=++materialTransitionSerial;
  const root=$("#experience");
+ // A quick second choice must release the old moving image immediately.
+ // Never leave stale image highlights after an interrupted material passage.
+ $$(".artifact.is-material-origin").forEach(fig=>fig.classList.remove("is-material-origin"));
  const originFigure=$('.artifact[data-id="'+origin.id+'"]');
  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
  root.dataset.materialTransit=materialLanguage(destination);
