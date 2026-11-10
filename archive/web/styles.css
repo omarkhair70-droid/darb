@@ -912,3 +912,17 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  .entrance-lab.is-departing .ritual-portal{transition:none;clip-path:circle(145vmax at var(--portal-x,50%) var(--portal-y,45%))}
  .entrance-lab .ritual-eye-targets button{transition:none}
 }
+
+
+/* Material-to-photograph camera crossing, anchored on the selected actual eye. */
+.entrance-lab #ritualCanvas{transform-origin:var(--portal-x,50%) var(--portal-y,45%)}
+.entrance-lab.is-departing:not(.is-skipping) #ritualCanvas{
+ transform:scale(2.25);filter:blur(2px) brightness(.84);
+ transition:transform 1.05s cubic-bezier(.17,.67,.12,1),filter .95s ease}
+.entrance-lab.is-skipping{animation:ritual-quick-exit .22s ease-in both}
+.entrance-lab.is-skipping .ritual-portal{display:none}
+@keyframes ritual-quick-exit{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ .entrance-lab.is-departing:not(.is-skipping) #ritualCanvas{transform:none;filter:none;transition:none}
+ .entrance-lab.is-skipping{animation:none;opacity:0}
+}
