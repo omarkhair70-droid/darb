@@ -27,6 +27,9 @@ async function sourceRect(page,id){
 }
 
 test("woven threshold and Tales of Fustat remain one reversible world",async({page},info)=>{
+ // Full mobile visual path includes real camera settling and captures; the
+ // 30s suite default can expire after every navigation assertion passed.
+ test.setTimeout(55_000);
  const errors=[];
  page.on("pageerror",error=>errors.push(error.message));
  await page.goto("/?entrance=v2");
