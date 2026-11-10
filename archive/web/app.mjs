@@ -59,7 +59,7 @@ function drawMemoryTrail(){
  }
  svg.innerHTML=paths.join("");
  const seen=new Set(visitedRoute);
- $(".artifact").forEach(fig=>fig.classList.toggle("has-been-visited",seen.has(Number(fig.dataset.id))));
+ $$(".artifact").forEach(fig=>fig.classList.toggle("has-been-visited",seen.has(Number(fig.dataset.id))));
  svg.setAttribute("aria-label",lang==="ar"
   ?"خيوط الرحلة التي نسجها الزائر عبر الأعمال الأرشيفية"
   :"The path this visitor has woven through archival works");
