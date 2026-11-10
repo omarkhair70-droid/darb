@@ -52,6 +52,12 @@
 - `e2e/entrance-lab.spec.mjs` has a desktop/mobile regression check for source #39/#41/#42: interactive eye center equals portal center and opens the matching archival photo. CI must complete before it counts as passing.
 - Visual acceptance remains open: review real capture around departure (including a transitional frame), optical source registration, cloth weight, and whether the image takes over without a generic wipe. Assess on narrow phone and desktop before changing the default entrance.
  
+## Stage 13 material craft — aperture pressure pass (10 Nov)
+- `web/entrance-lab.mjs` now paints a local depth field on the **surrounding cloth** of each of the three existing apertures, with different lens proportions and material pressure. The photographs themselves are not recolored or edited by this pass.
+- The retained and visitor apertures now **paint their cutout boundaries before clipping**. Earlier `shadowBlur` settings on an unpainted clipping path did not cast a visible edge shadow; this is a rendering correction, not a finished volumetric simulation.
+- The existing route through source works #39 / #41 / #42, one-world camera, source identity, entry controls, and no-forced-detail handoff remain unchanged.
+- `e2e/entrance-lab.spec.mjs` now captures a settled close crop of **each distinct material opening** on desktop and mobile. Passing screenshots establish evidence for review, not visual approval. Human evaluation of fiber-scale realism, weight, lighting, view-dependent aperture depth and performance remains open.
+
 ## Critical source truth
 - `data/media-catalog.json` marks some inputs `rights: approved_by_project_owner`, but `data/tales-of-fustat-001.json` still has multiple `publication: blocked` media nodes and unverified credits/consent. **An approved prototype import does not establish public display rights.** Keep test preview protected, and reconcile rights record-by-record before promotion.
 - 9 `curatorial-threads` are explicitly `editorial-comparison`, not documented maker/collaborator edges. The 5-stage Tales sequence is an *editorial traversal*, not a chronological or participant-authorship claim.
