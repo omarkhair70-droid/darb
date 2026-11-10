@@ -100,34 +100,79 @@ function positionForEcho(index,w,h){
  ][index];
 }
 
+// Reuse real archival photographs as a feathered light impression, never as a
+// hard-cut rectangular picture tile. Cached once per loaded Image.
+const imageMasks=new WeakMap();
+function featheredImage(photo){
+ const existing=imageMasks.get(photo);
+ if(existing)return existing;
+ const w=520,h=520;
+ const surface=document.createElement("canvas");surface.width=w;surface.height=h;
+ const c=surface.getContext("2d");
+ const iw=photo.naturalWidth,ih=photo.naturalHeight;
+ const scale=Math.max(w/iw,h/ih);
+ const dw=iw*scale,dh=ih*scale;
+ c.drawImage(photo,(w-dw)*.5,(h-dh)*.5,dw,dh);
+ c.fillStyle="rgba(113,84,52,.12)";c.fillRect(0,0,w,h);
+ c.globalCompositeOperation="destination-in";
+ const mask=c.createRadialGradient(w*.5,h*.49,w*.04,w*.5,h*.5,w*.52);
+ mask.addColorStop(0,"rgba(255,255,255,1)");
+ mask.addColorStop(.32,"rgba(255,255,255,.96)");
+ mask.addColorStop(.59,"rgba(255,255,255,.64)");
+ mask.addColorStop(.81,"rgba(255,255,255,.21)");
+ mask.addColorStop(1,"rgba(255,255,255,0)");
+ c.fillStyle=mask;c.fillRect(0,0,w,h);
+ c.globalCompositeOperation="source-over";
+ imageMasks.set(photo,surface);
+ return surface;
+}
 function impression(c,photo,where,amount,parallax){
  if(amount<=0||!photo?.complete||!photo.naturalWidth)return;
  const {x,y,w,h,rotate}=where;
  c.save();
  c.translate(x+parallax.x,y+parallax.y);
  c.rotate(rotate);
- c.globalAlpha=amount*.35;
- c.filter="grayscale(.63) sepia(.25) contrast(.8) blur(1.8px)";
- // A projected, irregular photographic echo dissolving into the implied room
- // surface. Not a rectangular thumbnail or a UI card.
- c.beginPath();
- c.moveTo(-w*.49,-h*.45);
- c.bezierCurveTo(-w*.09,-h*.56,w*.43,-h*.41,w*.53,-h*.29);
- c.quadraticCurveTo(w*.47,h*.14,w*.42,h*.47);
- c.bezierCurveTo(w*.05,h*.43,-w*.39,h*.57,-w*.48,h*.32);
- c.closePath();c.clip();
- const imageRatio=photo.naturalWidth/photo.naturalHeight;
- const destRatio=w/h;
- let dw,dh;
- if(imageRatio>destRatio){dh=h*1.24;dw=dh*imageRatio;}
- else{dw=w*1.22;dh=dw/imageRatio;}
- c.drawImage(photo,-dw/2,-dh/2,dw,dh);
+ c.globalAlpha=amount*.60;
+ c.filter="grayscale(.64) sepia(.28) contrast(.85) blur(.55px)";
+ const halo=featheredImage(photo);
+ // The center is discernible but the photographic edge dissolves into the
+ // surrounding light field rather than floating as a framed image.
+ c.drawImage(halo,-w*.76,-h*.76,w*1.52,h*1.52);
  c.filter="none";
- const tint=c.createLinearGradient(-w*.55,-h*.5,w*.55,h*.6);
- tint.addColorStop(0,"rgba(33,33,24,.56)");
- tint.addColorStop(.44,"rgba(73,50,34,.15)");
- tint.addColorStop(1,"rgba(10,23,19,.78)");
- c.fillStyle=tint;c.fillRect(-w/2,-h/2,w,h);
+ c.restore();
+}
+function groundWeaveShadow(c,w,h,progress){
+ const strength=smooth(.25,.93,progress);
+ if(strength<=0)return;
+ const {centerX,centerY,width,height}=clothGeometry(w,h,progress);
+ const floorY=Math.min(h*1.02,centerY+height*.44);
+ const left=centerX-width*.45,right=centerX+width*.45;
+ c.save();
+ c.lineCap="round";
+ // Light cast through an open weave follows the fabric's direction,
+ // continuing the material into the lower room. It is neither decor nor a
+ // detached thread effect before the visitor commits to a particular eye.
+ const count=w<700?22:34;
+ for(let i=0;i<count;i++){
+  const t=i/(count-1),ax=left+(right-left)*t;
+  const bx=w*(t*1.23-.115);
+  c.beginPath();
+  c.moveTo(ax,floorY);
+  c.bezierCurveTo(ax+(bx-ax)*.12,floorY+(h-floorY)*.22,
+   bx-(bx-ax)*.14,h*.86,bx,h*1.06);
+  c.strokeStyle=i%5===0?"#c2a182":"#729387";
+  c.globalAlpha=(i%5===0?.15:.075)*strength;
+  c.lineWidth=i%5===0?1.1:.62;c.stroke();
+ }
+ for(let row=0;row<8;row++){
+  const t=(row+1)/9,y=floorY+(h-floorY)*t;
+  const widthFactor=.48+t*.57;
+  c.beginPath();
+  c.moveTo(w*.5-w*widthFactor*.5,y);
+  c.quadraticCurveTo(w*.5,y-16*t,w*.5+w*widthFactor*.5,y+5*t);
+  c.strokeStyle="#b99576";
+  c.globalAlpha=.11*strength;c.lineWidth=.55;c.stroke();
+ }
  c.restore();
 }
 
@@ -156,6 +201,7 @@ function filament(c,point,where,power,index){
 export function drawThresholdBehind(c,{w,h,progress,gaze,time=0,reducedMotion=false,photos=[]}){
  const p=clamp(progress),t=reducedMotion?0:time;
  atmosphere(c,w,h,p,t,reducedMotion);
+ groundWeaveShadow(c,w,h,p);
  const look=reducedMotion?0:(gaze-.5);
  EYES.forEach((eye,i)=>{
   const amount=smooth(eye.from-.05,eye.to,p);
