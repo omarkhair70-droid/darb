@@ -573,21 +573,61 @@ function installInput(){
  $("#localeBtn").addEventListener("click",()=>setLanguage(lang==="en"?"ar":"en"));
  // The opt-in textile passage hands off to the SAME archival world. It does not
  // navigate away or rebuild the content atlas.
+ let arrivalSequence=0;
+ let wovenArrivalSource=null;
  addEventListener("darb:ritual-enter",(event)=>{
+  const skipped=Boolean(event.detail?.skipRitual);
   const source=Number(event.detail?.sourceId||39);
-  if(!mediaRecord(source))return;
+  const item=mediaRecord(source);
+  if(!item)return;
   if(event.detail?.lang==="ar"||event.detail?.lang==="en")setLanguage(event.detail.lang);
   if(atlasState)closeIndex({restore:false,focus:false});
   if(encounter)closeDetail();
   if(mode!=="explore")enterMode("explore");
   const experience=$("#experience");
+  const serial=++arrivalSequence;
   experience.dataset.arrival="woven";
-  inspect(source);
+  // The fabric opens into the original camera field, not a compulsory
+  // full-screen programme card. The visitor can inspect a work when ready.
+  $("#detail").hidden=true;
+  $$(".artifact").forEach(fig=>fig.classList.remove("is-woven-source","is-encounter"));
+  if(skipped){
+   wovenArrivalSource=null;
+   delete experience.dataset.wovenSource;
+   target={x:WORLD_WIDTH/2,y:WORLD_HEIGHT/2,z:innerWidth<800?.21:.30,r:0,fx:.5};
+   current={...target};
+  }else{
+   wovenArrivalSource=source;
+   rememberSource(source);
+   experience.dataset.wovenSource=String(source);
+   const near=encounterCamera(item);
+   target={...near,z:clamp(near.z*.72,.62,1.55),fx:.5};
+   // Start close to the chosen photograph; let the original space expand
+   // around it while the aperture portal finishes dissolving.
+   current={...target,z:Math.min(3.15,target.z*1.42)};
+   const figure=$('.artifact[data-id="'+source+'"]');
+   figure?.classList.add("is-woven-source");
+   emphasizeSourceThreads(item);
+  }
+  positionWorld();
   setTimeout(()=>{
-   if(experience.dataset.arrival==="woven")delete experience.dataset.arrival;
-  },matchMedia("(prefers-reduced-motion: reduce)").matches?0:1900);
+   if(serial===arrivalSequence&&experience.dataset.arrival==="woven"){
+    delete experience.dataset.arrival;
+   }
+  },matchMedia("(prefers-reduced-motion: reduce)").matches?0:2100);
  });
- $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":mode==="encounter"&&encounter?.originMode==="journey"?"explore":"journey"));
+ $("#modeBtn").addEventListener("click",()=>{
+  if(mode==="explore"&&wovenArrivalSource!==null){
+   const item=mediaRecord(wovenArrivalSource);
+   const beat=item?nearestChapterFor(item):-1;
+   wovenArrivalSource=null;
+   enterMode("journey");
+   jumpTo(beat>=0?beat:0);
+   return;
+  }
+  wovenArrivalSource=null;
+  enterMode(mode==="journey"?"explore":mode==="encounter"&&encounter?.originMode==="journey"?"explore":"journey");
+ });
  $("#homeBtn").addEventListener("click",()=>{enterMode("journey");jumpTo(0);});
  $$("[data-open-object]").forEach(button=>button.addEventListener("click",()=>inspect(Number(button.dataset.openObject))));
  $("#nextBtn").addEventListener("click",()=>{
