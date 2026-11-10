@@ -1090,3 +1090,21 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  .experience .artifact.is-encounter .artifact-inner:after{animation:none!important;opacity:0!important}
  .experience[data-mode="encounter"][data-material-transit] .world-links path{animation:none!important}
 }
+
+
+/* Let visual evidence resolve in the camera before its text arrives.
+   Text stays in DOM for accessibility; reduced motion reveals immediately. */
+.experience[data-mode="encounter"] #detail > *{
+ transition:opacity .48s ease,translate .68s cubic-bezier(.18,.64,.2,1);
+}
+.experience[data-mode="encounter"][data-material-arrival] #detail > :not(.detail-dismiss){
+ opacity:0;translate:0 7px;
+}
+.experience[data-mode="encounter"]:not([data-material-arrival]) #detail > *{
+ opacity:1;translate:0 0;
+}
+@media(prefers-reduced-motion:reduce){
+ .experience[data-mode="encounter"] #detail > *{
+  transition:none!important;opacity:1!important;translate:0 0!important;
+ }
+}
