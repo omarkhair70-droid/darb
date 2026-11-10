@@ -943,3 +943,8 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 @media(prefers-reduced-motion:reduce){
  .experience .chrome,.experience .narrative,.experience .axis{transition:none}
 }
+
+
+/* Arabic changes reading, not the physical camera/control geometry. */
+.entrance-lab[dir="rtl"] .ritual-hud #ritualLanguage{margin:0}
+.entrance-lab[dir="rtl"] .ritual-reading{text-align:center}
