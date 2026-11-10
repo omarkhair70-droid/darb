@@ -371,14 +371,14 @@ test("four identities are discovered out of sequence without overlays or invente
  await expect(page.locator(".artifact")).toHaveCount(72);
  // All visible identity lines are anchored to real existing image centers.
  const correct=await constellations.locator("path").evaluateAll(paths=>paths.every(path=>{
-  const start=path.getAttribute("d").match(/^M ([\\d.]+) ([\\d.]+)/);
+  const start=path.getAttribute("d").match(/^M ([\d.]+) ([\d.]+)/);
   if(!start)return false;
   const from=document.querySelector('.artifact[data-id="'+path.dataset.from+'"]');
   const to=document.querySelector('.artifact[data-id="'+path.dataset.to+'"]');
   if(!from||!to)return false;
   const fromX=parseFloat(from.style.left)+parseFloat(from.style.width)/2;
   const fromY=parseFloat(from.style.top)+parseFloat(from.style.height)/2;
-  const end=path.getAttribute("d").trim().match(/([\\d.]+) ([\\d.]+)$/);
+  const end=path.getAttribute("d").trim().match(/([\d.]+) ([\d.]+)$/);
   const toX=parseFloat(to.style.left)+parseFloat(to.style.width)/2;
   const toY=parseFloat(to.style.top)+parseFloat(to.style.height)/2;
   return end&&Math.abs(Number(start[1])-fromX)<.01&&Math.abs(Number(start[2])-fromY)<.01&&
