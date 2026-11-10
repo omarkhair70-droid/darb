@@ -172,6 +172,11 @@
     <div class="ritual-actions">
       <div class="ritual-progress"><span id="ritualStatus">0%</span><span id="ritualSound">SILENT BY DESIGN</span></div>
       <button id="ritualPull" type="button">CONTINUE THE UNFURLING</button>
+      <div class="ritual-traces" id="ritualTraces" hidden aria-label="Choose a revealed archival trace">
+        <button type="button" data-ritual-trace="witness" aria-pressed="true">01 / WITNESS</button>
+        <button type="button" data-ritual-trace="retained" aria-pressed="false">02 / RETAINED</button>
+        <button type="button" data-ritual-trace="visitor" aria-pressed="false">03 / VISITOR</button>
+      </div>
       <button id="ritualEnter" type="button" hidden>FOLLOW THIS TRACE ↗</button>
       <button id="ritualReduced" type="button">STILL STUDY</button>
     </div>
