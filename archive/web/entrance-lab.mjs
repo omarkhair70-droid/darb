@@ -10,6 +10,10 @@ function mountEntranceLab(){
  if(!root)return;
  root.hidden=false;
  document.documentElement.classList.add("ritual-lab-active");
+ const archive=document.querySelector("#experience");
+ const reading=document.querySelector("#reading");
+ if(archive)archive.inert=true;
+ if(reading)reading.inert=true;
  const canvas=root.querySelector("canvas");
  const ctx=canvas.getContext("2d",{alpha:false,desynchronized:true});
  const pull=root.querySelector("#ritualPull");
@@ -280,6 +284,8 @@ function mountEntranceLab(){
   try{ritual=transitionRitual(ritual,"ENTER_ARCHIVE",{sourceId:39})}catch(e){console.error(e)}
   root.classList.add("is-departing");
   document.documentElement.classList.remove("ritual-lab-active");
+  if(archive)archive.inert=false;
+  if(reading)reading.inert=false;
   // The existing archive owns the destination and maintains all its records.
   dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:39}}));
   setTimeout(()=>{root.hidden=true;root.remove();},1000);
@@ -309,14 +315,27 @@ function mountEntranceLab(){
  skip.addEventListener("click",leave);
  locale.addEventListener("click",()=>{lang=lang==="en"?"ar":"en";renderText();invalidate()});
  accessibility.addEventListener("click",()=>{ritual=transitionRitual(ritual,"SET_REDUCED_MOTION");progress=targetProgress;renderText();invalidate()});
- root.addEventListener("keydown",e=>{
+ addEventListener("keydown",e=>{
+  if(departed)return;
+  if(e.key==="Escape"){e.preventDefault();leave();return;}
+  if(e.key==="Tab"){
+   const buttons=[...root.querySelectorAll("button:not([hidden])")];
+   const first=buttons[0],last=buttons.at(-1);
+   if(!buttons.includes(document.activeElement)){
+    e.preventDefault();(e.shiftKey?last:first)?.focus();return;
+   }
+   if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();return;}
+   if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();return;}
+  }
+  // Buttons keep their native Space/Enter semantics to avoid double pull.
+  if(e.target?.closest?.("button"))return;
   if(e.key===" "||e.key==="ArrowRight"||e.key==="ArrowDown"){
    e.preventDefault();onPull();
   }
-  if(e.key==="Escape"){e.preventDefault();leave();}
  });
  addEventListener("resize",resize,{passive:true});
  renderText();resize();invalidate();
+ pull.focus({preventScroll:true});
  // A trusted local browser test can inspect current state without any globals
  // carrying secret or user data.
  root.dataset.study="06a";
