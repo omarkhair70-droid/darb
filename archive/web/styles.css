@@ -579,3 +579,13 @@ html[lang="ar"] #index h2{font-family:"Noto Naskh Arabic",Georgia,serif;letter-s
 @media(prefers-reduced-motion:reduce){
  #index.index,#index .atlas-node,#index .atlas-node-spot{transition:none!important}
 }
+
+
+/* Compass overlap QA: the edge constellation reads inward, never off the canvas. */
+#index .atlas-node[data-cluster="plans"]{min-width:40px;max-width:40px;width:40px;padding:3px}
+#index .atlas-node[data-cluster="plans"] .atlas-node-copy{
+ position:absolute;right:46px;top:50%;transform:translateY(-50%);
+ width:151px;text-align:right}
+@media(max-width:800px){
+ #index .atlas-node[data-cluster="plans"] .atlas-node-copy{width:132px}
+}
