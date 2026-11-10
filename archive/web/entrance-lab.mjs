@@ -484,13 +484,15 @@ function mountEntranceLab(){
   c.restore();
   // The rolling cylinder occludes the last woven strips and casts a local
   // shadow behind its leading edge, rather than a disconnected dark rectangle.
-  const cylinderShadow=c.createLinearGradient(originX+shownW-39*scale,0,originX+shownW+7*scale,0);
+  const shadowEnd=originX+shownW;
+  const shadowStart=Math.max(originX,shadowEnd-39*scale);
+  const cylinderShadow=c.createLinearGradient(shadowStart,0,shadowEnd,0);
   cylinderShadow.addColorStop(0,"rgba(8,12,11,0)");
   cylinderShadow.addColorStop(.72,"rgba(8,12,11,.33)");
   cylinderShadow.addColorStop(1,"rgba(8,12,11,.09)");
   c.fillStyle=cylinderShadow;
-  c.fillRect(Math.max(originX,originX+shownW-39*scale),originY,
-    Math.min(shownW,46*scale),textileH+8*scale);
+  // Never paint a rectangular overhang outside the actually unfurled fabric.
+  c.fillRect(shadowStart,originY,Math.max(0,shadowEnd-shadowStart),textileH+8*scale);
   // Structural edges and tactile fringe — they pull and curve with the cloth.
   c.strokeStyle="#cf9e76bb";c.lineWidth=2.4*scale;
   c.beginPath();
