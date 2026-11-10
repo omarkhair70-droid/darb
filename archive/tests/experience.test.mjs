@@ -115,7 +115,7 @@ test("cross-programme paths remain in the spatial scene and explain their editor
  const app=await read("web/app.mjs"),css=await read("web/styles.css"),build=await read("scripts/build.mjs");
  assert.ok(app.includes("threads.connections"));
  assert.ok(app.includes('thread.type!=="editorial-comparison"'));
- assert.ok(app.includes("OTHER PRACTICES · CURATED CONNECTIONS"));
+ assert.ok(app.includes("OTHER THREADS"));
  assert.ok(css.includes(".curatorial-thread"));
  assert.ok(css.includes(".thread-item"));
  assert.ok(build.includes("curatorial-threads.json"));
