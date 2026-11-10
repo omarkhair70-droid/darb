@@ -926,3 +926,20 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  .entrance-lab.is-departing:not(.is-skipping) #ritualCanvas{transform:none;filter:none;transition:none}
  .entrance-lab.is-skipping{animation:none;opacity:0}
 }
+
+
+/* Shared arrival: the cloth eye is still the camera's origin, not a page cut. */
+.experience[data-arrival="woven"] .chrome,
+.experience[data-arrival="woven"] .narrative,
+.experience[data-arrival="woven"] .axis,
+.experience[data-arrival="woven"] .spatial-controls,
+.experience[data-arrival="woven"] .instruction{
+ opacity:0!important;pointer-events:none!important}
+.experience[data-arrival="woven"] .canvas{background:#211e19!important}
+.experience[data-arrival="woven"] .veil{
+ background:radial-gradient(ellipse at 50% 50%,transparent 25%,#181d1970 100%)!important}
+.experience .chrome,.experience .narrative,.experience .axis{
+ transition:opacity .9s ease}
+@media(prefers-reduced-motion:reduce){
+ .experience .chrome,.experience .narrative,.experience .axis{transition:none}
+}
