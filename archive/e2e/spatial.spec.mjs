@@ -332,3 +332,57 @@ test("the first identity filament network is earned by visiting real material so
  expect(anchored).toBe(true);
  await page.screenshot({path:"test-results/"+info.project.name+"-identity-material-bridge-discovered.png"});
 });
+
+test("four identities are discovered out of sequence without overlays or invented archive sources",async({page})=>{
+ test.setTimeout(60_000);
+ await page.goto("/");
+ await page.locator("#modeBtn").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ const constellations=page.locator("#identityConstellations");
+ await expect(constellations.locator('[data-identity-lens]')).toHaveCount(3);
+ await expect(constellations.locator('[data-identity-lens="D"] path')).toHaveCount(4);
+ await expect(constellations.locator('[data-identity-lens="R"] path')).toHaveCount(5);
+ await expect(constellations.locator('[data-identity-lens="B"] path')).toHaveCount(7);
+ await expect(page.locator("#identityTrace path")).toHaveCount(3);
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-letters","none");
+ const unlock=async(id)=>{
+  await page.locator('.artifact[data-id="'+id+'"] button').evaluate(button=>button.click());
+  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
+  await page.locator("#closeDetail").click();
+  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ };
+ // No letter-order gate: start in B's installation world, then R, D, A.
+ await unlock(53);
+ await unlock(61);
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-letters","B");
+ await expect(constellations.locator('[data-identity-lens="B"]')).toHaveClass(/is-discovered/);
+ await unlock(44);
+ await unlock(47);
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-letters","RB");
+ await unlock(46);
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-letters","DRB");
+ await unlock(39);
+ await unlock(41);
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-letters","DARB");
+ for(const key of ["D","R","B"]){
+  await expect(constellations.locator('[data-identity-lens="'+key+'"]')).toHaveClass(/is-discovered/);
+ }
+ await expect(page.locator("#identityTrace")).toHaveClass(/is-revealed/);
+ await expect(page.locator(".artifact")).toHaveCount(72);
+ // All visible identity lines are anchored to real existing image centers.
+ const correct=await constellations.locator("path").evaluateAll(paths=>paths.every(path=>{
+  const start=path.getAttribute("d").match(/^M ([\\d.]+) ([\\d.]+)/);
+  if(!start)return false;
+  const from=document.querySelector('.artifact[data-id="'+path.dataset.from+'"]');
+  const to=document.querySelector('.artifact[data-id="'+path.dataset.to+'"]');
+  if(!from||!to)return false;
+  const fromX=parseFloat(from.style.left)+parseFloat(from.style.width)/2;
+  const fromY=parseFloat(from.style.top)+parseFloat(from.style.height)/2;
+  const end=path.getAttribute("d").trim().match(/([\\d.]+) ([\\d.]+)$/);
+  const toX=parseFloat(to.style.left)+parseFloat(to.style.width)/2;
+  const toY=parseFloat(to.style.top)+parseFloat(to.style.height)/2;
+  return end&&Math.abs(Number(start[1])-fromX)<.01&&Math.abs(Number(start[2])-fromY)<.01&&
+    Math.abs(Number(end[1])-toX)<.01&&Math.abs(Number(end[2])-toY)<.01;
+ }));
+ expect(correct).toBe(true);
+});
