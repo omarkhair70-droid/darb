@@ -1,5 +1,21 @@
 # DARB ARCHIVE — The Living Memory
 
+## Current execution — one-world, source-first art direction
+
+**Live execution register:** [CREATIVE_EXECUTION_REGISTER_2026-11-10.md](./CREATIVE_EXECUTION_REGISTER_2026-11-10.md). This is the canonical inventory of agreed ideas, unfinished craft, release gates and the **single** Tales of Fustat path currently under development. Historical stage notes below are not descriptions of the latest UI.
+
+**Current experiment:** Stage 12, source-specific object encounters. The archive preserves a continuous camera/world, and the three-step programme viewing path \`#39 documentary → #41 cyanotype → #42 printed traces\` is explicitly a **curated route through the documented Tales of Fustat programme**. It does not claim that the people in #39 created #41, nor that the programme's events happened in that order. \`src/material-score.mjs\` is the authored source boundary; its tests refuse broken/other-cluster route links.
+
+The related source image appears in the **same world** with a different material-specific lighting/camera rhythm, a legible AR/EN cue and reversible object history; interactive content still works without choreography in reduced motion. Do not generalize one CSS treatment to all 72 works.
+
+**Entrances:** \`/?entrance=v2\` is still an opt-in entrance within this application. Current sound is an *intro-only* tactile generator attempted on the first browser-permitted visitor gesture, with silent fallback — there is **no longer a visible SOUND ON/OFF button**. Default \`/\` remains the previously accepted entry route, not a second independent archive.
+
+**Publication warning:** Preview-ready is not rights-cleared. The media catalog's \`approved_by_project_owner\` field does not resolve the unverified photographer/maker credits and participant-consent fields still marked \`publication: blocked\` in \`data/tales-of-fustat-001.json\`. Restrict previews and resolve source permissions for a genuine public release. Nothing in this project grants publication rights.
+
+**Acceptance standard:** desktop/mobile browser CI + recorded visual critique + authentic AR/EN editorial review + actual device/performance/accessibility checks and permissions. Passing CI ≠ final art direction ≠ public cultural clearance.
+
+---
+
 ## Stage 08 — Cloth-first entrance and direct-source passage
 
 The visitor's recorded feedback showed the first woven experiment still looked like **a carpet positioned inside a conventional hero with an additional UI dashboard**, even though its tactile interactions worked. This is corrected in the **same** opt-in \`/?entrance=v2\` entrance.
