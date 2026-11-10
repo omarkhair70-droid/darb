@@ -37,7 +37,7 @@ const copy={
 };
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
-let materialTransitionUntil=0,materialTransitionSerial=0;
+let materialTransitionUntil=0,materialTransitionSerial=0,materialArrivalSerial=0;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
 const visitedRoute=[];
 function rememberSource(id){
@@ -281,6 +281,16 @@ function encounterCamera(item){
  const zoom=clamp(Math.min(desiredWidth/(item.w*responsive),desiredHeight/(item.h*responsive)),.72,2.45);
  return {...cameraForObject(item,{zoom,rotation:-item.r}),fx:viewport.w<800?.5:.69};
 }
+function markMaterialArrival(id){
+ const serial=++materialArrivalSerial;
+ const experience=$("#experience");
+ experience.dataset.materialArrival=String(id);
+ const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ setTimeout(()=>{
+  if(serial===materialArrivalSerial&&experience.dataset.materialArrival===String(id))
+   delete experience.dataset.materialArrival;
+ },reduced?0:950);
+}
 function inspect(id){
  const item=mediaRecord(id);if(!item)return;
  rememberSource(id);
@@ -293,6 +303,7 @@ function inspect(id){
  openItem=id;
  mode="encounter";
  $("#experience").dataset.mode="encounter";
+ markMaterialArrival(id);
  const medium=materialLanguage(item);
  $("#canvas").dataset.material=medium;
  $("#experience").dataset.materialStage=medium;
@@ -347,6 +358,7 @@ function retraceEncounter(){
   if(!previous){closeDetail();return;}
   openItem=previous.id;
   target=encounterCamera(previous);
+  markMaterialArrival(previous.id);
   $("#canvas").dataset.material=materialLanguage(previous);
   $("#experience").dataset.materialStage=materialLanguage(previous);
   $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===previous.id));
@@ -437,6 +449,8 @@ function closeDetail(){
   delete $("#experience").dataset.materialTransit;
   delete $("#experience").dataset.materialFrom;
   delete $("#experience").dataset.materialTo;
+  delete $("#experience").dataset.materialArrival;
+  ++materialArrivalSerial;
   materialTransitionUntil=0;
   ++materialTransitionSerial;
   $$(".artifact").forEach(fig=>fig.classList.remove("is-encounter","is-material-origin"));
