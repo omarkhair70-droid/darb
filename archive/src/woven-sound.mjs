@@ -5,7 +5,7 @@
  */
 export class WovenSound {
  constructor(){
-  this.context=null;this.enabled=false;this.lastSoundAt=0;this.seed=70121;
+  this.context=null;this.enabled=false;this.lastSoundAt=-Infinity;this.seed=70121;
  }
  async enable(){
   if(this.enabled)return true;
