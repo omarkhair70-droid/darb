@@ -103,3 +103,17 @@ test("the third perspective aperture leads to a different archival record",async
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5000});
  await expect(page.locator('.artifact[data-id="42"]')).toHaveClass(/is-encounter/);
 });
+
+
+test("sound stays silent by default and only follows a visitor's explicit choice",async({page})=>{
+ const errors=[];page.on("pageerror",e=>errors.push(e.message));
+ await page.goto("/?entrance=v2");
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","off");
+ await expect(page.locator("#ritualAudio")).toHaveAttribute("aria-pressed","false");
+ await page.locator("#ritualAudio").click();
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","on");
+ await page.locator("#ritualPull").click();
+ await page.locator("#ritualAudio").click();
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","off");
+ expect(errors).toEqual([]);
+});
