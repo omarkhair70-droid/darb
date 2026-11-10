@@ -166,9 +166,15 @@
   <div class="ritual-hud">
     <div class="ritual-overline" id="ritualLabel">06A / MATERIAL STUDY</div>
     <button id="ritualLanguage" type="button" aria-label="Change entrance language">عربي</button>
-    <button id="ritualAudio" type="button" aria-pressed="false">SOUND / OFF</button>
+    <button id="ritualAudio" type="button" aria-label="Enable optional textile sound" aria-pressed="false"><span aria-hidden="true">◖</span><span class="ritual-sr">Sound is off</span></button>
     <button id="ritualSkip" type="button">ENTER ARCHIVE ↗</button>
   </div>
+  <div class="ritual-eye-targets" id="ritualEyeTargets" aria-label="Open a discovered trace in the archive">
+    <button type="button" data-eye-entry="witness" aria-label="Enter through the first woven eye" disabled><span class="ritual-sr">First woven eye</span></button>
+    <button type="button" data-eye-entry="retained" aria-label="Enter through the second woven eye" disabled><span class="ritual-sr">Second woven eye</span></button>
+    <button type="button" data-eye-entry="visitor" aria-label="Enter through the third woven eye" disabled><span class="ritual-sr">Third woven eye</span></button>
+  </div>
+  <div id="ritualPortal" class="ritual-portal" aria-hidden="true"></div>
   <div class="ritual-bottom">
     <div class="ritual-reading" aria-live="polite">
       <span class="ritual-grain" id="ritualSource">A THREAD FROM FUSTAT</span>
