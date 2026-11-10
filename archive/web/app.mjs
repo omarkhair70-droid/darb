@@ -305,9 +305,10 @@ function positionWorld(){
  // Reading an identity constellation depends on proximity and a camera
  // that contains the source relationship. The visitor can drift away.
  let strongest=0,viewLens="none";
+ const discovered=new Set(discoveredIdentityLenses(identityLenses,visitedRoute));
  for(const lens of identityLenses){
   const strength=identityViewAlignment(lens,current);
-  const read=discoveredIdentityLenses(identityLenses,visitedRoute).includes(lens.key);
+  const read=discovered.has(lens.key);
   const group=lens.key==="A"?$("#identityTrace"):
     $("#identityConstellations [data-identity-lens='"+lens.key+"']");
   if(group)group.style.setProperty("--view-alignment",String(strength));
