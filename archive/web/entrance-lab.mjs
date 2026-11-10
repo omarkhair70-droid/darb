@@ -335,7 +335,7 @@ function mountEntranceLab(){
   const lx=originX+textileW*material.x-textileW*.47;
   const ly=textileH*material.y-textileH*.48;
   const sx=w*.5+lx*Math.cos(angle)-ly*Math.sin(angle);
-  const sy=h*(w<700?.41:.43)+lx*Math.sin(angle)+ly*Math.cos(angle);
+  const sy=h*(w<700?.38:.43)+lx*Math.sin(angle)+ly*Math.cos(angle);
   const endX=w*(w<700?.98:.93),endY=h*(w<700?.25:.43);
   c.save();c.lineCap="round";c.globalAlpha=.60*amount;
   // Fibers don't dissolve to reveal a new website. They stay continuous
@@ -363,12 +363,12 @@ function mountEntranceLab(){
   glow.addColorStop(0,"#a25b4436");glow.addColorStop(.5,"#7c492411");glow.addColorStop(1,"#0b131000");
   c.fillStyle=glow;c.fillRect(0,0,w,h);
   c.restore();
-  const scale=w<700?clamp(w/775,.44,.65):Math.min(w/1300,h/860,.99);
+  const scale=w<700?clamp(w/860,.40,.60):Math.min(w/1300,h/860,.99);
   const textileW=960*scale,textileH=550*scale;
   // A 2.5D tilted object with thickness. Mobile keeps its physical proportions
   // instead of stretching it to cover the viewport.
   c.save();
-  c.translate(w*.50,h*(w<700?.41:.43));
+  c.translate(w*.50,h*(w<700?.38:.43));
   c.rotate(w<680?-.12:-.095);
   c.translate(-textileW*.47,-textileH*.48);
   const originX=-textileW*.03,originY=0;
