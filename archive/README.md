@@ -1,5 +1,22 @@
 # DARB ARCHIVE — The Living Memory
 
+## Stage 08 — Cloth-first entrance and direct-source passage
+
+The visitor's recorded feedback showed the first woven experiment still looked like **a carpet positioned inside a conventional hero with an additional UI dashboard**, even though its tactile interactions worked. This is corrected in the **same** opt-in \`/?entrance=v2\` entrance.
+
+- Removed the visible top-left stage badge, giant bottom headline, percentage counter, list of **Witness / Retained / Visitor**, developer notes and mandatory **Follow This Trace** control from the visual stage.
+- Carpet roll begins close to the center of the camera, and the composition yields space to the weave as it unfurls rather than staying a fixed rectangular object on one side.
+- Three **actual textile eye positions** are now direct touch/pointer/keyboard entrances, using the same source records 39 / 41 / 42. Each has a discoverable, low-chrome focus ring; their semantic labels remain available to assistive technology.
+- The visitor can also **continue scrolling or pressing Arrow/Space** once the fabric is open. This follows one continuous default witness thread unless the visitor intentionally focuses another eye. A three-option choice is never forced.
+- Entry grows a viewport portal from the chosen physical aperture using its actual source image. The existing archive camera starts moving toward that same record underneath the cloth, with interface chrome deferred until after visual arrival.
+- The woven optional sound remains off until explicitly enabled, exposed as a tiny button with a clear accessible label rather than a permanent **SOUND ON/OFF** status panel.
+- AR/EN, immediate skip and reduced-motion system settings remain supported. The previously accepted archive remains unaltered at \`/\` while Stage 08 receives creative review.
+- Desktop/mobile browser tests now validate real eye selection, continued scroll entry, absence of hero/debug UI and full passage video.
+
+**Still not final:** commissioned material quality, truly volumetric cloth behavior and eye geometry, detailed moment-to-moment color grading, audio mix, polished exhibition ending, and fully accepted creative sequence require additional authored review. A passing CI build is not itself art-direction approval.
+
+---
+
 ## Stage 06B / 06C — The Woven Gaze and No Final Frame
 
 This is an **in-progress art-directed study on the SAME website**, at \`/?entrance=v2\`, not a separate mini-site. Default \`/\` stays on the previously accepted opening.
