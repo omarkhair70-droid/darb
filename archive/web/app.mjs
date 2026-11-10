@@ -580,7 +580,12 @@ function installInput(){
   if(atlasState)closeIndex({restore:false,focus:false});
   if(encounter)closeDetail();
   if(mode!=="explore")enterMode("explore");
+  const experience=$("#experience");
+  experience.dataset.arrival="woven";
   inspect(source);
+  setTimeout(()=>{
+   if(experience.dataset.arrival==="woven")delete experience.dataset.arrival;
+  },matchMedia("(prefers-reduced-motion: reduce)").matches?0:1900);
  });
  $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":mode==="encounter"&&encounter?.originMode==="journey"?"explore":"journey"));
  $("#homeBtn").addEventListener("click",()=>{enterMode("journey");jumpTo(0);});
