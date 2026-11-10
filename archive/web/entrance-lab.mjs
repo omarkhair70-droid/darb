@@ -428,6 +428,11 @@ function mountEntranceLab(){
   enter.hidden=progress<.76;
   pull.hidden=progress>=.76;
   traceBar.hidden=progress<.76;
+  const accessible=availableSources(Math.max(targetProgress,progress));
+  traceButtons.forEach((button,i)=>{
+   button.disabled=!accessible.includes(EYES[i].sourceId);
+   button.setAttribute("aria-pressed",String(selectedSourceId===EYES[i].sourceId));
+  });
   root.dataset.phase=ritual.phase;
  }
  function leave(){
