@@ -690,3 +690,17 @@ html.ritual-lab-active,html.ritual-lab-active body{overflow:hidden!important}
  padding-top:7px;border-color:#c6a88b3d}
  .ritual-traces button{font-size:8px;letter-spacing:0;padding:6px 2px}
 }
+
+
+/* No Final Frame: the visitor's *actual* journey becomes a new woven pattern
+   in the original spatial world, not a replay screen or invented provenance. */
+.memory-trail{position:absolute;inset:0;width:9200px;height:6400px;z-index:1;
+ pointer-events:none;opacity:0;transition:opacity 1.3s ease}
+.memory-trail path{fill:none;stroke:#336c63;stroke-width:5;
+ stroke-opacity:.68;stroke-dasharray:7 15;vector-effect:non-scaling-stroke;
+ filter:drop-shadow(0 0 5px #9ec4b380)}
+.experience.is-final-memory[data-mode="journey"] .memory-trail{opacity:1}
+.experience.is-final-memory[data-mode="journey"] .world-links{opacity:.15}
+.experience.is-final-memory[data-mode="journey"] .artifact{filter:saturate(.8) drop-shadow(0 10px 16px #25463a44)}
+.experience.is-final-memory[data-mode="journey"] .narrative-body{max-width:430px}
+@media(prefers-reduced-motion:reduce){.memory-trail{transition:none!important}}
