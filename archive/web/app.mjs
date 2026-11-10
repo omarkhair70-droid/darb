@@ -5,7 +5,6 @@ const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const local=(v)=>v?.[lang]||v?.en||"";
-const sourceBase="https://github.com/omarkhair70-droid/darb/blob/main/assets/visual-audit-77.csv#L";
 const escaped=(v)=>String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 const copy={
  en:{
@@ -14,7 +13,7 @@ const copy={
   indexFoot:"ONE CONTINUOUS WORLD · 77 SOURCE RECORDS",atlasCoordinate:"ONE FIELD · 17 CONSTELLATIONS",atlasHint:"SELECT A CONSTELLATION · TRAVEL INSIDE THE ARCHIVE",atlasMobileHint:"DRAG SIDEWAYS TO WANDER",atlasEnter:"ENTER THIS THREAD",searchLabel:"FIND A TRACE",searchPlaceholder:"Search artworks, programmes, practices...",returnScene:"RETURN TO THE EXPERIENCE",
   readingTitle:"Every image holds a way in.",readingIntro:"An uninterrupted, readable path through the same source material.",
   readingFoot:"Research experience built from the Darb 1718 institutional overview · not the official public website.",
-  source:"SEE SOURCE RECORD ↗",follow:"FOLLOW THIS MOMENT ↗",
+  source:"ABOUT THIS IMAGE",sourceClose:"CLOSE IMAGE NOTE",sourceLabel:"IMAGE CONTEXT",follow:"FOLLOW THIS MOMENT ↗",
   direction:"SCROLL TO MOVE THROUGH THE ARCHIVE",wander:"DRAG · EXPLORE · OPEN OBJECTS",
   video:"REFERENCE: 2026 OVERVIEW / DARB 1718",
   signatureWhisper:"NOT WRITTEN OVER THE ARCHIVE. WOVEN FROM IT.",
@@ -27,7 +26,7 @@ const copy={
   indexFoot:"عالم واحد مستمر · ٧٧ عنصرًا أرشيفيًا",atlasCoordinate:"مساحة واحدة · ١٧ مجموعة",atlasHint:"اختار مجموعة وادخل عالمها",atlasMobileHint:"اسحب يمين أو شمال للاستكشاف",atlasEnter:"ادخل الحكاية",searchLabel:"اتبع أثرًا",searchPlaceholder:"عمل، معرض، ورشة، برنامج...",returnScene:"ارجع للتجربة",
   readingTitle:"كل صورة ليها مدخل.",readingIntro:"مسار قراءة واضح لنفس المادة الأرشيفية، بدون حركة.",
   readingFoot:"تجربة بحثية من ملف درب 1718 · مش الموقع الرسمي للمؤسسة.",
-  source:"افتح المصدر ↗",follow:"اتبع اللحظة دي ↗",
+  source:"عن الصورة",sourceClose:"اقفل معلومات الصورة",sourceLabel:"عن الصورة",follow:"اتبع اللحظة دي ↗",
   direction:"مرّر عشان تتنقل جوّه الأرشيف",wander:"اسحب · اكتشف · افتح صورة",
   video:"المصدر: ملف درب 2026",
   signatureWhisper:"مش اسم فوق الأرشيف. ده اسم منسوج من حكاياته.",
@@ -324,14 +323,20 @@ function retraceEncounter(){
 }
 function fillDetail(id){
  const item=mediaRecord(id);if(!item)return;
- $("#detailMarker").textContent="ARCHIVE / "+String(id).padStart(2,"0")+" · PDF "+item.page+" / XREF "+item.xref;
- $("#detailTitle").textContent=local(item.title);
- $("#detailText").textContent=item.id===41
-  ? (lang==="ar"?"أثر الضوء على السطح. السيانوتايب هنا جزء من تجربة حكاوي الفسطاط.":"Light leaves a physical record. Cyanotype is one practice documented in Tales of Fustat.")
-  : item.id===39
-  ? (lang==="ar"?"المكان بيتحكي من خلال الناس. صورة للقاءات ضمن حكاوي الفسطاط.":"A neighbourhood is told through its encounters. A conversation documented in Tales of Fustat.")
-  : (lang==="ar"?"عنصر من أرشيف "+item.project.ar+". افتح خيطًا من نفس البرنامج أو انتقل لعمل مرتبط.":"An object from "+item.project.en+". Follow a record from this programme or take a related path.");
- $("#detailMeta").textContent=local(item.project)+" · DARB 1718 OVERVIEW 2026 · P."+item.page;
+ // The source catalog retains PDF/XREF, filenames and audit data. Those are
+ // indexing coordinates, not wall labels or artwork titles for visitors.
+ $("#detailMarker").textContent=lang==="ar"?"درب ١٧١٨ · من الأرشيف":"DARB 1718 · THE ARCHIVE";
+ $("#detailTitle").textContent=local(item.project);
+ // Preserve the full authored image description, but treat it as a caption,
+ // never a huge exhibition headline. It also remains the image alt text.
+ $("#detailText").textContent=local(item.title);
+ $("#detailMeta").textContent=lang==="ar"?"صورة من أرشيف البرنامج":"FROM THE PROGRAMME";
+ $("#detailSourceLabel").textContent=copy[lang].sourceLabel;
+ $("#detailSourceBody").textContent=lang==="ar"
+  ?"الصورة دي جزء من مواد برنامج «"+local(item.project)+"» في أرشيف درب ١٧١٨. تقدر تتابع الأعمال المرتبطة بيها من هنا."
+  :"This image belongs to the "+local(item.project)+" programme in the Darb 1718 archive. Continue through the related works without leaving this space.";
+ $("#detailSourceNote").hidden=true;
+ $("#sourceBtn").setAttribute("aria-expanded","false");
  $("#sourceBtn").textContent=copy[lang].source;
  $("#followBtn").textContent=copy[lang].follow;
  const beat=nearestChapterFor(item);
@@ -339,11 +344,13 @@ function fillDetail(id){
  const related=media.filter(other=>other.cluster===item.cluster&&other.id!==item.id).slice(0,8);
  const host=$("#relatedObjects");host.replaceChildren();
  const heading=document.createElement("div");heading.className="related-title";
- heading.textContent=lang==="ar"?"من نفس البرنامج · "+related.length:"FROM THE SAME PROGRAMME · "+related.length;
+ heading.textContent=lang==="ar"?"من نفس الحكاية":"IN THE SAME STORY";
  host.append(heading);
  for(const record of related){
   const btn=document.createElement("button");btn.type="button";btn.className="related-item";
-  btn.innerHTML='<img src="'+record.src+'" loading="lazy" alt=""/><span>'+escaped(local(record.title))+'</span><b>↗</b>';
+  btn.setAttribute("aria-label",local(record.title)+" · "+local(record.project));
+  btn.innerHTML='<img src="'+record.src+'" loading="lazy" alt=""/><span>'+
+   escaped(local(record.title))+'</span><b>↗</b>';
   btn.addEventListener("click",()=>inspect(record.id));
   host.append(btn);
  }
@@ -351,7 +358,7 @@ function fillDetail(id){
   t.fromCluster===item.cluster||t.toCluster===item.cluster);
  if(thematic.length){
   const name=document.createElement("div");name.className="related-title thread-title";
-  name.textContent=lang==="ar"?"خيوط لممارسات تانية · مقارنة تحريرية":"OTHER PRACTICES · CURATED CONNECTIONS";
+  name.textContent=lang==="ar"?"علاقات مع حكايات تانية":"OTHER THREADS";
   host.append(name);
   for(const thread of thematic){
    const targetId=thread.fromCluster===item.cluster?thread.toId:thread.fromId;
@@ -409,8 +416,7 @@ function focusAtlasCluster(key){
  $("#atlasFocusTitle").textContent=lang==="ar"?zone.ar:zone.en;
  $("#atlasFocusType").textContent=(lang==="ar"?"منطقة أرشيفية":"ARCHIVE CONSTELLATION")
   +" / "+String(records.length).padStart(2,"0");
- $("#atlasFocusInfo").textContent=(lang==="ar"?"صور ومواد أصلية · صفحات ":"Original objects · pages ")+
-  [...new Set(records.map(item=>item.page))].join(" · ");
+ $("#atlasFocusInfo").textContent=(lang==="ar"?"اكتشف الأعمال والقصص المرتبطة بالمجموعة":"Discover the works and stories in this constellation");
  if(representative){
   $("#atlasFocusImage").src=representative.src;
   $("#atlasFocusImage").alt=local(representative.title);
@@ -470,7 +476,7 @@ function renderSearch(){
   const btn=document.createElement("button");btn.className="search-hit";btn.type="button";
   btn.innerHTML='<img src="'+item.src+'" alt="" loading="lazy"/><span><strong>'+
    escaped(local(item.title))+'</strong><small>'+escaped(local(item.project))+
-   " · PDF "+item.page+'</small></span><b>↗</b>';
+   '</small></span><b>↗</b>';
   btn.addEventListener("click",()=>{
    closeIndex({restore:false,focus:false});
    enterMode("explore");
@@ -554,7 +560,7 @@ function renderReading(){
    const item=mediaRecord(m.focusId),fig=document.createElement("figure");
    const image=document.createElement("img");image.src=item.src;image.alt=local(item.title);image.loading="lazy";
    const caption=document.createElement("figcaption");
-   caption.textContent=local(item.title)+" · "+local(item.project)+" · PDF p."+item.page;
+   caption.textContent=local(item.title)+" · "+local(item.project);
    fig.append(image,caption);li.append(fig);
   }
   ol.append(li);
@@ -594,8 +600,11 @@ function installInput(){
  });
  $("#sourceBtn").addEventListener("click",()=>{
   if(openItem===null)return;
-  const item=mediaRecord(openItem);
-  window.open(sourceBase+(item.id+1),"_blank","noopener,noreferrer");
+  const note=$("#detailSourceNote");
+  note.hidden=!note.hidden;
+  const expanded=!note.hidden;
+  $("#sourceBtn").setAttribute("aria-expanded",String(expanded));
+  $("#sourceBtn").textContent=expanded?copy[lang].sourceClose:copy[lang].source;
  });
  $("#backToScene").addEventListener("click",()=>jumpTo(currentBeat));
  addEventListener("scroll",()=>{
