@@ -2,6 +2,7 @@ import {validateArchive,getConnections,findEvidencePath} from "/graph.mjs";
 import {layoutCatalog,validateAtlas,cameraForObject,WORLD_WIDTH,WORLD_HEIGHT,CLUSTERS} from "/world-layout.mjs";
 import {materialLanguage,nextMaterialTrace} from "/material-score.mjs";
 import {materialBridgeSegments} from "/identity-relations.mjs";
+import {createIdentityLenses,discoveredIdentityLenses,identityViewAlignment} from "/identity-score.mjs";
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
@@ -41,17 +42,50 @@ let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=
 let materialTransitionUntil=0,materialTransitionSerial=0,materialArrivalSerial=0;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
 const visitedRoute=[];
+let identityLenses=[];
 // The first identity lens is not a drawn A. The existing source objects
 // create a factual shared-programme segment plus two explicitly editorial
 // comparisons. It becomes discoverable only after the visitor actually
 // encountered both documentary and cyanotype sources.
 function updateIdentityReveal(){
- const visited=new Set(visitedRoute);
- const ready=visited.has(39)&&visited.has(41);
+ const found=discoveredIdentityLenses(identityLenses,visitedRoute);
+ const read=new Set(found);
  const graphic=$("#identityTrace");
- if(graphic)graphic.classList.toggle("is-revealed",ready);
+ if(graphic)graphic.classList.toggle("is-revealed",read.has("A"));
  const experience=$("#experience");
- if(experience)experience.dataset.identityBridge=ready?"discovered":"unseen";
+ if(experience){
+  experience.dataset.identityBridge=read.has("A")?"discovered":"unseen";
+  // A semantic QA state only. No letters are drawn over source imagery.
+  experience.dataset.identityLetters=found.join("")||"none";
+ }
+ const groups=$("#identityConstellations [data-identity-lens]");
+ groups.forEach(group=>group.classList.toggle("is-discovered",read.has(group.dataset.identityLens)));
+}
+function renderIdentityConstellations(){
+ const graphic=$("#identityConstellations");
+ if(!graphic)return;
+ identityLenses=createIdentityLenses(media,threads);
+ graphic.setAttribute("viewBox","0 0 "+WORLD_WIDTH+" "+WORLD_HEIGHT);
+ // The existing first A material bridge keeps its own previously tested
+ // SVG. D, R and B are additional spatial readings in the same world layer.
+ // All endpoints are the centers of genuine source images.
+ graphic.innerHTML=identityLenses.filter(lens=>lens.key!=="A").map(lens=>{
+  const strands=lens.segments.map((edge,index)=>{
+   const a=edge.fromPosition,b=edge.toPosition;
+   const dx=b.x-a.x,dy=b.y-a.y;
+   const tension=Math.min(175,Math.hypot(dx,dy)*.12);
+   const sway=(index%2?-1:1)*tension;
+   const path="M "+a.x+" "+a.y+
+    " C "+(a.x+dx*.31)+" "+(a.y+sway)+
+    " "+(b.x-dx*.27)+" "+(b.y-sway*.67)+
+    " "+b.x+" "+b.y;
+   return '<path data-from="'+edge.from+'" data-to="'+edge.to+
+    '" data-kind="'+edge.kind+'" d="'+path+'"/>';
+  }).join("");
+  return '<g class="identity-lens" data-identity-lens="'+lens.key+
+   '" data-source-zone="'+lens.zone+'">'+strands+'</g>';
+ }).join("");
+ updateIdentityReveal();
 }
 function renderIdentityLinks(){
  const graphic=$("#identityTrace");
@@ -185,6 +219,7 @@ function makeWorld(){
  }
  link.innerHTML=paths.join("");
  renderIdentityLinks();
+ renderIdentityConstellations();
 }
 
 function renderNarrative(beat){
@@ -267,6 +302,19 @@ function positionWorld(){
  const focusX=viewport.w*(viewport.w<800?.5:current.fx??.5);
  const dx=focusX-zoom*cx,dy=focusY-zoom*cy;
  $("#world").style.transform="translate3d("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px,0) scale("+zoom.toFixed(5)+") rotate("+current.r.toFixed(3)+"deg)";
+ // Reading an identity constellation depends on proximity and a camera
+ // that contains the source relationship. The visitor can drift away.
+ let strongest=0,viewLens="none";
+ for(const lens of identityLenses){
+  const strength=identityViewAlignment(lens,current);
+  const read=discoveredIdentityLenses(identityLenses,visitedRoute).includes(lens.key);
+  const group=lens.key==="A"?$("#identityTrace"):
+    $("#identityConstellations [data-identity-lens='"+lens.key+"']");
+  if(group)group.style.setProperty("--view-alignment",String(strength));
+  if(read&&strength>strongest){strongest=strength;viewLens=lens.key;}
+ }
+ const worldExperience=$("#experience");
+ if(worldExperience)worldExperience.dataset.identityView=strongest>.37?viewLens:"none";
  const zoneLabels=$(".world-annotations");
  if(zoneLabels)zoneLabels.style.opacity=String(clamp((.85-current.z)/.55,0,1));
 }
