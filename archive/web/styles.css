@@ -975,3 +975,118 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 @media(prefers-reduced-motion:reduce){
  .experience[data-arrival="woven"] .artifact{transition:none}
 }
+
+
+/* Stage 12 — Material is a visual grammar, not one preset tinted across 72 works.
+   Exact source pixels/ratios remain intact; atmosphere belongs to the room. */
+.experience[data-mode="encounter"] .related-item.is-material-trace{
+ position:relative;min-width:124px;max-width:156px;flex-basis:136px;
+ padding:0 8px 9px 4px;border-bottom:1px solid #5e81745c;
+ background:linear-gradient(180deg,#bed6c323,transparent 82%);
+}
+.experience[data-mode="encounter"] .related-item.is-material-trace:before{
+ content:"";position:absolute;left:4px;top:-9px;width:100%;height:1px;
+ background:linear-gradient(90deg,#ad9275a6,transparent);
+}
+.experience[data-mode="encounter"] .related-item.is-material-trace span strong{
+ font-weight:550;font-size:11px;line-height:1.28;
+}
+.experience[data-mode="encounter"] .related-item.is-material-trace span small{
+ margin-top:4px;color:#527168;font-size:9px;line-height:1.3;
+}
+.experience[data-mode="encounter"] .related-item.is-material-trace:focus-visible{
+ outline:2px solid #557b70;outline-offset:4px;
+}
+/* An encounter of actual people preserves documentary framing, quiet space
+   and visible nearby programme context; no face parallax or false motion. */
+.experience[data-mode="encounter"][data-material-stage="photography"] .canvas{
+ background:#dddcd1;
+}
+.experience[data-mode="encounter"][data-material-stage="photography"] .veil{
+ background:radial-gradient(ellipse 37% 43% at 70% 46%,transparent 18%,#e4e5d533 76%),
+ linear-gradient(90deg,#e5e7d9ef 0%,#e6e8d9cf 28%,transparent 62%);
+}
+.experience[data-mode="encounter"][data-material-stage="photography"]
+ .artifact:not(.is-encounter):not(.is-material-origin)[data-cluster="fustat"]{
+ opacity:.25;filter:saturate(.62);
+}
+.experience[data-mode="encounter"][data-material-stage="photography"]
+ .artifact.is-encounter .artifact-inner{
+ box-shadow:0 20px 74px #4e4c3a3c,0 0 0 1px #b5a88a4d;
+}
+/* A cyanotype is an exposure into blue chemistry, not just the same photo
+   inside a recolored rectangle. Light blooms at its borders, while the
+   original source image stays readable without a fictional print texture. */
+.experience[data-mode="encounter"][data-material-stage="cyanotype"] .canvas{
+ background:radial-gradient(ellipse at 66% 41%,#dce8e3 5%,#c7dce4 54%,#a9c9db 100%);
+}
+.experience[data-mode="encounter"][data-material-stage="cyanotype"] .veil{
+ background:linear-gradient(90deg,#e5edebed 0%,#d9e9efbe 32%,transparent 60%);
+}
+.experience[data-mode="encounter"][data-material-stage="cyanotype"]
+ .artifact.is-encounter .artifact-inner{
+ overflow:visible;background:#f2f0df;
+ box-shadow:0 0 0 4px #f5f0df,0 0 0 5px #8daac04a,
+  0 23px 83px #44718d56,0 0 100px #a4d5f85c;
+}
+.experience[data-mode="encounter"][data-material-stage="cyanotype"]
+ .artifact.is-encounter .artifact-inner img{
+ object-fit:contain;background:#e7ece7;filter:contrast(1.04);
+ transform:none!important;
+}
+.experience[data-mode="encounter"][data-material-stage="cyanotype"]
+ .artifact.is-encounter .artifact-inner:after{
+ content:"";position:absolute;inset:-4px;pointer-events:none;
+ background:linear-gradient(107deg,transparent 19%,#f8f9f000 37%,#edf9ff57 50%,transparent 63%);
+ transform:translateX(-110%);animation:cyanotype-reveal 1150ms cubic-bezier(.3,.2,.4,1) 1 both;
+ mix-blend-mode:screen;
+}
+@keyframes cyanotype-reveal{
+ 0%{transform:translateX(-110%);opacity:.7}
+ 77%{opacity:.6}
+ 100%{transform:translateX(110%);opacity:0}
+}
+/* Prints/notebooks rest in a thinner, warmer paper atmosphere. */
+.experience[data-mode="encounter"][data-material-stage="print"] .canvas{
+ background:radial-gradient(ellipse at 68% 39%,#ece9df,#d5d4cb 85%);
+}
+.experience[data-mode="encounter"][data-material-stage="print"] .veil{
+ background:linear-gradient(90deg,#eeeae2ec,#e8e6dcac 36%,transparent 69%);
+}
+.experience[data-mode="encounter"][data-material-stage="print"]
+ .artifact.is-encounter .artifact-inner{
+ background:#eeeae1;box-shadow:0 0 0 4px #eeebdf,
+  1px 27px 38px #63554447,7px 34px 1px -29px #8075683f;
+}
+.experience[data-mode="encounter"][data-material-stage="print"]
+ .artifact.is-encounter .artifact-inner img{object-fit:contain;transform:none!important}
+/* The previous image lingers during genuine camera travel, then recedes.
+   The strand belongs to the source atlas, not a pop-up between pages. */
+.experience[data-mode="encounter"][data-material-transit] .artifact.is-material-origin{
+ z-index:8;opacity:.64!important;filter:grayscale(.25) contrast(.92)!important;
+}
+.experience[data-mode="encounter"][data-material-transit] .world-links path[data-cluster="fustat"]{
+ opacity:.78;stroke-opacity:.6;stroke:#8d9e91;stroke-width:2.2;
+ stroke-dasharray:5 12;animation:material-strand 1s linear 1;
+}
+@keyframes material-strand{from{stroke-dashoffset:0}to{stroke-dashoffset:-45}}
+@media(max-width:800px){
+ .experience[data-mode="encounter"] .related-item.is-material-trace{
+  flex-basis:100px;min-width:100px;max-width:115px;
+ }
+ .experience[data-mode="encounter"] .related-item.is-material-trace span strong{font-size:9px}
+ .experience[data-mode="encounter"] .related-item.is-material-trace span small{font-size:8px}
+ .experience[data-mode="encounter"][data-material-stage="photography"] .veil{
+  background:linear-gradient(0deg,#e8ebd9eb,#e6e6d59c 27%,transparent 62%);
+ }
+ .experience[data-mode="encounter"][data-material-stage="cyanotype"] .veil{
+  background:linear-gradient(0deg,#eaf2f0f1,#e8f2f0b5 29%,transparent 63%);
+ }
+ .experience[data-mode="encounter"][data-material-stage="print"] .veil{
+  background:linear-gradient(0deg,#ece8deec,#ebe6dbb5 27%,transparent 63%);
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .experience .artifact.is-encounter .artifact-inner:after{animation:none!important;opacity:0!important}
+ .experience[data-mode="encounter"][data-material-transit] .world-links path{animation:none!important}
+}
