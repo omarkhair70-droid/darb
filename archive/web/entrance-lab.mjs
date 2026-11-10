@@ -212,9 +212,33 @@ function mountEntranceLab(){
   render();
   if(progress!==targetProgress||(departureStartedAt&&departureAmount<1))invalidate();
  }
+ // Local pressure and oblique light around a torn textile opening. This
+ // belongs to the surrounding yarn, so source photographs remain untouched.
+ // Each opening supplies its own proportions, direction and pressure.
+ function textilePressure(c,x,y,rx,ry,angle,amount,depth){
+  if(amount<=0)return;
+  c.save();
+  c.translate(x,y);c.rotate(angle);c.scale(rx,ry);
+  const shadow=c.createRadialGradient(.10,.16,.08,0,0,1.48);
+  shadow.addColorStop(0,"rgba(10,15,14,"+(depth*.52*amount).toFixed(3)+")");
+  shadow.addColorStop(.60,"rgba(28,27,22,"+(depth*.21*amount).toFixed(3)+")");
+  shadow.addColorStop(1,"rgba(7,12,11,0)");
+  c.fillStyle=shadow;c.fillRect(-1.5,-1.5,3,3);
+  // Raking light catches the stretched upper fibers, while the lower edge
+  // falls into the cloth. No drawn decorative outline or fake iris.
+  const light=c.createLinearGradient(-.35,-1.3,.35,1.3);
+  light.addColorStop(0,"rgba(243,204,155,"+(.12*amount).toFixed(3)+")");
+  light.addColorStop(.34,"rgba(241,196,137,"+(.035*amount).toFixed(3)+")");
+  light.addColorStop(.53,"rgba(0,0,0,0)");
+  light.addColorStop(.84,"rgba(8,17,17,"+(.15*amount).toFixed(3)+")");
+  light.addColorStop(1,"rgba(8,17,17,0)");
+  c.fillStyle=light;c.fillRect(-1.15,-1.18,2.3,2.36);
+  c.restore();
+ }
  function eye(c,x,y,size,amount){
   if(amount<=0)return;
   const ew=size*(.42+.58*amount),eh=size*.26*amount;
+  textilePressure(c,x,y,ew*1.35,size*.70,0,amount,.9);
   c.save();
   // The lens is created by a break in the cloth: upper/lower seam tension,
   // NOT an iris graphic. The source photo lives physically behind the slit.
@@ -255,15 +279,19 @@ function mountEntranceLab(){
   if(amount<=0)return;
   // Eye II is a worn secondary textile layer. The visible image is retained
   // beneath the yarn; it does not open as the first eye's symmetrical slit.
-  c.save();c.translate(x,y);c.rotate(-.22);
   const width=size*(.55+.55*amount),height=size*.46*amount;
+  textilePressure(c,x,y,width*1.16,height*1.72,-.22,amount,1.2);
+  c.save();c.translate(x,y);c.rotate(-.22);
   c.shadowColor="#020c0ba0";c.shadowBlur=15;
   c.beginPath();
   c.moveTo(-width*.95,-height*.25);
   c.quadraticCurveTo(-width*.45,-height*1.12,width*.72,-height*.55);
   c.lineTo(width,height*.35);
   c.quadraticCurveTo(width*.12,height*1.3,-width*.85,height*.35);
-  c.closePath();c.clip();
+  c.closePath();
+  // Fill the boundary once BEFORE clipping: clipping itself casts no shadow.
+  c.fillStyle="#142526";c.fill();
+  c.shadowBlur=0;c.clip();
   c.fillStyle="#172d2d";c.fillRect(-width,-height,width*2,height*2);
   if(retainedPhoto.complete&&retainedPhoto.naturalWidth){
    c.drawImage(retainedPhoto,-width,-height,width*2,height*2);
@@ -298,14 +326,17 @@ function mountEntranceLab(){
   // Eye III is created by camera-dependent offset between two cloth seams.
   // It is neither a drawn pupil nor another copy of the unstitched lens.
   const opening=size*.62*amount*alignment;
-  c.save();c.translate(x,y);c.rotate(.17+(gaze-.5)*.22);
   const radius=opening*.89;
+  textilePressure(c,x,y,radius*1.55,radius*1.33,.17+(gaze-.5)*.22,amount,.78);
+  c.save();c.translate(x,y);c.rotate(.17+(gaze-.5)*.22);
   c.shadowColor="#010a0ae0";c.shadowBlur=12;
   c.beginPath();
   c.moveTo(-radius*.88,0);
   c.bezierCurveTo(-radius*.47,-radius*.8,radius*.62,-radius*.6,radius*.97,-radius*.11);
   c.bezierCurveTo(radius*.12,radius*.93,-radius*.44,radius*.78,-radius*.88,0);
-  c.closePath();c.clip();
+  c.closePath();
+  c.fillStyle="#081e20";c.fill();
+  c.shadowBlur=0;c.clip();
   c.fillStyle="#0a292b";c.fillRect(-radius,-radius,radius*2,radius*2);
   if(visitorPhoto.complete&&visitorPhoto.naturalWidth){
    c.save();c.translate((.5-gaze)*radius*.22,0);
