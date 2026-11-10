@@ -577,7 +577,7 @@ function mountEntranceLab(){
   if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
  }
  canvas.addEventListener("pointerup",release);canvas.addEventListener("pointercancel",release);
- canvas.addEventListener("wheel",e=>{
+ root.addEventListener("wheel",e=>{
   e.preventDefault();
   if(e.deltaY>0&&targetProgress>=.985){enterEye(nearestEyeFromGaze());return;}
   setProgress(targetProgress+Math.sign(e.deltaY)*.095);
