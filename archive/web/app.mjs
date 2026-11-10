@@ -538,6 +538,7 @@ function installInput(){
  addEventListener("darb:ritual-enter",(event)=>{
   const source=Number(event.detail?.sourceId||39);
   if(!mediaRecord(source))return;
+  if(event.detail?.lang==="ar"||event.detail?.lang==="en")setLanguage(event.detail.lang);
   if(atlasState)closeIndex({restore:false,focus:false});
   if(encounter)closeDetail();
   if(mode!=="explore")enterMode("explore");
