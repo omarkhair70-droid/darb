@@ -28,19 +28,21 @@ function mountEntranceLab(){
  const status=root.querySelector("#ritualStatus");
  const traceBar=root.querySelector("#ritualTraces");
  const traceButtons=[...traceBar.querySelectorAll("[data-ritual-trace]")];
+ const eyeTargets=[...root.querySelectorAll("[data-eye-entry]")];
+ const portal=root.querySelector("#ritualPortal");
  const label=root.querySelector("#ritualInstruction");
  const el=(id)=>root.querySelector("#"+id);
  const fmt={
   en:{lab:"06B / THE WOVEN GAZE",early:"A fragment of memory.",progress:"Pull the woven edge.",opened:"The weave remembers three ways of seeing.",instruction:"DRAG THE FRINGE / SCROLL / PRESS SPACE",
     pulling:"CONTINUE THE UNFURLING",enter:"FOLLOW THIS TRACE ↗",skip:"ENTER ARCHIVE ↗",reduced:"STILL STUDY",
-    audio:"SILENT BY DESIGN",soundOff:"SOUND / OFF",soundOn:"SOUND / ON",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"A THREAD FROM FUSTAT",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"]},
+    audio:"SILENT BY DESIGN",soundOff:"Enable woven sound",soundOn:"Mute woven sound",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"A THREAD FROM FUSTAT",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"],gesture:"PULL TO UNFOLD",choose:"TOUCH AN OPENING · OR KEEP MOVING",skipShort:"SKIP ↗"},
   ar:{lab:"٠٦ب / النظرة المنسوجة",early:"طرف من الذاكرة.",progress:"اسحب حافة النسيج.",opened:"النسيج افتكر تلات طرق للرؤية.",instruction:"اسحب الطرف / مرّر / اضغط مسافة",
     pulling:"كمّل فرد النسيج",enter:"اتبع الأثر ↗",skip:"ادخل الأرشيف ↗",reduced:"مشهد ثابت",
-    audio:"الصمت جزء من التصميم",soundOff:"الصوت / مغلق",soundOn:"الصوت / شغال",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"خيط من حكاوي الفسطاط",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"]}
+    audio:"الصمت جزء من التصميم",soundOff:"تشغيل صوت النسيج",soundOn:"كتم صوت النسيج",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"خيط من حكاوي الفسطاط",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"],gesture:"اسحب النسيج",choose:"المس فتحة · أو كمّل الحركة",skipShort:"تخطّي ↗"}
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
- let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0;
+ let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0,returnFocus=null;
  const photo=new Image();
  photo.src="/media/39.jpeg";
  photo.decoding="async";
@@ -113,14 +115,16 @@ function mountEntranceLab(){
   const t=fmt[lang];
   el("ritualLabel").textContent=t.lab;
   el("ritualTitle").textContent=progress<.09?t.early:progress<.64?t.progress:t.opened;
-  label.textContent=t.instruction;
+  label.textContent=progress>.80?t.choose:t.gesture;
   pull.textContent=t.pulling;
   enter.textContent=t.enter;
-  skip.textContent=t.skip;
+  skip.textContent=t.skipShort;
   locale.textContent=t.language;
   accessibility.textContent=t.reduced;
   el("ritualSound").textContent=sound.enabled?(lang==="ar"?"احتكاك النسيج":"FIBER FRICTION"):t.audio;
-  audioButton.textContent=sound.enabled?t.soundOn:t.soundOff;
+  audioButton.querySelector('[aria-hidden="true"]').textContent=sound.enabled?"♫":"◖";
+  audioButton.querySelector(".ritual-sr").textContent=sound.enabled?t.soundOn:t.soundOff;
+  audioButton.setAttribute("aria-label",sound.enabled?t.soundOn:t.soundOff);
   audioButton.setAttribute("aria-pressed",String(sound.enabled));
   root.dataset.audio=sound.enabled?"on":"off";
   el("ritualFootnote").textContent=t.hint;
@@ -139,6 +143,7 @@ function mountEntranceLab(){
   pull.hidden=shown;
   traceBar.hidden=!shown;
   root.dataset.source=String(selectedSourceId);
+  updateEyeTargets();
  }
  function selectTrace(key){
   const id=chooseSource(key);
@@ -146,7 +151,51 @@ function mountEntranceLab(){
   selectedSourceId=id;
   renderText();invalidate();
  }
+
+ // Project the REAL textile aperture positions onto the viewport, sharing the
+ // exact oblique material geometry with render(). These are not side menu items.
+ function eyeScreenPoint(eye){
+  const w=innerWidth,h=innerHeight;
+  const scale=w<700?clamp(w/860,.40,.60):Math.min(w/1300,h/860,.99);
+  const tw=960*scale,th=550*scale,angle=w<680?-.12:-.095;
+  const x=-tw*.03+tw*eye.x-tw*.47;
+  const y=th*eye.y-th*.48;
+  return {
+   x:w*.5+x*Math.cos(angle)-y*Math.sin(angle),
+   y:h*(w<700?.38:.43)+x*Math.sin(angle)+y*Math.cos(angle)
+  };
+ }
+ function updateEyeTargets(){
+  const available=availableSources(Math.max(progress,targetProgress));
+  eyeTargets.forEach((button,i)=>{
+   const eye=EYES[i],point=eyeScreenPoint(eye);
+   button.style.left=point.x+"px";
+   button.style.top=point.y+"px";
+   button.disabled=departed||!available.includes(eye.sourceId)||progress<.76;
+   button.setAttribute("aria-label",lang==="ar"
+    ?"ادخل الأرشيف من الفتحة رقم "+(i+1)
+    :"Enter the archive through woven opening "+(i+1));
+   button.setAttribute("aria-pressed",String(selectedSourceId===eye.sourceId));
+  });
+ }
+ function enterEye(key){
+  if(departed)return;
+  const id=chooseSource(key);
+  if(!availableSources(Math.max(progress,targetProgress)).includes(id))return;
+  selectedSourceId=id;
+  root.dataset.source=String(id);
+  leave();
+ }
+ function nearestEyeFromGaze(){
+  // Scroll continuation stays a natural gesture. It doesn't require a row of
+  // three labels or an extra CTA at 100%; the visitor may also touch any eye.
+  if(gaze>.66)return EYES[2].key;
+  if(gaze>.33)return EYES[1].key;
+  return EYES[0].key;
+ }
+
  function setProgress(n){
+  if(departed)return;
   const previous=targetProgress;
   targetProgress=clamp(n,0,1);
   if(sound.enabled&&Math.abs(previous-targetProgress)>.006)sound.rustle(Math.abs(previous-targetProgress)*2.1);
@@ -471,7 +520,7 @@ function mountEntranceLab(){
   });
   root.dataset.phase=ritual.phase;
  }
- function leave(){
+ function leave({skipRitual=false}={}){
   if(departed)return;
   departed=true;
   void sound.dispose();
@@ -480,6 +529,12 @@ function mountEntranceLab(){
     ?transitionRitual(ritual,"SOURCE_SELECTED",{sourceId:selectedSourceId})
     :transitionRitual(ritual,"ENTER_ARCHIVE",{sourceId:selectedSourceId});
   }catch(e){console.error(e)}
+  const eye=EYES.find(e=>e.sourceId===selectedSourceId)||EYES[0];
+  const point=eyeScreenPoint(eye);
+  root.style.setProperty("--portal-x",point.x+"px");
+  root.style.setProperty("--portal-y",point.y+"px");
+  portal.style.backgroundImage='url("/media/'+selectedSourceId+'.jpeg")';
+  root.classList.toggle("is-skipping",skipRitual);
   departureStartedAt=performance.now();
   root.classList.add("is-departing");
   invalidate();
@@ -488,9 +543,12 @@ function mountEntranceLab(){
   if(reading)reading.inert=false;
   // The existing archive owns the destination and maintains all its records.
   dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:selectedSourceId,lang}}));
-  setTimeout(()=>{root.hidden=true;root.remove();},1000);
+  setTimeout(()=>{root.hidden=true;root.remove();returnFocus?.focus?.({preventScroll:true});},skipRitual?220:1150);
  }
- function onPull(){setProgress(targetProgress+.23)}
+ function onPull(){
+  if(targetProgress>=.985){enterEye(nearestEyeFromGaze());return;}
+  setProgress(targetProgress+.23);
+ }
  let pointerId=null,starting=null;
  canvas.addEventListener("pointerdown",e=>{
   if(departed)return;
@@ -512,11 +570,16 @@ function mountEntranceLab(){
   if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
  }
  canvas.addEventListener("pointerup",release);canvas.addEventListener("pointercancel",release);
- canvas.addEventListener("wheel",e=>{e.preventDefault();setProgress(targetProgress+Math.sign(e.deltaY)*.075);},{passive:false});
+ canvas.addEventListener("wheel",e=>{
+  e.preventDefault();
+  if(e.deltaY>0&&targetProgress>=.985){enterEye(nearestEyeFromGaze());return;}
+  setProgress(targetProgress+Math.sign(e.deltaY)*.095);
+ },{passive:false});
  pull.addEventListener("click",onPull);
  traceButtons.forEach(button=>button.addEventListener("click",()=>selectTrace(button.dataset.ritualTrace)));
- enter.addEventListener("click",leave);
- skip.addEventListener("click",leave);
+ enter.addEventListener("click",()=>enterEye(nearestEyeFromGaze()));
+ eyeTargets.forEach(button=>button.addEventListener("click",()=>enterEye(button.dataset.eyeEntry)));
+ skip.addEventListener("click",()=>leave({skipRitual:true}));
  locale.addEventListener("click",()=>{lang=lang==="en"?"ar":"en";renderText();invalidate()});
  accessibility.addEventListener("click",()=>{ritual=transitionRitual(ritual,"SET_REDUCED_MOTION");progress=targetProgress;renderText();invalidate()});
  audioButton.addEventListener("click",async()=>{
@@ -531,7 +594,7 @@ function mountEntranceLab(){
  });
  addEventListener("keydown",e=>{
   if(departed)return;
-  if(e.key==="Escape"){e.preventDefault();leave();return;}
+  if(e.key==="Escape"){e.preventDefault();leave({skipRitual:true});return;}
   if(e.key==="Tab"){
    const buttons=[...root.querySelectorAll("button:not([hidden])")];
    const first=buttons[0],last=buttons.at(-1);
@@ -541,7 +604,7 @@ function mountEntranceLab(){
    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();return;}
    if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();return;}
   }
-  // Buttons keep their native Space/Enter semantics to avoid double pull.
+  // Buttons keep native Space/Enter; the main stage continues on Arrow/Space.
   if(e.target?.closest?.("button"))return;
   if(e.key===" "||e.key==="ArrowRight"||e.key==="ArrowDown"){
    e.preventDefault();onPull();
@@ -549,7 +612,7 @@ function mountEntranceLab(){
  });
  addEventListener("resize",resize,{passive:true});
  renderText();resize();invalidate();
- pull.focus({preventScroll:true});
+ root.setAttribute("tabindex","-1");root.focus({preventScroll:true});
  // A trusted local browser test can inspect current state without any globals
  // carrying secret or user data.
  root.dataset.study="06b";
