@@ -50,7 +50,8 @@ test("visitors can change language, choose still study and skip without waiting"
  await page.locator("#ritualSkip").click();
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:4500});
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
- await expect(page.locator("#detailMeta")).toContainText("Tales of Fustat");
+ await expect(page.locator("html")).toHaveAttribute("lang","ar");
+ await expect(page.locator("#detailTitle")).toContainText("الفسطاط");
 });
 
 test("a fabric thread can lead to a documented archival object inside the existing world",async({page})=>{
