@@ -5,13 +5,14 @@ import {WovenSound} from "../src/woven-sound.mjs";
 test("the original tactile audio never creates a context or plays without consent",async()=>{
  const original=globalThis.window;
  let constructed=0,createdBuffers=0,closed=0;
+ const peakGainValues=[];
  class FakeAudioContext{
   constructor(){constructed++;this.state="running";this.currentTime=.5;this.sampleRate=24000;this.destination={};}
   async resume(){this.state="running";}
   createBuffer(channels,frames){createdBuffers++;return {getChannelData:()=>new Float32Array(frames)};}
   createBufferSource(){return {buffer:null,connect(){},start(){},stop(){},disconnect(){},onended:null};}
   createBiquadFilter(){return {type:"",frequency:{setValueAtTime(){}},Q:{value:0},connect(){},disconnect(){}};}
-  createGain(){return {gain:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){},disconnect(){}};}
+  createGain(){return {gain:{setValueAtTime(){},exponentialRampToValueAtTime(value){peakGainValues.push(value)}},connect(){},disconnect(){}};}
   async close(){this.state="closed";closed++;}
  }
  try{
@@ -25,6 +26,9 @@ test("the original tactile audio never creates a context or plays without consen
   assert.equal(constructed,1);
   sound.rustle(.5);
   assert.equal(createdBuffers,1);
+  // The deliberately louder texture remains short and below a safe digital peak.
+  assert.ok(peakGainValues.some(v=>v>=.17&&v<=.32));
+  assert.ok(peakGainValues.every(v=>v<=.32));
   sound.disable();
   sound.rustle(.8);
   assert.equal(createdBuffers,1);
