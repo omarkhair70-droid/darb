@@ -22,7 +22,7 @@ const files=[
  ["web/app.mjs","app.mjs"],["web/entrance-lab.mjs","entrance-lab.mjs"],
  ["web/threshold-world.mjs","threshold-world.mjs"],
  ["src/entrance-ritual-v2.mjs","entrance-ritual-v2.mjs"],["src/ritual-material.mjs","ritual-material.mjs"],["src/cloth-dynamics.mjs","cloth-dynamics.mjs"],["src/woven-sound.mjs","woven-sound.mjs"],["src/graph.mjs","graph.mjs"],
- ["src/material-score.mjs","material-score.mjs"],
+ ["src/material-score.mjs","material-score.mjs"],["src/identity-relations.mjs","identity-relations.mjs"],
  ["src/world-layout.mjs","world-layout.mjs"],
  ["data/tales-of-fustat-001.json","story.json"],
  ["data/media-catalog.json","catalog.json"],
