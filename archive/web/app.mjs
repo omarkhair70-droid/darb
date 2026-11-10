@@ -58,7 +58,7 @@ function updateIdentityReveal(){
   // A semantic QA state only. No letters are drawn over source imagery.
   experience.dataset.identityLetters=found.join("")||"none";
  }
- const groups=$("#identityConstellations [data-identity-lens]");
+ const groups=$$("#identityConstellations [data-identity-lens]");
  groups.forEach(group=>group.classList.toggle("is-discovered",read.has(group.dataset.identityLens)));
 }
 function renderIdentityConstellations(){
