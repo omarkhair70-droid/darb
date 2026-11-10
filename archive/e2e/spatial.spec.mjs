@@ -238,3 +238,25 @@ test("the editorial compass keeps its title clear and its selected thread enters
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator("#detail")).toBeHidden();
 });
+
+
+test("the last moment weaves the visitor's actual route instead of opening a final page",async({page},info)=>{
+ await page.goto("/");
+ for(const beat of [2,4,6,9,12,15]){
+  await page.evaluate(i=>{
+   const e=document.getElementById("experience");
+   window.scrollTo({top:e.offsetTop+(e.offsetHeight-innerHeight)*i/15,behavior:"instant"});
+  },beat);
+  await page.waitForTimeout(280);
+ }
+ await expect(page.locator("#experience")).toHaveAttribute("data-beat","15");
+ await expect(page.locator("#experience")).toHaveClass(/is-final-memory/);
+ const route=page.locator("#memoryTrail path");
+ expect(await route.count()).toBeGreaterThanOrEqual(3);
+ await expect(page.locator("#memoryTrail")).toBeVisible();
+ await page.screenshot({path:"test-results/"+info.project.name+"-no-final-frame.png"});
+ await page.locator("#nextBtn").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#experience")).not.toHaveClass(/is-final-memory/); // updated when journey mode exits
+ await expect(page.locator(".artifact")).toHaveCount(72);
+});
