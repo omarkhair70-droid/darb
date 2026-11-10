@@ -523,6 +523,9 @@ function mountEntranceLab(){
    button.setAttribute("aria-pressed",String(selectedSourceId===EYES[i].sourceId));
   });
   root.dataset.phase=ritual.phase;
+  // Material opening and hotspot accessibility update on every rendered frame,
+  // not just on language changes or initial mount.
+  updateEyeTargets();
  }
  function leave({skipRitual=false}={}){
   if(departed)return;
