@@ -340,40 +340,40 @@ function mountEntranceLab(){
  }
  function threadMemory(c,originX,originY,w,h,amount){
   if(amount<=0)return;
-  // Thread endpoints are anchored at the three eyes and the woven border.
-  // An emergent letter is perceived in their tensioned negative space; we
-  // do not draw an alphabet glyph or place a D SVG over the textile.
-  const P=(x,y)=>[originX+w*x,originY+h*y];
-  const anchors=[P(.25,.17),P(.255,.50),P(.25,.82)];
-  const witnesses=EYES.map(eye=>P(eye.x,eye.y));
-  c.save();c.globalAlpha=.72*amount;
+  // Not a decorative ellipse or an inserted D glyph. Three physical openings
+  // hold a straight woven spine and a bowed line of tension. From the right
+  // viewpoint the missing center can be perceived as a D.
+  const points=EYES.map(eye=>({
+   x:originX+w*eye.x,y:originY+h*eye.y
+  }));
+  const [upper,lower,outer]=points;
+  c.save();
+  c.globalAlpha=.68*amount;
   c.lineCap="round";
-  for(let k=0;k<10;k++){
-   const v=(k-4.5)*.0042;
+  for(let k=0;k<9;k++){
+   const offset=(k-4)*w*.0027;
+   const sw=k%4===0?1.55:.70;
+   const shade=k%3===0?"#e8c9a38d":k%2===0?"#294b49ae":"#a17e63a6";
    c.beginPath();
-   c.moveTo(anchors[0][0]+w*v,anchors[0][1]);
-   c.bezierCurveTo(anchors[0][0]+w*(.02+v),originY+h*.36,
-    anchors[2][0]+w*(.007+v),originY+h*.66,anchors[2][0]+w*v,anchors[2][1]);
-   c.strokeStyle=k%3===0?"#e9d0aeac":"#1c3834b3";
-   c.lineWidth=k%4===0?1.6:.7;c.stroke();
+   c.moveTo(upper.x+offset,upper.y);
+   c.bezierCurveTo(upper.x-w*.017+offset,originY+h*.43,
+     lower.x-w*.011+offset,originY+h*.58,lower.x+offset,lower.y);
+   c.strokeStyle=shade;c.lineWidth=sw;c.stroke();
    c.beginPath();
-   c.moveTo(anchors[0][0],anchors[0][1]+k*.4);
-   c.bezierCurveTo(originX+w*.74,originY+h*(.05+k*.002),
-    originX+w*(.94+v),originY+h*(.39+k*.003),
-    witnesses[2][0],witnesses[2][1]);
-   c.bezierCurveTo(originX+w*.77,originY+h*(.82-k*.002),
-    originX+w*.49,originY+h*(.87-k*.002),
-    anchors[2][0],anchors[2][1]);
-   c.strokeStyle=k%2?"#dec29a91":"#2a504dbb";
-   c.lineWidth=k%5===0?1.8:.85;c.stroke();
+   c.moveTo(upper.x+offset,upper.y);
+   c.bezierCurveTo(originX+w*(.63+offset/w),originY+h*.15,
+     originX+w*(.88+offset/w),originY+h*.26,outer.x+offset,outer.y);
+   c.bezierCurveTo(originX+w*(.87+offset/w),originY+h*.77,
+     originX+w*(.59+offset/w),originY+h*.84,lower.x+offset,lower.y);
+   c.strokeStyle=shade;c.lineWidth=sw;c.stroke();
   }
-  for(const [x,y] of witnesses){
-   c.beginPath();c.arc(x,y,2.9,0,Math.PI*2);
-   c.fillStyle="#dbc3a3";c.fill();
+  // The fibers are attached to the real apertures; not floating control dots.
+  for(const anchor of points){
+   c.beginPath();c.arc(anchor.x,anchor.y,2.4,0,Math.PI*2);
+   c.fillStyle="#e2bfa2b5";c.fill();
   }
   c.restore();
  }
-
 
  function paintPassage(c,w,h,textileW,textileH,originX,amount){
   if(amount<=0)return;
