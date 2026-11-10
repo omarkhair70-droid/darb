@@ -38,10 +38,10 @@ function mountEntranceLab(){
  photo.src="/media/39.jpeg";
  photo.decoding="async";
  photo.onload=()=>invalidate();
- const texture=makeTextile(1152,800);
  const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
  const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
  const noise=(x,y)=>{let n=(x*374761393+y*668265263)|0;n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967295};
+ const texture=makeTextile(1152,800);
  function texLine(c,x1,y1,x2,y2,col,w){
   c.strokeStyle=col;c.lineWidth=w;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();
  }
