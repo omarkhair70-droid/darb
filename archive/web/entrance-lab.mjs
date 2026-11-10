@@ -24,8 +24,8 @@ function mountEntranceLab(){
  const enter=root.querySelector("#ritualEnter");
  const locale=root.querySelector("#ritualLanguage");
  const accessibility=root.querySelector("#ritualReduced");
- const audioButton=root.querySelector("#ritualAudio");
  const sound=new WovenSound();
+ let audioStarting=false;
  const status=root.querySelector("#ritualStatus");
  const traceBar=root.querySelector("#ritualTraces");
  const traceButtons=[...traceBar.querySelectorAll("[data-ritual-trace]")];
@@ -123,10 +123,7 @@ function mountEntranceLab(){
   locale.textContent=t.language;
   accessibility.textContent=t.reduced;
   el("ritualSound").textContent=sound.enabled?(lang==="ar"?"احتكاك النسيج":"FIBER FRICTION"):t.audio;
-  audioButton.querySelector('[aria-hidden="true"]').textContent=sound.enabled?"♫":"◖";
-  audioButton.querySelector(".ritual-sr").textContent=sound.enabled?t.soundOn:t.soundOff;
-  audioButton.setAttribute("aria-label",sound.enabled?t.soundOn:t.soundOff);
-  audioButton.setAttribute("aria-pressed",String(sound.enabled));
+
   root.dataset.audio=sound.enabled?"on":"off";
   el("ritualFootnote").textContent=t.hint;
   el("ritualSource").textContent=t.source;
@@ -563,7 +560,7 @@ function mountEntranceLab(){
   if(archive)archive.inert=false;
   if(reading)reading.inert=false;
   // The existing archive owns the destination and maintains all its records.
-  dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:selectedSourceId,lang}}));
+  dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:selectedSourceId,lang,skipRitual}}));
   setTimeout(()=>{root.hidden=true;root.remove();returnFocus?.focus?.({preventScroll:true});},skipRitual?220:1150);
  }
  function onPull(){
@@ -615,23 +612,27 @@ function mountEntranceLab(){
  skip.addEventListener("click",()=>leave({skipRitual:true}));
  locale.addEventListener("click",()=>{lang=lang==="en"?"ar":"en";renderText();invalidate()});
  accessibility.addEventListener("click",()=>{ritual=transitionRitual(ritual,"SET_REDUCED_MOTION");progress=targetProgress;renderText();invalidate()});
- audioButton.addEventListener("click",async()=>{
-  if(sound.enabled){
-   sound.disable();ritual=transitionRitual(ritual,"SET_QUIET");
-  }else{
-   try{
-    if(await sound.enable()){
-     ritual=transitionRitual(ritual,"ENABLE_SOUND");
-     // A single physical confirmation on this deliberate click; not autoplay.
-     sound.rustle(.42);
-    }
-   }catch(e){console.warn("Visitor audio unavailable",e);}
-  }
-  renderText();
- });
+ // Sound is part of the introductory material, not an extra UI mode.
+ // Web Audio can begin only after a browser-permitted user activation. There is
+ // no forced consent screen and the complete scene still works silently.
+ function beginEntranceSound(e){
+  if(departed||sound.enabled||audioStarting)return;
+  if(e.type==="wheel"&&navigator.userActivation&&!navigator.userActivation.isActive)return;
+  audioStarting=true;
+  void sound.enable().then(ok=>{
+   if(ok&& !departed){
+    try{ritual=transitionRitual(ritual,"ENABLE_SOUND");}catch(_){}
+    sound.rustle(.35);
+    root.dataset.audio="on";
+   }
+  }).catch(()=>{}).finally(()=>{audioStarting=false;});
+ }
+ root.addEventListener("pointerdown",beginEntranceSound,{passive:true,capture:true});
+ root.addEventListener("wheel",beginEntranceSound,{passive:true,capture:true});
  addEventListener("keydown",e=>{
   if(departed)return;
   if(e.key==="Escape"){e.preventDefault();leave({skipRitual:true});return;}
+  if(e.key===" "||e.key==="ArrowRight"||e.key==="ArrowDown"||e.key==="Enter")beginEntranceSound(e);
   if(e.key==="Tab"){
    const buttons=[...root.querySelectorAll("button:not([hidden])")];
    const first=buttons[0],last=buttons.at(-1);
