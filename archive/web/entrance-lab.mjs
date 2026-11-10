@@ -190,22 +190,22 @@ function mountEntranceLab(){
   glow.addColorStop(0,"#a25b4436");glow.addColorStop(.5,"#7c492411");glow.addColorStop(1,"#0b131000");
   c.fillStyle=glow;c.fillRect(0,0,w,h);
   c.restore();
-  const scale=w<700?clamp(w/690,.47,.73):Math.min(w/1260,h/780,1.12);
+  const scale=w<700?clamp(w/775,.44,.65):Math.min(w/1300,h/860,.99);
   const textileW=960*scale,textileH=550*scale;
   // A 2.5D tilted object with thickness. Mobile keeps its physical proportions
   // instead of stretching it to cover the viewport.
   c.save();
-  c.translate(w*.49,h*.48);
+  c.translate(w*.50,h*(w<700?.41:.43));
   c.rotate(w<680?-.12:-.095);
   c.translate(-textileW*.47,-textileH*.48);
   const originX=-textileW*.03,originY=0;
   const reveal=.06+progress*.94;
   const shownW=textileW*reveal;
   const strip=Math.max(2.4,3.9*scale);
-  c.shadowColor="#000b";c.shadowBlur=39;c.shadowOffsetY=33;
-  c.fillStyle="#101510";
-  c.beginPath();c.ellipse(originX+textileW*.52,textileH*.58,
-    textileW*.55,textileH*.51,0,0,Math.PI*2);c.fill();
+  c.shadowColor="#030908b0";c.shadowBlur=27*scale;c.shadowOffsetY=24*scale;
+  c.fillStyle="#070d0b33";
+  c.beginPath();c.ellipse(originX+shownW*.49,textileH*.64,
+    Math.max(20*scale,shownW*.53),textileH*.37,0,0,Math.PI*2);c.fill();
   c.shadowBlur=0;c.shadowOffsetY=0;
   // Draw textile using many individually offset woven warp strips. No rigid
   // rectangular mask: the row position and edge respond to unrolling.
@@ -245,8 +245,8 @@ function mountEntranceLab(){
   // Actual rolled leading edge, not a generic "reveal" on a flat image.
   const rollX=originX+shownW,rollWidth=(23+23*(1-progress))*scale;
   const rollG=c.createLinearGradient(rollX-rollWidth,0,rollX+rollWidth,0);
-  rollG.addColorStop(0,"#180e0bd9");rollG.addColorStop(.18,"#55352e");
-  rollG.addColorStop(.47,"#b37d58");rollG.addColorStop(.70,"#5e3731");rollG.addColorStop(1,"#180e10");
+  rollG.addColorStop(0,"#221917");rollG.addColorStop(.18,"#69463b");
+  rollG.addColorStop(.47,"#956c56");rollG.addColorStop(.70,"#623b32");rollG.addColorStop(1,"#211918");
   c.fillStyle=rollG;
   c.beginPath();c.moveTo(rollX-rollWidth*.38,originY-6*scale);
   c.quadraticCurveTo(rollX+rollWidth*.92,originY-18*scale,rollX+rollWidth*.76,originY+9*scale);
