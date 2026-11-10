@@ -42,7 +42,7 @@ function mountEntranceLab(){
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
- let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0,returnFocus=null;
+ let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0,returnFocus=null,hoveredEyeKey=null;
  const photo=new Image();
  photo.src="/media/39.jpeg";
  photo.decoding="async";
@@ -187,11 +187,9 @@ function mountEntranceLab(){
   leave();
  }
  function nearestEyeFromGaze(){
-  // Scroll continuation stays a natural gesture. It doesn't require a row of
-  // three labels or an extra CTA at 100%; the visitor may also touch any eye.
-  if(gaze>.66)return EYES[2].key;
-  if(gaze>.33)return EYES[1].key;
-  return EYES[0].key;
+  // Continuing forward never forces the visitor to make a menu choice.
+  // With no deliberate eye focus, the thread begins with the first witness.
+  return hoveredEyeKey||EYES[0].key;
  }
 
  function setProgress(n){
@@ -584,7 +582,12 @@ function mountEntranceLab(){
  pull.addEventListener("click",onPull);
  traceButtons.forEach(button=>button.addEventListener("click",()=>selectTrace(button.dataset.ritualTrace)));
  enter.addEventListener("click",()=>enterEye(nearestEyeFromGaze()));
- eyeTargets.forEach(button=>button.addEventListener("click",()=>enterEye(button.dataset.eyeEntry)));
+ eyeTargets.forEach(button=>{
+  button.addEventListener("click",()=>enterEye(button.dataset.eyeEntry));
+  button.addEventListener("pointerenter",()=>{hoveredEyeKey=button.dataset.eyeEntry;invalidate();});
+  button.addEventListener("pointerleave",()=>{if(hoveredEyeKey===button.dataset.eyeEntry)hoveredEyeKey=null;invalidate();});
+  button.addEventListener("focus",()=>{hoveredEyeKey=button.dataset.eyeEntry;invalidate();});
+ });
  skip.addEventListener("click",()=>leave({skipRitual:true}));
  locale.addEventListener("click",()=>{lang=lang==="en"?"ar":"en";renderText();invalidate()});
  accessibility.addEventListener("click",()=>{ritual=transitionRitual(ritual,"SET_REDUCED_MOTION");progress=targetProgress;renderText();invalidate()});
