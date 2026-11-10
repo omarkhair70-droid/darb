@@ -39,7 +39,7 @@ let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
 const atlasPositions={
- place:[103,143],practices:[249,198],fustat:[434,117],residency:[629,140],
+ place:[103,268],practices:[249,198],fustat:[434,117],residency:[629,140],
  room:[803,90],voice:[988,183],jusoor:[1033,339],inbetween:[846,313],
  young:[668,281],unspoken:[463,334],garden:[287,402],citadel:[156,547],
  symposium:[368,554],something:[558,480],music:[756,541],sector:[955,527],
