@@ -570,7 +570,9 @@ function installInput(){
    const focusables=$('#index button:not([disabled]), #index input:not([disabled])');
    if(focusables.length){
     const first=focusables[0],last=focusables.at(-1);
-    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+    if(!$("#index").contains(document.activeElement)){
+     event.preventDefault();(event.shiftKey?last:first).focus();
+    }else if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
     else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
    }
   }
