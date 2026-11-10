@@ -333,8 +333,8 @@ test("the first identity filament network is earned by visiting real material so
  await page.screenshot({path:"test-results/"+info.project.name+"-identity-material-bridge-discovered.png"});
 });
 
-test("four identities are discovered out of sequence without overlays or invented archive sources",async({page})=>{
- test.setTimeout(60_000);
+test("four identities are discovered out of sequence without overlays or invented archive sources",async({page},info)=>{
+ test.setTimeout(90_000);
  await page.goto("/");
  await page.locator("#modeBtn").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
@@ -385,4 +385,30 @@ test("four identities are discovered out of sequence without overlays or invente
     Math.abs(Number(end[1])-toX)<.01&&Math.abs(Number(end[2])-toY)<.01;
  }));
  expect(correct).toBe(true);
+ // Art-direction evidence only: the camera is repositioned by a test-only
+ // stylesheet so each complete factual relationship fits the viewport.
+ // No preview/review camera mode or letter overlay is shipped to visitors.
+ for(const key of ["D","A","R","B"]){
+  await page.evaluate(key=>{
+   const lens=key==="A"
+    ?document.querySelector("#identityTrace")
+    :document.querySelector('#identityConstellations [data-identity-lens="'+key+'"]');
+   const box=lens.getBBox();
+   const scale=Math.min(innerWidth*.70/Math.max(1,box.width),
+    innerHeight*.56/Math.max(1,box.height),1.2);
+   const cx=box.x+box.width/2,cy=box.y+box.height/2;
+   const dx=innerWidth*.5-scale*cx,dy=innerHeight*.46-scale*cy;
+   let override=document.querySelector("#identityCameraProof");
+   if(!override){
+    override=document.createElement("style");
+    override.id="identityCameraProof";document.head.append(override);
+   }
+   override.textContent="#world{transform:translate3d("+dx+"px,"+dy+
+    "px,0) scale("+scale+") rotate(0deg) !important}";
+   lens.style.setProperty("--view-alignment","1","important");
+  },key);
+  await page.waitForTimeout(700);
+  await page.screenshot({path:"test-results/"+info.project.name+
+    "-identity-"+key+"-source-world.png"});
+ }
 });
