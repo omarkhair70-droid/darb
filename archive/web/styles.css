@@ -629,7 +629,7 @@ html.ritual-lab-active,html.ritual-lab-active body{overflow:hidden!important}
  display:flex;align-items:flex-end;justify-content:space-between;gap:30px;pointer-events:none}
 .ritual-reading{max-width:550px}
 .ritual-grain{font:500 9px/1.5 Arial,sans-serif;letter-spacing:.22em;color:#baa58b}
-.ritual-title{font:400 clamp(27px,3vw,53px)/1.15 Georgia,"Times New Roman",serif;
+.ritual-title{font:400 clamp(18px,1.85vw,29px)/1.24 Georgia,"Times New Roman",serif;
  margin:17px 0 19px;color:#ecddc3;letter-spacing:-.035em;text-wrap:balance}
 .ritual-instruction{font:400 10px/1.5 Arial,sans-serif;letter-spacing:.19em;color:#c1b29d}
 .ritual-actions{display:flex;flex-direction:column;align-items:flex-end;gap:16px;
@@ -658,7 +658,7 @@ html.ritual-lab-active,html.ritual-lab-active body{overflow:hidden!important}
  .ritual-footnote{top:83px;right:17px;max-width:160px;font-size:9px}
  .ritual-bottom{left:19px;right:19px;bottom:35px;display:block}
  .ritual-grain{font-size:8px}
- .ritual-title{font-size:clamp(25px,8vw,39px);margin:8px 0}
+ .ritual-title{font-size:clamp(18px,5vw,24px);margin:8px 0}
  .ritual-instruction{font-size:8px;letter-spacing:.09em}
  .ritual-actions{max-width:none;align-items:flex-start;margin-top:19px;gap:4px}
  .ritual-progress{width:100%;justify-content:space-between}
