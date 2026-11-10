@@ -217,3 +217,24 @@ test("a real archive constellation click moves the camera into its own image clu
  await expect(page.locator("#index")).toBeHidden();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
 });
+
+
+test("the editorial compass keeps its title clear and its selected thread enters the same world",async({page})=>{
+ await page.goto("/");
+ await page.locator("#indexBtn").click();
+ await expect(page.locator("#indexItems .atlas-node")).toHaveCount(17);
+ if(page.viewportSize().width>800){
+  const result=await page.evaluate(()=>{
+   const a=document.querySelector("#index h2").getBoundingClientRect();
+   const b=document.querySelector('.atlas-node[data-cluster="place"]').getBoundingClientRect();
+   return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+  });
+  expect(result).toBe(false);
+ }
+ await page.locator('.atlas-node[data-cluster="residency"]').hover({force:true});
+ await expect(page.locator("#atlasFocusTitle")).toContainText("Residency");
+ await page.locator("#atlasEnter").click();
+ await expect(page.locator("#index")).toBeHidden();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#detail")).toBeHidden();
+});
