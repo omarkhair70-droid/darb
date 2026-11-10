@@ -9,6 +9,7 @@
  * Canvas-only: no extra hero DOM, no image cards, no forced chapter menu.
  */
 import {EYES} from "/ritual-material.mjs";
+import {clothWarpOffset} from "/cloth-dynamics.mjs";
 
 const clamp=(v,min=0,max=1)=>Math.min(max,Math.max(min,v));
 const smooth=(a,b,v)=>{
@@ -27,9 +28,10 @@ export function clothGeometry(w,h,progress=0){
  };
 }
 
-export function projectWovenEye(eye,w,h,progress=1){
+export function projectWovenEye(eye,w,h,progress=1,velocity=0){
  const {width,height,centerX,centerY,rotation}=clothGeometry(w,h,progress);
- const x=width*(eye.x-.50),y=height*(eye.y-.48);
+ const x=width*(eye.x-.50);
+ const y=height*(eye.y-.48)+clothWarpOffset(eye.x,progress,velocity,width/960);
  return {
   x:centerX+x*Math.cos(rotation)-y*Math.sin(rotation),
   y:centerY+x*Math.sin(rotation)+y*Math.cos(rotation)
@@ -198,7 +200,7 @@ function filament(c,point,where,power,index){
  * Draw after the base background, BEFORE rendering the textile. World surfaces,
  * trace evidence and light fall behind the physical rug.
  */
-export function drawThresholdBehind(c,{w,h,progress,gaze,time=0,reducedMotion=false,photos=[]}){
+export function drawThresholdBehind(c,{w,h,progress,velocity=0,gaze,time=0,reducedMotion=false,photos=[]}){
  const p=clamp(progress),t=reducedMotion?0:time;
  atmosphere(c,w,h,p,t,reducedMotion);
  groundWeaveShadow(c,w,h,p);
@@ -208,7 +210,7 @@ export function drawThresholdBehind(c,{w,h,progress,gaze,time=0,reducedMotion=fa
   if(amount<=0)return;
   const pos=positionForEcho(i,w,h);
   const parallax={x:look*(i===1?-19:26),y:look*(i===2?9:-7)};
-  const anchor=projectWovenEye(eye,w,h,p);
+  const anchor=projectWovenEye(eye,w,h,p,velocity);
   filament(c,anchor,{x:pos.x+parallax.x,y:pos.y+parallax.y},amount,i);
   impression(c,photos[i],pos,amount,parallax);
  });
