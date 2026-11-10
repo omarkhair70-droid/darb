@@ -589,3 +589,10 @@ html[lang="ar"] #index h2{font-family:"Noto Naskh Arabic",Georgia,serif;letter-s
 @media(max-width:800px){
  #index .atlas-node[data-cluster="plans"] .atlas-node-copy{width:132px}
 }
+
+
+#index .atlas-touch-hint{display:none}
+@media(max-width:800px){
+ #index .atlas-touch-hint{display:block;margin-top:13px;font-size:8px;
+  letter-spacing:.21em;color:#acd0b8}
+}
