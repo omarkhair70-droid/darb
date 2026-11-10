@@ -8,7 +8,7 @@
     "dev": "node scripts/build.mjs && node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
     "test": "node --test tests/*.test.mjs",
-    "check": "npm test && node --check web/app.mjs && node --check web/entrance-lab.mjs && node --check web/threshold-world.mjs && node --check src/entrance-ritual-v2.mjs && node --check src/ritual-material.mjs && node --check src/woven-sound.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && npm run build",
+    "check": "npm test && node --check web/app.mjs && node --check web/entrance-lab.mjs && node --check web/threshold-world.mjs && node --check src/entrance-ritual-v2.mjs && node --check src/ritual-material.mjs && node --check src/woven-sound.mjs && node --check src/material-score.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && npm run build",
     "test:browser": "playwright test"
   },
   "engines": {
