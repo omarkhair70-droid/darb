@@ -36,10 +36,10 @@ function mountEntranceLab(){
  const fmt={
   en:{lab:"06B / THE WOVEN GAZE",early:"A fragment of memory.",progress:"Pull the woven edge.",opened:"The weave remembers three ways of seeing.",instruction:"DRAG THE FRINGE / SCROLL / PRESS SPACE",
     pulling:"CONTINUE THE UNFURLING",enter:"FOLLOW THIS TRACE ↗",skip:"ENTER ARCHIVE ↗",reduced:"STILL STUDY",
-    audio:"SILENT BY DESIGN",soundOff:"Enable woven sound",soundOn:"Mute woven sound",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"A THREAD FROM FUSTAT",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"],gesture:"PULL TO UNFOLD",choose:"TOUCH AN OPENING · OR KEEP MOVING",skipShort:"SKIP ↗"},
+    audio:"SILENT BY DESIGN",soundOff:"Enable woven sound",soundOn:"Mute woven sound",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"A THREAD FROM FUSTAT",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"],gesture:"PULL TO UNFOLD",choose:"SCROLL TO ENTER · OR TOUCH AN OPENING",skipShort:"SKIP ↗"},
   ar:{lab:"٠٦ب / النظرة المنسوجة",early:"طرف من الذاكرة.",progress:"اسحب حافة النسيج.",opened:"النسيج افتكر تلات طرق للرؤية.",instruction:"اسحب الطرف / مرّر / اضغط مسافة",
     pulling:"كمّل فرد النسيج",enter:"اتبع الأثر ↗",skip:"ادخل الأرشيف ↗",reduced:"مشهد ثابت",
-    audio:"الصمت جزء من التصميم",soundOff:"تشغيل صوت النسيج",soundOn:"كتم صوت النسيج",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"خيط من حكاوي الفسطاط",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"],gesture:"اسحب النسيج",choose:"المس فتحة · أو كمّل الحركة",skipShort:"تخطّي ↗"}
+    audio:"الصمت جزء من التصميم",soundOff:"تشغيل صوت النسيج",soundOn:"كتم صوت النسيج",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"خيط من حكاوي الفسطاط",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"],gesture:"اسحب النسيج",choose:"كمّل تمرير للدخول · أو المس فتحة",skipShort:"تخطّي ↗"}
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
@@ -570,6 +570,11 @@ function mountEntranceLab(){
   gaze=clamp(e.clientX/Math.max(innerWidth,1),0,1);
   const xchange=(e.clientX-starting.x)/Math.max(innerWidth*.68,190);
   const ychange=(starting.y-e.clientY)/Math.max(innerHeight*.65,220);
+  // Mobile visitors can make one more upward swipe after the weave is open,
+  // with no mandatory tap on a label or on a particular eye.
+  if(starting.value>=.985&&progress>.92&&ychange>.15){
+   enterEye(nearestEyeFromGaze());return;
+  }
   setProgress(starting.value+Math.max(xchange,ychange*.85));
  });
  function release(e){
@@ -579,7 +584,9 @@ function mountEntranceLab(){
  canvas.addEventListener("pointerup",release);canvas.addEventListener("pointercancel",release);
  root.addEventListener("wheel",e=>{
   e.preventDefault();
-  if(e.deltaY>0&&targetProgress>=.985){enterEye(nearestEyeFromGaze());return;}
+  if(e.deltaY>0&&targetProgress>=.985&&progress>.92){
+   enterEye(nearestEyeFromGaze());return;
+  }
   setProgress(targetProgress+Math.sign(e.deltaY)*.095);
  },{passive:false});
  pull.addEventListener("click",onPull);
@@ -599,7 +606,11 @@ function mountEntranceLab(){
    sound.disable();ritual=transitionRitual(ritual,"SET_QUIET");
   }else{
    try{
-    if(await sound.enable())ritual=transitionRitual(ritual,"ENABLE_SOUND");
+    if(await sound.enable()){
+     ritual=transitionRitual(ritual,"ENABLE_SOUND");
+     // A single physical confirmation on this deliberate click; not autoplay.
+     sound.rustle(.42);
+    }
    }catch(e){console.warn("Visitor audio unavailable",e);}
   }
   renderText();
