@@ -533,6 +533,16 @@ function renderReading(){
 
 function installInput(){
  $("#localeBtn").addEventListener("click",()=>setLanguage(lang==="en"?"ar":"en"));
+ // The opt-in textile passage hands off to the SAME archival world. It does not
+ // navigate away or rebuild the content atlas.
+ addEventListener("darb:ritual-enter",(event)=>{
+  const source=Number(event.detail?.sourceId||39);
+  if(!mediaRecord(source))return;
+  if(atlasState)closeIndex({restore:false,focus:false});
+  if(encounter)closeDetail();
+  if(mode!=="explore")enterMode("explore");
+  inspect(source);
+ });
  $("#modeBtn").addEventListener("click",()=>enterMode(mode==="journey"?"explore":mode==="encounter"&&encounter?.originMode==="journey"?"explore":"journey"));
  $("#homeBtn").addEventListener("click",()=>{enterMode("journey");jumpTo(0);});
  $$("[data-open-object]").forEach(button=>button.addEventListener("click",()=>inspect(Number(button.dataset.openObject))));
