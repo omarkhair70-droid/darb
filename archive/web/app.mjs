@@ -1,5 +1,6 @@
 import {validateArchive,getConnections,findEvidencePath} from "/graph.mjs";
 import {layoutCatalog,validateAtlas,cameraForObject,WORLD_WIDTH,WORLD_HEIGHT,CLUSTERS} from "/world-layout.mjs";
+import {materialLanguage,nextMaterialTrace} from "/material-score.mjs";
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
@@ -36,6 +37,7 @@ const copy={
 };
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
+let materialTransitionUntil=0,materialTransitionSerial=0;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
 const visitedRoute=[];
 function rememberSource(id){
@@ -241,8 +243,10 @@ function frame(now=0){
  const elapsed=lastFrameAt?Math.min(250,Math.max(1,now-lastFrameAt)):16.67;
  lastFrameAt=now;
  // Time-dependent easing: slow/mobile browsers cannot stretch a camera move indefinitely.
+ const materialInFlight=now<materialTransitionUntil;
+ const tau=materialInFlight?($("#experience").dataset.materialTransit==="cyanotype"?440:335):280;
  const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  ? 1 : 1-Math.exp(-elapsed/280);
+  ? 1 : 1-Math.exp(-elapsed/tau);
  for(const key of ["x","y","z","r","fx"])current[key]=lerp(current[key],target[key],speed);
  positionWorld();
  rafId=requestAnimationFrame(frame);
@@ -289,15 +293,42 @@ function inspect(id){
  openItem=id;
  mode="encounter";
  $("#experience").dataset.mode="encounter";
- $("#canvas").dataset.material=id===41||id===42?"cyanotype":
-  item.kind.includes("photo")?"photography":
-  item.kind.includes("installation")?"installation":"paper";
+ const medium=materialLanguage(item);
+ $("#canvas").dataset.material=medium;
+ $("#experience").dataset.materialStage=medium;
  $("#detail").hidden=false;
  target=encounterCamera(item);
  $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===id));
  emphasizeSourceThreads(item);
  fillDetail(id);
  $("#closeDetail").setAttribute("aria-label",lang==="ar"?"ارجع في الأرشيف":"Return through the archive");
+}
+/**
+ * One source-grounded programme sequence. The camera moves through existing
+ * object positions; the old work remains briefly as a visible origin.
+ * This does NOT assert that the people photographed made any particular print.
+ */
+function followMaterialTrace(targetId){
+ const origin=mediaRecord(openItem),destination=mediaRecord(targetId);
+ const route=origin?nextMaterialTrace(origin.id,media):null;
+ if(!origin||!destination||!route||route.to!==targetId){inspect(targetId);return;}
+ const serial=++materialTransitionSerial;
+ const root=$("#experience");
+ const originFigure=$('.artifact[data-id="'+origin.id+'"]');
+ const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ root.dataset.materialTransit=materialLanguage(destination);
+ root.dataset.materialFrom=String(origin.id);
+ root.dataset.materialTo=String(targetId);
+ originFigure?.classList.add("is-material-origin");
+ materialTransitionUntil=performance.now()+(reduced?0:1050);
+ inspect(targetId);
+ setTimeout(()=>{
+  if(serial!==materialTransitionSerial)return;
+  delete root.dataset.materialTransit;
+  delete root.dataset.materialFrom;
+  delete root.dataset.materialTo;
+  originFigure?.classList.remove("is-material-origin");
+ },reduced?0:1050);
 }
 function emphasizeSourceThreads(item){
  const relevant=new Set(threads.connections
@@ -316,8 +347,8 @@ function retraceEncounter(){
   if(!previous){closeDetail();return;}
   openItem=previous.id;
   target=encounterCamera(previous);
-  $("#canvas").dataset.material=previous.id===41||previous.id===42?"cyanotype":
-   previous.kind.includes("photo")?"photography":"paper";
+  $("#canvas").dataset.material=materialLanguage(previous);
+  $("#experience").dataset.materialStage=materialLanguage(previous);
   $$(".artifact").forEach(fig=>fig.classList.toggle("is-encounter",Number(fig.dataset.id)===previous.id));
   emphasizeSourceThreads(previous);
   fillDetail(previous.id);
@@ -343,17 +374,31 @@ function fillDetail(id){
  $("#followBtn").textContent=copy[lang].follow;
  const beat=nearestChapterFor(item);
  $("#followBtn").hidden=beat<0;
+ const route=nextMaterialTrace(item.id,media);
  const related=media.filter(other=>other.cluster===item.cluster&&other.id!==item.id).slice(0,8);
+ if(route)related.sort((a,b)=>Number(b.id===route.to)-Number(a.id===route.to));
  const host=$("#relatedObjects");host.replaceChildren();
  const heading=document.createElement("div");heading.className="related-title";
  heading.textContent=lang==="ar"?"من نفس الحكاية":"IN THE SAME STORY";
  host.append(heading);
  for(const record of related){
   const btn=document.createElement("button");btn.type="button";btn.className="related-item";
-  btn.setAttribute("aria-label",local(record.title)+" · "+local(record.project));
-  btn.innerHTML='<img src="'+record.src+'" loading="lazy" alt=""/><span>'+
-   escaped(local(record.title))+'</span><b>↗</b>';
-  btn.addEventListener("click",()=>inspect(record.id));
+  const isMaterialRoute=route?.to===record.id;
+  btn.setAttribute("aria-label",isMaterialRoute
+   ?local(route.label)+". "+local(route.context)
+   :local(record.title)+" · "+local(record.project));
+  if(isMaterialRoute){
+   btn.classList.add("is-material-trace");
+   btn.dataset.materialTrace=String(record.id);
+   btn.title=local(route.context);
+   btn.innerHTML='<img src="'+record.src+'" loading="lazy" alt=""/><span><strong>'+
+    escaped(local(route.label))+'</strong><small>'+escaped(local(record.title))+
+    '</small></span><b>↗</b>';
+  }else{
+   btn.innerHTML='<img src="'+record.src+'" loading="lazy" alt=""/><span>'+
+    escaped(local(record.title))+'</span><b>↗</b>';
+  }
+  btn.addEventListener("click",()=>isMaterialRoute?followMaterialTrace(record.id):inspect(record.id));
   host.append(btn);
  }
  const thematic=threads.connections.filter(t=>
@@ -388,7 +433,13 @@ function closeDetail(){
   $("#experience").dataset.mode=mode;
   target={...previous.originTarget};
   $("#canvas").removeAttribute("data-material");
-  $$(".artifact").forEach(fig=>fig.classList.remove("is-encounter"));
+  delete $("#experience").dataset.materialStage;
+  delete $("#experience").dataset.materialTransit;
+  delete $("#experience").dataset.materialFrom;
+  delete $("#experience").dataset.materialTo;
+  materialTransitionUntil=0;
+  ++materialTransitionSerial;
+  $$(".artifact").forEach(fig=>fig.classList.remove("is-encounter","is-material-origin"));
   $$("#worldLinks path").forEach(path=>path.classList.remove("is-active-source-thread"));
   document.body.style.overflow=previous.bodyOverflow;
   encounter=null;
