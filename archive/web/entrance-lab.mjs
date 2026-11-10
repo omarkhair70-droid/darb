@@ -190,7 +190,7 @@ function mountEntranceLab(){
   glow.addColorStop(0,"#a25b4436");glow.addColorStop(.5,"#7c492411");glow.addColorStop(1,"#0b131000");
   c.fillStyle=glow;c.fillRect(0,0,w,h);
   c.restore();
-  const scale=Math.min(w/1260,h/780,1.12);
+  const scale=w<700?clamp(w/690,.47,.73):Math.min(w/1260,h/780,1.12);
   const textileW=960*scale,textileH=550*scale;
   // A 2.5D tilted object with thickness. Mobile keeps its physical proportions
   // instead of stretching it to cover the viewport.
