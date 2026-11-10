@@ -404,7 +404,7 @@ function mountEntranceLab(){
  function render(){
   const w=innerWidth,h=innerHeight,c=ctx;
   const bg=c.createRadialGradient(w*.53,h*.42,1,w*.5,h*.5,Math.max(w,h)*.7);
-  bg.addColorStop(0,"#28302a");bg.addColorStop(.42,"#151e1b");bg.addColorStop(1,"#080d0c");
+  bg.addColorStop(0,"#302920");bg.addColorStop(.42,"#1b1c18");bg.addColorStop(1,"#090e0d");
   c.fillStyle=bg;c.fillRect(0,0,w,h);
   // Ground plane / raking light, no website gradient panel.
   c.save();
@@ -510,6 +510,7 @@ function mountEntranceLab(){
   const t=fmt[lang];
   el("ritualTitle").textContent=progress<.10?t.early:progress<.64?t.progress:t.opened;
   status.textContent=Math.round(progress*100)+"%";
+  label.textContent=progress>.80?fmt[lang].choose:fmt[lang].gesture;
   enter.hidden=progress<.76;
   pull.hidden=progress>=.76;
   traceBar.hidden=progress<.76;
