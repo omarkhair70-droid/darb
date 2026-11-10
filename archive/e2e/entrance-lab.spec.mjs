@@ -192,3 +192,29 @@ test("each woven aperture shares its exact center with the photographic portal",
   await expect(page.locator("#experience")).toHaveAttribute("data-woven-source",String(source));
  }
 });
+
+test("material aperture crops retain three separate physical sources on desktop and mobile",async({page},testInfo)=>{
+ await page.goto("/?entrance=v2");
+ await unfold(page);
+ await page.waitForTimeout(1000); // actual cloth interpolation, not only logical progress
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-memory-echoes","3");
+ for(const key of ["witness","retained","visitor"]){
+  const aperture=page.locator('[data-eye-entry="'+key+'"]');
+  await expect(aperture).toBeEnabled();
+  const frame=await aperture.evaluate(button=>{
+   const r=button.getBoundingClientRect();
+   const cx=r.left+r.width*.5,cy=r.top+r.height*.5;
+   const margin=Math.min(110,innerWidth*.23,innerHeight*.16);
+   return {
+    x:Math.max(0,cx-margin),y:Math.max(0,cy-margin),
+    width:Math.min(innerWidth-Math.max(0,cx-margin),margin*2),
+    height:Math.min(innerHeight-Math.max(0,cy-margin),margin*2)
+   };
+  });
+  expect(frame.width).toBeGreaterThan(70);
+  expect(frame.height).toBeGreaterThan(70);
+  // Crops are for human material, light and silhouette review, NOT automated
+  // assertions that a textile has been art-directed to final quality.
+  await page.screenshot({path:"test-results/"+testInfo.project.name+"-aperture-"+key+"-material.png",clip:frame});
+ }
+});
