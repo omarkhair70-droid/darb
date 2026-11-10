@@ -287,7 +287,7 @@ function mountEntranceLab(){
   if(archive)archive.inert=false;
   if(reading)reading.inert=false;
   // The existing archive owns the destination and maintains all its records.
-  dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:39}}));
+  dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:39,lang}}));
   setTimeout(()=>{root.hidden=true;root.remove();},1000);
  }
  function onPull(){setProgress(targetProgress+.23)}
