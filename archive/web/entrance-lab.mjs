@@ -1,6 +1,7 @@
 import {initialRitual,transitionRitual} from "/entrance-ritual-v2.mjs";
 import {EYES,ritualVisual,chooseSource,availableSources} from "/ritual-material.mjs";
 import {WovenSound} from "/woven-sound.mjs";
+import {stepCloth,clothWarpOffset} from "/cloth-dynamics.mjs";
 import {drawThresholdBehind,drawThresholdInFront,projectWovenEye,thresholdEchoes} from "/threshold-world.mjs";
 
 // Slice 06B: an original, contemporary procedural textile study. It does NOT
@@ -42,7 +43,7 @@ function mountEntranceLab(){
     audio:"الصمت جزء من التصميم",soundOff:"تشغيل صوت النسيج",soundOn:"كتم صوت النسيج",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"خيط من حكاوي الفسطاط",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"],gesture:"اسحب النسيج",choose:"كمّل تمرير للدخول · أو المس فتحة",skipShort:"تخطّي ↗"}
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
- let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
+ let progress=0,targetProgress=0,clothVelocity=0,last=0,raf=0,drag=null,departed=false;
  let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0,returnFocus=null,hoveredEyeKey=null;
  const photo=new Image();
  photo.src="/media/39.jpeg";
@@ -153,7 +154,7 @@ function mountEntranceLab(){
  // Project the REAL textile aperture positions onto the viewport, sharing the
  // exact oblique material geometry with render(). These are not side menu items.
  function eyeScreenPoint(eye){
-  return projectWovenEye(eye,innerWidth,innerHeight,progress);
+  return projectWovenEye(eye,innerWidth,innerHeight,progress,clothVelocity);
  }
  function updateEyeTargets(){
   const available=availableSources(Math.max(progress,targetProgress));
@@ -191,7 +192,7 @@ function mountEntranceLab(){
   if(ritual.phase==="unfurl"&&targetProgress>.59)ritual=transitionRitual(ritual,"CLOTH_EXTENDED");
   if(ritual.phase==="tension"&&targetProgress>.78)ritual=transitionRitual(ritual,"APERTURES_REVEALED");
   if(ritual.phase==="recognition"&&targetProgress>.90)ritual=transitionRitual(ritual,"VIEW_ALIGNED");
-  if(ritual.reducedMotion)progress=targetProgress;
+  if(ritual.reducedMotion){progress=targetProgress;clothVelocity=0;}
   invalidate();
  }
  function resize(){
@@ -206,8 +207,9 @@ function mountEntranceLab(){
  function frame(time){
   raf=0;
   const dt=last?Math.min(80,time-last):16.67;last=time;
-  if(!ritual.reducedMotion)progress+=(targetProgress-progress)*(1-Math.exp(-dt/180));
-  if(Math.abs(targetProgress-progress)<.001)progress=targetProgress;
+  const cloth=stepCloth({position:progress,velocity:clothVelocity},targetProgress,dt,
+    {reducedMotion:ritual.reducedMotion});
+  progress=cloth.position;clothVelocity=cloth.velocity;
   if(departureStartedAt)departureAmount=clamp((time-departureStartedAt)/930);
   render();
   if(progress!==targetProgress||(departureStartedAt&&departureAmount<1))invalidate();
@@ -365,7 +367,8 @@ function mountEntranceLab(){
   // hold a straight woven spine and a bowed line of tension. From the right
   // viewpoint the missing center can be perceived as a D.
   const points=EYES.map(eye=>({
-   x:originX+w*eye.x,y:originY+h*eye.y
+   x:originX+w*eye.x,
+   y:originY+h*eye.y+clothWarpOffset(eye.x,progress,clothVelocity,w/960)
   }));
   const [upper,lower,outer]=points;
   c.save();
@@ -440,7 +443,7 @@ function mountEntranceLab(){
   c.restore();
   // The surrounding world is born from the same three image-bearing weave
   // apertures. It is a lit depth field, not another gallery UI behind the rug.
-  drawThresholdBehind(c,{w,h,progress,gaze,time:last,
+  drawThresholdBehind(c,{w,h,progress,velocity:clothVelocity,gaze,time:last,
    reducedMotion:ritual.reducedMotion,photos:[photo,retainedPhoto,visitorPhoto]});
   const scale=w<700?clamp(w/1100,.34,.58):Math.min(w/1300,h/860,.99);
   const textileW=960*scale,textileH=550*scale;
@@ -472,11 +475,8 @@ function mountEntranceLab(){
    const u=(i*strip)/textileW,dx=originX+i*strip;
    const sw=Math.min(strip,visibleWidth-i*strip);
    if(sw<=0)continue;
-   const fold=Math.sin(u*17+progress*5)*3.1*scale+Math.sin(u*6)*5.5*scale;
-   const tension=Math.sin(u*Math.PI)*12*scale*(1-progress*.35);
-   const slope=(u-.3)*11*scale;
    const sourceX=u*texture.width,sourceW=sw/textileW*texture.width;
-   const weaveY=originY+fold+slope-tension;
+   const weaveY=originY+clothWarpOffset(u,progress,clothVelocity,scale);
    const weaveHeight=textileH+7*scale*Math.sin(u*9);
    c.drawImage(texture,sourceX,0,sourceW,texture.height,dx,weaveY,sw+1,weaveHeight);
    // Local raking light and occlusion across the curved warp. A crease becomes
@@ -499,12 +499,8 @@ function mountEntranceLab(){
   c.save();
   c.lineJoin="round";c.lineCap="round";
   const edgeSteps=Math.max(18,Math.ceil(visibleWidth/(9*scale)));
-  const bottomEdge=(u)=>{
-   const fold=Math.sin(u*17+progress*5)*3.1*scale+Math.sin(u*6)*5.5*scale;
-   const tension=Math.sin(u*Math.PI)*12*scale*(1-progress*.35);
-   return originY+fold+(u-.3)*11*scale-tension+
-     textileH+7*scale*Math.sin(u*9);
-  };
+  const bottomEdge=(u)=>originY+clothWarpOffset(u,progress,clothVelocity,scale)+
+    textileH+7*scale*Math.sin(u*9);
   // Contact shadow just outside the woven edge, below the physical fabric.
   c.beginPath();
   for(let i=0;i<=edgeSteps;i++){
@@ -537,8 +533,7 @@ function mountEntranceLab(){
   for(let i=0;i<=Math.max(2,n);i++){
    const u=(i/Math.max(2,n))*reveal;
    const x=originX+u*textileW;
-   const y=originY+Math.sin(u*17+progress*5)*3.1*scale+Math.sin(u*6)*5.5*scale
-      -(Math.sin(u*Math.PI)*12*scale*(1-progress*.35))+(u-.3)*11*scale;
+   const y=originY+clothWarpOffset(u,progress,clothVelocity,scale);
    if(i===0)c.moveTo(x,y);else c.lineTo(x,y);
   }
   c.stroke();
@@ -552,7 +547,8 @@ function mountEntranceLab(){
    }
   }
   // Actual rolled leading edge, not a generic "reveal" on a flat image.
-  const rollX=originX+shownW,rollWidth=(23+23*(1-progress))*scale;
+  const rollX=originX+shownW;
+  const rollWidth=(23+23*(1-progress)+Math.min(9,Math.abs(clothVelocity)*5000))*scale;
   const rollG=c.createLinearGradient(rollX-rollWidth,0,rollX+rollWidth,0);
   rollG.addColorStop(0,"#221917");rollG.addColorStop(.18,"#69463b");
   rollG.addColorStop(.47,"#956c56");rollG.addColorStop(.70,"#623b32");rollG.addColorStop(1,"#211918");
@@ -572,15 +568,18 @@ function mountEntranceLab(){
   const material=ritualVisual(progress,{gaze,reducedMotion:ritual.reducedMotion});
   const [witness,retained,visitor]=material.openings;
   if(witness.amount>0){
-   eye(c,originX+textileW*EYES[0].x,originY+textileH*EYES[0].y,
+   eye(c,originX+textileW*EYES[0].x,originY+textileH*EYES[0].y+
+    clothWarpOffset(EYES[0].x,progress,clothVelocity,scale),
     110*scale,witness.amount);
   }
   if(retained.amount>0){
-   retainedEye(c,originX+textileW*EYES[1].x,originY+textileH*EYES[1].y,
+   retainedEye(c,originX+textileW*EYES[1].x,originY+textileH*EYES[1].y+
+    clothWarpOffset(EYES[1].x,progress,clothVelocity,scale),
     104*scale,retained.amount);
   }
   if(visitor.amount>0){
-   visitorEye(c,originX+textileW*EYES[2].x,originY+textileH*EYES[2].y,
+   visitorEye(c,originX+textileW*EYES[2].x,originY+textileH*EYES[2].y+
+    clothWarpOffset(EYES[2].x,progress,clothVelocity,scale),
     117*scale,visitor.amount,.84+material.recognition*.16);
   }
   if(material.recognition>0){
@@ -687,7 +686,7 @@ function mountEntranceLab(){
  });
  skip.addEventListener("click",()=>leave({skipRitual:true}));
  locale.addEventListener("click",()=>{lang=lang==="en"?"ar":"en";renderText();invalidate()});
- accessibility.addEventListener("click",()=>{ritual=transitionRitual(ritual,"SET_REDUCED_MOTION");progress=targetProgress;renderText();invalidate()});
+ accessibility.addEventListener("click",()=>{ritual=transitionRitual(ritual,"SET_REDUCED_MOTION");progress=targetProgress;clothVelocity=0;renderText();invalidate()});
  // Sound is part of the introductory material, not an extra UI mode.
  // Web Audio can begin only after a browser-permitted user activation. There is
  // no forced consent screen and the complete scene still works silently.
