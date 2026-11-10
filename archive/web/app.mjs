@@ -10,8 +10,8 @@ const escaped=(v)=>String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").repl
 const copy={
  en:{
   memory:"THE LIVING MEMORY",explore:"WANDER",journey:"FOLLOW STORY",
-  spatialHint:"DRAG TO WANDER · SCROLL TO ZOOM · SELECT AN IMAGE",indexTitle:"There is no single beginning.",
-  indexFoot:"ONE CONTINUOUS WORLD · 77 SOURCE RECORDS",searchLabel:"SEARCH THE ARCHIVE",searchPlaceholder:"Search artworks, programmes, practices...",returnScene:"RETURN TO THE EXPERIENCE",
+  spatialHint:"DRAG TO WANDER · SCROLL TO ZOOM · SELECT AN IMAGE",indexTitle:"Not one beginning. Follow a thread.",
+  indexFoot:"ONE CONTINUOUS WORLD · 77 SOURCE RECORDS",atlasCoordinate:"ONE FIELD · 17 CONSTELLATIONS",atlasHint:"SELECT A CONSTELLATION · TRAVEL INSIDE THE ARCHIVE",atlasMobileHint:"DRAG SIDEWAYS TO WANDER",atlasEnter:"ENTER THIS THREAD",searchLabel:"FIND A TRACE",searchPlaceholder:"Search artworks, programmes, practices...",returnScene:"RETURN TO THE EXPERIENCE",
   readingTitle:"Every image holds a way in.",readingIntro:"An uninterrupted, readable path through the same source material.",
   readingFoot:"Research experience built from the Darb 1718 institutional overview · not the official public website.",
   source:"SEE SOURCE RECORD ↗",follow:"FOLLOW THIS MOMENT ↗",
@@ -23,8 +23,8 @@ const copy={
  },
  ar:{
   memory:"الذاكرة الحية",explore:"تجوّل",journey:"اتبع الحكاية",
-  spatialHint:"اسحب عشان تتجوّل · مرّر للتقريب · اختار صورة",indexTitle:"مفيش بداية واحدة للحكاية.",
-  indexFoot:"عالم واحد مستمر · ٧٧ عنصرًا أرشيفيًا",searchLabel:"ابحث في الأرشيف",searchPlaceholder:"عمل، معرض، ورشة، برنامج...",returnScene:"ارجع للتجربة",
+  spatialHint:"اسحب عشان تتجوّل · مرّر للتقريب · اختار صورة",indexTitle:"مفيش بداية واحدة. اتبع خيط.",
+  indexFoot:"عالم واحد مستمر · ٧٧ عنصرًا أرشيفيًا",atlasCoordinate:"مساحة واحدة · ١٧ مجموعة",atlasHint:"اختار مجموعة وادخل عالمها",atlasMobileHint:"اسحب يمين أو شمال للاستكشاف",atlasEnter:"ادخل الحكاية",searchLabel:"اتبع أثرًا",searchPlaceholder:"عمل، معرض، ورشة، برنامج...",returnScene:"ارجع للتجربة",
   readingTitle:"كل صورة ليها مدخل.",readingIntro:"مسار قراءة واضح لنفس المادة الأرشيفية، بدون حركة.",
   readingFoot:"تجربة بحثية من ملف درب 1718 · مش الموقع الرسمي للمؤسسة.",
   source:"افتح المصدر ↗",follow:"اتبع اللحظة دي ↗",
@@ -37,6 +37,14 @@ const copy={
 };
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
+let atlasState=null,atlasSelected="fustat",atlasClosing=0;
+const atlasPositions={
+ place:[103,143],practices:[249,198],fustat:[434,117],residency:[629,140],
+ room:[803,90],voice:[988,183],jusoor:[1033,339],inbetween:[846,313],
+ young:[668,281],unspoken:[463,334],garden:[287,402],citadel:[156,547],
+ symposium:[368,554],something:[558,480],music:[756,541],sector:[955,527],
+ plans:[1105,621]
+};
 let viewport={w:innerWidth,h:innerHeight},target={x:4600,y:3200,z:.2,r:0,fx:.5},current={...target};
 let lastScroll=-1,rafId=0,dirty=true,drag=null,scrollEnd=1,hideFrame=0;
 const imageOf=(id)=>mediaRecord(id)?.src ?? "";
@@ -180,7 +188,7 @@ function scrollProgress(){
  return clamp((scrollY-top)/scrollEnd,0,1)*(moments.length-1);
 }
 function updateScroll(){
- if(mode!=="journey"||encounter)return;
+ if(mode!=="journey"||encounter||atlasState)return;
  const progress=scrollProgress();const beat=clamp(Math.round(progress),0,moments.length-1);
  target=cameraForProgress(progress);
  if(beat!==currentBeat){currentBeat=beat;renderNarrative(beat);}
@@ -352,34 +360,92 @@ function closeDetail(){
  openItem=null;
 }
 
-function renderIndex(){
- const wrap=$("#indexItems");wrap.replaceChildren();
- moments.forEach((m,i)=>{
-  const btn=document.createElement("button");btn.type="button";btn.className="index-item";
-  const title=escaped(m[lang].join(" "));
-  btn.innerHTML="<small>"+String(i+1).padStart(2,"0")+"</small><strong>"+title+"</strong><em>↗</em>";
-  btn.addEventListener("click",()=>{closeIndex();enterMode("journey");jumpTo(i);});
-  wrap.append(btn);
+function atlasClusterRecords(key){
+ return media.filter(item=>item.cluster===key);
+}
+function focusAtlasCluster(key){
+ if(!CLUSTERS[key])return;
+ atlasSelected=key;
+ $$(".atlas-node").forEach(node=>{
+  const active=node.dataset.cluster===key;
+  node.classList.toggle("is-selected",active);
+  node.setAttribute("aria-pressed",String(active));
  });
+ $$("#atlasLines path").forEach(path=>path.classList.toggle("is-selected",
+  path.dataset.from===key||path.dataset.to===key));
+ const records=atlasClusterRecords(key);
+ const representative=records.find(r=>r.role==="image")||records[0];
+ const zone=CLUSTERS[key];
+ $("#atlasFocusTitle").textContent=lang==="ar"?zone.ar:zone.en;
+ $("#atlasFocusType").textContent=(lang==="ar"?"منطقة أرشيفية":"ARCHIVE CONSTELLATION")
+  +" / "+String(records.length).padStart(2,"0");
+ $("#atlasFocusInfo").textContent=(lang==="ar"?"صور ومواد أصلية · صفحات ":"Original objects · pages ")+
+  [...new Set(records.map(item=>item.page))].join(" · ");
+ if(representative){
+  $("#atlasFocusImage").src=representative.src;
+  $("#atlasFocusImage").alt=local(representative.title);
+ }
+ $("#atlasEnter").textContent=copy[lang].atlasEnter+" ↗";
+}
+function renderAtlasLines(){
+ const svg=$("#atlasLines");
+ const curves=threads.connections.map(link=>{
+  const a=atlasPositions[link.fromCluster],b=atlasPositions[link.toCluster];
+  if(!a||!b)return "";
+  const bend=Math.min(100,Math.abs(a[0]-b[0])*.12+25);
+  const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2-bend;
+  return '<path data-from="'+escaped(link.fromCluster)+'" data-to="'+escaped(link.toCluster)+
+   '" d="M '+a[0]+' '+a[1]+' Q '+mx+' '+my+' '+b[0]+' '+b[1]+'" />';
+ });
+ svg.innerHTML=curves.join("");
+}
+function renderIndex(){
+ const root=$("#indexItems");root.replaceChildren();
+ let n=0;
+ for(const [key,zone] of Object.entries(CLUSTERS)){
+  const records=atlasClusterRecords(key);
+  if(!records.length)continue;
+  const pos=atlasPositions[key];
+  if(!pos)continue;
+  const number=String(++n).padStart(2,"0");
+  const button=document.createElement("button");
+  button.type="button";button.className="index-item atlas-node";
+  button.dataset.cluster=key;
+  button.style.setProperty("--x",pos[0]/12+"%");
+  button.style.setProperty("--y",pos[1]/7+"%");
+  button.setAttribute("aria-label",(lang==="ar"?zone.ar:zone.en)+", "+records.length);
+  button.innerHTML='<span class="atlas-node-spot" aria-hidden="true"><i></i></span>'+
+    '<span class="atlas-node-copy"><small>'+number+' / '+String(records.length).padStart(2,"0")+
+    '</small><strong>'+escaped(lang==="ar"?zone.ar:zone.en)+'</strong></span>';
+  button.addEventListener("pointerenter",()=>focusAtlasCluster(key));
+  button.addEventListener("focus",()=>focusAtlasCluster(key));
+  button.addEventListener("click",()=>travelAtlasCluster(key));
+  root.append(button);
+ }
+ renderAtlasLines();focusAtlasCluster(atlasSelected);
  renderSearch();
 }
 function renderSearch(){
  const query=$("#archiveSearch").value.trim().toLocaleLowerCase();
  const results=$("#searchResults");
- const index=$("#indexItems");
+ const index=$("#index");
  results.replaceChildren();
  results.hidden=!query;
- index.hidden=Boolean(query);
+ index.classList.toggle("has-query",Boolean(query));
  if(!query)return;
  const hits=media.filter(item=>
   [item.title.en,item.title.ar,item.project.en,item.project.ar,item.kind,String(item.id)]
     .some(field=>field?.toLocaleLowerCase().includes(query)));
  for(const item of hits.slice(0,30)){
   const btn=document.createElement("button");btn.className="search-hit";btn.type="button";
-  btn.innerHTML='<img src="'+item.src+'" alt="" loading="lazy"/><span><strong>'+escaped(local(item.title))+
-    '</strong><small>'+escaped(local(item.project))+" · PDF "+item.page+
-    '</small></span><b>↗</b>';
-  btn.addEventListener("click",()=>{closeIndex();enterMode("explore");inspect(item.id);});
+  btn.innerHTML='<img src="'+item.src+'" alt="" loading="lazy"/><span><strong>'+
+   escaped(local(item.title))+'</strong><small>'+escaped(local(item.project))+
+   " · PDF "+item.page+'</small></span><b>↗</b>';
+  btn.addEventListener("click",()=>{
+   closeIndex({restore:false,focus:false});
+   enterMode("explore");
+   inspect(item.id);
+  });
   results.append(btn);
  }
  if(!hits.length){
@@ -387,14 +453,63 @@ function renderSearch(){
   results.append(p);
  }
 }
-
 function openIndex(){
- $("#index").hidden=false;$("#indexBtn").setAttribute("aria-expanded","true");
- $("#closeIndex").focus();
+ if(atlasState)return;
+ const index=$("#index");
+ atlasState={mode,target:{...target},bodyOverflow:document.body.style.overflow,
+  detailHidden:$("#detail").hidden,wasReading:document.body.classList.contains("is-reading")};
+ ++atlasClosing;
+ document.body.style.overflow="hidden";
+ document.body.classList.remove("is-reading");
+ $("#detail").hidden=true;
+ $("#experience").dataset.atlas="open";
+ index.hidden=false;
+ $("#indexBtn").setAttribute("aria-expanded","true");
+ $("#indexBtn").setAttribute("aria-label",lang==="ar"?"اقفل خريطة الأرشيف":"Close archive compass");
+ $("#indexBtn").classList.add("is-open");
+ const focus=mediaRecord(moments[currentBeat]?.focusId);
+ if(focus?.cluster&&CLUSTERS[focus.cluster])atlasSelected=focus.cluster;
+ target={x:WORLD_WIDTH/2,y:WORLD_HEIGHT/2,z:innerWidth<800?.17:.126,r:0,fx:.5};
+ renderIndex();
+ if(innerWidth<800){
+  const viewport=$("#atlasViewport");
+  const p=atlasPositions[atlasSelected];
+  viewport.scrollLeft=Math.max(0,(p[0]/1200)*viewport.scrollWidth-viewport.clientWidth*.42);
+ }
+ requestAnimationFrame(()=>{
+  index.classList.add("is-open");
+  const button=$('.atlas-node.is-selected');
+  (button||$("#archiveSearch")).focus({preventScroll:true});
+ });
 }
-function closeIndex(){
- $("#index").hidden=true;$("#indexBtn").setAttribute("aria-expanded","false");
- $("#indexBtn").focus({preventScroll:true});
+function closeIndex({restore=true,focus=true}={}){
+ if(!atlasState)return;
+ const state=atlasState;
+ atlasState=null;
+ const index=$("#index");
+ const serial=++atlasClosing;
+ index.classList.remove("is-open","has-query");
+ $("#experience").removeAttribute("data-atlas");
+ $("#indexBtn").setAttribute("aria-expanded","false");
+ $("#indexBtn").setAttribute("aria-label",lang==="ar"?"افتح خريطة الأرشيف":"Open archive compass");
+ $("#indexBtn").classList.remove("is-open");
+ document.body.style.overflow=state.bodyOverflow;
+ document.body.classList.toggle("is-reading",state.wasReading);
+ if(restore){
+  target={...state.target};
+  $("#detail").hidden=state.detailHidden;
+ }else if(encounter)closeDetail();
+ if(focus)$("#indexBtn").focus({preventScroll:true});
+ const delay=matchMedia("(prefers-reduced-motion: reduce)").matches?0:520;
+ setTimeout(()=>{if(serial===atlasClosing&&!atlasState)index.hidden=true;},delay);
+}
+function travelAtlasCluster(key){
+ const zone=CLUSTERS[key];
+ if(!zone)return;
+ closeIndex({restore:false,focus:false});
+ enterMode("explore");
+ target={x:zone.x,y:zone.y,z:innerWidth<800?.52:.73,r:0,fx:.5};
+ $("#modeBtn").focus({preventScroll:true});
 }
 function renderReading(){
  const ol=$("#readingList");ol.replaceChildren();
@@ -425,9 +540,10 @@ function installInput(){
   if(currentBeat===moments.length-1){enterMode("explore");return;}
   jumpTo(currentBeat+1);
  });
- $("#indexBtn").addEventListener("click",()=>$("#index").hidden?openIndex():closeIndex());
- $("#closeIndex").addEventListener("click",closeIndex);
+ $("#indexBtn").addEventListener("click",()=>atlasState?closeIndex():openIndex());
+ $("#closeIndex").addEventListener("click",()=>closeIndex());
  $("#archiveSearch").addEventListener("input",renderSearch);
+ $("#atlasEnter").addEventListener("click",()=>travelAtlasCluster(atlasSelected));
  $("#closeDetail").addEventListener("click",retraceEncounter);
  $("#followBtn").addEventListener("click",()=>{
   if(openItem===null)return;
@@ -449,7 +565,15 @@ function installInput(){
  },{passive:true});
  addEventListener("resize",()=>{viewport={w:innerWidth,h:innerHeight};updateScroll();},{passive:true});
  addEventListener("keydown",event=>{
-  if(event.key==="Escape"){if(!$("#index").hidden)closeIndex();else if(encounter)retraceEncounter();else closeDetail();return;}
+  if(event.key==="Escape"){if(atlasState){closeIndex();event.preventDefault();}else if(encounter)retraceEncounter();else closeDetail();return;}
+  if(atlasState&&event.key==="Tab"){
+   const focusables=$('#index button:not([disabled]), #index input:not([disabled])');
+   if(focusables.length){
+    const first=focusables[0],last=focusables.at(-1);
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+   }
+  }
   if(mode==="explore"&&event.target.tagName!=="INPUT"){
    if(event.key==="+"||event.key==="="){target.z=clamp(target.z*1.2,.2,2.7);return;}
    if(event.key==="-"){target.z=clamp(target.z/1.2,.2,2.7);return;}
