@@ -46,6 +46,12 @@
 - The textile remains opt-in at `/?entrance=v2`, while `/` retains the older entrance. This is one product with two entrances, **not** two archive products. Default-entry replacement is an art-direction decision after filmed QA, not a refactor to sneak into a patch.
 - Next visual acceptance: review five visitor-frame captures and footage on desktop and mobile, specifically source framing, arrival continuity, tactile realism, timing, captions and unfurling-to-camera blend. Fix evidenced failures before expanding the D–A–R–B identity language.
 
+## Stage 09–12 continuation — aperture-to-photograph visual handoff
+- The existing spatial archive and #39 → #41 → #42 material encounters remain untouched. No extra entry or parallel website was created.
+- `web/entrance-lab.mjs` now paints departure fibers using the **same projected aperture center** as the on-screen eye target and the expanding photographic portal, and varies their direction and palette across documentary witness / cyanotype / printed trace. This is a compositional pass, **not** final material/camera art-direction approval.
+- `e2e/entrance-lab.spec.mjs` has a desktop/mobile regression check for source #39/#41/#42: interactive eye center equals portal center and opens the matching archival photo. CI must complete before it counts as passing.
+- Visual acceptance remains open: review real capture around departure (including a transitional frame), optical source registration, cloth weight, and whether the image takes over without a generic wipe. Assess on narrow phone and desktop before changing the default entrance.
+ 
 ## Critical source truth
 - `data/media-catalog.json` marks some inputs `rights: approved_by_project_owner`, but `data/tales-of-fustat-001.json` still has multiple `publication: blocked` media nodes and unverified credits/consent. **An approved prototype import does not establish public display rights.** Keep test preview protected, and reconcile rights record-by-record before promotion.
 - 9 `curatorial-threads` are explicitly `editorial-comparison`, not documented maker/collaborator edges. The 5-stage Tales sequence is an *editorial traversal*, not a chronological or participant-authorship claim.
