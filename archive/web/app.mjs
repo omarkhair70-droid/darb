@@ -1,6 +1,7 @@
 import {validateArchive,getConnections,findEvidencePath} from "/graph.mjs";
 import {layoutCatalog,validateAtlas,cameraForObject,WORLD_WIDTH,WORLD_HEIGHT,CLUSTERS} from "/world-layout.mjs";
 import {materialLanguage,nextMaterialTrace} from "/material-score.mjs";
+import {materialBridgeSegments} from "/identity-relations.mjs";
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
@@ -40,6 +41,35 @@ let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=
 let materialTransitionUntil=0,materialTransitionSerial=0,materialArrivalSerial=0;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
 const visitedRoute=[];
+// The first identity lens is not a drawn A. The existing source objects
+// create a factual shared-programme segment plus two explicitly editorial
+// comparisons. It becomes discoverable only after the visitor actually
+// encountered both documentary and cyanotype sources.
+function updateIdentityReveal(){
+ const visited=new Set(visitedRoute);
+ const ready=visited.has(39)&&visited.has(41);
+ const graphic=$("#identityTrace");
+ if(graphic)graphic.classList.toggle("is-revealed",ready);
+ const experience=$("#experience");
+ if(experience)experience.dataset.identityBridge=ready?"discovered":"unseen";
+}
+function renderIdentityLinks(){
+ const graphic=$("#identityTrace");
+ if(!graphic)return;
+ graphic.setAttribute("viewBox","0 0 "+WORLD_WIDTH+" "+WORLD_HEIGHT);
+ const segments=materialBridgeSegments(media,threads);
+ graphic.innerHTML=segments.map(edge=>{
+  const dx=edge.x2-edge.x1,dy=edge.y2-edge.y1;
+  const bend=Math.min(160,Math.abs(dx)*.08+Math.abs(dy)*.06);
+  const path="M "+edge.x1+" "+edge.y1+
+   " C "+(edge.x1+dx*.32)+" "+(edge.y1-bend)+
+   " "+(edge.x2-dx*.30)+" "+(edge.y2+bend)+
+   " "+edge.x2+" "+edge.y2;
+  return '<path data-from="'+edge.from+'" data-to="'+edge.to+
+   '" data-kind="'+edge.kind+'" d="'+path+'"/>';
+ }).join("");
+ updateIdentityReveal();
+}
 function rememberSource(id){
  if(!id||!mediaRecord(id)||visitedRoute.at(-1)===id)return;
  visitedRoute.push(id);
@@ -64,6 +94,7 @@ function drawMemoryTrail(){
  svg.setAttribute("aria-label",lang==="ar"
   ?"خيوط الرحلة التي نسجها الزائر عبر الأعمال الأرشيفية"
   :"The path this visitor has woven through archival works");
+ updateIdentityReveal();
 }
 const atlasPositions={
  place:[103,268],practices:[249,198],fustat:[434,117],residency:[629,140],
@@ -153,6 +184,7 @@ function makeWorld(){
     '" d="M '+ax+' '+ay+' C '+(ax+dx*.37)+' '+(ay-210)+' '+(bx-dx*.27)+' '+(by+180)+' '+bx+' '+by+'"/>');
  }
  link.innerHTML=paths.join("");
+ renderIdentityLinks();
 }
 
 function renderNarrative(beat){
@@ -465,6 +497,7 @@ function closeDetail(){
  }
  $("#detail").hidden=true;
  openItem=null;
+ updateIdentityReveal();
 }
 
 function atlasClusterRecords(key){
