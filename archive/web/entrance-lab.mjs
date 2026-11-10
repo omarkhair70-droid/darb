@@ -441,8 +441,22 @@ function mountEntranceLab(){
    const tension=Math.sin(u*Math.PI)*12*scale*(1-progress*.35);
    const slope=(u-.3)*11*scale;
    const sourceX=u*texture.width,sourceW=sw/textileW*texture.width;
-   c.drawImage(texture,sourceX,0,sourceW,texture.height,dx,originY+fold+slope-tension,
-     sw+1,textileH+7*scale*Math.sin(u*9));
+   const weaveY=originY+fold+slope-tension;
+   const weaveHeight=textileH+7*scale*Math.sin(u*9);
+   c.drawImage(texture,sourceX,0,sourceW,texture.height,dx,weaveY,sw+1,weaveHeight);
+   // Local raking light and occlusion across the curved warp. A crease becomes
+   // dark on one side and catches warm light on the other, rather than every
+   // strip being the same flat photographic plane.
+   const relief=Math.sin(u*13.7+progress*1.9)+.31*Math.sin(u*28.1-progress*2.7);
+   const darkness=Math.max(0,relief)*.115;
+   const lit=Math.max(0,-relief)*.063;
+   if(darkness>.006){
+    c.fillStyle="rgba(15,17,14,"+darkness.toFixed(3)+")";
+    c.fillRect(dx,weaveY,sw+1,weaveHeight);
+   }else if(lit>.006){
+    c.fillStyle="rgba(240,195,145,"+lit.toFixed(3)+")";
+    c.fillRect(dx,weaveY,sw+1,weaveHeight);
+   }
   }
   // Structural edges and tactile fringe — they pull and curve with the cloth.
   c.strokeStyle="#cf9e76bb";c.lineWidth=2.4*scale;
