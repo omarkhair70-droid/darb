@@ -130,7 +130,7 @@ function mountEntranceLab(){
    button.textContent=t.traces[i];
    button.setAttribute("aria-pressed",String(selectedSourceId===eye.sourceId));
    button.disabled=!availableSources(Math.max(targetProgress,progress)).includes(eye.sourceId);
-   button.title=lang==="ar"?"افتح الأثر رقم "+eye.sourceId:"Open source record "+eye.sourceId;
+   button.title=lang==="ar"?"استكشف صورة من الأرشيف":"Explore an image in the archive";
   });
   root.dir=lang==="ar"?"rtl":"ltr";
   status.textContent=Math.round(progress*100)+"%";
