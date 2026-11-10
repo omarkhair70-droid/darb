@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "meaning": "Editorially curated thematic paths, never evidence of collaboration between individuals.",
+  "connections": [
+    {
+      "id": "material",
+      "fromCluster": "fustat",
+      "fromId": 41,
+      "toCluster": "residency",
+      "toId": 35,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "Material as a record",
+        "ar": "الخامة بتحتفظ بالأثر"
+      },
+      "description": {
+        "en": "Cyanotype and textile-making offer different ways of recording experience in material.",
+        "ar": "السيانوتايب والنسيج طريقتين مختلفتين لتحويل الخبرة إلى أثر مادي."
+      },
+      "sourcePages": [
+        11,
+        10
+      ]
+    },
+    {
+      "id": "makers",
+      "fromCluster": "practices",
+      "fromId": 7,
+      "toCluster": "fustat",
+      "toId": 39,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "Making with the neighbourhood",
+        "ar": "الصناعة والحي"
+      },
+      "description": {
+        "en": "Craft workshops and Fustat storytelling both bring local practices into Darb's programmes.",
+        "ar": "الورش وحكاوي الفسطاط بيجمعوا ممارسات محلية داخل أنشطة درب."
+      },
+      "sourcePages": [
+        3,
+        11
+      ]
+    },
+    {
+      "id": "voice",
+      "fromCluster": "room",
+      "fromId": 44,
+      "toCluster": "voice",
+      "toId": 47,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "Collective expression",
+        "ar": "تعبير جماعي"
+      },
+      "description": {
+        "en": "Writing together and improvising with voice are separate programmes that explore expression in groups.",
+        "ar": "الكتابة الجماعية والارتجال بالصوت برنامجان مختلفان بيستكشفوا التعبير مع الآخرين."
+      },
+      "sourcePages": [
+        12,
+        13
+      ]
+    },
+    {
+      "id": "gathering",
+      "fromCluster": "jusoor",
+      "fromId": 30,
+      "toCluster": "music",
+      "toId": 70,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "The audience is part of the work",
+        "ar": "الجمهور جزء من التجربة"
+      },
+      "description": {
+        "en": "A cinema screening and live music are different forms of gathering around culture.",
+        "ar": "العرض السينمائي والموسيقى الحية شكلان مختلفان للقاء حول الفن."
+      },
+      "sourcePages": [
+        9,
+        20
+      ]
+    },
+    {
+      "id": "space",
+      "fromCluster": "inbetween",
+      "fromId": 21,
+      "toCluster": "citadel",
+      "toId": 62,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "Art inhabits space",
+        "ar": "الفن بيتشكل بالمكان"
+      },
+      "description": {
+        "en": "Installation work changes meaning through its relationship with the space around it.",
+        "ar": "التركيبات الفنية بتفتح علاقة بين العمل والفراغ اللي حواليه."
+      },
+      "sourcePages": [
+        7,
+        17
+      ]
+    },
+    {
+      "id": "young-art",
+      "fromCluster": "young",
+      "fromId": 26,
+      "toCluster": "garden",
+      "toId": 19,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "Exhibition as a meeting",
+        "ar": "المعرض مساحة للقاء"
+      },
+      "description": {
+        "en": "Different group exhibitions show how works and visitors meet in a shared setting.",
+        "ar": "معارض جماعية مختلفة بتجمع الأعمال والزائرين في مكان مشترك."
+      },
+      "sourcePages": [
+        8,
+        6
+      ]
+    },
+    {
+      "id": "something-else",
+      "fromCluster": "symposium",
+      "fromId": 53,
+      "toCluster": "citadel",
+      "toId": 61,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "Something Else across settings",
+        "ar": "Something Else عبر أماكن مختلفة"
+      },
+      "description": {
+        "en": "The overview documents Something Else activity in different years and venues, including a symposium and the Citadel.",
+        "ar": "الملف يوثق Something Else في سنوات وأماكن مختلفة، بينها الملتقى والقلعة."
+      },
+      "sourcePages": [
+        16,
+        17
+      ]
+    },
+    {
+      "id": "history",
+      "fromCluster": "place",
+      "fromId": 1,
+      "toCluster": "plans",
+      "toId": 75,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "Reading a place",
+        "ar": "قراءة المكان"
+      },
+      "description": {
+        "en": "A historical place photograph and architectural drawings are different kinds of evidence about a venue. The plans are not proof of construction.",
+        "ar": "صورة مكان تاريخي ومخططات معمارية نوعان مختلفان من التوثيق. المخططات مش دليل إن البناء اتنفذ."
+      },
+      "sourcePages": [
+        1,
+        21
+      ]
+    },
+    {
+      "id": "context",
+      "fromCluster": "something",
+      "fromId": 52,
+      "toCluster": "citadel",
+      "toId": 58,
+      "type": "editorial-comparison",
+      "title": {
+        "en": "An event beyond one frame",
+        "ar": "الحدث أكبر من مشهد واحد"
+      },
+      "description": {
+        "en": "The Something Else programme appears across multiple contexts in the supplied overview.",
+        "ar": "برنامج Something Else ظاهر في سياقات متنوعة في الملف الأصلي."
+      },
+      "sourcePages": [
+        15,
+        17
+      ]
+    }
+  ]
+}

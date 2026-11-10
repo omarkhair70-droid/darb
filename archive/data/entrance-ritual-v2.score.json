@@ -1,0 +1,115 @@
+{
+  "version": "06A-preproduction",
+  "title": {
+    "en": "The Archive Unfurls",
+    "ar": "الأرشيف بيتفرد"
+  },
+  "project": "Darb Archive / The Living Memory",
+  "sourceContext": {
+    "project": "Tales of Fustat",
+    "sourcePdfPage": 11,
+    "objectIds": [
+      39,
+      40,
+      41,
+      42
+    ],
+    "textileIsArchiveObject": false
+  },
+  "factsAndInterpretation": {
+    "textile": "New authored visual metaphor, informed by Cairo-attributed Ottoman-period textiles. Never claim it belongs to the Darb archive.",
+    "eyes": "Three non-literal apertures introduced by physical textile actions. Witness/retention/visitor are provisional editorial interpretations.",
+    "glyph": "D emerges from negative space, tension and a camera viewpoint; not a rendered letter on the fabric.",
+    "audio": "No autoplay. Silence is a designed state."
+  },
+  "phases": [
+    {
+      "id": "unlit",
+      "trigger": "START",
+      "next": "unfurl",
+      "viewerSees": "A material edge under minimal grazing light",
+      "physicalCause": "a fringe beginning to pull",
+      "requires": [
+        "quiet enter control",
+        "skip path"
+      ]
+    },
+    {
+      "id": "unfurl",
+      "trigger": "CLOTH_EXTENDED",
+      "next": "tension",
+      "viewerSees": "Roll, thickness, fiber and repeated pattern",
+      "physicalCause": "the cloth edge unfurls and tension enters the weave",
+      "requires": [
+        "material geometry",
+        "first eye starts from a stitch release"
+      ]
+    },
+    {
+      "id": "tension",
+      "trigger": "APERTURES_REVEALED",
+      "next": "recognition",
+      "viewerSees": "Distinct apertures; no generic eye icons",
+      "physicalCause": "three separate deformation/occlusion events",
+      "requires": [
+        "eye-1 stitched release",
+        "eye-2 layered exposure",
+        "eye-3 camera-dependent absence"
+      ]
+    },
+    {
+      "id": "recognition",
+      "trigger": "VIEW_ALIGNED",
+      "next": "passage",
+      "viewerSees": "A brief D perceived in negative space",
+      "physicalCause": "geometry and viewpoint alignment",
+      "requires": [
+        "no D text overlay",
+        "still-image legibility"
+      ]
+    },
+    {
+      "id": "passage",
+      "trigger": "SOURCE_SELECTED",
+      "next": "arrived",
+      "viewerSees": "Threads continue as paths into actual archival media",
+      "physicalCause": "a source-linked strand extends from the textile",
+      "requires": [
+        "source object ID",
+        "same world camera"
+      ]
+    },
+    {
+      "id": "arrived",
+      "trigger": null,
+      "next": null,
+      "viewerSees": "Same existing Archive world / Wander / Story / Compass",
+      "physicalCause": "no route reset",
+      "requires": [
+        "reversible route",
+        "deliberate replay only"
+      ]
+    }
+  ],
+  "qualityGates": {
+    "firstVisualSlice": [
+      "convincing cloth thickness",
+      "first aperture physically caused",
+      "1440x900 and 390x844 review",
+      "reduced-motion still"
+    ],
+    "integration": [
+      "real source object path",
+      "skip never traps visitor",
+      "no traditional hero/section appears",
+      "AR and EN",
+      "return retains camera/route"
+    ],
+    "notInSlice": [
+      "three polished eyes",
+      "complete A/R/B letters",
+      "sound installation",
+      "final exhibition deliverable"
+    ]
+  }
+}

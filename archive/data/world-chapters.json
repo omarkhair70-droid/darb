@@ -1,0 +1,422 @@
+{
+  "version": 3,
+  "description": "One spatial world; guided beats are camera viewpoints, not pages",
+  "chapters": [
+    {
+      "id": "threshold",
+      "focusId": null,
+      "title": {
+        "en": [
+          "An archive",
+          "is always moving."
+        ],
+        "ar": [
+          "الأرشيف",
+          "بيفضل يتحرك."
+        ]
+      },
+      "body": {
+        "en": "Darb's story isn't one building or one image. It is the encounters, practices and works held together in its memory.",
+        "ar": "حكاية درب مش صورة أو مبنى واحد. هي اللقاءات والممارسات والأعمال اللي بتفضل مرتبطة في الذاكرة."
+      },
+      "sourcePage": 0,
+      "zoom": 0.19,
+      "rotation": 0,
+      "label": {
+        "en": "DARB 1718 · THE LIVING MEMORY",
+        "ar": "درب 1718 · الذاكرة الحية"
+      },
+      "frameX": 0.5
+    },
+    {
+      "id": "place",
+      "focusId": 1,
+      "title": {
+        "en": [
+          "A place",
+          "holds encounters."
+        ],
+        "ar": [
+          "المكان",
+          "بيجمع لقاءات."
+        ]
+      },
+      "body": {
+        "en": "Begin with Darb's historic presence, then follow the practices that passed through it.",
+        "ar": "البداية من حضور درب التاريخي، وبعدها نتحرك للممارسات اللي مرّت فيه."
+      },
+      "sourcePage": 1,
+      "zoom": 0.91,
+      "rotation": 1.8,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.1",
+        "ar": "درب 1718 · ملف 2026 · صفحة 1"
+      },
+      "frameX": 0.68
+    },
+    {
+      "id": "practice",
+      "focusId": 7,
+      "title": {
+        "en": [
+          "Hands",
+          "shape a culture."
+        ],
+        "ar": [
+          "الأيدي",
+          "بتصنع ثقافة."
+        ]
+      },
+      "body": {
+        "en": "Art, craft and shared learning live side by side in Darb's institutional record.",
+        "ar": "الفن والحِرف والتعلّم الجماعي موجودين جنب بعض في سجل درب."
+      },
+      "sourcePage": 3,
+      "zoom": 0.98,
+      "rotation": 1,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.3",
+        "ar": "درب 1718 · ملف 2026 · صفحة 3"
+      },
+      "frameX": 0.32
+    },
+    {
+      "id": "fustat-encounter",
+      "focusId": 39,
+      "title": {
+        "en": [
+          "A story",
+          "begins in listening."
+        ],
+        "ar": [
+          "الحكاية",
+          "بتبدأ بالإنصات."
+        ]
+      },
+      "body": {
+        "en": "Tales of Fustat brought neighbourhood photography and conversations with craftspeople into one programme.",
+        "ar": "حكاوي الفسطاط جمعت التصوير في الحي والحوار مع الحرفيين في تجربة واحدة."
+      },
+      "sourcePage": 11,
+      "zoom": 1.13,
+      "rotation": -1.3,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.11",
+        "ar": "درب 1718 · ملف 2026 · صفحة 11"
+      },
+      "frameX": 0.69
+    },
+    {
+      "id": "fustat-trace",
+      "focusId": 41,
+      "title": {
+        "en": [
+          "Light",
+          "leaves a trace."
+        ],
+        "ar": [
+          "الضوء",
+          "بيسيب أثر."
+        ]
+      },
+      "body": {
+        "en": "The project explored cyanotype printing, turning photographs and observations into blue material impressions.",
+        "ar": "المشروع اشتغل بالسيانوتايب، فتحوّلت الصور والملاحظات لطبعات زرقاء ملموسة."
+      },
+      "sourcePage": 11,
+      "zoom": 1.22,
+      "rotation": -1.7,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.11",
+        "ar": "درب 1718 · ملف 2026 · صفحة 11"
+      },
+      "frameX": 0.69
+    },
+    {
+      "id": "fustat-object",
+      "focusId": 42,
+      "title": {
+        "en": [
+          "Stories",
+          "become objects."
+        ],
+        "ar": [
+          "الحكايات",
+          "بتبقى أشياء."
+        ]
+      },
+      "body": {
+        "en": "Printed photographs and notebooks hold the experience in material form.",
+        "ar": "المطبوعات والدفاتر خلت أثر التجربة موجود في شكل مادي."
+      },
+      "sourcePage": 11,
+      "zoom": 1.13,
+      "rotation": 0.4,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.11",
+        "ar": "درب 1718 · ملف 2026 · صفحة 11"
+      },
+      "frameX": 0.68
+    },
+    {
+      "id": "residency",
+      "focusId": 35,
+      "title": {
+        "en": [
+          "Material",
+          "has a memory."
+        ],
+        "ar": [
+          "الخامة",
+          "ليها ذاكرة."
+        ]
+      },
+      "body": {
+        "en": "The Natalia Ossef residency explored textile practices across Egypt, from khayameya to collaborative making.",
+        "ar": "إقامة ناتاليا أوسيف استكشفت تقنيات النسيج في مصر، من الخيامية للتجارب المشتركة."
+      },
+      "sourcePage": 10,
+      "zoom": 0.99,
+      "rotation": 1.9,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.10",
+        "ar": "درب 1718 · ملف 2026 · صفحة 10"
+      },
+      "frameX": 0.32
+    },
+    {
+      "id": "room",
+      "focusId": 44,
+      "title": {
+        "en": [
+          "Words",
+          "make room."
+        ],
+        "ar": [
+          "الكلام",
+          "بيفتح مساحة."
+        ]
+      },
+      "body": {
+        "en": "A Room of One's Own was a collective writing programme about home, boundaries and the spaces people inhabit.",
+        "ar": "غرفة تخصّنا وحدنا كانت مساحة كتابة جماعية عن البيت والحدود والأماكن اللي بنعيش فيها."
+      },
+      "sourcePage": 12,
+      "zoom": 0.96,
+      "rotation": 0.6,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.12",
+        "ar": "درب 1718 · ملف 2026 · صفحة 12"
+      },
+      "frameX": 0.32
+    },
+    {
+      "id": "voice",
+      "focusId": 47,
+      "title": {
+        "en": [
+          "The body",
+          "can speak."
+        ],
+        "ar": [
+          "الجسد",
+          "ممكن يتكلم."
+        ]
+      },
+      "body": {
+        "en": "Voice in Motion invited a group to work with voice, movement, listening and improvisation.",
+        "ar": "الحركة في الصوت جمعت التجريب بالصوت والحركة والإنصات والارتجال."
+      },
+      "sourcePage": 13,
+      "zoom": 0.97,
+      "rotation": -1.6,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.13",
+        "ar": "درب 1718 · ملف 2026 · صفحة 13"
+      },
+      "frameX": 0.68
+    },
+    {
+      "id": "jusoor",
+      "focusId": 30,
+      "title": {
+        "en": [
+          "A screen",
+          "becomes a bridge."
+        ],
+        "ar": [
+          "الشاشة",
+          "ممكن تبقى جسر."
+        ]
+      },
+      "body": {
+        "en": "Jusoor gathered short films and public conversations, making cinema another way to meet.",
+        "ar": "جسور جمع أفلامًا قصيرة ونقاشات عامة، وخلى السينما طريق جديد للقاء."
+      },
+      "sourcePage": 9,
+      "zoom": 1.05,
+      "rotation": -1.4,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.9",
+        "ar": "درب 1718 · ملف 2026 · صفحة 9"
+      },
+      "frameX": 0.32
+    },
+    {
+      "id": "inbetween",
+      "focusId": 21,
+      "title": {
+        "en": [
+          "A space",
+          "in between."
+        ],
+        "ar": [
+          "في المسافة",
+          "بين الأشياء."
+        ]
+      },
+      "body": {
+        "en": "INBETWEEN explored installation, photographic art and the space between movements and meetings.",
+        "ar": "INBETWEEN اشتغل على التركيب الفني والتصوير والمسافة بين الحركة واللقاء."
+      },
+      "sourcePage": 7,
+      "zoom": 1.09,
+      "rotation": 0.8,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.7",
+        "ar": "درب 1718 · ملف 2026 · صفحة 7"
+      },
+      "frameX": 0.68
+    },
+    {
+      "id": "young",
+      "focusId": 26,
+      "title": {
+        "en": [
+          "New voices",
+          "find the room."
+        ],
+        "ar": [
+          "أصوات جديدة",
+          "بتدخل المساحة."
+        ]
+      },
+      "body": {
+        "en": "Young artists used exhibition space to show how they see the world.",
+        "ar": "فنانون شباب عرضوا أعمالًا بتحكي عن نظرتهم للعالم."
+      },
+      "sourcePage": 8,
+      "zoom": 1.02,
+      "rotation": 1.9,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.8",
+        "ar": "درب 1718 · ملف 2026 · صفحة 8"
+      },
+      "frameX": 0.32
+    },
+    {
+      "id": "unspoken",
+      "focusId": 15,
+      "title": {
+        "en": [
+          "Sometimes art",
+          "says what words cannot."
+        ],
+        "ar": [
+          "أحيانًا الفن",
+          "بيقول اللي الكلام مايقولهش."
+        ]
+      },
+      "body": {
+        "en": "UNSPOKEN presented works connected to expression and art therapy in a public exhibition.",
+        "ar": "ما لم يُقال عرض أعمالًا مرتبطة بالتعبير والعلاج بالفن في معرض مفتوح للجمهور."
+      },
+      "sourcePage": 5,
+      "zoom": 1.02,
+      "rotation": 0.2,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.5",
+        "ar": "درب 1718 · ملف 2026 · صفحة 5"
+      },
+      "frameX": 0.68
+    },
+    {
+      "id": "garden",
+      "focusId": 19,
+      "title": {
+        "en": [
+          "The encounter",
+          "keeps growing."
+        ],
+        "ar": [
+          "اللقاء",
+          "بيفضل يكبر."
+        ]
+      },
+      "body": {
+        "en": "Darb fi Al-Hadiqqa gathered mixed-media work and artists around a shared exhibition.",
+        "ar": "درب في الحديقة جمع أعمالًا متعددة الوسائط وفنانين في معرض مشترك."
+      },
+      "sourcePage": 6,
+      "zoom": 1.04,
+      "rotation": -1.8,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.6",
+        "ar": "درب 1718 · ملف 2026 · صفحة 6"
+      },
+      "frameX": 0.32
+    },
+    {
+      "id": "citadel",
+      "focusId": 61,
+      "title": {
+        "en": [
+          "Art travels",
+          "beyond one room."
+        ],
+        "ar": [
+          "الفن",
+          "بيخرج من القاعة."
+        ]
+      },
+      "body": {
+        "en": "Something Else brought contemporary works into historic spaces, including the Citadel.",
+        "ar": "Something Else نقل أعمالًا معاصرة لمساحات تاريخية، ومنها القلعة."
+      },
+      "sourcePage": 17,
+      "zoom": 1.05,
+      "rotation": -1.1,
+      "label": {
+        "en": "DARB 1718 · OVERVIEW 2026 · P.17",
+        "ar": "درب 1718 · ملف 2026 · صفحة 17"
+      },
+      "frameX": 0.68
+    },
+    {
+      "id": "return",
+      "focusId": null,
+      "title": {
+        "en": [
+          "There are",
+          "always more threads."
+        ],
+        "ar": [
+          "وفيه دايمًا",
+          "حكايات تانية."
+        ]
+      },
+      "body": {
+        "en": "Pull back, wander and discover another record. Every image is one entrance to a larger story.",
+        "ar": "ارجع للصورة الكبيرة واتجوّل. كل صورة مدخل لحكاية أكبر."
+      },
+      "sourcePage": 0,
+      "zoom": 0.2,
+      "rotation": 1.2,
+      "label": {
+        "en": "DARB 1718 · THE LIVING MEMORY",
+        "ar": "درب 1718 · الذاكرة الحية"
+      },
+      "frameX": 0.5
+    }
+  ]
+}

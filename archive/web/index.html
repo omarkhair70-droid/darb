@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#edeee9"/>
+<meta name="description" content="Darb Archive — The Living Memory. Follow an ever-changing constellation of artworks, people, and places."/>
+<title>Darb Archive / The Living Memory</title>
+<link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+<a class="skip" href="#reading">Skip to readable archive</a>
+<div class="experience" id="experience" data-mode="journey">
+  <div class="canvas" id="canvas" aria-label="A spatial archive of Darb cultural projects">
+    <div class="world" id="world" aria-hidden="false">
+      <svg class="world-links" id="worldLinks" viewBox="0 0 9200 6400" aria-hidden="true"></svg>
+      <svg class="identity-trace" id="identityTrace" viewBox="0 0 9200 6400" aria-hidden="true"></svg>
+      <svg class="identity-constellations" id="identityConstellations" viewBox="0 0 9200 6400" aria-hidden="true"></svg>
+      <svg class="memory-trail" id="memoryTrail" viewBox="0 0 9200 6400" aria-label="The route this visitor has woven through the archive"></svg>
+      <div id="artifacts"></div>
+      
+    </div>
+    <div class="atmosphere" aria-hidden="true"></div>
+    <div class="memory-signature" id="memorySignature" aria-label="An emerging D woven from archival connections">
+      <svg class="signature-threads" viewBox="0 0 520 560" aria-hidden="true">
+        <path class="signature-main" d="M143 72 L143 171 L143 292 L143 433 L292 433 Q428 412 437 250 Q427 90 292 72 Z"/>
+        <path class="signature-fine" d="M143 171 L292 72 M143 292 L437 250 M143 433 L380 360 M143 171 L380 145 M143 292 L292 433 M292 72 L380 360"/>
+        <circle cx="143" cy="72" r="5"/><circle cx="143" cy="171" r="3"/><circle cx="143" cy="292" r="3"/>
+        <circle cx="143" cy="433" r="5"/><circle cx="292" cy="433" r="4"/><circle cx="437" cy="250" r="5"/>
+        <circle cx="380" cy="145" r="4"/><circle cx="292" cy="72" r="5"/>
+      </svg>
+      <button class="signature-knot knot-one" data-open-object="39" type="button" aria-label="Enter archive through a conversation">
+        <img src="/media/39.jpeg" alt=""/>
+        <span data-i18n="knotOne">01 / ENCOUNTER</span>
+      </button>
+      <button class="signature-knot knot-two" data-open-object="40" type="button" aria-label="Enter archive through a workshop">
+        <img src="/media/40.jpeg" alt=""/>
+        <span data-i18n="knotTwo">02 / PRACTICE</span>
+      </button>
+      <button class="signature-knot knot-three" data-open-object="41" type="button" aria-label="Enter archive through a cyanotype print">
+        <img src="/media/41.jpeg" alt=""/>
+        <span data-i18n="knotThree">03 / TRACE</span>
+      </button>
+      <button class="signature-knot knot-four" data-open-object="42" type="button" aria-label="Enter archive through a printed notebook">
+        <img src="/media/42.jpeg" alt=""/>
+        <span data-i18n="knotFour">04 / MEMORY</span>
+      </button>
+      <div class="signature-whisper" data-i18n="signatureWhisper">NOT WRITTEN OVER THE ARCHIVE. WOVEN FROM IT.</div>
+    </div>
+  </div>
+  <div class="veil" id="veil" aria-hidden="true"></div>
+
+  <header class="chrome">
+    <button class="identity" id="homeBtn" type="button" aria-label="Return to archive beginning">
+      <span class="identity-symbol">D<span>∕</span>A</span>
+      <span class="identity-name">DARB<br>ARCHIVE</span>
+    </button>
+    <div class="chrome-center"><span class="chrome-cross">✳</span><span data-i18n="memory">THE LIVING MEMORY</span></div>
+    <nav class="chrome-actions" aria-label="Experience controls">
+      <button id="localeBtn" class="chrome-button language" type="button" aria-label="Change language">عربي</button>
+      <button id="modeBtn" class="chrome-button view-switch" type="button" aria-pressed="false"><span class="mode-icon" aria-hidden="true">✧</span><span data-i18n="explore">EXPLORE</span></button>
+      <button id="indexBtn" class="menu-button" type="button" aria-label="Open archive index" aria-expanded="false"><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main class="narrative" id="narrative" aria-live="off">
+    <div class="narrative-overline" id="narrativeOverline">ARCHIVE NO. 001 / CAIRO</div>
+    <h1 class="statement" id="statement"><span id="statementA">An archive</span><em id="statementB">is never still.</em></h1>
+    <p class="narrative-body" id="narrativeBody">A place is shaped by the people, encounters and experiments that pass through it.</p>
+    <div class="chapter-source" id="chapterSource">DARB 1718 · OVERVIEW 2026</div>
+  </main>
+
+  <div class="axis" id="axis" role="group" aria-label="Journey chapters">
+    <span class="axis-number" id="axisNumber">01 / 07</span>
+    <div class="axis-track" id="axisTrack"><i id="axisFill"></i></div>
+    <button id="nextBtn" class="axis-next" type="button" aria-label="Continue to next moment">↓</button>
+  </div>
+
+  <div class="instruction" id="instruction">
+    <span class="instruction-line"></span>
+    <span id="instructionText">SCROLL TO TRAVEL THROUGH THE ARCHIVE</span>
+  </div>
+
+  <div class="spatial-controls" id="spatialControls" hidden aria-label="Move through the archive">
+    <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
+    <button id="zoomOut" type="button" aria-label="Zoom out">−</button>
+    <button id="resetView" type="button" aria-label="See whole archive">⊙</button>
+  </div>
+  <div class="spatial-hint" id="spatialHint" hidden>
+    <span data-i18n="spatialHint">DRAG TO WANDER · SCROLL TO ZOOM · SELECT AN IMAGE</span>
+  </div>
+
+  <section class="object-detail" id="detail" hidden aria-live="polite" aria-label="Archival object encounter">
+    <button class="detail-dismiss" id="closeDetail" type="button" aria-label="Close object details">×</button>
+    <div class="detail-marker" id="detailMarker">ARCHIVE OBJECT / 001</div>
+    <h2 id="detailTitle"></h2>
+    <p id="detailText"></p>
+    <div class="detail-meta" id="detailMeta"></div>
+    <div class="detail-source-note" id="detailSourceNote" hidden>
+      <span id="detailSourceLabel">ABOUT THIS IMAGE</span>
+      <p id="detailSourceBody"></p>
+    </div>
+    <div class="related" id="relatedObjects" aria-label="Other records in this programme"></div>
+    <div class="detail-controls">
+      <button id="followBtn" type="button" class="text-action" hidden>FOLLOW THIS THREAD ↗</button>
+      <button id="sourceBtn" type="button" class="text-action">VIEW RECORD ↗</button>
+    </div>
+  </section>
+
+  <section class="index" id="index" hidden role="dialog" aria-modal="true" aria-label="Explore Darb Archive connections">
+    <div class="index-top">
+      <span class="index-id">DARB ARCHIVE <span class="atlas-divider">/</span> THE LIVING MEMORY</span>
+      <button id="closeIndex" type="button" aria-label="Return to the archive">CLOSE <span aria-hidden="true">×</span></button>
+    </div>
+    <div class="atlas-introduction">
+      <span class="atlas-coordinate" data-i18n="atlasCoordinate">A CONNECTED SPACE · 17 CONSTELLATIONS</span>
+      <h2 data-i18n="indexTitle">Not one beginning. Follow a thread.</h2>
+      <span class="atlas-touch-hint" data-i18n="atlasMobileHint">DRAG SIDEWAYS TO WANDER</span>
+    </div>
+
+    <div class="atlas-viewport" id="atlasViewport" aria-label="Spatial map of archive programmes">
+      <div class="atlas-stage" id="atlasStage">
+        <svg class="atlas-lines" id="atlasLines" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="index-items" id="indexItems"></div>
+        <div class="atlas-center" aria-hidden="true"><span>D</span><span>∕</span><span>A</span><small>THE LIVING MEMORY</small></div>
+        <span class="atlas-signal signal-a" aria-hidden="true">26°02′ / 31°15′</span>
+        <span class="atlas-signal signal-b" aria-hidden="true">17 / THREADS OF MEMORY</span>
+      </div>
+    </div>
+
+    <div class="atlas-caption" id="atlasFocus" aria-live="polite">
+      <img id="atlasFocusImage" src="/media/39.jpeg" alt="" />
+      <div class="atlas-caption-copy">
+        <span id="atlasFocusType">ARCHIVE / 01</span>
+        <strong id="atlasFocusTitle">Tales of Fustat</strong>
+        <p id="atlasFocusInfo">Follow a programme into its works and connections.</p>
+        <button id="atlasEnter" type="button">ENTER THIS THREAD <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+
+    <div class="index-search">
+      <label for="archiveSearch" data-i18n="searchLabel">FIND A TRACE</label>
+      <input id="archiveSearch" type="search" autocomplete="off" placeholder="Search artworks, programmes, practices..." />
+      <div class="index-results" id="searchResults" hidden></div>
+    </div>
+    <div class="index-foot">
+      <span data-i18n="atlasHint">SELECT A CONSTELLATION · MOVE INTO THE ARCHIVE</span>
+      <span data-i18n="atlasMobileHint">MOVE SIDEWAYS TO EXPLORE</span>
+    </div>
+  </section>
+
+  <div class="scroll-runway" id="runway" aria-hidden="true"></div>
+</div>
+
+<section class="reading" id="reading">
+  <div class="reading-top"><span>DARB ARCHIVE / TEXT RECORD</span><button id="backToScene" type="button">↑ <span data-i18n="returnScene">RETURN TO EXPERIENCE</span></button></div>
+  <h2 data-i18n="readingTitle">A quieter way to follow the archive.</h2>
+  <p data-i18n="readingIntro">The same source-linked story, without spatial motion.</p>
+  <ol id="readingList"></ol>
+  <p class="reading-foot" data-i18n="readingFoot">Working research experience — independent of the official Darb website.</p>
+</section>
+
+
+<!-- Optional 06A material lab. Only shown at ?entrance=v2; it never changes
+     the working Stage 05 default entrance or creates a parallel website. -->
+<section class="entrance-lab" id="entranceLab" hidden role="dialog" aria-modal="true" aria-label="Entrance Ritual V2 original textile material study">
+  <canvas id="ritualCanvas" aria-label="Interactive unfurling textile with a first stitched aperture"></canvas>
+  <div class="ritual-hud">
+    <div class="ritual-overline" id="ritualLabel">06A / MATERIAL STUDY</div>
+    <button id="ritualLanguage" type="button" aria-label="Change entrance language">عربي</button>
+    <button id="ritualSkip" type="button">ENTER ARCHIVE ↗</button>
+  </div>
+  <div class="ritual-eye-targets" id="ritualEyeTargets" aria-label="Open a discovered trace in the archive">
+    <button type="button" data-eye-entry="witness" aria-label="Enter through the first woven eye" disabled><span class="ritual-sr">First woven eye</span></button>
+    <button type="button" data-eye-entry="retained" aria-label="Enter through the second woven eye" disabled><span class="ritual-sr">Second woven eye</span></button>
+    <button type="button" data-eye-entry="visitor" aria-label="Enter through the third woven eye" disabled><span class="ritual-sr">Third woven eye</span></button>
+  </div>
+  <div id="ritualPortal" class="ritual-portal" aria-hidden="true"></div>
+  <div class="ritual-bottom">
+    <div class="ritual-reading" aria-live="polite">
+      <span class="ritual-grain" id="ritualSource">A THREAD FROM FUSTAT</span>
+      <div id="ritualTitle" class="ritual-title">A fragment of memory.</div>
+      <div id="ritualInstruction" class="ritual-instruction">DRAG THE FRINGE / SCROLL / PRESS SPACE</div>
+    </div>
+    <div class="ritual-actions">
+      <div class="ritual-progress"><span id="ritualStatus">0%</span><span id="ritualSound">SILENT BY DESIGN</span></div>
+      <button id="ritualPull" type="button">CONTINUE THE UNFURLING</button>
+      <div class="ritual-traces" id="ritualTraces" hidden aria-label="Choose a revealed archival trace">
+        <button type="button" data-ritual-trace="witness" aria-pressed="true">01 / WITNESS</button>
+        <button type="button" data-ritual-trace="retained" aria-pressed="false">02 / RETAINED</button>
+        <button type="button" data-ritual-trace="visitor" aria-pressed="false">03 / VISITOR</button>
+      </div>
+      <button id="ritualEnter" type="button" hidden>FOLLOW THIS TRACE ↗</button>
+      <button id="ritualReduced" type="button">STILL STUDY</button>
+    </div>
+  </div>
+  <div id="ritualFootnote" class="ritual-footnote">The edge remembers what the image cannot.</div>
+</section>
+<script type="module" src="/entrance-lab.mjs"></script>
+
+<script type="module" src="/app.mjs"></script>
+</body>
+</html>

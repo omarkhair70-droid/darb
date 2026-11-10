@@ -1,0 +1,1778 @@
+{
+  "version": 2,
+  "source": "Darb_1718_Overview_2026_original.pdf",
+  "recordCount": 77,
+  "items": [
+    {
+      "id": 1,
+      "page": 1,
+      "xref": 308,
+      "kind": "place_photo",
+      "cluster": "place",
+      "title": {
+        "en": "Historic Darb exterior, mural and trees",
+        "ar": "درب في الفسطاط"
+      },
+      "project": {
+        "en": "Darb 1718 / place",
+        "ar": "درب / المكان"
+      },
+      "src": "/media/1.jpeg",
+      "sourceFilename": "pdf_image_0308.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "historic_venue",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 2,
+      "page": 1,
+      "xref": 309,
+      "kind": "logo_graphic",
+      "cluster": "place",
+      "title": {
+        "en": "Black institutional logo treatment",
+        "ar": "هوية درب"
+      },
+      "project": {
+        "en": "Darb 1718 / place",
+        "ar": "درب / المكان"
+      },
+      "src": "/media/2.png",
+      "sourceFilename": "pdf_image_0309.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "logo_variation",
+      "priority": "M",
+      "role": "graphic",
+      "display": true
+    },
+    {
+      "id": 3,
+      "page": 2,
+      "xref": 314,
+      "kind": "people_photo",
+      "cluster": "place",
+      "title": {
+        "en": "Audience and speakers seated during art conversation",
+        "ar": "لقاء فني"
+      },
+      "project": {
+        "en": "Darb 1718 / place",
+        "ar": "درب / المكان"
+      },
+      "src": "/media/3.jpeg",
+      "sourceFilename": "pdf_image_0314.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "people_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 4,
+      "page": 3,
+      "xref": 320,
+      "kind": "performance_photo",
+      "cluster": "practices",
+      "title": {
+        "en": "Warm-lit crowded night concert or performance",
+        "ar": "ليلة أداء"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/4.jpeg",
+      "sourceFilename": "pdf_image_0320.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "event_attribution",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 5,
+      "page": 3,
+      "xref": 321,
+      "kind": "exhibition_photo",
+      "cluster": "practices",
+      "title": {
+        "en": "Dark gallery with hanging and wall artworks",
+        "ar": "مساحة للعرض"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/5.jpeg",
+      "sourceFilename": "pdf_image_0321.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credits",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 6,
+      "page": 3,
+      "xref": 322,
+      "kind": "outreach_photo",
+      "cluster": "practices",
+      "title": {
+        "en": "Community workshop group holding illustrated works",
+        "ar": "ورشة مجتمعية"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/6.jpeg",
+      "sourceFilename": "pdf_image_0322.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "group_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 7,
+      "page": 3,
+      "xref": 323,
+      "kind": "craft_photo",
+      "cluster": "practices",
+      "title": {
+        "en": "Group working with pottery and ceramic crafts",
+        "ar": "الخزف والحرف"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/7.jpeg",
+      "sourceFilename": "pdf_image_0323.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "craftsperson_credits",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 8,
+      "page": 3,
+      "xref": 327,
+      "kind": "logo_graphic",
+      "cluster": "practices",
+      "title": {
+        "en": "Black and white circular Darb logo",
+        "ar": "شعار درب"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/8.png",
+      "sourceFilename": "pdf_image_0327.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "logo_variation",
+      "priority": "L",
+      "role": "graphic",
+      "display": false
+    },
+    {
+      "id": 9,
+      "page": 4,
+      "xref": 332,
+      "kind": "logo_graphic",
+      "cluster": "practices",
+      "title": {
+        "en": "Black and white circular Darb logo repeat",
+        "ar": "هوية مكررة"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/9.png",
+      "sourceFilename": "pdf_image_0332.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "duplicate_logo",
+      "priority": "L",
+      "role": "graphic",
+      "display": false
+    },
+    {
+      "id": 10,
+      "page": 4,
+      "xref": 333,
+      "kind": "exhibition_photo",
+      "cluster": "practices",
+      "title": {
+        "en": "Visitor at paper drawings suspended on gallery wall",
+        "ar": "زيارة المعرض"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/10.jpeg",
+      "sourceFilename": "pdf_image_0333.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artwork_and_visitor_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 11,
+      "page": 4,
+      "xref": 334,
+      "kind": "artwork_documentation",
+      "cluster": "practices",
+      "title": {
+        "en": "Framed monochrome artwork series on gallery wall",
+        "ar": "أعمال فنية معلّقة"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/11.jpeg",
+      "sourceFilename": "pdf_image_0334.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artwork_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 12,
+      "page": 4,
+      "xref": 335,
+      "kind": "artwork_documentation",
+      "cluster": "practices",
+      "title": {
+        "en": "Visitor wearing VR headset beside installation",
+        "ar": "تجربة الواقع الافتراضي"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/12.jpeg",
+      "sourceFilename": "pdf_image_0335.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "work_and_person_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 13,
+      "page": 4,
+      "xref": 336,
+      "kind": "exhibition_photo",
+      "cluster": "practices",
+      "title": {
+        "en": "Two people in conversation by sculptural display",
+        "ar": "حوار وسط الأعمال"
+      },
+      "project": {
+        "en": "Practice & encounter",
+        "ar": "الممارسة واللقاء"
+      },
+      "src": "/media/13.jpeg",
+      "sourceFilename": "pdf_image_0336.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "person_and_artist_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 14,
+      "page": 5,
+      "xref": 341,
+      "kind": "title_graphic",
+      "cluster": "unspoken",
+      "title": {
+        "en": "UNSPOKEN Arabic title on black",
+        "ar": "عنوان ما لم يُقال"
+      },
+      "project": {
+        "en": "UNSPOKEN",
+        "ar": "ما لم يُقال"
+      },
+      "src": "/media/14.png",
+      "sourceFilename": "pdf_image_0341.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "official_title_rights",
+      "priority": "M",
+      "role": "graphic",
+      "display": true
+    },
+    {
+      "id": 15,
+      "page": 5,
+      "xref": 342,
+      "kind": "exhibition_photo",
+      "cluster": "unspoken",
+      "title": {
+        "en": "Visitor silhouette facing hanging works on white wall",
+        "ar": "زيارة للمعرض"
+      },
+      "project": {
+        "en": "UNSPOKEN",
+        "ar": "ما لم يُقال"
+      },
+      "src": "/media/15.jpeg",
+      "sourceFilename": "pdf_image_0342.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "sensitive_programme",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 16,
+      "page": 5,
+      "xref": 343,
+      "kind": "exhibition_photo",
+      "cluster": "unspoken",
+      "title": {
+        "en": "Two visitors examining drawings and paper works",
+        "ar": "مشاهدة الرسومات"
+      },
+      "project": {
+        "en": "UNSPOKEN",
+        "ar": "ما لم يُقال"
+      },
+      "src": "/media/16.jpeg",
+      "sourceFilename": "pdf_image_0343.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "sensitive_programme",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 17,
+      "page": 5,
+      "xref": 344,
+      "kind": "exhibition_photo",
+      "cluster": "unspoken",
+      "title": {
+        "en": "Small group in front of drawings and portrait works",
+        "ar": "الجمهور والأعمال"
+      },
+      "project": {
+        "en": "UNSPOKEN",
+        "ar": "ما لم يُقال"
+      },
+      "src": "/media/17.jpeg",
+      "sourceFilename": "pdf_image_0344.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "sensitive_programme",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 18,
+      "page": 5,
+      "xref": 345,
+      "kind": "exhibition_photo",
+      "cluster": "unspoken",
+      "title": {
+        "en": "Visitor side view, drawings hung in softly lit room",
+        "ar": "حوار بصري"
+      },
+      "project": {
+        "en": "UNSPOKEN",
+        "ar": "ما لم يُقال"
+      },
+      "src": "/media/18.jpeg",
+      "sourceFilename": "pdf_image_0345.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "sensitive_programme",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 19,
+      "page": 6,
+      "xref": 350,
+      "kind": "exhibition_photo",
+      "cluster": "garden",
+      "title": {
+        "en": "Person examining framed works and printed texts",
+        "ar": "تأمل الأعمال"
+      },
+      "project": {
+        "en": "Darb fi Al-Hadiqqa",
+        "ar": "درب في الحديقة"
+      },
+      "src": "/media/19.jpeg",
+      "sourceFilename": "pdf_image_0350.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_and_caption",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 20,
+      "page": 6,
+      "xref": 351,
+      "kind": "exhibition_photo",
+      "cluster": "garden",
+      "title": {
+        "en": "Group gathered in white gallery",
+        "ar": "لقاء في الحديقة"
+      },
+      "project": {
+        "en": "Darb fi Al-Hadiqqa",
+        "ar": "درب في الحديقة"
+      },
+      "src": "/media/20.jpeg",
+      "sourceFilename": "pdf_image_0351.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "people_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 21,
+      "page": 7,
+      "xref": 359,
+      "kind": "installation_photo",
+      "cluster": "inbetween",
+      "title": {
+        "en": "Suspended white textiles occupying gallery",
+        "ar": "المنسوجات المعلّقة"
+      },
+      "project": {
+        "en": "INBETWEEN",
+        "ar": "INBETWEEN"
+      },
+      "src": "/media/21.jpeg",
+      "sourceFilename": "pdf_image_0359.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "installation_artist",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 22,
+      "page": 7,
+      "xref": 360,
+      "kind": "artwork_documentation",
+      "cluster": "inbetween",
+      "title": {
+        "en": "Monochrome prints lined along shelf",
+        "ar": "سلسلة مطبوعات"
+      },
+      "project": {
+        "en": "INBETWEEN",
+        "ar": "INBETWEEN"
+      },
+      "src": "/media/22.jpeg",
+      "sourceFilename": "pdf_image_0360.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artwork_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 23,
+      "page": 8,
+      "xref": 366,
+      "kind": "exhibition_photo",
+      "cluster": "young",
+      "title": {
+        "en": "Gathering inside young artists exhibition",
+        "ar": "لقاء الفنانين الصغار"
+      },
+      "project": {
+        "en": "Young artists",
+        "ar": "مش مجرد عيال"
+      },
+      "src": "/media/23.jpeg",
+      "sourceFilename": "pdf_image_0366.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "visitor_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 24,
+      "page": 8,
+      "xref": 367,
+      "kind": "exhibition_photo",
+      "cluster": "young",
+      "title": {
+        "en": "Two visitors in front of artwork",
+        "ar": "زوار المعرض"
+      },
+      "project": {
+        "en": "Young artists",
+        "ar": "مش مجرد عيال"
+      },
+      "src": "/media/24.jpeg",
+      "sourceFilename": "pdf_image_0367.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 25,
+      "page": 8,
+      "xref": 368,
+      "kind": "exhibition_photo",
+      "cluster": "young",
+      "title": {
+        "en": "Two people posed in exhibition gallery",
+        "ar": "صور من المعرض"
+      },
+      "project": {
+        "en": "Young artists",
+        "ar": "مش مجرد عيال"
+      },
+      "src": "/media/25.jpeg",
+      "sourceFilename": "pdf_image_0368.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "person_permissions",
+      "priority": "L",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 26,
+      "page": 8,
+      "xref": 369,
+      "kind": "exhibition_photo",
+      "cluster": "young",
+      "title": {
+        "en": "Visitors observing colourful wall exhibition",
+        "ar": "أعمال متعددة"
+      },
+      "project": {
+        "en": "Young artists",
+        "ar": "مش مجرد عيال"
+      },
+      "src": "/media/26.jpeg",
+      "sourceFilename": "pdf_image_0369.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artwork_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 27,
+      "page": 8,
+      "xref": 370,
+      "kind": "artwork_documentation",
+      "cluster": "young",
+      "title": {
+        "en": "Two large framed paintings in gallery",
+        "ar": "لوحتان في المعرض"
+      },
+      "project": {
+        "en": "Young artists",
+        "ar": "مش مجرد عيال"
+      },
+      "src": "/media/27.jpeg",
+      "sourceFilename": "pdf_image_0370.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artwork_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 28,
+      "page": 8,
+      "xref": 371,
+      "kind": "artwork_documentation",
+      "cluster": "young",
+      "title": {
+        "en": "Works installed on white gallery wall",
+        "ar": "حائط الأعمال"
+      },
+      "project": {
+        "en": "Young artists",
+        "ar": "مش مجرد عيال"
+      },
+      "src": "/media/28.jpeg",
+      "sourceFilename": "pdf_image_0371.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 29,
+      "page": 9,
+      "xref": 379,
+      "kind": "identity_graphic",
+      "cluster": "jusoor",
+      "title": {
+        "en": "Green JUSOOR graphic on black",
+        "ar": "هوية جسور"
+      },
+      "project": {
+        "en": "Jusoor",
+        "ar": "جسور"
+      },
+      "src": "/media/29.png",
+      "sourceFilename": "pdf_image_0379.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "branding_rights",
+      "priority": "M",
+      "role": "graphic",
+      "display": true
+    },
+    {
+      "id": 30,
+      "page": 9,
+      "xref": 380,
+      "kind": "screening_photo",
+      "cluster": "jusoor",
+      "title": {
+        "en": "Audience watching projected film",
+        "ar": "جمهور السينما"
+      },
+      "project": {
+        "en": "Jusoor",
+        "ar": "جسور"
+      },
+      "src": "/media/30.jpeg",
+      "sourceFilename": "pdf_image_0380.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "film_and_audience_rights",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 31,
+      "page": 9,
+      "xref": 381,
+      "kind": "screening_photo",
+      "cluster": "jusoor",
+      "title": {
+        "en": "Audience seated informally in film discussion room",
+        "ar": "جلسة نقاش"
+      },
+      "project": {
+        "en": "Jusoor",
+        "ar": "جسور"
+      },
+      "src": "/media/31.jpeg",
+      "sourceFilename": "pdf_image_0381.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "audience_consent",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 32,
+      "page": 9,
+      "xref": 382,
+      "kind": "screening_photo",
+      "cluster": "jusoor",
+      "title": {
+        "en": "Green-lit gathering in screening room",
+        "ar": "لحظة عرض"
+      },
+      "project": {
+        "en": "Jusoor",
+        "ar": "جسور"
+      },
+      "src": "/media/32.jpeg",
+      "sourceFilename": "pdf_image_0382.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "event_caption",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 33,
+      "page": 9,
+      "xref": 383,
+      "kind": "discussion_photo",
+      "cluster": "jusoor",
+      "title": {
+        "en": "Three people speaking at screening discussion",
+        "ar": "حديث بعد الفيلم"
+      },
+      "project": {
+        "en": "Jusoor",
+        "ar": "جسور"
+      },
+      "src": "/media/33.jpeg",
+      "sourceFilename": "pdf_image_0383.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "speaker_names",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 34,
+      "page": 10,
+      "xref": 389,
+      "kind": "portrait_photo",
+      "cluster": "residency",
+      "title": {
+        "en": "Natalia Ossef outdoors holding camera",
+        "ar": "ناتاليا أوسيف"
+      },
+      "project": {
+        "en": "Natalia Ossef residency",
+        "ar": "إقامة ناتاليا أوسيف"
+      },
+      "src": "/media/34.jpeg",
+      "sourceFilename": "pdf_image_0389.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_photo_consent",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 35,
+      "page": 10,
+      "xref": 390,
+      "kind": "craft_photo",
+      "cluster": "residency",
+      "title": {
+        "en": "Artist working on patterned red fabric",
+        "ar": "العمل على القماش"
+      },
+      "project": {
+        "en": "Natalia Ossef residency",
+        "ar": "إقامة ناتاليا أوسيف"
+      },
+      "src": "/media/35.jpeg",
+      "sourceFilename": "pdf_image_0390.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_and_work_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 36,
+      "page": 10,
+      "xref": 391,
+      "kind": "residency_photo",
+      "cluster": "residency",
+      "title": {
+        "en": "Three people outdoors among greenery",
+        "ar": "لقاء في الإقامة"
+      },
+      "project": {
+        "en": "Natalia Ossef residency",
+        "ar": "إقامة ناتاليا أوسيف"
+      },
+      "src": "/media/36.jpeg",
+      "sourceFilename": "pdf_image_0391.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "people_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 37,
+      "page": 10,
+      "xref": 392,
+      "kind": "place_photo",
+      "cluster": "residency",
+      "title": {
+        "en": "Outdoor historical doorway and garden architecture",
+        "ar": "مكان الإقامة"
+      },
+      "project": {
+        "en": "Natalia Ossef residency",
+        "ar": "إقامة ناتاليا أوسيف"
+      },
+      "src": "/media/37.jpeg",
+      "sourceFilename": "pdf_image_0392.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "location_validation",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 38,
+      "page": 10,
+      "xref": 393,
+      "kind": "craft_photo",
+      "cluster": "residency",
+      "title": {
+        "en": "Collaborators surrounded by patterned textile works",
+        "ar": "نسيج تعاوني"
+      },
+      "project": {
+        "en": "Natalia Ossef residency",
+        "ar": "إقامة ناتاليا أوسيف"
+      },
+      "src": "/media/38.jpeg",
+      "sourceFilename": "pdf_image_0393.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "maker_credits",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 39,
+      "page": 11,
+      "xref": 400,
+      "kind": "workshop_photo",
+      "cluster": "fustat",
+      "title": {
+        "en": "Group interviews and conversation in open courtyard",
+        "ar": "حكايات الفسطاط"
+      },
+      "project": {
+        "en": "Tales of Fustat",
+        "ar": "حكاوي الفسطاط"
+      },
+      "src": "/media/39.jpeg",
+      "sourceFilename": "pdf_image_0400.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_and_location_consent",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 40,
+      "page": 11,
+      "xref": 401,
+      "kind": "workshop_photo",
+      "cluster": "fustat",
+      "title": {
+        "en": "People seated in group for photography workshop",
+        "ar": "ورشة تصوير"
+      },
+      "project": {
+        "en": "Tales of Fustat",
+        "ar": "حكاوي الفسطاط"
+      },
+      "src": "/media/40.jpeg",
+      "sourceFilename": "pdf_image_0401.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participants_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 41,
+      "page": 11,
+      "xref": 402,
+      "kind": "artwork_documentation",
+      "cluster": "fustat",
+      "title": {
+        "en": "Cyanotype blue image of craft form",
+        "ar": "طبعة سيانوتايب"
+      },
+      "project": {
+        "en": "Tales of Fustat",
+        "ar": "حكاوي الفسطاط"
+      },
+      "src": "/media/41.jpeg",
+      "sourceFilename": "pdf_image_0402.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "printmaker_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 42,
+      "page": 11,
+      "xref": 403,
+      "kind": "artwork_documentation",
+      "cluster": "fustat",
+      "title": {
+        "en": "Blue cyanotype sheets, photo prints and notebooks",
+        "ar": "دفاتر ومطبوعات"
+      },
+      "project": {
+        "en": "Tales of Fustat",
+        "ar": "حكاوي الفسطاط"
+      },
+      "src": "/media/42.jpeg",
+      "sourceFilename": "pdf_image_0403.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "work_author_credits",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 43,
+      "page": 12,
+      "xref": 408,
+      "kind": "workshop_photo",
+      "cluster": "room",
+      "title": {
+        "en": "Participant sharing illustrated book or object",
+        "ar": "مشاركة كتاب"
+      },
+      "project": {
+        "en": "A Room of One's Own",
+        "ar": "غرفة تخصّنا وحدنا"
+      },
+      "src": "/media/43.jpeg",
+      "sourceFilename": "pdf_image_0408.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 44,
+      "page": 12,
+      "xref": 409,
+      "kind": "workshop_photo",
+      "cluster": "room",
+      "title": {
+        "en": "Group writing conversation in small circle",
+        "ar": "دائرة كتابة"
+      },
+      "project": {
+        "en": "A Room of One's Own",
+        "ar": "غرفة تخصّنا وحدنا"
+      },
+      "src": "/media/44.jpeg",
+      "sourceFilename": "pdf_image_0409.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 45,
+      "page": 12,
+      "xref": 410,
+      "kind": "workshop_photo",
+      "cluster": "room",
+      "title": {
+        "en": "Participant drawing or writing with coloured media",
+        "ar": "رسم وكتابة"
+      },
+      "project": {
+        "en": "A Room of One's Own",
+        "ar": "غرفة تخصّنا وحدنا"
+      },
+      "src": "/media/45.jpeg",
+      "sourceFilename": "pdf_image_0410.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 46,
+      "page": 12,
+      "xref": 411,
+      "kind": "workshop_photo",
+      "cluster": "room",
+      "title": {
+        "en": "Three participants assembling papers on floor",
+        "ar": "عمل جماعي"
+      },
+      "project": {
+        "en": "A Room of One's Own",
+        "ar": "غرفة تخصّنا وحدنا"
+      },
+      "src": "/media/46.jpeg",
+      "sourceFilename": "pdf_image_0411.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 47,
+      "page": 13,
+      "xref": 416,
+      "kind": "workshop_photo",
+      "cluster": "voice",
+      "title": {
+        "en": "Group voice and movement practice with green ambient light",
+        "ar": "حركة وصوت"
+      },
+      "project": {
+        "en": "Voice in Motion",
+        "ar": "الحركة في الصوت"
+      },
+      "src": "/media/47.jpeg",
+      "sourceFilename": "pdf_image_0416.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 48,
+      "page": 13,
+      "xref": 417,
+      "kind": "portrait_photo",
+      "cluster": "voice",
+      "title": {
+        "en": "Man demonstrating expressive pose",
+        "ar": "إيماءة"
+      },
+      "project": {
+        "en": "Voice in Motion",
+        "ar": "الحركة في الصوت"
+      },
+      "src": "/media/48.jpeg",
+      "sourceFilename": "pdf_image_0417.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 49,
+      "page": 13,
+      "xref": 418,
+      "kind": "workshop_photo",
+      "cluster": "voice",
+      "title": {
+        "en": "Group participation at table or workstation",
+        "ar": "تجربة جماعية"
+      },
+      "project": {
+        "en": "Voice in Motion",
+        "ar": "الحركة في الصوت"
+      },
+      "src": "/media/49.jpeg",
+      "sourceFilename": "pdf_image_0418.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 50,
+      "page": 13,
+      "xref": 419,
+      "kind": "workshop_photo",
+      "cluster": "voice",
+      "title": {
+        "en": "Seated circle engaged in voice exercise",
+        "ar": "دائرة استماع"
+      },
+      "project": {
+        "en": "Voice in Motion",
+        "ar": "الحركة في الصوت"
+      },
+      "src": "/media/50.jpeg",
+      "sourceFilename": "pdf_image_0419.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participant_consent",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 51,
+      "page": 14,
+      "xref": 425,
+      "kind": "event_photo",
+      "cluster": "sector",
+      "title": {
+        "en": "Alexandria Biennale press conference panel",
+        "ar": "سياق بينالي الإسكندرية"
+      },
+      "project": {
+        "en": "Alexandria Biennale / context",
+        "ar": "بينالي الإسكندرية / سياق"
+      },
+      "src": "/media/51.jpeg",
+      "sourceFilename": "pdf_image_0425.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "not_darb_event",
+      "priority": "L",
+      "role": "context",
+      "display": true
+    },
+    {
+      "id": 52,
+      "page": 15,
+      "xref": 430,
+      "kind": "exhibition_photo",
+      "cluster": "something",
+      "title": {
+        "en": "Visitors reading coloured wall panels in historic room",
+        "ar": "زوار المعرض"
+      },
+      "project": {
+        "en": "Something Else",
+        "ar": "Something Else"
+      },
+      "src": "/media/52.jpeg",
+      "sourceFilename": "pdf_image_0430.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artwork_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 53,
+      "page": 16,
+      "xref": 435,
+      "kind": "exhibition_photo",
+      "cluster": "symposium",
+      "title": {
+        "en": "Art pieces in historic coffered-ceiling space",
+        "ar": "أعمال في المكان التاريخي"
+      },
+      "project": {
+        "en": "Something Else Symposium",
+        "ar": "ملتقى Something Else"
+      },
+      "src": "/media/53.png",
+      "sourceFilename": "pdf_image_0435.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artwork_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 54,
+      "page": 16,
+      "xref": 436,
+      "kind": "installation_photo",
+      "cluster": "symposium",
+      "title": {
+        "en": "Coloured illuminated ceiling installation",
+        "ar": "تركيب مضيء"
+      },
+      "project": {
+        "en": "Something Else Symposium",
+        "ar": "ملتقى Something Else"
+      },
+      "src": "/media/54.png",
+      "sourceFilename": "pdf_image_0436.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 55,
+      "page": 16,
+      "xref": 437,
+      "kind": "artwork_documentation",
+      "cluster": "symposium",
+      "title": {
+        "en": "Two large text artworks held inside historic venue",
+        "ar": "أعمال نصية"
+      },
+      "project": {
+        "en": "Something Else Symposium",
+        "ar": "ملتقى Something Else"
+      },
+      "src": "/media/55.png",
+      "sourceFilename": "pdf_image_0437.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_and_work_rights",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 56,
+      "page": 17,
+      "xref": 443,
+      "kind": "artwork_documentation",
+      "cluster": "citadel",
+      "title": {
+        "en": "Large colourful mask-like image or artwork",
+        "ar": "قناع بصري"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/56.png",
+      "sourceFilename": "pdf_image_0443.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credits",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 57,
+      "page": 17,
+      "xref": 444,
+      "kind": "artwork_documentation",
+      "cluster": "citadel",
+      "title": {
+        "en": "Long framed or mounted artwork sequence",
+        "ar": "سلسلة أعمال"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/57.png",
+      "sourceFilename": "pdf_image_0444.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credits",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 58,
+      "page": 17,
+      "xref": 445,
+      "kind": "place_event_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Citadel courtyard with dispersed visitors",
+        "ar": "ساحة القلعة"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/58.png",
+      "sourceFilename": "pdf_image_0445.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "venue_and_event_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 59,
+      "page": 17,
+      "xref": 446,
+      "kind": "event_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Artists or crew outside light-coloured building",
+        "ar": "صُنّاع المعرض"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/59.png",
+      "sourceFilename": "pdf_image_0446.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "participants_and_venue",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 60,
+      "page": 17,
+      "xref": 447,
+      "kind": "installation_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Dark gallery with sculptural installation",
+        "ar": "تركيب نحتي"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/60.png",
+      "sourceFilename": "pdf_image_0447.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 61,
+      "page": 17,
+      "xref": 448,
+      "kind": "installation_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Warm orange projected artwork inside historic hall",
+        "ar": "إسقاط ضوئي"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/61.png",
+      "sourceFilename": "pdf_image_0448.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 62,
+      "page": 17,
+      "xref": 449,
+      "kind": "installation_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Thin suspended white lines inside stone vaulted hall",
+        "ar": "خطوط في الفراغ"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/62.png",
+      "sourceFilename": "pdf_image_0449.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 63,
+      "page": 17,
+      "xref": 450,
+      "kind": "installation_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Small light-coloured sculptural installation in stone space",
+        "ar": "منحوتة في الحجر"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/63.png",
+      "sourceFilename": "pdf_image_0450.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 64,
+      "page": 17,
+      "xref": 451,
+      "kind": "installation_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Dramatically lit framed work in dark chamber",
+        "ar": "عمل داخل القاعة"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/64.png",
+      "sourceFilename": "pdf_image_0451.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 65,
+      "page": 17,
+      "xref": 452,
+      "kind": "event_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "People speaking beside red-toned artwork",
+        "ar": "لقاء مع الفن"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/65.png",
+      "sourceFilename": "pdf_image_0452.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "people_and_work_credit",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 66,
+      "page": 18,
+      "xref": 457,
+      "kind": "place_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Evening historic building exterior, glowing internal lights",
+        "ar": "مبنى مضاء"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/66.jpeg",
+      "sourceFilename": "pdf_image_0457.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "exact_place_and_date",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 67,
+      "page": 19,
+      "xref": 463,
+      "kind": "place_event_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Citadel wide courtyard with visitors",
+        "ar": "جمهور في القلعة"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/67.jpeg",
+      "sourceFilename": "pdf_image_0463.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "event_attribution",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 68,
+      "page": 19,
+      "xref": 464,
+      "kind": "performance_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Woman in traditional-looking clothing performing in art event",
+        "ar": "أداء حي"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/68.jpeg",
+      "sourceFilename": "pdf_image_0464.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "performer_identity",
+      "priority": "M",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 69,
+      "page": 19,
+      "xref": 465,
+      "kind": "installation_photo",
+      "cluster": "citadel",
+      "title": {
+        "en": "Suspended mixed material sculpture under purple light",
+        "ar": "تركيب معلّق"
+      },
+      "project": {
+        "en": "Something Else / Citadel",
+        "ar": "Something Else / القلعة"
+      },
+      "src": "/media/69.jpeg",
+      "sourceFilename": "pdf_image_0465.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "artist_credit",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 70,
+      "page": 20,
+      "xref": 469,
+      "kind": "performance_photo",
+      "cluster": "music",
+      "title": {
+        "en": "Audience on colourful cushions inside performance room",
+        "ar": "الجمهور يستمع"
+      },
+      "project": {
+        "en": "Performance & gathering",
+        "ar": "الموسيقى واللقاء"
+      },
+      "src": "/media/70.jpeg",
+      "sourceFilename": "pdf_image_0469.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "audience_and_event",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 71,
+      "page": 20,
+      "xref": 470,
+      "kind": "performance_photo",
+      "cluster": "music",
+      "title": {
+        "en": "Traditional instrument performers before seated audience",
+        "ar": "الموسيقى الحية"
+      },
+      "project": {
+        "en": "Performance & gathering",
+        "ar": "الموسيقى واللقاء"
+      },
+      "src": "/media/71.jpeg",
+      "sourceFilename": "pdf_image_0470.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "performers_and_music",
+      "priority": "H",
+      "role": "image",
+      "display": true
+    },
+    {
+      "id": 72,
+      "page": 20,
+      "xref": 471,
+      "kind": "logo_graphic",
+      "cluster": "music",
+      "title": {
+        "en": "Small Darb circular logo repeated",
+        "ar": "هوية مكررة"
+      },
+      "project": {
+        "en": "Performance & gathering",
+        "ar": "الموسيقى واللقاء"
+      },
+      "src": "/media/72.png",
+      "sourceFilename": "pdf_image_0471.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "duplicate_logo",
+      "priority": "L",
+      "role": "graphic",
+      "display": false
+    },
+    {
+      "id": 73,
+      "page": 21,
+      "xref": 482,
+      "kind": "layout_artifact",
+      "cluster": "plans",
+      "title": {
+        "en": "Very thin vertical line from graphic or layout",
+        "ar": "عنصر من التنسيق"
+      },
+      "project": {
+        "en": "Architecture / research",
+        "ar": "عمارة / بحث"
+      },
+      "src": "/media/73.png",
+      "sourceFilename": "pdf_image_0482.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "non_editorial",
+      "priority": "X",
+      "role": "image",
+      "display": false
+    },
+    {
+      "id": 74,
+      "page": 21,
+      "xref": 686,
+      "kind": "layout_artifact",
+      "cluster": "plans",
+      "title": {
+        "en": "Solid dark vertical rectangle / layout fragment",
+        "ar": "عنصر من التخطيط"
+      },
+      "project": {
+        "en": "Architecture / research",
+        "ar": "عمارة / بحث"
+      },
+      "src": "/media/74.png",
+      "sourceFilename": "pdf_image_0686.png",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "non_editorial",
+      "priority": "X",
+      "role": "image",
+      "display": false
+    },
+    {
+      "id": 75,
+      "page": 21,
+      "xref": 689,
+      "kind": "architectural_plan",
+      "cluster": "plans",
+      "title": {
+        "en": "2D outdoor plan with lines and measurements",
+        "ar": "مخطط خارجي"
+      },
+      "project": {
+        "en": "Architecture / research",
+        "ar": "عمارة / بحث"
+      },
+      "src": "/media/75.jpeg",
+      "sourceFilename": "pdf_image_0689.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "plan_proposal_status",
+      "priority": "M",
+      "role": "plan",
+      "display": true
+    },
+    {
+      "id": 76,
+      "page": 21,
+      "xref": 698,
+      "kind": "architectural_plan",
+      "cluster": "plans",
+      "title": {
+        "en": "2D first-floor plan with dimensions",
+        "ar": "مخطط الطابق الأول"
+      },
+      "project": {
+        "en": "Architecture / research",
+        "ar": "عمارة / بحث"
+      },
+      "src": "/media/76.jpeg",
+      "sourceFilename": "pdf_image_0698.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "plan_proposal_status",
+      "priority": "M",
+      "role": "plan",
+      "display": true
+    },
+    {
+      "id": 77,
+      "page": 21,
+      "xref": 715,
+      "kind": "architectural_plan",
+      "cluster": "plans",
+      "title": {
+        "en": "2D second-floor plan with dimensions",
+        "ar": "مخطط الطابق الثاني"
+      },
+      "project": {
+        "en": "Architecture / research",
+        "ar": "عمارة / بحث"
+      },
+      "src": "/media/77.jpeg",
+      "sourceFilename": "pdf_image_0715.jpeg",
+      "source": "Darb 1718 Overview 2026",
+      "rights": "approved_by_project_owner",
+      "editorial": "plan_proposal_status",
+      "priority": "M",
+      "role": "plan",
+      "display": true
+    }
+  ]
+}

@@ -1,0 +1,438 @@
+{
+  "schemaVersion": 1,
+  "id": "story:tales-of-fustat-001",
+  "title": {
+    "ar": "حكاوي الفسطاط — من اللقاء إلى الأثر",
+    "en": "Tales of Fustat — From Encounter to Trace"
+  },
+  "status": "research-only",
+  "sourceRegistry": [
+    {
+      "id": "overview:p11",
+      "title": "Darb 1718 Overview 2026",
+      "page": 11
+    },
+    {
+      "id": "audit:39",
+      "title": "77-image visual audit",
+      "assetNo": 39,
+      "pdfXref": 400
+    },
+    {
+      "id": "audit:40",
+      "title": "77-image visual audit",
+      "assetNo": 40,
+      "pdfXref": 401
+    },
+    {
+      "id": "audit:41",
+      "title": "77-image visual audit",
+      "assetNo": 41,
+      "pdfXref": 402
+    },
+    {
+      "id": "audit:42",
+      "title": "77-image visual audit",
+      "assetNo": 42,
+      "pdfXref": 403
+    }
+  ],
+  "nodes": [
+    {
+      "id": "project:tales",
+      "type": "project",
+      "title": {
+        "ar": "حكاوي الفسطاط",
+        "en": "Tales of Fustat"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "publication": "research"
+    },
+    {
+      "id": "place:fustat",
+      "type": "place",
+      "title": {
+        "ar": "حي الفسطاط",
+        "en": "Fustat neighbourhood"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "publication": "research"
+    },
+    {
+      "id": "practice:photowalk",
+      "type": "practice",
+      "title": {
+        "ar": "جولة تصوير",
+        "en": "Photography walk"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "publication": "research"
+    },
+    {
+      "id": "practice:interviews",
+      "type": "practice",
+      "title": {
+        "ar": "حكايات ومقابلات",
+        "en": "Stories and interviews"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "publication": "research"
+    },
+    {
+      "id": "practice:cyanotype",
+      "type": "practice",
+      "title": {
+        "ar": "الطباعة بالسيانوتايب",
+        "en": "Cyanotype printing"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "publication": "research"
+    },
+    {
+      "id": "object:notebooks",
+      "type": "output",
+      "title": {
+        "ar": "دفاتر الصور والحكايات",
+        "en": "Printed photographic story notebooks"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "publication": "research"
+    },
+    {
+      "id": "media:39",
+      "type": "media",
+      "title": {
+        "ar": "لقاء وحوار",
+        "en": "Group conversation"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:39"
+      ],
+      "publication": "blocked",
+      "media": {
+        "assetNo": 39,
+        "pdfXref": 400,
+        "file": "pdf_image_0400.jpeg",
+        "sourcePage": 11,
+        "visualAuditDescription": "Group interviews in courtyard",
+        "publicDisplay": false,
+        "credit": "unverified",
+        "consent": "unverified",
+        "highResOriginal": "unverified",
+        "rightsReview": "pending-asset-level-clearance"
+      }
+    },
+    {
+      "id": "media:40",
+      "type": "media",
+      "title": {
+        "ar": "ورشة تصوير",
+        "en": "Photography workshop group"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:40"
+      ],
+      "publication": "blocked",
+      "media": {
+        "assetNo": 40,
+        "pdfXref": 401,
+        "file": "pdf_image_0401.jpeg",
+        "sourcePage": 11,
+        "visualAuditDescription": "Participants seated for photography workshop",
+        "publicDisplay": false,
+        "credit": "unverified",
+        "consent": "unverified",
+        "highResOriginal": "unverified",
+        "rightsReview": "pending-asset-level-clearance"
+      }
+    },
+    {
+      "id": "media:41",
+      "type": "media",
+      "title": {
+        "ar": "طبعة سيانوتايب",
+        "en": "Cyanotype print"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:41"
+      ],
+      "publication": "blocked",
+      "media": {
+        "assetNo": 41,
+        "pdfXref": 402,
+        "file": "pdf_image_0402.jpeg",
+        "sourcePage": 11,
+        "visualAuditDescription": "Blue cyanotype image of craft form",
+        "publicDisplay": false,
+        "credit": "unverified",
+        "consent": "unverified",
+        "highResOriginal": "unverified",
+        "rightsReview": "pending-asset-level-clearance"
+      }
+    },
+    {
+      "id": "media:42",
+      "type": "media",
+      "title": {
+        "ar": "مطبوعات ودفاتر",
+        "en": "Prints and notebooks"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:42"
+      ],
+      "publication": "blocked",
+      "media": {
+        "assetNo": 42,
+        "pdfXref": 403,
+        "file": "pdf_image_0403.jpeg",
+        "sourcePage": 11,
+        "visualAuditDescription": "Cyanotypes, photographs and notebooks",
+        "publicDisplay": false,
+        "credit": "unverified",
+        "consent": "unverified",
+        "highResOriginal": "unverified",
+        "rightsReview": "pending-asset-level-clearance"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "project:tales",
+      "to": "place:fustat",
+      "relation": "neighbourhood-context",
+      "label": {
+        "ar": "البرنامج مرتبط بالفسطاط",
+        "en": "The programme is situated in Fustat"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "e2",
+      "from": "project:tales",
+      "to": "practice:photowalk",
+      "relation": "programme-activity",
+      "label": {
+        "ar": "جولة تصوير",
+        "en": "Photography walk"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "e3",
+      "from": "project:tales",
+      "to": "practice:interviews",
+      "relation": "programme-activity",
+      "label": {
+        "ar": "مقابلات وحكايات",
+        "en": "Interviews and stories"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "e4",
+      "from": "project:tales",
+      "to": "practice:cyanotype",
+      "relation": "programme-activity",
+      "label": {
+        "ar": "طباعة سيانوتايب",
+        "en": "Cyanotype printing"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "e5",
+      "from": "project:tales",
+      "to": "object:notebooks",
+      "relation": "programme-output",
+      "label": {
+        "ar": "دفاتر الصور والحكايات",
+        "en": "Photographic story notebooks"
+      },
+      "evidence": [
+        "overview:p11"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "media-39",
+      "from": "project:tales",
+      "to": "media:39",
+      "relation": "appears-on-source-page",
+      "label": {
+        "ar": "صورة واردة في صفحة المشروع",
+        "en": "Image appears on project's PDF page"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:39"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "media-40",
+      "from": "project:tales",
+      "to": "media:40",
+      "relation": "appears-on-source-page",
+      "label": {
+        "ar": "صورة واردة في صفحة المشروع",
+        "en": "Image appears on project's PDF page"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:40"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "media-41",
+      "from": "project:tales",
+      "to": "media:41",
+      "relation": "appears-on-source-page",
+      "label": {
+        "ar": "صورة واردة في صفحة المشروع",
+        "en": "Image appears on project's PDF page"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:41"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    },
+    {
+      "id": "media-42",
+      "from": "project:tales",
+      "to": "media:42",
+      "relation": "appears-on-source-page",
+      "label": {
+        "ar": "صورة واردة في صفحة المشروع",
+        "en": "Image appears on project's PDF page"
+      },
+      "evidence": [
+        "overview:p11",
+        "audit:42"
+      ],
+      "certainty": "documented-at-programme-level",
+      "publication": "research"
+    }
+  ],
+  "storySteps": [
+    {
+      "id": "threshold",
+      "focus": "project:tales",
+      "media": null,
+      "heading": {
+        "ar": "الحكاية تبدأ من مكان",
+        "en": "A story begins with a place"
+      },
+      "body": {
+        "ar": "مشي وتصوير وحوار في الفسطاط.",
+        "en": "Walking, photography and conversation in Fustat."
+      },
+      "interaction": "orient-to-place",
+      "quietMode": "readable text, caption, links to cited evidence"
+    },
+    {
+      "id": "encounter",
+      "focus": "practice:interviews",
+      "media": "media:39",
+      "heading": {
+        "ar": "من الحوار يبدأ الأثر",
+        "en": "A trace begins in conversation"
+      },
+      "body": {
+        "ar": "مقابلات وحكايات، دون افتراض هوية الأشخاص المصوّرين.",
+        "en": "Interviews and stories, without guessing photographed people's identities."
+      },
+      "interaction": "reveal-documented-activity",
+      "quietMode": "readable text, caption, links to cited evidence"
+    },
+    {
+      "id": "learn",
+      "focus": "practice:photowalk",
+      "media": "media:40",
+      "heading": {
+        "ar": "نتعلّم النظر",
+        "en": "Learning to look"
+      },
+      "body": {
+        "ar": "جولة التصوير جزء من توثيق الحي والتفاعل معه.",
+        "en": "The photo walk documents and engages with the neighbourhood."
+      },
+      "interaction": "branch-between-activities",
+      "quietMode": "readable text, caption, links to cited evidence"
+    },
+    {
+      "id": "trace",
+      "focus": "practice:cyanotype",
+      "media": "media:41",
+      "heading": {
+        "ar": "الضوء يترك أثره",
+        "en": "Light leaves a trace"
+      },
+      "body": {
+        "ar": "السيانوتايب ممارسة موثقة في البرنامج.",
+        "en": "Cyanotype is a documented programme practice."
+      },
+      "interaction": "inspect-material-and-evidence",
+      "quietMode": "readable text, caption, links to cited evidence"
+    },
+    {
+      "id": "record",
+      "focus": "object:notebooks",
+      "media": "media:42",
+      "heading": {
+        "ar": "الحكاية تصير شيئًا ملموسًا",
+        "en": "The story becomes tangible"
+      },
+      "body": {
+        "ar": "المطبوعات والدفاتر تحفظ الصور والحكايات.",
+        "en": "Prints and notebooks preserve photographs and stories."
+      },
+      "interaction": "follow-output-connection",
+      "quietMode": "readable text, caption, links to cited evidence"
+    }
+  ],
+  "editorialLimits": [
+    "No participant or artwork author identities guessed from photos.",
+    "Story order is editorial, not an asserted chronological photo sequence.",
+    "No public media without credit/consent clearance.",
+    "Historical Fustat does not prove a current Darb venue."
+  ]
+}
