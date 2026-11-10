@@ -1,6 +1,7 @@
 import {initialRitual,transitionRitual} from "/entrance-ritual-v2.mjs";
 import {EYES,ritualVisual,chooseSource,availableSources} from "/ritual-material.mjs";
 import {WovenSound} from "/woven-sound.mjs";
+import {drawThresholdBehind,drawThresholdInFront,projectWovenEye,thresholdEchoes} from "/threshold-world.mjs";
 
 // Slice 06B: an original, contemporary procedural textile study. It does NOT
 // represent a documented Darb carpet or reproduce a historical museum artifact.
@@ -155,15 +156,7 @@ function mountEntranceLab(){
  // Project the REAL textile aperture positions onto the viewport, sharing the
  // exact oblique material geometry with render(). These are not side menu items.
  function eyeScreenPoint(eye){
-  const w=innerWidth,h=innerHeight;
-  const scale=w<700?clamp(w/1100,.34,.58):Math.min(w/1300,h/860,.99);
-  const tw=960*scale,th=550*scale,angle=w<680?-.12:-.095;
-  const x=-tw*.03+tw*eye.x-tw*.47;
-  const y=th*eye.y-th*.48;
-  return {
-   x:w*.5+x*Math.cos(angle)-y*Math.sin(angle),
-   y:h*(w<700?.38:.43)+x*Math.sin(angle)+y*Math.cos(angle)
-  };
+  return projectWovenEye(eye,innerWidth,innerHeight,progress);
  }
  function updateEyeTargets(){
   const available=availableSources(Math.max(progress,targetProgress));
@@ -410,6 +403,10 @@ function mountEntranceLab(){
   glow.addColorStop(0,"#a25b4436");glow.addColorStop(.5,"#7c492411");glow.addColorStop(1,"#0b131000");
   c.fillStyle=glow;c.fillRect(0,0,w,h);
   c.restore();
+  // The surrounding world is born from the same three image-bearing weave
+  // apertures. It is a lit depth field, not another gallery UI behind the rug.
+  drawThresholdBehind(c,{w,h,progress,gaze,time:last,
+   reducedMotion:ritual.reducedMotion,photos:[photo,retainedPhoto,visitorPhoto]});
   const scale=w<700?clamp(w/1100,.34,.58):Math.min(w/1300,h/860,.99);
   const textileW=960*scale,textileH=550*scale;
   // A 2.5D tilted object with thickness. Mobile keeps its physical proportions
@@ -510,6 +507,8 @@ function mountEntranceLab(){
   // A connection grows only once the visitor actually enters an eye.
   // Loose threads must not hang into empty UI space at 100% unfold.
   paintPassage(c,w,h,textileW,textileH,originX,departureAmount);
+  drawThresholdInFront(c,{w,h,progress,gaze,time:last,reducedMotion:ritual.reducedMotion});
+  root.dataset.memoryEchoes=String(thresholdEchoes(progress));
   // Finite readable cue: it does not turn into a conventional hero section.
   const t=fmt[lang];
   el("ritualTitle").textContent=progress<.10?t.early:progress<.64?t.progress:t.opened;
