@@ -833,3 +833,82 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  .experience[data-mode="encounter"] .related-item img{height:51px;max-width:74px}
  .experience[data-mode="encounter"] .related-item span{font-size:8px}
 }
+
+
+/* STAGE 08 — THE CLOTH IS THE INTERFACE
+   Editorial typography, chapter selection and technical status stop framing
+   the textile as a web hero. The three source-backed apertures ARE navigation. */
+.entrance-lab .ritual-overline,
+.entrance-lab .ritual-grain,
+.entrance-lab .ritual-title,
+.entrance-lab .ritual-footnote,
+.entrance-lab .ritual-progress,
+.entrance-lab .ritual-traces,
+.entrance-lab #ritualEnter,
+.entrance-lab #ritualPull,
+.entrance-lab #ritualReduced{display:none!important}
+.entrance-lab .ritual-hud{top:clamp(18px,3vh,36px);left:clamp(18px,3vw,46px);
+ right:clamp(18px,3vw,46px);gap:18px;justify-content:flex-end}
+.entrance-lab .ritual-hud button{border:0;font-size:10px;letter-spacing:.10em;
+ color:#d0c3ad;opacity:.70;transition:opacity .3s,background .3s}
+.entrance-lab .ritual-hud button:hover,.entrance-lab .ritual-hud button:focus-visible{opacity:1}
+.entrance-lab .ritual-hud #ritualLanguage{margin:0;order:1;min-width:32px}
+.entrance-lab .ritual-hud #ritualAudio{order:2;width:36px;height:36px;display:grid;
+ place-items:center;border:1px solid #c7bd9b52;border-radius:50%;
+ padding:0;background:#13201b4d;font-size:20px;line-height:1;opacity:.7}
+.entrance-lab .ritual-hud #ritualAudio[aria-pressed="true"]{
+ border-color:#dbbf98;background:#5e4c3888;color:#f8e4c4;opacity:1}
+.entrance-lab .ritual-hud #ritualSkip{order:3;margin:0;white-space:nowrap;
+ padding:10px 0;text-transform:none;letter-spacing:.06em}
+.entrance-lab .ritual-bottom{left:0;right:0;bottom:clamp(18px,5vh,48px);
+ display:flex;justify-content:center;align-items:center;pointer-events:none}
+.entrance-lab .ritual-reading{max-width:calc(100vw - 38px);text-align:center}
+.entrance-lab .ritual-instruction{
+ color:#e8d5b5a8;font:400 10px/1.5 Arial,sans-serif;letter-spacing:.16em;
+ text-align:center;text-shadow:0 1px 8px #030d0b99;transition:opacity .6s}
+.entrance-lab[data-phase="passage"] .ritual-instruction{opacity:.85}
+.entrance-lab .ritual-actions{display:none!important}
+.ritual-sr{position:absolute!important;clip-path:inset(50%)!important;
+ width:1px!important;height:1px!important;overflow:hidden!important;white-space:nowrap!important}
+.entrance-lab .ritual-eye-targets{position:absolute;z-index:5;inset:0;pointer-events:none}
+.entrance-lab .ritual-eye-targets button{
+ pointer-events:auto;position:absolute;width:clamp(64px,7.2vw,112px);height:clamp(64px,7.2vw,112px);
+ border:1px solid transparent;border-radius:50%;background:transparent;
+ transform:translate(-50%,-50%);cursor:zoom-in;opacity:0;
+ transition:border-color .4s,opacity .4s,box-shadow .4s,background .4s}
+.entrance-lab .ritual-eye-targets button:disabled{pointer-events:none}
+.entrance-lab .ritual-eye-targets button:not(:disabled){opacity:.46}
+.entrance-lab .ritual-eye-targets button:not(:disabled):before{
+ content:"";position:absolute;inset:34%;border:1px solid #edd6a68a;
+ border-radius:50%;background:#ecd9b013;box-shadow:0 0 12px #e4b9897a}
+.entrance-lab .ritual-eye-targets button:not(:disabled):hover,
+.entrance-lab .ritual-eye-targets button:focus-visible{
+ opacity:1;border-color:#e9c79b9c;box-shadow:0 0 0 10px #dabd8b12,0 0 20px #e1b98b30;
+ outline:none;background:#ae957818}
+.entrance-lab .ritual-eye-targets button:not(:disabled):hover:after,
+.entrance-lab .ritual-eye-targets button:focus-visible:after{
+ content:"↗";position:absolute;bottom:-18px;left:calc(50% - 6px);
+ color:#f0d6b1;font:16px/1 Arial,sans-serif}
+.entrance-lab .ritual-portal{position:absolute;z-index:3;inset:0;pointer-events:none;
+ background-position:center;background-size:cover;opacity:0;
+ clip-path:circle(0 at var(--portal-x,50%) var(--portal-y,45%));
+ filter:saturate(.75) contrast(.95) sepia(.08)}
+.entrance-lab.is-departing{animation:ritual-crossing 1150ms ease-in-out both}
+.entrance-lab.is-departing .ritual-portal{
+ opacity:1;clip-path:circle(145vmax at var(--portal-x,50%) var(--portal-y,45%));
+ transition:clip-path .98s cubic-bezier(.23,.65,.12,1),opacity .28s}
+.entrance-lab.is-departing .ritual-eye-targets,
+.entrance-lab.is-departing .ritual-hud,
+.entrance-lab.is-departing .ritual-bottom{opacity:0;transition:opacity .3s}
+@keyframes ritual-crossing{0%,60%{opacity:1}100%{opacity:0}}
+@media(max-width:800px){
+ .entrance-lab .ritual-hud{top:13px;left:17px;right:17px;gap:12px}
+ .entrance-lab .ritual-bottom{bottom:29px}
+ .entrance-lab .ritual-instruction{font-size:9px;letter-spacing:.08em;max-width:320px}
+ .entrance-lab .ritual-eye-targets button{width:65px;height:65px}
+}
+@media(prefers-reduced-motion:reduce){
+ .entrance-lab.is-departing{animation:none;opacity:0;transition:opacity .15s}
+ .entrance-lab.is-departing .ritual-portal{transition:none;clip-path:circle(145vmax at var(--portal-x,50%) var(--portal-y,45%))}
+ .entrance-lab .ritual-eye-targets button{transition:none}
+}
