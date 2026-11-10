@@ -22,7 +22,8 @@ test("the carpet—not a hero, percentage or trace list—owns the visual stage"
  await expect(page.locator("#ritualStatus")).toBeHidden();
  await expect(page.locator("#ritualTraces")).toBeHidden();
  await expect(page.locator("#ritualEnter")).toBeHidden();
- await expect(page.locator("#ritualAudio")).toHaveAttribute("aria-pressed","false");
+ await expect(page.locator("#ritualAudio")).toHaveCount(0);
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","off");
  expect((await page.request.get("/threshold-world.mjs")).status()).toBe(200);
  await page.screenshot({path:"test-results/"+info.project.name+"-cloth-first-opening.png"});
  await unfold(page);
@@ -55,9 +56,14 @@ test("touching a physical eye opens its real image in the same archive",async({p
  await unfold(page);
  await page.locator('[data-eye-entry="retained"]').click();
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#detail")).toBeHidden();
+ await expect(page.locator("#experience")).toHaveAttribute("data-woven-source","41");
+ await expect(page.locator(".artifact[data-id='41']")).toHaveClass(/is-woven-source/);
+ // The visitor opens this object's details only after choosing its real work.
+ await page.locator(".artifact[data-id='41'] button").evaluate(button=>button.click());
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
- await expect(page.locator(".artifact[data-id='41']")).toHaveClass(/is-encounter/);
- await expect(page.locator("#canvas")).toHaveAttribute("data-material","cyanotype");
+ await expect(page.locator("#detail")).toBeVisible();
  await page.locator("#closeDetail").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  expect(errors).toEqual([]);
@@ -69,7 +75,10 @@ test("each of the other two woven openings leads to its own archival source",asy
   await unfold(page);
   await page.locator('[data-eye-entry="'+key+'"]').click();
   await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
-  await expect(page.locator('.artifact[data-id="'+id+'"]')).toHaveClass(/is-encounter/);
+  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+  await expect(page.locator("#detail")).toBeHidden();
+  await expect(page.locator("#experience")).toHaveAttribute("data-woven-source",String(id));
+  await expect(page.locator('.artifact[data-id="'+id+'"]')).toHaveClass(/is-woven-source/);
  }
 });
 
@@ -79,8 +88,9 @@ test("a further scroll completes the same journey without Follow This Trace",asy
  await page.locator("#ritualCanvas").hover({position:{x:80,y:80}});
  await page.mouse.wheel(0,200);
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
- await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
- await expect(page.locator('.artifact[data-id="39"]')).toHaveClass(/is-encounter/);
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#detail")).toBeHidden();
+ await expect(page.locator(".artifact[data-id='39']")).toHaveClass(/is-woven-source/);
 });
 
 test("continuing the physical swipe after unfolding enters the archive without choosing an eye",async({page})=>{
@@ -97,26 +107,42 @@ test("continuing the physical swipe after unfolding enters the archive without c
  await page.mouse.move(x,y-220,{steps:12});
  await page.mouse.up();
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
- await expect(page.locator(".artifact[data-id='39']")).toHaveClass(/is-encounter/);
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#detail")).toBeHidden();
+ await expect(page.locator(".artifact[data-id='39']")).toHaveClass(/is-woven-source/);
  expect(errors).toEqual([]);
 });
 
-test("language, deliberate mute, and immediate skip remain accessible",async({page})=>{
+test("sound is introduced by permitted visitor gesture without a visible switch and stops when skipping",async({page})=>{
+ const errors=[];page.on("pageerror",error=>errors.push(error.message));
  await page.goto("/?entrance=v2");
+ await expect(page.locator("#ritualAudio")).toHaveCount(0);
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","off");
+ // First real key interaction unlocks a browser Web Audio context.
+ await page.locator("#entranceLab").focus();
+ await page.keyboard.press("ArrowDown");
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","on");
  await page.locator("#ritualLanguage").click();
  await expect(page.locator("#ritualInstruction")).toContainText("اسحب");
- await expect(page.locator("#ritualAudio")).toHaveAttribute("aria-pressed","false");
- await page.locator("#ritualAudio").click();
- await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","on");
- await expect(page.locator("#ritualAudio")).toHaveAttribute("aria-label",/Mute|كتم/);
- await page.locator("#ritualAudio").click();
- await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","off");
  await page.locator("#ritualSkip").click();
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:3000});
  await expect(page.locator("html")).toHaveAttribute("lang","ar");
- await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#detail")).toBeHidden();
+ await expect(page.locator("#experience")).not.toHaveAttribute("data-woven-source",/.+/);
+ expect(errors).toEqual([]);
 });
 
+test("Follow Story after arrival begins the relevant programme rather than an unrelated chapter",async({page})=>{
+ await page.goto("/?entrance=v2");
+ await unfold(page);
+ await page.locator('[data-eye-entry="retained"]').click();
+ await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await page.locator("#modeBtn").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
+ await expect(page.locator("#detail")).toBeHidden();
+});
 
 test("the surrounding space is a source-linked field, not a carpet on a static backdrop",async({page},info)=>{
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
