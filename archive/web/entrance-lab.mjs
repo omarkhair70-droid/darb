@@ -417,7 +417,12 @@ function mountEntranceLab(){
   // A 2.5D tilted object with thickness. Mobile keeps its physical proportions
   // instead of stretching it to cover the viewport.
   c.save();
-  c.translate(w*.50,h*(w<700?.38:.43));
+  // The first image is not an isolated roll in the left third of a hero.
+  // The camera initially holds the rolled edge near the visitor's center,
+  // then yields space to the actual fabric as it is physically pulled open.
+  const cameraRelease=smooth(.02,.74,progress);
+  const leadShift=(1-cameraRelease)*textileW*.42;
+  c.translate(w*.50+leadShift,h*((w<700?.38:.43)+(1-cameraRelease)*.10));
   c.rotate(w<680?-.12:-.095);
   c.translate(-textileW*.47,-textileH*.48);
   const originX=-textileW*.03,originY=0;
