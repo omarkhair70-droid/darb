@@ -19,7 +19,8 @@ await mkdir(join(out,"media"),{recursive:true});
 
 const files=[
  ["web/index.html","index.html"],["web/styles.css","styles.css"],
- ["web/app.mjs","app.mjs"],["src/graph.mjs","graph.mjs"],
+ ["web/app.mjs","app.mjs"],["web/entrance-lab.mjs","entrance-lab.mjs"],
+ ["src/entrance-ritual-v2.mjs","entrance-ritual-v2.mjs"],["src/graph.mjs","graph.mjs"],
  ["src/world-layout.mjs","world-layout.mjs"],
  ["data/tales-of-fustat-001.json","story.json"],
  ["data/media-catalog.json","catalog.json"],
