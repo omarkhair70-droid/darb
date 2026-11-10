@@ -78,3 +78,19 @@ test("material path retains genuine Arabic editorial limits and a quiet reduced-
  await page.locator("#closeDetail").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
 });
+
+
+test("rapid rebranching doesn't leave obsolete source images highlighted",async({page})=>{
+ const errors=[];page.on("pageerror",e=>errors.push(e.message));
+ await page.goto("/");
+ await page.locator("#modeBtn").click();
+ await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await page.locator("#relatedObjects .is-material-trace").evaluate(b=>b.click());
+ await page.locator("#relatedObjects .is-material-trace").evaluate(b=>b.click());
+ await expect(page.locator("#experience")).toHaveAttribute("data-material-stage","print");
+ await page.waitForTimeout(1250);
+ await expect(page.locator(".artifact.is-material-origin")).toHaveCount(0);
+ await expect(page.locator(".artifact.is-encounter")).toHaveCount(1);
+ await expect(page.locator(".artifact[data-id='42']")).toHaveClass(/is-encounter/);
+ expect(errors).toEqual([]);
+});
