@@ -365,30 +365,37 @@ function mountEntranceLab(){
   c.restore();
  }
 
- function paintPassage(c,w,h,textileW,textileH,originX,amount){
-  if(amount<=0)return;
-  const material=EYES.find(x=>x.sourceId===selectedSourceId)||EYES[0];
-  const angle=w<680?-.12:-.095;
-  const lx=originX+textileW*material.x-textileW*.47;
-  const ly=textileH*material.y-textileH*.48;
-  const sx=w*.5+lx*Math.cos(angle)-ly*Math.sin(angle);
-  const sy=h*(w<700?.38:.43)+lx*Math.sin(angle)+ly*Math.cos(angle);
-  const endX=w*(w<700?.98:.93),endY=h*(w<700?.25:.43);
+ function paintPassage(c,w,h,amount){
+  if(amount<=0||ritual.reducedMotion)return;
+  const aperture=EYES.find(item=>item.sourceId===selectedSourceId)||EYES[0];
+  // One physical origin is shared by the painted strands, the accessible eye
+  // target, and the circular photographic portal. Never approximate it again.
+  const {x:sx,y:sy}=eyeScreenPoint(aperture);
+  // Each material gives the transition a distinct spatial gesture. These are
+  // authored viewing treatments, not assertions about how a source was made.
+  const scores={
+   witness:{endX:w*.91,endY:h*.43,bend:.28,fan:19,colors:["#d8b18b","#92b4ab","#d6c5a4"]},
+   retained:{endX:w*.80,endY:h*.24,bend:.46,fan:13,colors:["#b1d9e1","#d7c6a8","#6d99a9"]},
+   visitor:{endX:w*.75,endY:h*.71,bend:.19,fan:25,colors:["#d7c9ad","#b49c77","#a9bcb0"]}
+  };
+  const score=scores[aperture.key];
   c.save();c.lineCap="round";c.globalAlpha=.60*amount;
-  // Fibers don't dissolve to reveal a new website. They stay continuous
-  // from the selected aperture until the underlying archival camera resolves.
   for(let i=0;i<23;i++){
-   const k=(i-11)/11,side=k*(12+amount*15);
-   c.beginPath();c.moveTo(sx+side*.35,sy+side*.44);
-   c.bezierCurveTo(sx+(endX-sx)*.28,sy+side*2.1,
-      endX-(endX-sx)*(.15+Math.abs(k)*.08),
-      endY+side*1.6,endX+w*.07,endY+side*.5);
-   c.strokeStyle=i%4===0?"#d8b18b":i%2===0?"#92b4ab":"#d6c5a4";
+   const k=(i-11)/11;
+   const side=k*(9+amount*score.fan);
+   const xEnd=score.endX+side*.75;
+   const yEnd=score.endY+side*(aperture.key==="visitor"?1.25:1.5);
+   c.beginPath();c.moveTo(sx+side*.18,sy+side*.18);
+   c.bezierCurveTo(
+    sx+(xEnd-sx)*score.bend,sy+side*(1.05+score.bend),
+    xEnd-(xEnd-sx)*.18,yEnd-side*.43,
+    xEnd,yEnd
+   );
+   c.strokeStyle=score.colors[i%score.colors.length];
    c.lineWidth=i%7===0?1.2:.55;c.stroke();
   }
   c.restore();
  }
-
  function render(){
   const w=innerWidth,h=innerHeight,c=ctx;
   const bg=c.createRadialGradient(w*.53,h*.42,1,w*.5,h*.5,Math.max(w,h)*.7);
@@ -555,7 +562,7 @@ function mountEntranceLab(){
   c.restore();
   // A connection grows only once the visitor actually enters an eye.
   // Loose threads must not hang into empty UI space at 100% unfold.
-  paintPassage(c,w,h,textileW,textileH,originX,departureAmount);
+  paintPassage(c,w,h,departureAmount);
   drawThresholdInFront(c,{w,h,progress,gaze,time:last,reducedMotion:ritual.reducedMotion});
   root.dataset.memoryEchoes=String(thresholdEchoes(progress));
   // Finite readable cue: it does not turn into a conventional hero section.
