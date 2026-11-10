@@ -948,3 +948,30 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 /* Arabic changes reading, not the physical camera/control geometry. */
 .entrance-lab[dir="rtl"] .ritual-hud #ritualLanguage{margin:0}
 .entrance-lab[dir="rtl"] .ritual-reading{text-align:center}
+
+
+/* Stage 11: first look into the world — image before information.
+   The selected original artwork is visible and clickable, while its detail
+   plate is never forced as the material portal opens. */
+.experience[data-arrival="woven"] .artifact.is-woven-source{
+ z-index:14;
+ filter:drop-shadow(0 8px 27px #c5aa806b);
+}
+.experience[data-arrival="woven"] .artifact.is-woven-source .artifact-inner{
+ box-shadow:0 0 0 1px #c6ad87a8,0 8px 42px #ad967c4a;
+}
+.experience[data-arrival="woven"] .artifact:not(.is-woven-source){
+ filter:saturate(.68) brightness(.88);
+}
+.experience[data-mode="explore"] .artifact.is-woven-source{
+ z-index:8;filter:drop-shadow(0 10px 24px #967b5a43);
+}
+.experience[data-mode="explore"] .artifact.is-woven-source figcaption{
+ opacity:1;color:#3a483d;
+}
+.experience[data-mode="explore"] .artifact.is-woven-source .artifact-inner{
+ box-shadow:0 0 0 1px #b4a27e89,0 17px 50px #98826442;
+}
+@media(prefers-reduced-motion:reduce){
+ .experience[data-arrival="woven"] .artifact{transition:none}
+}
