@@ -33,10 +33,10 @@ function mountEntranceLab(){
  const fmt={
   en:{lab:"06B / THE WOVEN GAZE",early:"A fragment of memory.",progress:"Pull the woven edge.",opened:"The weave remembers three ways of seeing.",instruction:"DRAG THE FRINGE / SCROLL / PRESS SPACE",
     pulling:"CONTINUE THE UNFURLING",enter:"FOLLOW THIS TRACE ↗",skip:"ENTER ARCHIVE ↗",reduced:"STILL STUDY",
-    audio:"SILENT BY DESIGN",soundOff:"SOUND / OFF",soundOn:"SOUND / ON",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"SOURCE / TALES OF FUSTAT · P.11",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"]},
+    audio:"SILENT BY DESIGN",soundOff:"SOUND / OFF",soundOn:"SOUND / ON",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"A THREAD FROM FUSTAT",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"]},
   ar:{lab:"٠٦ب / النظرة المنسوجة",early:"طرف من الذاكرة.",progress:"اسحب حافة النسيج.",opened:"النسيج افتكر تلات طرق للرؤية.",instruction:"اسحب الطرف / مرّر / اضغط مسافة",
     pulling:"كمّل فرد النسيج",enter:"اتبع الأثر ↗",skip:"ادخل الأرشيف ↗",reduced:"مشهد ثابت",
-    audio:"الصمت جزء من التصميم",soundOff:"الصوت / مغلق",soundOn:"الصوت / شغال",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"حكاوي الفسطاط · صفحة ١١",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"]}
+    audio:"الصمت جزء من التصميم",soundOff:"الصوت / مغلق",soundOn:"الصوت / شغال",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"خيط من حكاوي الفسطاط",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"]}
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
