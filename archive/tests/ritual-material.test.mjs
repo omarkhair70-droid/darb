@@ -7,8 +7,8 @@ test("three source-backed eyes emerge at different stages with different materia
  assert.equal(new Set(EYES.map(x=>x.material)).size,3);
  assert.deepEqual(EYES.map(x=>x.from).slice().sort((a,b)=>a-b),EYES.map(x=>x.from));
  assert.deepEqual(availableSources(.1),[]);
- assert.ok(availableSources(.66).includes(39));
- assert.ok(!availableSources(.66).includes(42));
+ assert.ok(availableSources(.70).includes(39));
+ assert.ok(!availableSources(.70).includes(42));
  assert.deepEqual(availableSources(.94),[39,41,42]);
 });
 
