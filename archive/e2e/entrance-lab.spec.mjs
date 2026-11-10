@@ -168,3 +168,27 @@ test("the surrounding space is a source-linked field, not a carpet on a static b
  await page.screenshot({path:"test-results/"+info.project.name+"-09-woven-threshold-entire-frame.png"});
  expect(errors).toEqual([]);
 });
+
+test("each woven aperture shares its exact center with the photographic portal",async({page})=>{
+ for(const [eye,source] of [["witness",39],["retained",41],["visitor",42]]){
+  await page.goto("/?entrance=v2");
+  await unfold(page);
+  const measurement=await page.locator('[data-eye-entry="'+eye+'"]').evaluate(button=>{
+   const r=button.getBoundingClientRect();
+   // Capture the same-frame handoff before the transition animation starts.
+   button.click();
+   const root=document.querySelector("#entranceLab");
+   const portal=root.querySelector("#ritualPortal");
+   return {
+    eyeX:r.left+r.width/2,eyeY:r.top+r.height/2,
+    portalX:Number.parseFloat(root.style.getPropertyValue("--portal-x")),
+    portalY:Number.parseFloat(root.style.getPropertyValue("--portal-y")),
+    photo:portal.style.backgroundImage
+   };
+  });
+  expect(Math.abs(measurement.eyeX-measurement.portalX)).toBeLessThan(1);
+  expect(Math.abs(measurement.eyeY-measurement.portalY)).toBeLessThan(1);
+  expect(measurement.photo).toContain("/media/"+source+".jpeg");
+  await expect(page.locator("#experience")).toHaveAttribute("data-woven-source",String(source));
+ }
+});
