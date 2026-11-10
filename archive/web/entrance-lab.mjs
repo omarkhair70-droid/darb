@@ -183,16 +183,20 @@ function mountEntranceLab(){
   return hoveredEyeKey||EYES[0].key;
  }
 
+ function advanceVisibleRitual(){
+  // Phase follows visible cloth, never a target that is still resisting the
+  // visitor's pull. This keeps the physical opening and story in step.
+  if(ritual.phase==="unlit"&&progress>.02)ritual=transitionRitual(ritual,"START");
+  if(ritual.phase==="unfurl"&&progress>.59)ritual=transitionRitual(ritual,"CLOTH_EXTENDED");
+  if(ritual.phase==="tension"&&progress>.78)ritual=transitionRitual(ritual,"APERTURES_REVEALED");
+  if(ritual.phase==="recognition"&&progress>.90)ritual=transitionRitual(ritual,"VIEW_ALIGNED");
+ }
  function setProgress(n){
   if(departed)return;
   const previous=targetProgress;
   targetProgress=clamp(n,0,1);
   if(sound.enabled&&Math.abs(previous-targetProgress)>.006)sound.rustle(Math.abs(previous-targetProgress)*2.1);
-  if(ritual.phase==="unlit"&&targetProgress>.02)ritual=transitionRitual(ritual,"START");
-  if(ritual.phase==="unfurl"&&targetProgress>.59)ritual=transitionRitual(ritual,"CLOTH_EXTENDED");
-  if(ritual.phase==="tension"&&targetProgress>.78)ritual=transitionRitual(ritual,"APERTURES_REVEALED");
-  if(ritual.phase==="recognition"&&targetProgress>.90)ritual=transitionRitual(ritual,"VIEW_ALIGNED");
-  if(ritual.reducedMotion){progress=targetProgress;clothVelocity=0;}
+  if(ritual.reducedMotion){progress=targetProgress;clothVelocity=0;advanceVisibleRitual();}
   invalidate();
  }
  function resize(){
@@ -210,6 +214,7 @@ function mountEntranceLab(){
   const cloth=stepCloth({position:progress,velocity:clothVelocity},targetProgress,dt,
     {reducedMotion:ritual.reducedMotion});
   progress=cloth.position;clothVelocity=cloth.velocity;
+  advanceVisibleRitual();
   if(departureStartedAt)departureAmount=clamp((time-departureStartedAt)/930);
   render();
   if(progress!==targetProgress||(departureStartedAt&&departureAmount<1))invalidate();
