@@ -26,9 +26,9 @@
 | A08 | Full-frame spatial threshold with visual/photo echoes | IN DESIGN | Entire view responds to the cloth, no drifting gallery thumbnails or unexplained green void |
 | A09 | Scroll/touch from fabric into the same actual image world | WORKING; IN DESIGN for camera blend | No compulsory menu, hard cut or automatic detail pane; reverse and skip remain clear |
 | A10 | Intro-only original tactile sound with browser-compliant activation | WORKING; IN DESIGN for sound score | Meaningful fiber tension/release/silence/entry beats; accessible quiet path |
-| A11 | Photograph-specific encounter (#39) | **NEXT / starting slice** | Documentary image retains true framing, spatial group context, readable captions, back |
-| A12 | Cyanotype-specific encounter (#41) | **NEXT / starting slice** | Print surface, optical/light exposure and precise original proportions; not a blue tint over all work |
-| A13 | *One* actual programme path #39 → #41 → #42 | NEXT | Relationship stated honestly: shared documented programme + editorial viewing route, **never invented maker/person** |
+| A11 | Photograph-specific encounter (#39) | WORKING (interaction); IN DESIGN (art direction) | Documentary image retains true framing, spatial group context, readable captions, back |
+| A12 | Cyanotype-specific encounter (#41) | WORKING (interaction); IN DESIGN (art direction) | Print surface, optical/light exposure and precise original proportions; not a blue tint over all work |
+| A13 | *One* actual programme path #39 → #41 → #42 | WORKING (logic and browser tests); IN DESIGN (visual pacing) | Relationship stated honestly: shared documented programme + editorial viewing route, **never invented maker/person** |
 | A14 | A second cross-programme creative parallel (#41 ↔ #35) | NEXT | Editorial comparison explicitly labeled and reversible; photographic/provenance claims stay exact |
 | A15 | D–A–R–B from source-connected filament viewpoint | IN DESIGN (D), NEXT (A/R/B) | Letter is discoverable, not a printed logo nor a compulsory 4-part onboarding |
 | A16 | No Final Frame: route actually woven by visitor | IN DESIGN | Path is true visited sequence, not a claim of real-world history; can return freely |
@@ -39,6 +39,12 @@
 | A21 | Low-end Android, real iPhone Safari, Firefox & accessibility | **BLOCKED** pending device review | WCAG 2.2 AA-oriented audit, keyboard, RTL, reduced motion, pinch and focus, no scroll traps |
 | A22 | Field performance / stability | **BLOCKED** pending measurements | Actual LCP/INP/CLS and memory/frame measurements, lazy/priority image decode |
 | A23 | Technical and editorial maintainability | NEXT | Source-approved publishing workflow, revision history, consistent up-to-date docs |
+
+## 10 Nov verification — full visitor route
+- The existing `src/material-score.mjs`, `web/app.mjs` and `e2e/material-journey.spec.mjs` already implement and test the #39 → #41 → #42 route, with object-specific camera/material treatment, related-work choices and reverse history. Do not reimplement this slice.
+- `e2e/woven-fustat-full-journey.spec.mjs` now covers the previously untested *combined* textile → witness eye → archive → #39 → #41 → #42 → backward return to the same world on desktop and mobile, plus Arabic/reduced-motion access. Screenshot artifacts are for human review. This committed test has **not yet been executed or visually accepted** in this review; do not mark CI green without a run.
+- The textile remains opt-in at `/?entrance=v2`, while `/` retains the older entrance. This is one product with two entrances, **not** two archive products. Default-entry replacement is an art-direction decision after filmed QA, not a refactor to sneak into a patch.
+- Next visual acceptance: review five visitor-frame captures and footage on desktop and mobile, specifically source framing, arrival continuity, tactile realism, timing, captions and unfurling-to-camera blend. Fix evidenced failures before expanding the D–A–R–B identity language.
 
 ## Critical source truth
 - `data/media-catalog.json` marks some inputs `rights: approved_by_project_owner`, but `data/tales-of-fustat-001.json` still has multiple `publication: blocked` media nodes and unverified credits/consent. **An approved prototype import does not establish public display rights.** Keep test preview protected, and reconcile rights record-by-record before promotion.
