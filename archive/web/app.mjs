@@ -38,6 +38,30 @@ const copy={
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
+const visitedRoute=[];
+function rememberSource(id){
+ if(!id||!mediaRecord(id)||visitedRoute.at(-1)===id)return;
+ visitedRoute.push(id);
+ if(visitedRoute.length>64)visitedRoute.shift();
+ drawMemoryTrail();
+}
+function drawMemoryTrail(){
+ const svg=$("#memoryTrail");
+ if(!svg)return;
+ const items=visitedRoute.map(mediaRecord).filter(Boolean);
+ const paths=[];
+ for(let i=1;i<items.length;i++){
+  const a=items[i-1],b=items[i];
+  const ax=a.x+a.w/2,ay=a.y+a.h/2,bx=b.x+b.w/2,by=b.y+b.h/2;
+  const bend=Math.min(450,Math.hypot(bx-ax,by-ay)*.18);
+  paths.push('<path d="M '+ax+' '+ay+' C '+(ax+(bx-ax)*.29)+' '+(ay-bend)+
+   ' '+(bx-(bx-ax)*.27)+' '+(by+bend)+' '+bx+' '+by+'" />');
+ }
+ svg.innerHTML=paths.join("");
+ svg.setAttribute("aria-label",lang==="ar"
+  ?"خيوط الرحلة التي نسجها الزائر عبر الأعمال الأرشيفية"
+  :"The path this visitor has woven through archival works");
+}
 const atlasPositions={
  place:[103,268],practices:[249,198],fustat:[434,117],residency:[629,140],
  room:[803,90],voice:[988,183],jusoor:[1033,339],inbetween:[846,313],
@@ -143,6 +167,8 @@ function renderNarrative(beat){
  $("#canvas").dataset.beat=String(beat);
  $("#experience").dataset.beat=String(beat);
  const focusId=m.focusId;
+ if(focusId)rememberSource(focusId);
+ $("#experience").classList.toggle("is-final-memory",beat===moments.length-1&&visitedRoute.length>=2);
  $$(".artifact").forEach(fig=>fig.classList.toggle("is-focus",Number(fig.dataset.id)===focusId));
 }
 
@@ -249,6 +275,7 @@ function encounterCamera(item){
 }
 function inspect(id){
  const item=mediaRecord(id);if(!item)return;
+ rememberSource(id);
  if(!encounter){
   encounter={originMode:mode,originCamera:{...current},originTarget:{...target},
    scroll:scrollY,history:[],focus:document.activeElement,bodyOverflow:document.body.style.overflow};
