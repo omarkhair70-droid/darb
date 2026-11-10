@@ -298,7 +298,7 @@ function mountEntranceLab(){
   // do not draw an alphabet glyph or place a D SVG over the textile.
   const P=(x,y)=>[originX+w*x,originY+h*y];
   const anchors=[P(.25,.17),P(.255,.50),P(.25,.82)];
-  const witnesses=[P(.31,.50),P(.57,.245),P(.77,.655)];
+  const witnesses=EYES.map(eye=>P(eye.x,eye.y));
   c.save();c.globalAlpha=.72*amount;
   c.lineCap="round";
   for(let k=0;k<10;k++){
