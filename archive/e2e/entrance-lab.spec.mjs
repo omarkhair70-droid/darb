@@ -23,8 +23,10 @@ test("the carpet—not a hero, percentage or trace list—owns the visual stage"
  await expect(page.locator("#ritualTraces")).toBeHidden();
  await expect(page.locator("#ritualEnter")).toBeHidden();
  await expect(page.locator("#ritualAudio")).toHaveAttribute("aria-pressed","false");
+ expect((await page.request.get("/threshold-world.mjs")).status()).toBe(200);
  await page.screenshot({path:"test-results/"+info.project.name+"-cloth-first-opening.png"});
  await unfold(page);
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-memory-echoes","3");
  await expect(page.locator("#ritualInstruction")).toContainText(/TOUCH AN OPENING|KEEP MOVING/);
  const eye=page.locator('[data-eye-entry="retained"]');
  await expect(eye).toBeEnabled();
@@ -93,4 +95,30 @@ test("language, deliberate mute, and immediate skip remain accessible",async({pa
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:3000});
  await expect(page.locator("html")).toHaveAttribute("lang","ar");
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
+});
+
+
+test("the surrounding space is a source-linked field, not a carpet on a static backdrop",async({page},info)=>{
+ const errors=[];page.on("pageerror",e=>errors.push(e.message));
+ await page.goto("/?entrance=v2");
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-memory-echoes","0");
+ await page.locator("#entranceLab").focus();
+ await page.keyboard.press("ArrowDown");
+ await page.keyboard.press("ArrowDown");
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-memory-echoes","0");
+ await page.keyboard.press("ArrowDown");
+ await page.keyboard.press("ArrowDown");
+ await page.keyboard.press("ArrowDown");
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-memory-echoes","3");
+ const backdrop=await page.locator("#ritualCanvas").evaluate(canvas=>{
+  const c=canvas.getContext("2d");
+  const px=(x,y)=>{
+   const d=c.getImageData(Math.floor(x*canvas.width),Math.floor(y*canvas.height),1,1).data;
+   return [d[0],d[1],d[2]];
+  };
+  return {left: px(.08,.36),right: px(.85,.24),center:px(.52,.42)};
+ });
+ expect(new Set(Object.values(backdrop).map(c=>c.join(","))).size).toBeGreaterThan(1);
+ await page.screenshot({path:"test-results/"+info.project.name+"-09-woven-threshold-entire-frame.png"});
+ expect(errors).toEqual([]);
 });
