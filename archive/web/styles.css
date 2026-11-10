@@ -601,3 +601,69 @@ html[lang="ar"] #index h2{font-family:"Noto Naskh Arabic",Georgia,serif;letter-s
 /* Spatial coordinates are stable in AR/EN; only authored labels change reading direction. */
 #index .atlas-viewport,#index .atlas-stage,#index .index-items{direction:ltr}
 html[lang="ar"] #index .atlas-node-copy{direction:rtl;text-align:right}
+
+
+/* STAGE 06A — THE ARCHIVE UNFURLS / experimental material entrance only.
+   A self-contained, opt-in visual study, not the live homepage. */
+#entranceLab[hidden],#ritualEnter[hidden],#ritualPull[hidden]{display:none!important}
+html.ritual-lab-active,html.ritual-lab-active body{overflow:hidden!important}
+.entrance-lab{position:fixed;inset:0;z-index:400;background:#0d1614;color:#e5dec9;
+ isolation:isolate;overflow:hidden;touch-action:none;overscroll-behavior:none;
+ opacity:1;transition:opacity .95s cubic-bezier(.29,.73,.2,1)}
+.entrance-lab.is-departing{opacity:0;pointer-events:none}
+.entrance-lab canvas{width:100%;height:100%;display:block;position:absolute;inset:0;
+ touch-action:none;cursor:grab}
+.entrance-lab canvas:active{cursor:grabbing}
+.ritual-hud{position:absolute;z-index:2;left:clamp(19px,4vw,70px);
+ right:clamp(19px,4vw,70px);top:clamp(28px,5vh,58px);
+ display:flex;align-items:center;gap:20px;pointer-events:none}
+.ritual-hud button{border:0;background:none;color:#e5ddca;font:500 10px/1.4 Arial,sans-serif;
+ letter-spacing:.13em;pointer-events:auto;padding:11px 0;border-bottom:1px solid #d0bfa255}
+.ritual-hud button:hover{border-color:#efe1c3}
+.ritual-hud button:focus-visible,.ritual-actions button:focus-visible{outline:2px solid #d5b785;outline-offset:6px}
+.ritual-hud #ritualLanguage{margin-left:auto}
+.ritual-hud #ritualSkip{margin-left:16px}
+.ritual-overline{font:500 10px/1.4 Arial,sans-serif;letter-spacing:.25em;color:#baa994}
+.ritual-bottom{position:absolute;z-index:2;left:clamp(19px,4vw,70px);
+ right:clamp(19px,4vw,70px);bottom:clamp(45px,8vh,90px);
+ display:flex;align-items:flex-end;justify-content:space-between;gap:30px;pointer-events:none}
+.ritual-reading{max-width:550px}
+.ritual-grain{font:500 9px/1.5 Arial,sans-serif;letter-spacing:.22em;color:#baa58b}
+.ritual-title{font:400 clamp(27px,3vw,53px)/1.15 Georgia,"Times New Roman",serif;
+ margin:17px 0 19px;color:#ecddc3;letter-spacing:-.035em;text-wrap:balance}
+.ritual-instruction{font:400 10px/1.5 Arial,sans-serif;letter-spacing:.19em;color:#c1b29d}
+.ritual-actions{display:flex;flex-direction:column;align-items:flex-end;gap:16px;
+ pointer-events:auto;max-width:260px}
+.ritual-progress{display:flex;align-items:center;gap:15px;justify-content:flex-end;
+ font:500 9px/1.4 Arial,sans-serif;letter-spacing:.12em;color:#a79a84}
+.ritual-progress span:first-child{color:#e1c49f;font-variant-numeric:tabular-nums;font-size:12px}
+.ritual-actions button{background:transparent;color:#e1d7c2;border:0;
+ border-bottom:1px solid #e4c79892;padding:13px 0;font:500 10px/1.5 Arial,sans-serif;
+ letter-spacing:.14em;text-align:end}
+.ritual-actions #ritualEnter{font-size:12px;color:#f2dfb8;border-color:#e7c597}
+.ritual-actions #ritualReduced{font-size:9px;color:#ada38e;border-color:#7a78695e}
+.ritual-footnote{position:absolute;z-index:2;right:clamp(19px,4vw,70px);
+ top:clamp(90px,13vh,128px);max-width:220px;text-align:end;
+ font:400 10px/1.65 Arial,sans-serif;letter-spacing:.06em;color:#999b8f}
+.entrance-lab[dir="rtl"] .ritual-hud #ritualLanguage{margin-left:0;margin-right:auto}
+.entrance-lab[dir="rtl"] .ritual-bottom{direction:rtl}
+.entrance-lab[dir="rtl"] .ritual-title{font-family:"Noto Naskh Arabic",serif;letter-spacing:0}
+.entrance-lab[dir="rtl"] .ritual-actions{align-items:flex-start}
+.entrance-lab[dir="rtl"] .ritual-actions button{text-align:start}
+@media(max-width:800px){
+ .ritual-overline{font-size:8px;letter-spacing:.16em}
+ .ritual-hud{top:24px;gap:9px}
+ .ritual-hud button{font-size:9px}
+ .ritual-hud #ritualSkip{margin-left:4px}
+ .ritual-footnote{top:83px;right:17px;max-width:160px;font-size:9px}
+ .ritual-bottom{left:19px;right:19px;bottom:35px;display:block}
+ .ritual-grain{font-size:8px}
+ .ritual-title{font-size:clamp(25px,8vw,39px);margin:8px 0}
+ .ritual-instruction{font-size:8px;letter-spacing:.09em}
+ .ritual-actions{max-width:none;align-items:flex-start;margin-top:19px;gap:4px}
+ .ritual-progress{width:100%;justify-content:space-between}
+ .ritual-actions button{font-size:10px;padding:8px 0}
+}
+@media(prefers-reduced-motion:reduce){
+ .entrance-lab{transition:none}
+}
