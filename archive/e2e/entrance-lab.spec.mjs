@@ -80,6 +80,25 @@ test("a further scroll completes the same journey without Follow This Trace",asy
  await page.mouse.wheel(0,200);
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
+ await expect(page.locator('.artifact[data-id="39"]')).toHaveClass(/is-encounter/);
+});
+
+test("continuing the physical swipe after unfolding enters the archive without choosing an eye",async({page})=>{
+ const errors=[];page.on("pageerror",error=>errors.push(error.message));
+ await page.goto("/?entrance=v2");
+ await unfold(page);
+ // Permit visual interpolation to arrive rather than passing only the
+ // logical 100% target from the keyboard to an unfinished material frame.
+ await page.waitForTimeout(720);
+ const vp=page.viewportSize();
+ const x=vp.width*.76,y=vp.height*.84;
+ await page.mouse.move(x,y);
+ await page.mouse.down();
+ await page.mouse.move(x,y-220,{steps:12});
+ await page.mouse.up();
+ await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
+ await expect(page.locator(".artifact[data-id='39']")).toHaveClass(/is-encounter/);
+ expect(errors).toEqual([]);
 });
 
 test("language, deliberate mute, and immediate skip remain accessible",async({page})=>{
@@ -89,6 +108,7 @@ test("language, deliberate mute, and immediate skip remain accessible",async({pa
  await expect(page.locator("#ritualAudio")).toHaveAttribute("aria-pressed","false");
  await page.locator("#ritualAudio").click();
  await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","on");
+ await expect(page.locator("#ritualAudio")).toHaveAttribute("aria-label",/Mute|كتم/);
  await page.locator("#ritualAudio").click();
  await expect(page.locator("#entranceLab")).toHaveAttribute("data-audio","off");
  await page.locator("#ritualSkip").click();
