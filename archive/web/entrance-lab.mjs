@@ -37,7 +37,7 @@ function mountEntranceLab(){
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
- let gaze=.5,selectedSourceId=39;
+ let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0;
  const photo=new Image();
  photo.src="/media/39.jpeg";
  photo.decoding="async";
@@ -157,14 +157,15 @@ function mountEntranceLab(){
   ctx.setTransform(dpi,0,0,dpi,0,0);
   invalidate();
  }
- function invalidate(){if(!raf&&!departed)raf=requestAnimationFrame(frame);}
+ function invalidate(){if(!raf&&(!departed||departureStartedAt))raf=requestAnimationFrame(frame);}
  function frame(time){
   raf=0;
   const dt=last?Math.min(80,time-last):16.67;last=time;
   if(!ritual.reducedMotion)progress+=(targetProgress-progress)*(1-Math.exp(-dt/180));
   if(Math.abs(targetProgress-progress)<.001)progress=targetProgress;
+  if(departureStartedAt)departureAmount=clamp((time-departureStartedAt)/930);
   render();
-  if(progress!==targetProgress)invalidate();
+  if(progress!==targetProgress||(departureStartedAt&&departureAmount<1))invalidate();
  }
  function eye(c,x,y,size,amount){
   if(amount<=0)return;
@@ -318,6 +319,31 @@ function mountEntranceLab(){
   c.restore();
  }
 
+
+ function paintPassage(c,w,h,textileW,textileH,originX,amount){
+  if(amount<=0)return;
+  const material=EYES.find(x=>x.sourceId===selectedSourceId)||EYES[0];
+  const angle=w<680?-.12:-.095;
+  const lx=originX+textileW*material.x-textileW*.47;
+  const ly=textileH*material.y-textileH*.48;
+  const sx=w*.5+lx*Math.cos(angle)-ly*Math.sin(angle);
+  const sy=h*(w<700?.41:.43)+lx*Math.sin(angle)+ly*Math.cos(angle);
+  const endX=w*(w<700?.98:.93),endY=h*(w<700?.25:.43);
+  c.save();c.lineCap="round";c.globalAlpha=.60*amount;
+  // Fibers don't dissolve to reveal a new website. They stay continuous
+  // from the selected aperture until the underlying archival camera resolves.
+  for(let i=0;i<23;i++){
+   const k=(i-11)/11,side=k*(12+amount*15);
+   c.beginPath();c.moveTo(sx+side*.35,sy+side*.44);
+   c.bezierCurveTo(sx+(endX-sx)*.28,sy+side*2.1,
+      endX-(endX-sx)*(.15+Math.abs(k)*.08),
+      endY+side*1.6,endX+w*.07,endY+side*.5);
+   c.strokeStyle=i%4===0?"#d8b18b":i%2===0?"#92b4ab":"#d6c5a4";
+   c.lineWidth=i%7===0?1.2:.55;c.stroke();
+  }
+  c.restore();
+ }
+
  function render(){
   const w=innerWidth,h=innerHeight,c=ctx;
   const bg=c.createRadialGradient(w*.53,h*.42,1,w*.5,h*.5,Math.max(w,h)*.7);
@@ -421,6 +447,8 @@ function mountEntranceLab(){
   wash.addColorStop(0,"#ffffff0c");wash.addColorStop(.37,"#ffffff00");wash.addColorStop(.62,"#0d1c1740");wash.addColorStop(1,"#060d0f36");
   c.fillStyle=wash;c.fillRect(originX,originY,shownW,textileH);
   c.restore();
+  paintPassage(c,w,h,textileW,textileH,originX,
+   Math.max(material.paths,departureAmount));
   // Finite readable cue: it does not turn into a conventional hero section.
   const t=fmt[lang];
   el("ritualTitle").textContent=progress<.10?t.early:progress<.64?t.progress:t.opened;
@@ -443,7 +471,9 @@ function mountEntranceLab(){
     ?transitionRitual(ritual,"SOURCE_SELECTED",{sourceId:selectedSourceId})
     :transitionRitual(ritual,"ENTER_ARCHIVE",{sourceId:selectedSourceId});
   }catch(e){console.error(e)}
+  departureStartedAt=performance.now();
   root.classList.add("is-departing");
+  invalidate();
   document.documentElement.classList.remove("ritual-lab-active");
   if(archive)archive.inert=false;
   if(reading)reading.inert=false;
