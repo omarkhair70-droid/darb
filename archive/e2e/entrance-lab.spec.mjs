@@ -30,6 +30,19 @@ test("the carpet—not a hero, percentage or trace list—owns the visual stage"
  await expect(eye).toBeEnabled();
  await eye.hover();
  await page.waitForTimeout(450);
+ const eyeBounds=await page.locator("#ritualEyeTargets button:enabled").evaluateAll(nodes=>
+  nodes.map(node=>{
+   const rect=node.getBoundingClientRect();
+   return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,
+    width:innerWidth,height:innerHeight};
+  }));
+ for(const box of eyeBounds){
+  expect(box.left).toBeGreaterThanOrEqual(0);
+  expect(box.right).toBeLessThanOrEqual(box.width);
+  expect(box.top).toBeGreaterThanOrEqual(0);
+  expect(box.bottom).toBeLessThanOrEqual(box.height);
+ }
+ await expect(page.locator("#entranceLab")).toBeVisible();
  await page.screenshot({path:"test-results/"+info.project.name+"-cloth-first-three-eye-passage.png"});
  expect(errors).toEqual([]);
 });
