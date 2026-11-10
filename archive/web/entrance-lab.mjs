@@ -27,10 +27,10 @@ function mountEntranceLab(){
  const fmt={
   en:{lab:"06A / MATERIAL STUDY",early:"A fragment of memory.",progress:"Pull the woven edge.",opened:"The first witness is revealed.",instruction:"DRAG THE FRINGE / SCROLL / PRESS SPACE",
     pulling:"CONTINUE THE UNFURLING",enter:"FOLLOW THIS TRACE ↗",skip:"ENTER ARCHIVE ↗",reduced:"STILL STUDY",
-    audio:"SILENT BY DESIGN",language:"عربي",hint:"An original textile study—not a historic Darb object.",source:"SOURCE / TALES OF FUSTAT · P.11"},
+    audio:"SILENT BY DESIGN",language:"عربي",hint:"The edge remembers what the image cannot.",source:"SOURCE / TALES OF FUSTAT · P.11"},
   ar:{lab:"٠٦أ / دراسة الخامة",early:"طرف من الذاكرة.",progress:"اسحب حافة النسيج.",opened:"العين الأولى بدأت تشهد.",instruction:"اسحب الطرف / مرّر / اضغط مسافة",
     pulling:"كمّل فرد النسيج",enter:"اتبع الأثر ↗",skip:"ادخل الأرشيف ↗",reduced:"مشهد ثابت",
-    audio:"الصمت جزء من التصميم",language:"EN",hint:"نسيج بصري جديد، مش قطعة تاريخية من مقتنيات درب.",source:"حكاوي الفسطاط · صفحة ١١"}
+    audio:"الصمت جزء من التصميم",language:"EN",hint:"الخيط بيحتفظ باللي الصورة مش بتقوله.",source:"حكاوي الفسطاط · صفحة ١١"}
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
