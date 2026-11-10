@@ -28,25 +28,31 @@ export class WovenSound {
   if(!this.enabled||!ctx||ctx.state!=="running")return;
   const now=ctx.currentTime;
   // Low-intensity fiber friction cannot become a machine-gun click on dragging.
-  if(now-this.lastSoundAt<.07)return;
+  if(now-this.lastSoundAt<.058)return;
   this.lastSoundAt=now;
-  const level=Math.max(.04,Math.min(.75,intensity));
-  const dur=.075+.09*level, frames=Math.max(1,Math.floor(ctx.sampleRate*dur));
+  const level=Math.max(.09,Math.min(.9,intensity));
+  const dur=.13+.13*level, frames=Math.max(1,Math.floor(ctx.sampleRate*dur));
   const buffer=ctx.createBuffer(1,frames,ctx.sampleRate);
   const channel=buffer.getChannelData(0);
   let previous=0;
   for(let i=0;i<frames;i++){
    const noise=this.nextNoise();
-   previous=previous*.76+noise*.24;
-   channel[i]=previous*(.68+.32*Math.sin(i*.007));
+   previous=previous*.58+noise*.42;
+   // Fibers rub in clusters rather than a single isolated electronic click.
+   const fray=.76+.24*Math.sin(i*.011+level*3);
+   channel[i]=previous*fray;
   }
   const source=ctx.createBufferSource();source.buffer=buffer;
-  const filter=ctx.createBiquadFilter();filter.type="bandpass";
-  filter.frequency.setValueAtTime(520+level*1150,now);
-  filter.Q.value=.52;
+  const filter=ctx.createBiquadFilter();filter.type="lowpass";
+  filter.frequency.setValueAtTime(2200+level*1500,now);
+  filter.Q.value=.58;
   const gain=ctx.createGain();
   gain.gain.setValueAtTime(.00001,now);
-  gain.gain.exponentialRampToValueAtTime(Math.max(.001,.017+level*.038),now+.012);
+  // Noticeably louder than the first study (~5x at normal pull strength),
+  // but limited to a short non-clipping acoustic gesture.
+  const peak=Math.min(.32,.135+level*.18);
+  gain.gain.exponentialRampToValueAtTime(peak,now+.017);
+  gain.gain.exponentialRampToValueAtTime(peak*.72,now+dur*.43);
   gain.gain.exponentialRampToValueAtTime(.00001,now+dur);
   source.connect(filter);filter.connect(gain);gain.connect(ctx.destination);
   source.start(now);source.stop(now+dur+.008);
