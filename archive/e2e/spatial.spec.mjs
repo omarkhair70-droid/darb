@@ -77,10 +77,10 @@ test("a visitor can follow a labelled editorial thread between different program
  await page.locator("#modeBtn").click();
  await page.locator('.artifact[data-id="41"] button').evaluate(button=>button.click());
  await expect(page.locator("#detail")).toBeVisible();
- await expect(page.locator("#detailMeta")).toContainText("Tales of Fustat");
+ await expect(page.locator("#detailTitle")).toContainText("Tales of Fustat");
  await expect(page.locator("#relatedObjects .thread-item")).toHaveCount(2);
  await page.locator("#relatedObjects .thread-item").first().click();
- await expect(page.locator("#detailMeta")).toContainText("Natalia Ossef residency");
+ await expect(page.locator("#detailTitle")).toContainText("Natalia Ossef residency");
  await expect(page.locator("#detailTitle")).not.toContainText("Cyanotype");
 });
 
@@ -127,7 +127,7 @@ test("D identity grows from real archive knots into an artwork, then reverses wi
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
  await expect(page.locator("#canvas")).toHaveAttribute("data-material","cyanotype");
  await expect(page.locator("#detail")).toBeVisible();
- await expect(page.locator("#detailTitle")).toContainText("blue");
+ await expect(page.locator("#detailText")).toContainText("Cyanotype");
  await expect(page.locator('.artifact[data-id="41"]')).toHaveClass(/is-encounter/);
  const panelStyle=await page.locator("#detail").evaluate(el=>{
   const s=getComputedStyle(el);
@@ -149,9 +149,9 @@ test("D identity grows from real archive knots into an artwork, then reverses wi
  expect(focus.width).toBeGreaterThan(90);
  await page.screenshot({path:"test-results/"+info.project.name+"-cyanotype-encounter.png"});
  await page.locator("#relatedObjects .thread-item").first().click();
- await expect(page.locator("#detailMeta")).toContainText("Natalia Ossef residency");
+ await expect(page.locator("#detailTitle")).toContainText("Natalia Ossef residency");
  await page.keyboard.press("Escape");
- await expect(page.locator("#detailMeta")).toContainText("Tales of Fustat");
+ await expect(page.locator("#detailTitle")).toContainText("Tales of Fustat");
  await page.keyboard.press("Escape");
  await expect(page.locator("#detail")).toBeHidden();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
@@ -259,4 +259,49 @@ test("the last moment weaves the visitor's actual route instead of opening a fin
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator("#experience")).not.toHaveClass(/is-final-memory/); // updated when journey mode exits
  await expect(page.locator(".artifact")).toHaveCount(72);
+});
+
+
+test("the visitor sees image captions and provenance inside Darb, never developer PDF or GitHub links",async({page},info)=>{
+ const errors=[];let popups=0;
+ page.on("pageerror",e=>errors.push(e.message));
+ page.on("popup",()=>popups++);
+ await page.goto("/");
+ const originalCatalog=await (await page.request.get("/catalog.json")).json();
+ const image=originalCatalog.items.find(entry=>entry.id===18);
+ expect(image.page).toBe(5);
+ expect(image.xref).toBe(345);
+ await page.locator("#modeBtn").click();
+ await page.locator('.artifact[data-id="18"] button').evaluate(button=>button.click());
+ await expect(page.locator("#detailTitle")).toHaveText("UNSPOKEN");
+ await expect(page.locator("#detailText")).toHaveText(image.title.en);
+ await expect(page.locator("#detailMarker")).not.toContainText(/PDF|XREF/);
+ await expect(page.locator("#detailMeta")).not.toContainText(/PDF|XREF/);
+ await expect(page.locator("#sourceBtn")).toHaveText("ABOUT THIS IMAGE");
+ await expect(page.locator("#detailSourceNote")).toBeHidden();
+ await page.locator("#sourceBtn").click();
+ await expect(page.locator("#detailSourceNote")).toBeVisible();
+ await expect(page.locator("#sourceBtn")).toHaveAttribute("aria-expanded","true");
+ await expect(page.locator("#detailSourceNote")).not.toContainText(/PDF|XREF|github.com/);
+ expect(popups).toBe(0);
+ await page.waitForTimeout(900);
+ await page.screenshot({path:"test-results/"+info.project.name+"-visitor-artwork-context.png"});
+ await page.locator("#sourceBtn").click();
+ await expect(page.locator("#detailSourceNote")).toBeHidden();
+ await page.locator("#localeBtn").click();
+ await expect(page.locator("#detailTitle")).toHaveText("ما لم يُقال");
+ await expect(page.locator("#detailText")).toHaveText(image.title.ar);
+ await expect(page.locator("#sourceBtn")).toHaveText("عن الصورة");
+ await expect(page.locator("#detailSourceNote")).toBeHidden();
+ await page.locator("#closeDetail").click();
+ expect(errors).toEqual([]);
+});
+
+test("reader and archive search show human descriptions, not PDF pagination",async({page})=>{
+ await page.goto("/");
+ await expect(page.locator("#readingList figcaption").first()).not.toContainText("PDF");
+ await page.locator("#indexBtn").click();
+ await page.locator("#archiveSearch").fill("cyanotype");
+ await expect(page.locator("#searchResults .search-hit")).toHaveCount(2);
+ await expect(page.locator("#searchResults")).not.toContainText(/PDF|XREF/);
 });
