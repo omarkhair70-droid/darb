@@ -1,5 +1,20 @@
 # DARB ARCHIVE — The Living Memory
 
+## Stage 06 / Entrance Ritual V2 — preproduction, not yet the visible opening
+
+The user's proposed **unfurling Ottoman-inflected textile with three eyes forming a discovered D** is now translated into an execution-ready creative direction, recorded alongside a testable event-driven scene contract.
+
+- Full art-direction decision and material study: \`CREATIVE_DIRECTION_06_ENTRANCE_RITUAL_V2.md\`
+- Phase score and provenance boundary: \`data/entrance-ritual-v2.score.json\`
+- Pure interaction transition model: \`src/entrance-ritual-v2.mjs\`
+- Contract tests: \`tests/entrance-ritual-v2.test.mjs\`
+
+**No production visuals have changed at Stage 06.** The state machine is an implementation foundation, **not a rendered rug, three finished eyes, or a new Vercel preview**. The current Stage 05 experience remains in place until one real fabric-and-first-eye slice is visually authored, evaluated and accepted. No generic flat SVG rug, auto-playing intro or museum photograph may be misrepresented as a final textile.
+
+**First visual slice:** physical unfolding of one textile edge with convincing fabric thickness, first eye as a material deformation, and still-mode legibility. Then develop the other two eyes, the emergent D and archive continuity—incrementally, in this same product.
+
+---
+
 ## Stage 05 — Archive Compass (same project; replacing the old menu index)
 
 The earlier black circular menu opened a conventional **opaque search-and-chapter-list page**. That contradicted the continuous archive design even though the spatial world behind it worked.
