@@ -1,5 +1,6 @@
 import {initialRitual,transitionRitual} from "/entrance-ritual-v2.mjs";
 import {EYES,ritualVisual,chooseSource,availableSources} from "/ritual-material.mjs";
+import {WovenSound} from "/woven-sound.mjs";
 
 // Slice 06B: an original, contemporary procedural textile study. It does NOT
 // represent a documented Darb carpet or reproduce a historical museum artifact.
@@ -22,6 +23,8 @@ function mountEntranceLab(){
  const enter=root.querySelector("#ritualEnter");
  const locale=root.querySelector("#ritualLanguage");
  const accessibility=root.querySelector("#ritualReduced");
+ const audioButton=root.querySelector("#ritualAudio");
+ const sound=new WovenSound();
  const status=root.querySelector("#ritualStatus");
  const traceBar=root.querySelector("#ritualTraces");
  const traceButtons=[...traceBar.querySelectorAll("[data-ritual-trace]")];
@@ -30,10 +33,10 @@ function mountEntranceLab(){
  const fmt={
   en:{lab:"06B / THE WOVEN GAZE",early:"A fragment of memory.",progress:"Pull the woven edge.",opened:"The weave remembers three ways of seeing.",instruction:"DRAG THE FRINGE / SCROLL / PRESS SPACE",
     pulling:"CONTINUE THE UNFURLING",enter:"FOLLOW THIS TRACE ↗",skip:"ENTER ARCHIVE ↗",reduced:"STILL STUDY",
-    audio:"SILENT BY DESIGN",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"SOURCE / TALES OF FUSTAT · P.11",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"]},
+    audio:"SILENT BY DESIGN",soundOff:"SOUND / OFF",soundOn:"SOUND / ON",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"SOURCE / TALES OF FUSTAT · P.11",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"]},
   ar:{lab:"٠٦ب / النظرة المنسوجة",early:"طرف من الذاكرة.",progress:"اسحب حافة النسيج.",opened:"النسيج افتكر تلات طرق للرؤية.",instruction:"اسحب الطرف / مرّر / اضغط مسافة",
     pulling:"كمّل فرد النسيج",enter:"اتبع الأثر ↗",skip:"ادخل الأرشيف ↗",reduced:"مشهد ثابت",
-    audio:"الصمت جزء من التصميم",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"حكاوي الفسطاط · صفحة ١١",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"]}
+    audio:"الصمت جزء من التصميم",soundOff:"الصوت / مغلق",soundOn:"الصوت / شغال",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"حكاوي الفسطاط · صفحة ١١",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"]}
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
@@ -116,7 +119,10 @@ function mountEntranceLab(){
   skip.textContent=t.skip;
   locale.textContent=t.language;
   accessibility.textContent=t.reduced;
-  el("ritualSound").textContent=t.audio;
+  el("ritualSound").textContent=sound.enabled?(lang==="ar"?"احتكاك النسيج":"FIBER FRICTION"):t.audio;
+  audioButton.textContent=sound.enabled?t.soundOn:t.soundOff;
+  audioButton.setAttribute("aria-pressed",String(sound.enabled));
+  root.dataset.audio=sound.enabled?"on":"off";
   el("ritualFootnote").textContent=t.hint;
   el("ritualSource").textContent=t.source;
   traceButtons.forEach((button,i)=>{
@@ -141,7 +147,9 @@ function mountEntranceLab(){
   renderText();invalidate();
  }
  function setProgress(n){
+  const previous=targetProgress;
   targetProgress=clamp(n,0,1);
+  if(sound.enabled&&Math.abs(previous-targetProgress)>.006)sound.rustle(Math.abs(previous-targetProgress)*2.1);
   if(ritual.phase==="unlit"&&targetProgress>.02)ritual=transitionRitual(ritual,"START");
   if(ritual.phase==="unfurl"&&targetProgress>.59)ritual=transitionRitual(ritual,"CLOTH_EXTENDED");
   if(ritual.phase==="tension"&&targetProgress>.78)ritual=transitionRitual(ritual,"APERTURES_REVEALED");
@@ -466,6 +474,7 @@ function mountEntranceLab(){
  function leave(){
   if(departed)return;
   departed=true;
+  void sound.dispose();
   try{
    ritual=ritual.phase==="passage"
     ?transitionRitual(ritual,"SOURCE_SELECTED",{sourceId:selectedSourceId})
@@ -510,6 +519,16 @@ function mountEntranceLab(){
  skip.addEventListener("click",leave);
  locale.addEventListener("click",()=>{lang=lang==="en"?"ar":"en";renderText();invalidate()});
  accessibility.addEventListener("click",()=>{ritual=transitionRitual(ritual,"SET_REDUCED_MOTION");progress=targetProgress;renderText();invalidate()});
+ audioButton.addEventListener("click",async()=>{
+  if(sound.enabled){
+   sound.disable();ritual=transitionRitual(ritual,"SET_QUIET");
+  }else{
+   try{
+    if(await sound.enable())ritual=transitionRitual(ritual,"ENABLE_SOUND");
+   }catch(e){console.warn("Visitor audio unavailable",e);}
+  }
+  renderText();
+ });
  addEventListener("keydown",e=>{
   if(departed)return;
   if(e.key==="Escape"){e.preventDefault();leave();return;}
