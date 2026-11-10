@@ -123,6 +123,7 @@ function mountEntranceLab(){
    const eye=EYES[i];
    button.textContent=t.traces[i];
    button.setAttribute("aria-pressed",String(selectedSourceId===eye.sourceId));
+   button.disabled=!availableSources(Math.max(targetProgress,progress)).includes(eye.sourceId);
    button.title=lang==="ar"?"افتح الأثر رقم "+eye.sourceId:"Open source record "+eye.sourceId;
   });
   root.dir=lang==="ar"?"rtl":"ltr";
@@ -131,6 +132,13 @@ function mountEntranceLab(){
   enter.hidden=!shown;
   pull.hidden=shown;
   traceBar.hidden=!shown;
+  root.dataset.source=String(selectedSourceId);
+ }
+ function selectTrace(key){
+  const id=chooseSource(key);
+  if(!availableSources(targetProgress).includes(id))return;
+  selectedSourceId=id;
+  renderText();invalidate();
  }
  function setProgress(n){
   targetProgress=clamp(n,0,1);
@@ -447,7 +455,10 @@ function mountEntranceLab(){
   if(targetProgress===0)setProgress(.08);
  });
  canvas.addEventListener("pointermove",e=>{
+  gaze=clamp(e.clientX/Math.max(innerWidth,1),0,1);
+  if(progress>.76)invalidate();
   if(!starting||e.pointerId!==pointerId)return;
+  gaze=clamp(e.clientX/Math.max(innerWidth,1),0,1);
   const xchange=(e.clientX-starting.x)/Math.max(innerWidth*.68,190);
   const ychange=(starting.y-e.clientY)/Math.max(innerHeight*.65,220);
   setProgress(starting.value+Math.max(xchange,ychange*.85));
@@ -459,6 +470,7 @@ function mountEntranceLab(){
  canvas.addEventListener("pointerup",release);canvas.addEventListener("pointercancel",release);
  canvas.addEventListener("wheel",e=>{e.preventDefault();setProgress(targetProgress+Math.sign(e.deltaY)*.075);},{passive:false});
  pull.addEventListener("click",onPull);
+ traceButtons.forEach(button=>button.addEventListener("click",()=>selectTrace(button.dataset.ritualTrace)));
  enter.addEventListener("click",leave);
  skip.addEventListener("click",leave);
  locale.addEventListener("click",()=>{lang=lang==="en"?"ar":"en";renderText();invalidate()});
