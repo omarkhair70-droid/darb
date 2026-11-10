@@ -156,7 +156,7 @@ function mountEntranceLab(){
  // exact oblique material geometry with render(). These are not side menu items.
  function eyeScreenPoint(eye){
   const w=innerWidth,h=innerHeight;
-  const scale=w<700?clamp(w/860,.40,.60):Math.min(w/1300,h/860,.99);
+  const scale=w<700?clamp(w/1100,.34,.58):Math.min(w/1300,h/860,.99);
   const tw=960*scale,th=550*scale,angle=w<680?-.12:-.095;
   const x=-tw*.03+tw*eye.x-tw*.47;
   const y=th*eye.y-th*.48;
@@ -410,7 +410,7 @@ function mountEntranceLab(){
   glow.addColorStop(0,"#a25b4436");glow.addColorStop(.5,"#7c492411");glow.addColorStop(1,"#0b131000");
   c.fillStyle=glow;c.fillRect(0,0,w,h);
   c.restore();
-  const scale=w<700?clamp(w/860,.40,.60):Math.min(w/1300,h/860,.99);
+  const scale=w<700?clamp(w/1100,.34,.58):Math.min(w/1300,h/860,.99);
   const textileW=960*scale,textileH=550*scale;
   // A 2.5D tilted object with thickness. Mobile keeps its physical proportions
   // instead of stretching it to cover the viewport.
@@ -507,8 +507,9 @@ function mountEntranceLab(){
   wash.addColorStop(0,"#ffffff0c");wash.addColorStop(.37,"#ffffff00");wash.addColorStop(.62,"#0d1c1740");wash.addColorStop(1,"#060d0f36");
   c.fillStyle=wash;c.fillRect(originX,originY,shownW,textileH);
   c.restore();
-  paintPassage(c,w,h,textileW,textileH,originX,
-   Math.max(material.paths,departureAmount));
+  // A connection grows only once the visitor actually enters an eye.
+  // Loose threads must not hang into empty UI space at 100% unfold.
+  paintPassage(c,w,h,textileW,textileH,originX,departureAmount);
   // Finite readable cue: it does not turn into a conventional hero section.
   const t=fmt[lang];
   el("ritualTitle").textContent=progress<.10?t.early:progress<.64?t.progress:t.opened;
