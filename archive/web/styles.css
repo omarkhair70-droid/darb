@@ -744,3 +744,16 @@ html.ritual-lab-active,html.ritual-lab-active body{overflow:hidden!important}
   font-size:clamp(24px,6vw,33px)!important}
  .experience.is-final-memory[data-mode="journey"] .narrative-body{max-width:300px;font-size:11px}
 }
+
+
+/* Material QA — keep the rug as the subject and prevent mobile HUD collision. */
+@media(max-width:800px){
+ .ritual-footnote{display:none}
+ .ritual-bottom{bottom:21px}
+ .ritual-title{font-size:clamp(16px,4.5vw,20px);line-height:1.23;margin:7px 0}
+ .ritual-grain{font-size:7px;letter-spacing:.13em}
+ .ritual-instruction{font-size:7px;letter-spacing:.08em}
+ .ritual-actions{margin-top:14px}
+ .ritual-progress{font-size:8px}
+ .ritual-actions #ritualEnter{font-size:10px}
+}
