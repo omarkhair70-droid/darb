@@ -38,7 +38,7 @@ test("the full archive is searchable, indexable and accessible as real source as
   expect(response.status(),path).toBe(200);
  }
  await page.locator("#indexBtn").click();
- await expect(page.locator("#indexItems .index-item")).toHaveCount(16);
+ await expect(page.locator("#indexItems .index-item")).toHaveCount(17);
  await page.locator("#archiveSearch").fill("cyanotype");
  await expect(page.locator("#searchResults .search-hit")).toHaveCount(2);
  await page.locator("#searchResults .search-hit").first().click();
@@ -50,7 +50,7 @@ test("the full archive is searchable, indexable and accessible as real source as
  await page.locator("#archiveSearch").fill("");
  await page.locator("#indexItems .index-item").nth(8).click();
  await expect(page.locator("#index")).toBeHidden();
- await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator(".story-area")).toHaveCount(0);
  await expect(page.locator("#world")).toBeVisible();
 });
@@ -167,4 +167,53 @@ test("a documentary image has its own contextual atmosphere and Arabic copy",asy
  await expect(page.locator("#detailTitle")).toContainText("الفسطاط");
  await page.locator("#closeDetail").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
+});
+
+
+test("black circle opens an archive constellation, not the old heading and list",async({page},info)=>{
+ const errors=[];
+ page.on("pageerror",e=>errors.push(e.message));
+ await page.goto("/");
+ await expect(page.locator("#index")).toBeHidden();
+ const before=await page.locator("#world").evaluate(el=>el.style.transform);
+ await page.locator("#indexBtn").click();
+ await expect(page.locator("#index")).toBeVisible();
+ await expect(page.locator("#index")).toHaveAttribute("role","dialog");
+ await expect(page.locator("#index")).toHaveClass(/is-open/);
+ await expect(page.locator("#experience")).toHaveAttribute("data-atlas","open");
+ await expect(page.locator("#indexItems .atlas-node")).toHaveCount(17);
+ await expect(page.locator("#atlasLines path")).toHaveCount(9);
+ await expect(page.locator("#index h2")).toContainText("Not one beginning");
+ expect(await page.locator("#indexItems").evaluate(el=>getComputedStyle(el).display)).toBe("block");
+ const font=await page.locator("#index h2").evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+ expect(font).toBeLessThanOrEqual(45);
+ await page.waitForTimeout(1300);
+ const during=await page.locator("#world").evaluate(el=>el.style.transform);
+ expect(during).not.toBe(before);
+ await page.screenshot({path:"test-results/"+info.project.name+"-archive-compass.png"});
+ await page.keyboard.press("Escape");
+ await expect(page.locator("#experience")).not.toHaveAttribute("data-atlas","open");
+ await expect(page.locator("#index")).toBeHidden();
+ await expect(page.locator("#indexBtn")).toHaveAttribute("aria-expanded","false");
+ expect(errors).toEqual([]);
+});
+
+test("a real archive constellation click moves the camera into its own image cluster",async({page})=>{
+ await page.goto("/");
+ await page.locator("#indexBtn").click();
+ await page.locator('.atlas-node[data-cluster="fustat"]').click();
+ await expect(page.locator("#index")).toBeHidden();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await page.waitForTimeout(1400);
+ const visible=await page.locator('.artifact[data-cluster="fustat"]').evaluateAll(elements=>{
+  const bounds=elements.map(el=>el.getBoundingClientRect());
+  return bounds.some(rect=>rect.right>0&&rect.bottom>0&&rect.left<innerWidth&&rect.top<innerHeight);
+ });
+ expect(visible).toBe(true);
+ await page.locator("#indexBtn").click();
+ await page.locator("#localeBtn").click();
+ await expect(page.locator(".atlas-node.is-selected")).toContainText("الفسطاط");
+ await page.locator("#closeIndex").click();
+ await expect(page.locator("#index")).toBeHidden();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
 });
