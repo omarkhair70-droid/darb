@@ -12,7 +12,7 @@ const copy={
   spatialHint:"DRAG TO WANDER · SCROLL TO ZOOM · SELECT AN IMAGE",indexTitle:"Not one beginning. Follow a thread.",
   indexFoot:"ONE CONTINUOUS WORLD · 77 SOURCE RECORDS",atlasCoordinate:"ONE FIELD · 17 CONSTELLATIONS",atlasHint:"SELECT A CONSTELLATION · TRAVEL INSIDE THE ARCHIVE",atlasMobileHint:"DRAG SIDEWAYS TO WANDER",atlasEnter:"ENTER THIS THREAD",searchLabel:"FIND A TRACE",searchPlaceholder:"Search artworks, programmes, practices...",returnScene:"RETURN TO THE EXPERIENCE",
   readingTitle:"Every image holds a way in.",readingIntro:"An uninterrupted, readable path through the same source material.",
-  readingFoot:"Research experience built from the Darb 1718 institutional overview · not the official public website.",
+  readingFoot:"An independent digital exploration of Darb 1718’s visual memory.",
   source:"ABOUT THIS IMAGE",sourceClose:"CLOSE IMAGE NOTE",sourceLabel:"IMAGE CONTEXT",follow:"FOLLOW THIS MOMENT ↗",
   direction:"SCROLL TO MOVE THROUGH THE ARCHIVE",wander:"DRAG · EXPLORE · OPEN OBJECTS",
   video:"REFERENCE: 2026 OVERVIEW / DARB 1718",
@@ -25,7 +25,7 @@ const copy={
   spatialHint:"اسحب عشان تتجوّل · مرّر للتقريب · اختار صورة",indexTitle:"مفيش بداية واحدة. اتبع خيط.",
   indexFoot:"عالم واحد مستمر · ٧٧ عنصرًا أرشيفيًا",atlasCoordinate:"مساحة واحدة · ١٧ مجموعة",atlasHint:"اختار مجموعة وادخل عالمها",atlasMobileHint:"اسحب يمين أو شمال للاستكشاف",atlasEnter:"ادخل الحكاية",searchLabel:"اتبع أثرًا",searchPlaceholder:"عمل، معرض، ورشة، برنامج...",returnScene:"ارجع للتجربة",
   readingTitle:"كل صورة ليها مدخل.",readingIntro:"مسار قراءة واضح لنفس المادة الأرشيفية، بدون حركة.",
-  readingFoot:"تجربة بحثية من ملف درب 1718 · مش الموقع الرسمي للمؤسسة.",
+  readingFoot:"تجربة رقمية مستقلة تستكشف الذاكرة البصرية لدرب ١٧١٨.",
   source:"عن الصورة",sourceClose:"اقفل معلومات الصورة",sourceLabel:"عن الصورة",follow:"اتبع اللحظة دي ↗",
   direction:"مرّر عشان تتنقل جوّه الأرشيف",wander:"اسحب · اكتشف · افتح صورة",
   video:"المصدر: ملف درب 2026",
@@ -161,7 +161,9 @@ function renderNarrative(beat){
  $("#statementA").textContent=m[lang][0];
  $("#statementB").textContent=m[lang][1];
  $("#narrativeBody").textContent=local(m.body);
- $("#chapterSource").textContent=local(m.label);
+ $("#chapterSource").textContent=m.focusId&&mediaRecord(m.focusId)
+  ?local(mediaRecord(m.focusId).project)
+  :(lang==="ar"?"درب ١٧١٨ · الذاكرة الحية":"DARB 1718 · THE LIVING MEMORY");
  $("#axisNumber").textContent=String(beat+1).padStart(2,"0")+" / "+count;
  $("#axisFill").style.width=((beat+1)/moments.length*100)+"%";
  $("#nextBtn").textContent=beat===moments.length-1?"↺":"↓";
