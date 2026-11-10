@@ -1108,3 +1108,24 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
   transition:none!important;opacity:1!important;translate:0 0!important;
  }
 }
+
+
+/* Source-anchored identity filaments: a discovered graph inside the existing
+   9,200×6,400 world, NOT a letter overlaid on the camera or an invented claim.
+   Only the documented shared-programme edge is solid; editorial comparisons
+   remain visibly distinct and become legible after an actual visitor route. */
+.identity-trace{
+ position:absolute;top:0;left:0;width:9200px;height:6400px;
+ z-index:1;pointer-events:none;opacity:0;
+ transition:opacity 1.15s cubic-bezier(.2,.7,.2,1);
+ overflow:visible;
+}
+.identity-trace path{
+ fill:none;stroke:#9d7963;stroke-width:5;
+ stroke-linecap:round;stroke-linejoin:round;stroke-opacity:.73;
+}
+.identity-trace path[data-kind="editorial-comparison"]{
+ stroke:#4d7775;stroke-width:4;stroke-dasharray:13 16;stroke-opacity:.63;
+}
+.experience[data-mode="explore"]:not([data-atlas="open"]) .identity-trace.is-revealed{opacity:.82}
+@media(prefers-reduced-motion:reduce){.identity-trace{transition:none}}
