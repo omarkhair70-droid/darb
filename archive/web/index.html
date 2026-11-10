@@ -153,6 +153,33 @@
   <p class="reading-foot" data-i18n="readingFoot">Working research experience — independent of the official Darb website.</p>
 </section>
 
+
+<!-- Optional 06A material lab. Only shown at ?entrance=v2; it never changes
+     the working Stage 05 default entrance or creates a parallel website. -->
+<section class="entrance-lab" id="entranceLab" hidden aria-label="Entrance Ritual V2 original textile material study">
+  <canvas id="ritualCanvas" aria-label="Interactive unfurling textile with a first stitched aperture"></canvas>
+  <div class="ritual-hud">
+    <div class="ritual-overline" id="ritualLabel">06A / MATERIAL STUDY</div>
+    <button id="ritualLanguage" type="button" aria-label="Change entrance language">عربي</button>
+    <button id="ritualSkip" type="button">ENTER ARCHIVE ↗</button>
+  </div>
+  <div class="ritual-bottom">
+    <div class="ritual-reading" aria-live="polite">
+      <span class="ritual-grain" id="ritualSource">SOURCE / TALES OF FUSTAT · P.11</span>
+      <div id="ritualTitle" class="ritual-title">A fragment of memory.</div>
+      <div id="ritualInstruction" class="ritual-instruction">DRAG THE FRINGE / SCROLL / PRESS SPACE</div>
+    </div>
+    <div class="ritual-actions">
+      <div class="ritual-progress"><span id="ritualStatus">0%</span><span id="ritualSound">SILENT BY DESIGN</span></div>
+      <button id="ritualPull" type="button">CONTINUE THE UNFURLING</button>
+      <button id="ritualEnter" type="button" hidden>FOLLOW THIS TRACE ↗</button>
+      <button id="ritualReduced" type="button">STILL STUDY</button>
+    </div>
+  </div>
+  <div id="ritualFootnote" class="ritual-footnote">An original textile study—not a historic Darb object.</div>
+</section>
+<script type="module" src="/entrance-lab.mjs"></script>
+
 <script type="module" src="/app.mjs"></script>
 </body>
 </html>
