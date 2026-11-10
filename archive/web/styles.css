@@ -1129,3 +1129,36 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 }
 .experience[data-mode="explore"]:not([data-atlas="open"]) .identity-trace.is-revealed{opacity:.82}
 @media(prefers-reduced-motion:reduce){.identity-trace{transition:none}}
+
+
+/* Four letters from archival relations, never a typographic screen overlay.
+   Source images stay foreground; strands live UNDER the artwork, attached to
+   actual coordinates and gated by the visitor's discoveries and viewpoint. */
+.identity-constellations{
+ position:absolute;inset:0;width:9200px;height:6400px;
+ z-index:1;pointer-events:none;overflow:visible;
+}
+.identity-constellations .identity-lens{
+ opacity:0;
+ transition:opacity 1.2s cubic-bezier(.25,.63,.28,1);
+}
+.experience[data-mode="explore"] .identity-constellations
+.identity-lens.is-discovered{
+ opacity:calc(.08 + .91 * var(--view-alignment,0));
+}
+.identity-constellations path{
+ fill:none;stroke:#b49171;stroke-width:4.4;
+ stroke-linecap:round;stroke-linejoin:round;stroke-opacity:.76;
+}
+.identity-constellations path[data-kind="editorial-comparison"]{
+ stroke:#567e7c;stroke-width:3.7;
+ stroke-dasharray:12 17;stroke-opacity:.73;
+}
+/* The existing A material constellation joins the same viewpoint grammar. */
+.experience[data-mode="explore"]:not([data-atlas="open"])
+.identity-trace.is-revealed{
+ opacity:calc(.08 + .75 * var(--view-alignment,0));
+}
+@media(prefers-reduced-motion:reduce){
+ .identity-constellations .identity-lens{transition:none}
+}
