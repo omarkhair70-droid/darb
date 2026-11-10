@@ -1,4 +1,20 @@
 # DARB ARCHIVE — The Living Memory
+
+## Stage 05 — Archive Compass (same project; replacing the old menu index)
+
+The earlier black circular menu opened a conventional **opaque search-and-chapter-list page**. That contradicted the continuous archive design even though the spatial world behind it worked.
+
+Stage 05 changes the interaction itself:
+- The circular menu now **pulls the camera back from the current artwork into a source-image atlas**, while a translucent constellation comes into focus inside the **same** spatial experience.
+- All **17 source-programme clusters** appear as spatial waypoints, connected by the existing **nine clearly identified editorial thematic relationships**, not an alphabetical menu or chapter list.
+- Highlight/focus on any cluster shows its representative real archival image and the actual source pages; selecting **Enter This Thread** sends the camera into that cluster.
+- Free text search across source objects remains available but appears as a contained, contextual instrument rather than a separate website section.
+- Closing the compass returns to the prior camera target, mode, detail state and scroll position. Source-object encounters can be resumed.
+- A keyboard-focusable atlas, AR/EN context and touch-scrollable mobile map preserve alternative ways of navigating.
+- GitHub Actions Playwright checks assert that the menu produces a constellation, that entry leads back into the world, and that the previous chapter-list layout does not return.
+
+This is one concrete interaction correction, **not** a new homepage, public release, or a claim that all motion, visual, sound and exhibition work is complete.
+
 ### Stage 04 — The Woven D / Object Encounter (iterating in the **same** archive)
 
 - One **D-shaped spatial filament** formed from real source images #39–42 from Tales of Fustat; it is a first working letter, not the completed D-A-R-B identity.
