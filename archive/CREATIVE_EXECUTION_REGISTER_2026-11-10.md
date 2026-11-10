@@ -30,7 +30,7 @@
 | A12 | Cyanotype-specific encounter (#41) | WORKING (interaction); IN DESIGN (art direction) | Print surface, optical/light exposure and precise original proportions; not a blue tint over all work |
 | A13 | *One* actual programme path #39 → #41 → #42 | WORKING (logic and browser tests); IN DESIGN (visual pacing) | Relationship stated honestly: shared documented programme + editorial viewing route, **never invented maker/person** |
 | A14 | A second cross-programme creative parallel (#41 ↔ #35) | NEXT | Editorial comparison explicitly labeled and reversible; photographic/provenance claims stay exact |
-| A15 | D–A–R–B from source-connected filament viewpoint | IN DESIGN (D), NEXT (A/R/B) | Letter is discoverable, not a printed logo nor a compulsory 4-part onboarding |
+| A15 | D–A–R–B from source-connected filament viewpoint | IN DESIGN (D and first source-backed material bridge); NEXT (full A/R/B viewpoints) | Letter is discoverable, not a printed logo nor a compulsory 4-part onboarding |
 | A16 | No Final Frame: route actually woven by visitor | IN DESIGN | Path is true visited sequence, not a claim of real-world history; can return freely |
 | A17 | Source-specific material language: photography/print/paper/installation/performance | NEXT | Two *contrasting* premium object treatments proven before scaling |
 | A18 | Exhibition variant with orientation, screen-safe timings and authored sound | NEXT | Separate installation specification; no autoplay loop imposed on web visitors |
@@ -57,6 +57,13 @@
 - The retained and visitor apertures now **paint their cutout boundaries before clipping**. Earlier `shadowBlur` settings on an unpainted clipping path did not cast a visible edge shadow; this is a rendering correction, not a finished volumetric simulation.
 - The existing route through source works #39 / #41 / #42, one-world camera, source identity, entry controls, and no-forced-detail handoff remain unchanged.
 - `e2e/entrance-lab.spec.mjs` now captures a settled close crop of **each distinct material opening** on desktop and mobile. Passing screenshots establish evidence for review, not visual approval. Human evaluation of fiber-scale realism, weight, lighting, view-dependent aperture depth and performance remains open.
+
+## Stage 14 — weighted cloth and the first identity bridge (10 Nov)
+- `src/cloth-dynamics.mjs` adds a critically damped, non-oscillating pull. The cloth's upper edge, hanging surface, underside, rolling cylinder and all three eye positions use the same source of displacement; `src/ritual-material.mjs` source IDs remain unchanged. Motion is instantaneous for reduced-motion visitors. The event-driven ritual phase now follows visible progress rather than an ahead-of-time target.
+- The six new aperture crops from the preceding commit were reviewed on desktop/mobile: the seams still read as abrupt photographic openings, and prominent strands look illustrated rather than truly torn fibers. **Keep A06/A08 in design**; added shadows do not equal artistic acceptance.
+- The first source-grounded material-bridge identity study adds paths anchored at four **existing spatial works**: 7→39 is the editorial `makers` comparison, 39→41 is within Tales of Fustat, and 41→35 is the editorial `material` comparison. These are not historical collaborator relationships. `src/identity-relations.mjs` validates them against the existing evidence-linked threads. Only after a visitor encounters both 39 and 41 does the world reveal the paths, with dashed editorial and solid shared-programme lines.
+- This is **not a completed letter A**, nor a printed D–A–R–B overlay. Source-bound geometry and a discovered route are foundations for the next viewpoint/design study. R/B remain unbuilt.
+- New unit and browser tests cover textile inertia, reversal, geometrical identity anchoring and discovered reveal. The prior 549b CI had 59/60 browser tests passing, with only a 30-second full-mobile test timeout; its per-test timeout was adjusted. **Run the current commit's CI before declaring these additions working**; Vercel may still be blocked by build rate limits.
 
 ## Critical source truth
 - `data/media-catalog.json` marks some inputs `rights: approved_by_project_owner`, but `data/tales-of-fustat-001.json` still has multiple `publication: blocked` media nodes and unverified credits/consent. **An approved prototype import does not establish public display rights.** Keep test preview protected, and reconcile rights record-by-record before promotion.
