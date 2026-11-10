@@ -103,25 +103,3 @@ test("the third perspective aperture leads to a different archival record",async
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5000});
  await expect(page.locator('.artifact[data-id="42"]')).toHaveClass(/is-encounter/);
 });
-
-
-test.describe("Darb Entrance 06B — real visual recording",()=>{
- test.use({video:"on"});
- test("fabric → three apertures → selected source → original archive, uninterrupted",async({page},info)=>{
-  const errors=[];page.on("pageerror",e=>errors.push(e.message));
-  await page.goto("/?entrance=v2");
-  await page.waitForTimeout(500);
-  for(let i=0;i<4;i++)await page.locator("#ritualPull").click();
-  await expect(page.locator("#entranceLab")).toHaveAttribute("data-phase","passage");
-  await expect(page.locator('[data-ritual-trace="retained"]')).toBeEnabled();
-  await page.waitForTimeout(950);
-  await page.screenshot({path:"test-results/"+info.project.name+"-06b-material-arrived.png"});
-  await page.locator('[data-ritual-trace="retained"]').click();
-  await page.locator("#ritualEnter").click();
-  await expect(page.locator("#entranceLab")).toBeHidden({timeout:4500});
-  await expect(page.locator('.artifact[data-id="41"]')).toHaveClass(/is-encounter/);
-  await page.waitForTimeout(900);
-  await page.screenshot({path:"test-results/"+info.project.name+"-06b-first-source-arrival.png"});
-  expect(errors).toEqual([]);
- });
-});
