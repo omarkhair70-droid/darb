@@ -100,14 +100,46 @@
     </div>
   </section>
 
-  <div class="index" id="index" hidden>
-    <div class="index-top"><span>DARB ARCHIVE / 001</span><button id="closeIndex" type="button" aria-label="Close index">CLOSE ×</button></div>
-    <h2 data-i18n="indexTitle">A map of the experience.</h2>
-    <div class="index-search"><label for="archiveSearch" data-i18n="searchLabel">FIND A TRACE IN THE ARCHIVE</label><input id="archiveSearch" type="search" autocomplete="off" placeholder="Search images, programmes, practices..." /></div>
-    <div class="index-results" id="searchResults" hidden></div>
-    <div class="index-items" id="indexItems"></div>
-    <div class="index-foot"><span data-i18n="indexFoot">ONE CONNECTED WORLD</span><span>AR / EN</span></div>
-  </div>
+  <section class="index" id="index" hidden role="dialog" aria-modal="true" aria-label="Explore Darb Archive connections">
+    <div class="index-top">
+      <span class="index-id">DARB ARCHIVE <span class="atlas-divider">/</span> THE LIVING MEMORY</span>
+      <button id="closeIndex" type="button" aria-label="Return to the archive">CLOSE <span aria-hidden="true">×</span></button>
+    </div>
+    <div class="atlas-introduction">
+      <span class="atlas-coordinate" data-i18n="atlasCoordinate">A CONNECTED SPACE · 17 CONSTELLATIONS</span>
+      <h2 data-i18n="indexTitle">Not one beginning. Follow a thread.</h2>
+    </div>
+
+    <div class="atlas-viewport" id="atlasViewport" aria-label="Spatial map of archive programmes">
+      <div class="atlas-stage" id="atlasStage">
+        <svg class="atlas-lines" id="atlasLines" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="index-items" id="indexItems"></div>
+        <div class="atlas-center" aria-hidden="true"><span>D</span><span>∕</span><span>A</span><small>THE LIVING MEMORY</small></div>
+        <span class="atlas-signal signal-a" aria-hidden="true">26°02′ / 31°15′</span>
+        <span class="atlas-signal signal-b" aria-hidden="true">17 / THREADS OF MEMORY</span>
+      </div>
+    </div>
+
+    <div class="atlas-caption" id="atlasFocus" aria-live="polite">
+      <img id="atlasFocusImage" src="/media/39.jpeg" alt="" />
+      <div class="atlas-caption-copy">
+        <span id="atlasFocusType">ARCHIVE / 01</span>
+        <strong id="atlasFocusTitle">Tales of Fustat</strong>
+        <p id="atlasFocusInfo">Follow a programme into its works and connections.</p>
+        <button id="atlasEnter" type="button">ENTER THIS THREAD <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+
+    <div class="index-search">
+      <label for="archiveSearch" data-i18n="searchLabel">FIND A TRACE</label>
+      <input id="archiveSearch" type="search" autocomplete="off" placeholder="Search artworks, programmes, practices..." />
+      <div class="index-results" id="searchResults" hidden></div>
+    </div>
+    <div class="index-foot">
+      <span data-i18n="atlasHint">SELECT A CONSTELLATION · MOVE INTO THE ARCHIVE</span>
+      <span data-i18n="atlasMobileHint">MOVE SIDEWAYS TO EXPLORE</span>
+    </div>
+  </section>
 
   <div class="scroll-runway" id="runway" aria-hidden="true"></div>
 </div>
