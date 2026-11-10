@@ -1,5 +1,19 @@
 # DARB ARCHIVE — The Living Memory
 
+## Stage 06B / 06C — The Woven Gaze and No Final Frame
+
+This is an **in-progress art-directed study on the SAME website**, at \`/?entrance=v2\`, not a separate mini-site. Default \`/\` stays on the previously accepted opening.
+
+- Three physically distinct apertures: a tensioned **unstitched seam**, a **worn-layer reveal**, and a **view-dependent negative-space opening**. They resolve to genuine source records #39, #41 and #42 in the supplied Tales of Fustat material.
+- A transient D-like silhouette arises from parallel fibers physically anchored to the three positions and the cloth boundary. It is **not a logo sprite**. Its legibility requires film review, not merely a working render.
+- At sufficient progress, select any revealed trace; the source ID and language pass into the existing camera/world/inspector state.
+- A selected bundle of strands travels away from the cloth during entry while the archive camera approaches the appropriate real image. There is no new route or separate app.
+- The concluding guided moment can show the **sequence of source works the visitor actually visited**, connected by temporary threads within the same 9,200×6,400 field; this is not a claim of historical relationships.
+- The final camera doesn't force a restart. Free wandering remains the continuation.
+
+**In development / creative gate:** playback review of the user-driven entrance on desktop/mobile (dedicated Playwright video capture), truthful material depth, nuanced letter emergence, timing, source-specific artwork treatments, optional originally authored sound and a future gallery installation output. Browser passing does not equal Getty-level final art direction.
+
+---
 ## Stage 06A — the first textile-and-eye interaction (opt-in, SAME application)
 
 The first **actual rendered material slice** is in the current website at \`/?entrance=v2\`. It is deliberately gated so the existing Stage 05 opening remains unchanged until the visual director reviews the filmed desktop/mobile interaction.
