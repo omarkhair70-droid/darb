@@ -251,6 +251,7 @@ function jumpTo(beat){
 function enterMode(next){
  if(encounter)closeDetail();
  mode=next;$("#experience").dataset.mode=mode;
+ $("#experience").classList.toggle("is-final-memory",mode==="journey"&&currentBeat===moments.length-1&&visitedRoute.length>=2);
  $("#modeBtn").setAttribute("aria-pressed",String(mode==="explore"));
  $("#modeBtn").lastElementChild.textContent=mode==="journey"?copy[lang].explore:copy[lang].journey;
  $("#spatialHint").hidden=mode!=="explore";
