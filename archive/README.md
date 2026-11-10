@@ -1,5 +1,19 @@
 # DARB ARCHIVE — The Living Memory
 
+## Stage 06A — the first textile-and-eye interaction (opt-in, SAME application)
+
+The first **actual rendered material slice** is in the current website at \`/?entrance=v2\`. It is deliberately gated so the existing Stage 05 opening remains unchanged until the visual director reviews the filmed desktop/mobile interaction.
+
+- \`web/entrance-lab.mjs\`: original procedural weave (color variation, yarn lines, repair marks, authored ornament), geometry-aware rolling/unfurling edge, stitched slit that exposes **real Darb source object #39**, physically influenced by tension. This is *not* a photographed antique or museum-owned image.
+- \`web/index.html\` and \`web/styles.css\`: a full-screen tactile canvas with quiet, non-hero controls (drag/scroll/Space/pull, skip, language, still study).
+- \`web/app.mjs\`: direct event hand-off from fabric opening into the existing archive's same object encounter without a separate route or archive reconstruction.
+- \`tests/entrance-ritual-v2.test.mjs\` and \`e2e/entrance-lab.spec.mjs\`: state and browser checks, including source evidence, silence, skip, AR/EN, canvas output and mobile.
+- Default \`/\` continues to use Stage 05. V2 is **an authored material prototype**, not the final three-eye D silhouette and not yet a redesigned public homepage.
+
+**Visual acceptance next:** review actual stills and screen capture from \`/?entrance=v2\` at wide desktop and narrow phone; correct realism/pacing of the folded textile, legibility of the first *physical* aperture and fabric-to-archive relationship. Only then attempt eyes 2 and 3 and camera-discovered D.
+
+---
+
 ## Stage 06 / Entrance Ritual V2 — preproduction, not yet the visible opening
 
 The user's proposed **unfurling Ottoman-inflected textile with three eyes forming a discovered D** is now translated into an execution-ready creative direction, recorded alongside a testable event-driven scene contract.
