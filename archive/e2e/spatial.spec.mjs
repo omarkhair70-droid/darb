@@ -305,3 +305,30 @@ test("reader and archive search show human descriptions, not PDF pagination",asy
  await expect(page.locator("#searchResults .search-hit")).toHaveCount(2);
  await expect(page.locator("#searchResults")).not.toContainText(/PDF|XREF/);
 });
+
+test("the first identity filament network is earned by visiting real material sources",async({page},info)=>{
+ await page.goto("/");
+ await page.locator("#modeBtn").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-bridge","unseen");
+ const network=page.locator("#identityTrace");
+ await expect(network.locator("path")).toHaveCount(3);
+ await expect(network.locator('[data-kind="editorial-comparison"]')).toHaveCount(2);
+ await expect(network.locator('[data-kind="shared-programme"]')).toHaveCount(1);
+ await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-bridge","unseen");
+ await page.locator("#relatedObjects .is-material-trace").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-identity-bridge","discovered");
+ await page.locator("#closeDetail").click();
+ await page.locator("#closeDetail").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(network).toHaveClass(/is-revealed/);
+ // The network occupies the SAME transformed archive world as real source works.
+ const anchored=await network.locator("path").evaluateAll(paths=>paths.every(p=>
+   p.getAttribute("d")?.startsWith("M ")&&
+   [7,39,41].includes(Number(p.dataset.from))&&
+   [39,41,35].includes(Number(p.dataset.to))
+ ));
+ expect(anchored).toBe(true);
+ await page.screenshot({path:"test-results/"+info.project.name+"-identity-material-bridge-discovered.png"});
+});
