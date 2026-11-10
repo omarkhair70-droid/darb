@@ -2,9 +2,9 @@
 // Pure functions so rendering, pointer hit testing and QA use the exact same score.
 // These are contemporary artistic apertures, NOT historical religious eye symbols.
 export const EYES=Object.freeze([
-  Object.freeze({key:"witness",sourceId:39,x:.31,y:.50,from:.58,to:.76,material:"unstitched-seam"}),
-  Object.freeze({key:"retained",sourceId:41,x:.57,y:.245,from:.69,to:.88,material:"worn-layer"}),
-  Object.freeze({key:"visitor",sourceId:42,x:.77,y:.655,from:.78,to:.98,material:"parallax-gap"})
+  Object.freeze({key:"witness",sourceId:39,x:.27,y:.25,from:.58,to:.76,material:"unstitched-seam"}),
+  Object.freeze({key:"retained",sourceId:41,x:.27,y:.75,from:.69,to:.88,material:"worn-layer"}),
+  Object.freeze({key:"visitor",sourceId:42,x:.80,y:.50,from:.78,to:.98,material:"parallax-gap"})
 ]);
 export const clamp=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
 export function smooth(a,b,v){
