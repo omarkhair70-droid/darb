@@ -455,6 +455,42 @@ function mountEntranceLab(){
     c.fillRect(dx,weaveY,sw+1,weaveHeight);
    }
   }
+  // The lower selvage belongs to the same warped surface as the top edge.
+  // Its curved underside produces a narrow occluded thickness and a second
+  // raking highlight. This avoids a flat rectangular bottom silhouette.
+  c.save();
+  c.lineJoin="round";c.lineCap="round";
+  const edgeSteps=Math.max(18,Math.ceil(visibleWidth/(9*scale)));
+  const bottomEdge=(u)=>{
+   const fold=Math.sin(u*17+progress*5)*3.1*scale+Math.sin(u*6)*5.5*scale;
+   const tension=Math.sin(u*Math.PI)*12*scale*(1-progress*.35);
+   return originY+fold+(u-.3)*11*scale-tension+
+     textileH+7*scale*Math.sin(u*9);
+  };
+  // Contact shadow just outside the woven edge, below the physical fabric.
+  c.beginPath();
+  for(let i=0;i<=edgeSteps;i++){
+   const u=reveal*i/edgeSteps,x=originX+u*textileW,y=bottomEdge(u);
+   if(i===0)c.moveTo(x,y);else c.lineTo(x,y);
+  }
+  c.strokeStyle="rgba(7,12,11,.42)";c.lineWidth=12*scale;c.stroke();
+  // The lower binding is not a straight CSS border: it follows each fold.
+  c.beginPath();
+  for(let i=0;i<=edgeSteps;i++){
+   const u=reveal*i/edgeSteps,x=originX+u*textileW,y=bottomEdge(u)-2.2*scale;
+   if(i===0)c.moveTo(x,y);else c.lineTo(x,y);
+  }
+  c.strokeStyle="rgba(224,188,145,.70)";c.lineWidth=2.1*scale;c.stroke();
+  c.restore();
+  // The rolling cylinder occludes the last woven strips and casts a local
+  // shadow behind its leading edge, rather than a disconnected dark rectangle.
+  const cylinderShadow=c.createLinearGradient(originX+shownW-39*scale,0,originX+shownW+7*scale,0);
+  cylinderShadow.addColorStop(0,"rgba(8,12,11,0)");
+  cylinderShadow.addColorStop(.72,"rgba(8,12,11,.33)");
+  cylinderShadow.addColorStop(1,"rgba(8,12,11,.09)");
+  c.fillStyle=cylinderShadow;
+  c.fillRect(Math.max(originX,originX+shownW-39*scale),originY,
+    Math.min(shownW,46*scale),textileH+8*scale);
   // Structural edges and tactile fringe — they pull and curve with the cloth.
   c.strokeStyle="#cf9e76bb";c.lineWidth=2.4*scale;
   c.beginPath();
