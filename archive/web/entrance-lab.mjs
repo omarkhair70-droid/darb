@@ -1,6 +1,7 @@
 import {initialRitual,transitionRitual} from "/entrance-ritual-v2.mjs";
+import {EYES,ritualVisual,chooseSource,availableSources} from "/ritual-material.mjs";
 
-// Slice 06A: an original, contemporary procedural textile study. It does NOT
+// Slice 06B: an original, contemporary procedural textile study. It does NOT
 // represent a documented Darb carpet or reproduce a historical museum artifact.
 const active=new URLSearchParams(location.search).get("entrance")==="v2";
 if(active)mountEntranceLab();
@@ -22,22 +23,29 @@ function mountEntranceLab(){
  const locale=root.querySelector("#ritualLanguage");
  const accessibility=root.querySelector("#ritualReduced");
  const status=root.querySelector("#ritualStatus");
+ const traceBar=root.querySelector("#ritualTraces");
+ const traceButtons=[...traceBar.querySelectorAll("[data-ritual-trace]")];
  const label=root.querySelector("#ritualInstruction");
  const el=(id)=>root.querySelector("#"+id);
  const fmt={
-  en:{lab:"06A / MATERIAL STUDY",early:"A fragment of memory.",progress:"Pull the woven edge.",opened:"The first witness is revealed.",instruction:"DRAG THE FRINGE / SCROLL / PRESS SPACE",
+  en:{lab:"06B / THE WOVEN GAZE",early:"A fragment of memory.",progress:"Pull the woven edge.",opened:"The weave remembers three ways of seeing.",instruction:"DRAG THE FRINGE / SCROLL / PRESS SPACE",
     pulling:"CONTINUE THE UNFURLING",enter:"FOLLOW THIS TRACE ↗",skip:"ENTER ARCHIVE ↗",reduced:"STILL STUDY",
-    audio:"SILENT BY DESIGN",language:"عربي",hint:"The edge remembers what the image cannot.",source:"SOURCE / TALES OF FUSTAT · P.11"},
-  ar:{lab:"٠٦أ / دراسة الخامة",early:"طرف من الذاكرة.",progress:"اسحب حافة النسيج.",opened:"العين الأولى بدأت تشهد.",instruction:"اسحب الطرف / مرّر / اضغط مسافة",
+    audio:"SILENT BY DESIGN",language:"عربي",hint:"Look again. The threads lead somewhere.",source:"SOURCE / TALES OF FUSTAT · P.11",traces:["01 / WITNESS","02 / RETAINED","03 / VISITOR"]},
+  ar:{lab:"٠٦ب / النظرة المنسوجة",early:"طرف من الذاكرة.",progress:"اسحب حافة النسيج.",opened:"النسيج افتكر تلات طرق للرؤية.",instruction:"اسحب الطرف / مرّر / اضغط مسافة",
     pulling:"كمّل فرد النسيج",enter:"اتبع الأثر ↗",skip:"ادخل الأرشيف ↗",reduced:"مشهد ثابت",
-    audio:"الصمت جزء من التصميم",language:"EN",hint:"الخيط بيحتفظ باللي الصورة مش بتقوله.",source:"حكاوي الفسطاط · صفحة ١١"}
+    audio:"الصمت جزء من التصميم",language:"EN",hint:"بص تاني. الخيوط بتوصّل لحكايات.",source:"حكاوي الفسطاط · صفحة ١١",traces:["٠١ / الشاهد","٠٢ / الأثر","٠٣ / الزائر"]}
  };
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,last=0,raf=0,drag=null,departed=false;
+ let gaze=.5,selectedSourceId=39;
  const photo=new Image();
  photo.src="/media/39.jpeg";
  photo.decoding="async";
  photo.onload=()=>invalidate();
+ const retainedPhoto=new Image();retainedPhoto.src="/media/41.jpeg";
+ retainedPhoto.decoding="async";retainedPhoto.onload=()=>invalidate();
+ const visitorPhoto=new Image();visitorPhoto.src="/media/42.jpeg";
+ visitorPhoto.decoding="async";visitorPhoto.onload=()=>invalidate();
  const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
  const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
  const noise=(x,y)=>{let n=(x*374761393+y*668265263)|0;n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967295};
@@ -111,16 +119,25 @@ function mountEntranceLab(){
   el("ritualSound").textContent=t.audio;
   el("ritualFootnote").textContent=t.hint;
   el("ritualSource").textContent=t.source;
+  traceButtons.forEach((button,i)=>{
+   const eye=EYES[i];
+   button.textContent=t.traces[i];
+   button.setAttribute("aria-pressed",String(selectedSourceId===eye.sourceId));
+   button.title=lang==="ar"?"افتح الأثر رقم "+eye.sourceId:"Open source record "+eye.sourceId;
+  });
   root.dir=lang==="ar"?"rtl":"ltr";
   status.textContent=Math.round(progress*100)+"%";
   const shown=progress>.77;
   enter.hidden=!shown;
   pull.hidden=shown;
+  traceBar.hidden=!shown;
  }
  function setProgress(n){
   targetProgress=clamp(n,0,1);
   if(ritual.phase==="unlit"&&targetProgress>.02)ritual=transitionRitual(ritual,"START");
   if(ritual.phase==="unfurl"&&targetProgress>.59)ritual=transitionRitual(ritual,"CLOTH_EXTENDED");
+  if(ritual.phase==="tension"&&targetProgress>.78)ritual=transitionRitual(ritual,"APERTURES_REVEALED");
+  if(ritual.phase==="recognition"&&targetProgress>.90)ritual=transitionRitual(ritual,"VIEW_ALIGNED");
   if(ritual.reducedMotion)progress=targetProgress;
   invalidate();
  }
@@ -277,17 +294,23 @@ function mountEntranceLab(){
   status.textContent=Math.round(progress*100)+"%";
   enter.hidden=progress<.76;
   pull.hidden=progress>=.76;
+  traceBar.hidden=progress<.76;
+  root.dataset.phase=ritual.phase;
  }
  function leave(){
   if(departed)return;
   departed=true;
-  try{ritual=transitionRitual(ritual,"ENTER_ARCHIVE",{sourceId:39})}catch(e){console.error(e)}
+  try{
+   ritual=ritual.phase==="passage"
+    ?transitionRitual(ritual,"SOURCE_SELECTED",{sourceId:selectedSourceId})
+    :transitionRitual(ritual,"ENTER_ARCHIVE",{sourceId:selectedSourceId});
+  }catch(e){console.error(e)}
   root.classList.add("is-departing");
   document.documentElement.classList.remove("ritual-lab-active");
   if(archive)archive.inert=false;
   if(reading)reading.inert=false;
   // The existing archive owns the destination and maintains all its records.
-  dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:39,lang}}));
+  dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:selectedSourceId,lang}}));
   setTimeout(()=>{root.hidden=true;root.remove();},1000);
  }
  function onPull(){setProgress(targetProgress+.23)}
@@ -338,6 +361,6 @@ function mountEntranceLab(){
  pull.focus({preventScroll:true});
  // A trusted local browser test can inspect current state without any globals
  // carrying secret or user data.
- root.dataset.study="06a";
+ root.dataset.study="06b";
  root.dataset.material="original-procedural";
 }
