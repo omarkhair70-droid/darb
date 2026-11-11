@@ -4,9 +4,11 @@ import {WovenSound} from "/woven-sound.mjs";
 import {stepCloth,clothWarpOffset} from "/cloth-dynamics.mjs";
 import {drawThresholdBehind,drawThresholdInFront,projectWovenEye,thresholdEchoes} from "/threshold-world.mjs";
 
-// Slice 06B: an original, contemporary procedural textile study. It does NOT
-// represent a documented Darb carpet or reproduce a historical museum artifact.
-const active=new URLSearchParams(location.search).get("entrance")==="v2";
+// Darb's woven threshold is now the PRIMARY entrance on every viewport.
+// The original opening remains available for QA/return visits at
+// ?entrance=legacy. ?entrance=v2 is an unchanged backward-compatible link.
+// This is an authored new textile, not a historical Darb-owned carpet.
+const active=new URLSearchParams(location.search).get("entrance")!=="legacy";
 if(active)mountEntranceLab();
 
 function mountEntranceLab(){
