@@ -9,7 +9,13 @@
 <script>
 // Start with the woven entrance's background on the very first paint. The
 // existing archive is still the fallback if the enhanced module cannot mount.
-if(new URLSearchParams(location.search).get("entrance")!=="legacy"){
+const openingParams=new URLSearchParams(location.search);
+if(openingParams.get("study")==="writing-voice"){
+ // Hide the old introduction while the original archive positions its
+ // two authentic works for a direct, filmed editorial study.
+ document.documentElement.classList.add("editorial-study-loading");
+ setTimeout(()=>document.documentElement.classList.remove("editorial-study-loading"),8500);
+}else if(openingParams.get("entrance")!=="legacy"){
  document.documentElement.classList.add("woven-entry-loading");
  addEventListener("load",()=>document.documentElement.classList.remove("woven-entry-loading"),{once:true});
 }
