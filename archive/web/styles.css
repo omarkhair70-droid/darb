@@ -1259,3 +1259,14 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  background:#f0e4ce;transform:translateX(5px) rotate(4deg);
 }
 @media(prefers-reduced-motion:reduce){.artifact .editorial-seed{transition:none!important}}
+
+
+/* Direct editorial film: preserve the woven home for ordinary visits, but
+   suppress the previous archive heading while the requested work is staged. */
+html.editorial-study-loading,html.editorial-study-loading body{
+ background:#10211e!important;
+}
+html.editorial-study-loading #experience,
+html.editorial-study-loading #reading{
+ visibility:hidden!important;
+}
