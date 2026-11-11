@@ -52,7 +52,7 @@ test("woven threshold and Tales of Fustat remain one reversible world",async({pa
  const firstCamera=await sourceRect(page,39);
  await page.screenshot({path:"test-results/"+info.project.name+"-visitor-02-world-arrival.png"});
  // Opening the source remains the visitor's choice after physically entering.
- await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await page.locator('.artifact[data-id="39"] .artifact-inner').evaluate(b=>b.click());
  await expect(world).toHaveAttribute("data-mode","encounter");
  await expect(world).toHaveAttribute("data-material-stage","photography");
  await expect(page.locator("#detail")).toBeVisible();
@@ -101,7 +101,7 @@ test("the same woven-to-source handoff works with reduced motion and Arabic",asy
  await page.locator('[data-eye-entry="witness"]').click();
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
  await expect(page.locator("html")).toHaveAttribute("lang","ar");
- await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await page.locator('.artifact[data-id="39"] .artifact-inner').evaluate(b=>b.click());
  await expect(page.locator("#relatedObjects .is-material-trace")).toContainText("من الحكاية لأثر الضوء");
  await page.locator("#relatedObjects .is-material-trace").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-material-stage","cyanotype");
