@@ -1270,3 +1270,63 @@ html.editorial-study-loading #experience,
 html.editorial-study-loading #reading{
  visibility:hidden!important;
 }
+
+
+/* ARTWORK FIRST / SOURCE ONLY WHEN ASKED
+   The source reading state is mutually exclusive with the thumbnail rail.
+   The archival image keeps its own uninterrupted visual region above. */
+#relatedObjects[hidden],#detailSourceNote[hidden]{display:none!important}
+.experience[data-mode="encounter"] #sourceBtn{
+ min-height:42px;
+ padding-block:10px;
+ text-align:start;
+}
+.experience[data-mode="encounter"] #sourceBtn:focus-visible,
+.experience[data-mode="encounter"] #followBtn:focus-visible{
+ outline:2px solid #477d71;outline-offset:5px;
+}
+.experience[data-mode="encounter"][data-source-open="true"] .object-detail{
+ max-height:min(64svh,610px);overflow-y:auto;
+ background:rgba(236,243,235,.96);
+ border:1px solid rgba(70,104,91,.2);
+ box-shadow:0 20px 60px rgba(13,44,37,.13);
+ border-radius:3px;
+ padding:20px 22px;
+}
+.experience[data-mode="encounter"][data-source-open="true"] #detailSourceNote{
+ margin-top:12px;
+ border-top:1px solid #59766959;
+ padding-top:14px;
+ max-width:50ch;
+}
+.experience[data-mode="encounter"][data-source-open="true"] #detailSourceBody{
+ font-size:clamp(13px,1vw,15px);
+ line-height:1.65;
+ overflow-wrap:anywhere;
+}
+.experience[data-mode="encounter"][data-source-open="true"] .detail-controls{
+ position:relative;
+ z-index:1;
+}
+@media(max-width:800px){
+ .experience[data-mode="encounter"][data-source-open="true"] .object-detail{
+  top:auto;left:clamp(12px,4vw,24px);right:clamp(12px,4vw,24px);
+  bottom:calc(18px + env(safe-area-inset-bottom));
+  width:auto;max-width:none;
+  max-height:min(56svh,480px);
+  padding:17px 19px 20px;
+  background:rgba(235,243,237,.98);
+  -webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+ }
+ .experience[data-mode="encounter"][data-source-open="true"] #detailSourceBody{
+  font-size:13px;line-height:1.65;
+ }
+ .experience[data-mode="encounter"][data-source-open="true"] #sourceBtn{
+  font-size:12px;min-height:44px;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .experience[data-mode="encounter"][data-source-open="true"] .object-detail{
+  transition:none!important;
+ }
+}
