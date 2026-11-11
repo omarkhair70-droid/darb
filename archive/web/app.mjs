@@ -978,6 +978,40 @@ function installInput(){
   target.z=clamp(target.z*Math.exp(-event.deltaY*.0008),.2,2.7);
  },{passive:false});
 }
+/**
+ * One direct preview URL for the curatorial movement under review. This is
+ * not a second website, new home, or generic site navigation. Ordinary /
+ * still opens the woven rug; the film study starts with REAL source #44
+ * in the same living atlas and travels toward REAL source #47.
+ */
+function openWritingVoiceStudy(){
+ if(new URLSearchParams(location.search).get("study")!=="writing-voice")return;
+ const root=$("#experience");
+ const thread=threads.connections.find(link=>link.id==="voice");
+ if(!writingVoiceResonance(44,47,media,threads)||!thread){
+  document.documentElement.classList.remove("editorial-study-loading");
+  return;
+ }
+ enterMode("explore");
+ inspect(44);
+ // Directly position this OPTIONAL deep-link at its actual source image,
+ // without showing an unrelated 16-beat intro before playback.
+ current={...target};positionWorld();
+ root.dataset.directStudy="writing-voice";
+ const pictures=[44,47].map(id=>$('.artifact[data-id="'+id+'"] .artifact-inner img')).filter(Boolean);
+ pictures.forEach(img=>img.loading="eager");
+ const imageReady=Promise.allSettled(pictures.map(img=>img.decode().catch(()=>{})));
+ const timeout=new Promise(resolve=>setTimeout(resolve,1600));
+ void Promise.race([imageReady,timeout]).then(()=>{
+  document.documentElement.classList.remove("editorial-study-loading");
+  requestAnimationFrame(()=>setTimeout(()=>{
+   // Manual intervention supersedes the automated study. Never hijack a
+   // visitor who has already chosen a different artwork.
+   if(mode==="encounter"&&openItem===44&&root.dataset.directStudy==="writing-voice")
+    followEditorialResonance(thread,47,44);
+  },1250));
+ });
+}
 async function boot(){
  try{
   const endpoints=["/story.json","/catalog.json","/chapters.json","/threads.json"];
@@ -1009,8 +1043,10 @@ async function boot(){
   target={...moments[0].camera};current={...target};
   makeWorld();installInput();setLanguage("en");renderNarrative(0);
   updateScroll();rafId=requestAnimationFrame(frame);
+  openWritingVoiceStudy();
  }catch(error){
   console.error(error);
+  document.documentElement.classList.remove("editorial-study-loading");
   $("#narrativeBody").textContent="Archive material could not load. The reading mode is temporarily unavailable.";
  }
 }
