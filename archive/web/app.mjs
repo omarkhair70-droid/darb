@@ -3,7 +3,7 @@ import {layoutCatalog,validateAtlas,cameraForObject,WORLD_WIDTH,WORLD_HEIGHT,CLU
 import {materialLanguage,nextMaterialTrace} from "/material-score.mjs";
 import {materialBridgeSegments} from "/identity-relations.mjs";
 import {createIdentityLenses,discoveredIdentityLenses,identityViewAlignment} from "/identity-score.mjs";
-import {writingVoiceResonance} from "/editorial-resonance.mjs";
+import {writingVoiceResonance,WRITING_VOICE_DRAMATURGY} from "/editorial-resonance.mjs";
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
@@ -473,6 +473,8 @@ function clearEditorialResonance(){
  delete root.dataset.editorialPassage;
  delete root.dataset.editorialFrom;
  delete root.dataset.editorialTo;
+ delete root.dataset.editorialPhase;
+ delete root.dataset.editorialInterpretation;
  $("#editorialResonance")?.replaceChildren();
  $$(".artifact.is-editorial-origin,.artifact.is-editorial-destination").forEach(fig=>
   fig.classList.remove("is-editorial-origin","is-editorial-destination"));
@@ -489,22 +491,42 @@ function followEditorialResonance(thread,toId,fromId=openItem){
  root.dataset.editorialPassage=passage.id;
  root.dataset.editorialFrom=String(passage.fromId);
  root.dataset.editorialTo=String(passage.toId);
+ root.dataset.editorialPhase="held";
+ root.dataset.editorialInterpretation="voice-held-inside-writing";
  svg.setAttribute("viewBox","0 0 "+WORLD_WIDTH+" "+WORLD_HEIGHT);
  svg.innerHTML=passage.strands.map(strand=>
   '<path data-kind="'+strand.kind+'" data-thread="'+passage.threadId+
   '" data-from="'+passage.fromId+'" data-to="'+passage.toId+
-  '" d="'+strand.d+'"/>').join("");
+  '" pathLength="100" d="'+strand.d+'"/>').join("");
  $('.artifact[data-id="'+passage.fromId+'"]')?.classList.add("is-editorial-origin");
  $('.artifact[data-id="'+passage.toId+'"]')?.classList.add("is-editorial-destination");
- editorialPassageUntil=performance.now()+(reduced?0:1700);
+ const duration=reduced?0:WRITING_VOICE_DRAMATURGY.durationMs;
+ editorialPassageUntil=performance.now()+duration;
  inspect(passage.toId);
- // The camera brings the real image forward first, and its caption arrives
- // only after the image; a second choice never revives an old transition.
+ // Do not pan away while the feeling is still trapped within writing.
+ // We hold at the current optical source, then let the camera breathe outward.
+ const arrivalCamera={...target};
+ if(!reduced){
+  target={...current};
+  setTimeout(()=>{
+   if(serial!==editorialPassageSerial)return;
+   root.dataset.editorialPhase="strain";
+  },WRITING_VOICE_DRAMATURGY.acts[1].fromMs);
+  setTimeout(()=>{
+   if(serial!==editorialPassageSerial)return;
+   root.dataset.editorialPhase="release";
+   target=arrivalCamera;
+  },WRITING_VOICE_DRAMATURGY.holdMs);
+ }else{
+  root.dataset.editorialPhase="release";
+ }
+ // Source text remains withheld until the image settles. An interruption
+ // invalidates every queued act, so the previous camera cannot resurrect.
  setTimeout(()=>{
   if(serial!==editorialPassageSerial)return;
   clearEditorialResonance();
   if(encounter&&openItem===passage.toId)$("#closeDetail").focus({preventScroll:true});
- },reduced?0:1700);
+ },duration);
 }
 function emphasizeSourceThreads(item){
  const relevant=new Set(threads.connections
