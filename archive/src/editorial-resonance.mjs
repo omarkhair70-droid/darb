@@ -12,8 +12,8 @@ export const WRITING_VOICE_DRAMATURGY=Object.freeze({
  holdMs:950,
  acts:Object.freeze([
   Object.freeze({id:"held",fromMs:0,toMs:650}),
-  Object.freeze({id:"strain",fromMs:650,toMs:1100}),
-  Object.freeze({id:"release",fromMs:1100,toMs:3000})
+  Object.freeze({id:"strain",fromMs:650,toMs:950}),
+  Object.freeze({id:"release",fromMs:950,toMs:3000})
  ])
 });
 
