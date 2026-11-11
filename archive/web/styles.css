@@ -1177,28 +1177,43 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  opacity:0;transition:opacity .55s ease;
 }
 .experience[data-editorial-passage="writing-voice"] .editorial-resonance{opacity:1}
+/* The entire long relation exists as a possible route, but only a few
+   millimetres are visible while the voice feels trapped inside the writing.
+   pathLength=100 normalizes the score on narrow phones and large displays. */
 .editorial-resonance path{fill:none;vector-effect:non-scaling-stroke;
  stroke-linecap:round;stroke-linejoin:round;
- stroke:#9b7967;stroke-width:1.55;stroke-opacity:.74;
- stroke-dasharray:5 14;stroke-dashoffset:130;
+ stroke:#9b7967;stroke-width:1.55;stroke-opacity:0;
+ stroke-dasharray:100 100;stroke-dashoffset:100;
 }
 .editorial-resonance path[data-kind="axis"]{
- stroke:#406a65;stroke-width:2.3;stroke-opacity:.65;
- stroke-dasharray:1 0;
+ stroke:#665749;stroke-width:1.9;
 }
 .editorial-resonance path[data-kind="voice"]{
- stroke:#5c9393;stroke-width:1.2;stroke-dasharray:2 17;
+ stroke:#537f7d;stroke-width:1.22;
 }
 .experience[data-editorial-passage="writing-voice"] .editorial-resonance path{
- animation:written-to-voice 1.85s cubic-bezier(.13,.65,.24,1) both;
+ animation:held-voice-release 3s cubic-bezier(.28,.08,.23,1) both;
 }
-.experience[data-editorial-passage="writing-voice"] .editorial-resonance path[data-kind="voice"]{
- animation-duration:2.1s;
+/* One-held-breath, resistance, then release. No captions that narrate this. */
+@keyframes held-voice-release{
+ 0%{stroke-dashoffset:100;stroke-opacity:0}
+ 18%{stroke-dashoffset:97;stroke-opacity:.42}
+ 29%{stroke-dashoffset:93;stroke-opacity:.75}
+ 36%{stroke-dashoffset:95;stroke-opacity:.6}
+ 43%{stroke-dashoffset:88;stroke-opacity:.78}
+ 68%{stroke-dashoffset:31;stroke-opacity:.65}
+ 91%{stroke-dashoffset:0;stroke-opacity:.47}
+ 100%{stroke-dashoffset:0;stroke-opacity:.39}
 }
-@keyframes written-to-voice{
- 0%{stroke-dashoffset:500;stroke-opacity:.1}
- 38%{stroke-opacity:.85}
- 100%{stroke-dashoffset:0;stroke-opacity:.46}
+.experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-origin{
+ animation:held-voice-pressure 3s ease both;
+}
+@keyframes held-voice-pressure{
+ 0%,8%{filter:drop-shadow(0 8px 10px rgba(85,69,48,.13))}
+ 24%{filter:drop-shadow(0 5px 27px rgba(99,71,55,.48))}
+ 34%{filter:drop-shadow(0 5px 36px rgba(99,71,55,.55))}
+ 48%{filter:drop-shadow(0 9px 21px rgba(99,71,55,.19))}
+ 100%{filter:drop-shadow(0 11px 8px rgba(83,122,111,.04))}
 }
 .experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-origin{
  filter:drop-shadow(0 10px 33px #bfa1847a);
@@ -1210,7 +1225,19 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  stroke:#7b9696;stroke-width:4;stroke-opacity:.75;stroke-dasharray:2 13;
 }
 .experience[data-editorial-passage="writing-voice"] .veil{
- background:linear-gradient(108deg,rgba(236,222,202,.21),rgba(179,211,209,.19) 62%,rgba(226,239,233,0) 90%);
+ background:linear-gradient(108deg,rgba(236,222,202,.18),rgba(179,211,209,.13) 62%,rgba(226,239,233,0) 90%);
+ transition:background 1s ease;
+}
+/* Pressure is expressed by light and camera restraint, never by distorting
+   or darkening the documented photograph itself. */
+.experience[data-editorial-phase="held"] .veil{
+ background:linear-gradient(104deg,rgba(225,219,197,.46),rgba(36,61,51,.21) 54%,transparent 85%);
+}
+.experience[data-editorial-phase="strain"] .veil{
+ background:linear-gradient(104deg,rgba(223,216,196,.37),rgba(91,103,83,.16) 54%,transparent 90%);
+}
+.experience[data-editorial-phase="release"] .veil{
+ background:linear-gradient(104deg,rgba(230,233,213,.13),rgba(176,211,209,.1) 58%,transparent 92%);
 }
 /* The camera leads. The contextual description arrives AFTER the image. */
 .experience[data-editorial-passage="writing-voice"] .object-detail{
@@ -1228,9 +1255,11 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
  border-left:1px solid #ae8568;
 }
 @media(prefers-reduced-motion:reduce){
- .editorial-resonance,.editorial-resonance path{
+ .editorial-resonance,.editorial-resonance path,
+ .experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-origin{
   transition:none!important;animation:none!important;stroke-dashoffset:0!important;
  }
+ .experience[data-editorial-passage="writing-voice"] .editorial-resonance path{stroke-opacity:.35}
  .experience[data-editorial-passage="writing-voice"] .object-detail{
   opacity:1;transform:none;pointer-events:auto;
  }
