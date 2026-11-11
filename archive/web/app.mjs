@@ -130,6 +130,10 @@ function drawMemoryTrail(){
  svg.setAttribute("aria-label",lang==="ar"
   ?"خيوط الرحلة التي نسجها الزائر عبر الأعمال الأرشيفية"
   :"The path this visitor has woven through archival works");
+ // The source itself quietly reveals its connected doorway after a visit.
+ $$(".editorial-seed").forEach(seed=>{
+  seed.hidden=!seen.has(Number(seed.dataset.editorialFrom));
+ });
  updateIdentityReveal();
 }
 const atlasPositions={
@@ -177,6 +181,22 @@ function makeWorld(){
   const caption=document.createElement("figcaption");
   caption.textContent=local(item.title)+" · "+local(item.project);
   figure.append(button,caption);
+  if(item.id===44||item.id===47){
+   const seed=document.createElement("button");
+   seed.type="button";seed.className="editorial-seed";
+   seed.dataset.editorialFrom=String(item.id);
+   seed.dataset.editorialTo=String(item.id===44?47:44);
+   seed.hidden=true;
+   seed.textContent="⟿";
+   const relation=threads.connections.find(edge=>edge.id==="voice");
+   seed.setAttribute("aria-label",local(relation?.title)+": "+local(relation?.description));
+   seed.title=local(relation?.description);
+   seed.addEventListener("click",event=>{
+    event.stopPropagation();
+    followEditorialResonance(relation,Number(seed.dataset.editorialTo),item.id);
+   });
+   figure.append(seed);
+  }
   frag.append(figure);
  });
  root.append(frag);
@@ -266,6 +286,12 @@ function setLanguage(next){
   button.setAttribute("aria-label",local(item.title));
   const image=fig.querySelector("img");
   if(image)image.alt=local(item.title);
+  const seed=fig.querySelector(".editorial-seed");
+  if(seed){
+   const relation=threads.connections.find(edge=>edge.id==="voice");
+   seed.setAttribute("aria-label",local(relation?.title)+": "+local(relation?.description));
+   seed.title=local(relation?.description);
+  }
  });
  $$(".zone-label").forEach(el=>{const zone=CLUSTERS[el.dataset.cluster];el.querySelector("strong").textContent=lang==="ar"?zone.ar:zone.en;});
  renderNarrative(currentBeat);
@@ -450,9 +476,11 @@ function clearEditorialResonance(){
  $$(".artifact.is-editorial-origin,.artifact.is-editorial-destination").forEach(fig=>
   fig.classList.remove("is-editorial-origin","is-editorial-destination"));
 }
-function followEditorialResonance(thread,toId){
- const passage=writingVoiceResonance(openItem,toId,media,threads);
- if(!passage||passage.threadId!==thread.id){inspect(toId);return;}
+function followEditorialResonance(thread,toId,fromId=openItem){
+ const passage=writingVoiceResonance(fromId,toId,media,threads);
+ if(!passage||passage.threadId!==thread?.id){inspect(toId);return;}
+ // World-side choice: preserve the actual source as a reversible step.
+ if(openItem!==fromId)inspect(fromId);
  clearEditorialResonance();
  const serial=++editorialPassageSerial;
  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
