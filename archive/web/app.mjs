@@ -3,6 +3,7 @@ import {layoutCatalog,validateAtlas,cameraForObject,WORLD_WIDTH,WORLD_HEIGHT,CLU
 import {materialLanguage,nextMaterialTrace} from "/material-score.mjs";
 import {materialBridgeSegments} from "/identity-relations.mjs";
 import {createIdentityLenses,discoveredIdentityLenses,identityViewAlignment} from "/identity-score.mjs";
+import {writingVoiceResonance} from "/editorial-resonance.mjs";
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
@@ -40,6 +41,7 @@ const copy={
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
 let materialTransitionUntil=0,materialTransitionSerial=0,materialArrivalSerial=0;
+let editorialPassageUntil=0,editorialPassageSerial=0;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
 const visitedRoute=[];
 let identityLenses=[];
@@ -325,7 +327,9 @@ function frame(now=0){
  lastFrameAt=now;
  // Time-dependent easing: slow/mobile browsers cannot stretch a camera move indefinitely.
  const materialInFlight=now<materialTransitionUntil;
- const tau=materialInFlight?($("#experience").dataset.materialTransit==="cyanotype"?440:335):280;
+ const editorialInFlight=now<editorialPassageUntil;
+ const tau=editorialInFlight?570:
+  materialInFlight?($("#experience").dataset.materialTransit==="cyanotype"?440:335):280;
  const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches
   ? 1 : 1-Math.exp(-elapsed/tau);
  for(const key of ["x","y","z","r","fx"])current[key]=lerp(current[key],target[key],speed);
@@ -374,6 +378,10 @@ function markMaterialArrival(id){
 }
 function inspect(id){
  const item=mediaRecord(id);if(!item)return;
+ // Another source selection interrupts, rather than leaves an editorial
+ // transition floating under an unrelated photograph.
+ if($("#experience").dataset.editorialPassage&&
+    Number($("#experience").dataset.editorialTo)!==id)clearEditorialResonance();
  rememberSource(id);
  if(!encounter){
   encounter={originMode:mode,originCamera:{...current},originTarget:{...target},
@@ -425,6 +433,50 @@ function followMaterialTrace(targetId){
   originFigure?.classList.remove("is-material-origin");
  },reduced?0:1050);
 }
+/**
+ * Physical bridge between two distinct documented programmes, activated by a
+ * deliberate visitor choice. The source photographs remain untouched.
+ * The link is expressly an editorial comparison: no historical collaboration
+ * or material chronology is inferred from the visual choreography.
+ */
+function clearEditorialResonance(){
+ ++editorialPassageSerial;
+ editorialPassageUntil=0;
+ const root=$("#experience");
+ delete root.dataset.editorialPassage;
+ delete root.dataset.editorialFrom;
+ delete root.dataset.editorialTo;
+ $("#editorialResonance")?.replaceChildren();
+ $$(".artifact.is-editorial-origin,.artifact.is-editorial-destination").forEach(fig=>
+  fig.classList.remove("is-editorial-origin","is-editorial-destination"));
+}
+function followEditorialResonance(thread,toId){
+ const passage=writingVoiceResonance(openItem,toId,media,threads);
+ if(!passage||passage.threadId!==thread.id){inspect(toId);return;}
+ clearEditorialResonance();
+ const serial=++editorialPassageSerial;
+ const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const root=$("#experience"),svg=$("#editorialResonance");
+ root.dataset.editorialPassage=passage.id;
+ root.dataset.editorialFrom=String(passage.fromId);
+ root.dataset.editorialTo=String(passage.toId);
+ svg.setAttribute("viewBox","0 0 "+WORLD_WIDTH+" "+WORLD_HEIGHT);
+ svg.innerHTML=passage.strands.map(strand=>
+  '<path data-kind="'+strand.kind+'" data-thread="'+passage.threadId+
+  '" data-from="'+passage.fromId+'" data-to="'+passage.toId+
+  '" d="'+strand.d+'"/>').join("");
+ $('.artifact[data-id="'+passage.fromId+'"]')?.classList.add("is-editorial-origin");
+ $('.artifact[data-id="'+passage.toId+'"]')?.classList.add("is-editorial-destination");
+ editorialPassageUntil=performance.now()+(reduced?0:1700);
+ inspect(passage.toId);
+ // The camera brings the real image forward first, and its caption arrives
+ // only after the image; a second choice never revives an old transition.
+ setTimeout(()=>{
+  if(serial!==editorialPassageSerial)return;
+  clearEditorialResonance();
+  if(encounter&&openItem===passage.toId)$("#closeDetail").focus({preventScroll:true});
+ },reduced?0:1700);
+}
 function emphasizeSourceThreads(item){
  const relevant=new Set(threads.connections
    .filter(t=>t.fromCluster===item.cluster||t.toCluster===item.cluster)
@@ -436,6 +488,7 @@ function emphasizeSourceThreads(item){
 }
 function retraceEncounter(){
  if(!encounter)return;
+ if($("#experience").dataset.editorialPassage)clearEditorialResonance();
  if(encounter.history.length>1){
   encounter.history.pop();
   const previous=mediaRecord(encounter.history.at(-1));
@@ -512,7 +565,23 @@ function fillDetail(id){
      escaped(local(thread.title))+'</strong><small>'+escaped(local(target.project))+
      '</small></span><b>↗</b>';
    btn.title=local(thread.description);
-   btn.addEventListener("click",()=>inspect(target.id));
+   // A direct, source-evidenced parallel can be explored as a change in the
+   // WORLD rather than another thumbnail/detail-card transition.
+   const passage=writingVoiceResonance(item.id,target.id,media,threads);
+   if(passage&&passage.threadId===thread.id){
+    btn.classList.add("is-editorial-resonance");
+    btn.dataset.editorialThread=thread.id;
+    btn.dataset.editorialFrom=String(item.id);
+    btn.dataset.editorialTo=String(target.id);
+    btn.setAttribute("aria-label",local(thread.title)+". "+
+     (lang==="ar"?"مقارنة تحريرية بين برنامجين مختلفين. ":"Editorial comparison between separate programmes. ")+
+     local(thread.description));
+    btn.innerHTML='<img src="'+target.src+'" loading="lazy" alt=""/><span><strong>'+
+     escaped(local(thread.title))+'</strong><small>'+
+     escaped(local(thread.description))+'</small></span><b>↗</b>';
+   }
+   btn.addEventListener("click",()=>passage&&passage.threadId===thread.id?
+    followEditorialResonance(thread,target.id):inspect(target.id));
    host.append(btn);
   }
  }
@@ -523,6 +592,7 @@ function nearestChapterFor(item){
  return moments.findIndex(ch=>ch.focusId!==null&&mediaRecord(ch.focusId)?.cluster===item.cluster);
 }
 function closeDetail(){
+ if($("#experience").dataset.editorialPassage)clearEditorialResonance();
  if(encounter){
   const previous=encounter;
   mode=previous.originMode;
