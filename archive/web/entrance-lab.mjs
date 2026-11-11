@@ -2,6 +2,7 @@ import {initialRitual,transitionRitual} from "/entrance-ritual-v2.mjs";
 import {EYES,ritualVisual,chooseSource,availableSources} from "/ritual-material.mjs";
 import {WovenSound} from "/woven-sound.mjs";
 import {stepCloth,clothWarpOffset} from "/cloth-dynamics.mjs";
+import {passageProjection} from "/passage-geometry.mjs";
 import {drawThresholdBehind,drawThresholdInFront,projectWovenEye,thresholdEchoes} from "/threshold-world.mjs";
 
 // Slice 06B: an original, contemporary procedural textile study. It does NOT
@@ -32,6 +33,14 @@ function mountEntranceLab(){
  const traceButtons=[...traceBar.querySelectorAll("[data-ritual-trace]")];
  const eyeTargets=[...root.querySelectorAll("[data-eye-entry]")];
  const portal=root.querySelector("#ritualPortal");
+ // During departure, this is the exact archived image, not a cover-sized
+ // CSS background. It travels from the touched textile aperture to the
+ // corresponding object inside the existing world camera.
+ const portalPhoto=document.createElement("img");
+ portalPhoto.className="ritual-portal-photo";
+ portalPhoto.alt="";
+ portalPhoto.decoding="async";
+ portal.append(portalPhoto);
  const label=root.querySelector("#ritualInstruction");
  const el=(id)=>root.querySelector("#"+id);
  const fmt={
@@ -45,6 +54,7 @@ function mountEntranceLab(){
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,clothVelocity=0,last=0,raf=0,drag=null,departed=false;
  let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0,returnFocus=null,hoveredEyeKey=null;
+ let departureProjection=null;
  const photo=new Image();
  photo.src="/media/39.jpeg";
  photo.decoding="async";
@@ -422,8 +432,11 @@ function mountEntranceLab(){
   for(let i=0;i<23;i++){
    const k=(i-11)/11;
    const side=k*(9+amount*score.fan);
-   const xEnd=score.endX+side*.75;
-   const yEnd=score.endY+side*(aperture.key==="visitor"?1.25:1.5);
+   // During departure each fiber follows the real projected photograph;
+   // the three source materials retain different tension and curvature.
+   const xEnd=(departureProjection?.targetCenter.x??score.endX)+side*.75;
+   const yEnd=(departureProjection?.targetCenter.y??score.endY)+
+    side*(aperture.key==="visitor"?1.25:1.5);
    c.beginPath();c.moveTo(sx+side*.18,sy+side*.18);
    c.bezierCurveTo(
     sx+(xEnd-sx)*score.bend,sy+side*(1.05+score.bend),
@@ -631,16 +644,34 @@ function mountEntranceLab(){
   const point=eyeScreenPoint(eye);
   root.style.setProperty("--portal-x",point.x+"px");
   root.style.setProperty("--portal-y",point.y+"px");
-  portal.style.backgroundImage='url("/media/'+selectedSourceId+'.jpeg")';
+  portalPhoto.src="/media/"+selectedSourceId+".jpeg";
+  root.dataset.passageSource=String(selectedSourceId);
   root.classList.toggle("is-skipping",skipRitual);
-  departureStartedAt=performance.now();
-  root.classList.add("is-departing");
-  invalidate();
   document.documentElement.classList.remove("ritual-lab-active");
   if(archive)archive.inert=false;
   if(reading)reading.inert=false;
-  // The existing archive owns the destination and maintains all its records.
+  // First let the existing atlas set its camera to the real source object.
+  // Then sample the original displayed image's screen-space projection.
   dispatchEvent(new CustomEvent("darb:ritual-enter",{detail:{sourceId:selectedSourceId,lang,skipRitual}}));
+  if(!skipRitual){
+   const actual=document.querySelector('.artifact[data-id="'+selectedSourceId+'"] .artifact-inner img');
+   const rect=actual?.getBoundingClientRect();
+   const projected=passageProjection(point,rect,{width:innerWidth,height:innerHeight});
+   departureProjection=projected;
+   portalPhoto.style.left=projected.left+"px";
+   portalPhoto.style.top=projected.top+"px";
+   portalPhoto.style.width=projected.width+"px";
+   portalPhoto.style.height=projected.height+"px";
+   portalPhoto.style.setProperty("--passage-shift-x",projected.shiftX+"px");
+   portalPhoto.style.setProperty("--passage-shift-y",projected.shiftY+"px");
+   portalPhoto.style.setProperty("--passage-scale",String(projected.scale));
+   root.dataset.passageProjection=rect?"source-frame":"unavailable";
+   // Force the starting physical pose to be painted before the move begins.
+   void portalPhoto.offsetWidth;
+  }
+  departureStartedAt=performance.now();
+  root.classList.add("is-departing");
+  invalidate();
   setTimeout(()=>{root.hidden=true;root.remove();returnFocus?.focus?.({preventScroll:true});},skipRitual?220:1150);
  }
  function onPull(){

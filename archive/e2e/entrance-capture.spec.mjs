@@ -17,6 +17,11 @@ test("creative film — one woven object, three apertures, one unbroken source p
  await page.waitForTimeout(450);
  await page.screenshot({path:"test-results/"+info.project.name+"-08-textile-three-openings.png"});
  await page.locator('[data-eye-entry="retained"]').click();
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-passage-projection","source-frame");
+ await page.waitForTimeout(265);
+ await page.screenshot({path:"test-results/"+info.project.name+"-08-source-opening-mid-passage.png"});
+ await page.waitForTimeout(355);
+ await page.screenshot({path:"test-results/"+info.project.name+"-08-source-opening-near-arrival.png"});
  await expect(page.locator("#entranceLab")).toBeHidden({timeout:5500});
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator("#detail")).toBeHidden();

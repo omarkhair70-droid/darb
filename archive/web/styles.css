@@ -889,14 +889,27 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 .entrance-lab .ritual-eye-targets button:focus-visible:after{
  content:"↗";position:absolute;bottom:-18px;left:calc(50% - 6px);
  color:#f0d6b1;font:16px/1 Arial,sans-serif}
-.entrance-lab .ritual-portal{position:absolute;z-index:3;inset:0;pointer-events:none;
- background-position:center;background-size:cover;opacity:0;
- clip-path:circle(0 at var(--portal-x,50%) var(--portal-y,45%));
- filter:saturate(.75) contrast(.95) sepia(.08)}
+/* The evidence itself passes through the weave. We no longer use a
+   saturated, fullscreen, cover-cropped photograph inside a circle wipe. */
+.entrance-lab .ritual-portal{position:absolute;z-index:3;inset:0;
+ pointer-events:none;overflow:visible;opacity:1}
+.entrance-lab .ritual-portal-photo{
+ position:absolute;display:block;object-fit:contain;
+ object-position:center;max-width:none;max-height:none;
+ opacity:0;filter:none;
+ transform-origin:center center;
+ transform:translate3d(var(--passage-shift-x,0px),var(--passage-shift-y,0px),0)
+   scale(var(--passage-scale,.07));
+ will-change:transform,opacity;
+ box-shadow:0 0 0 1px rgba(221,196,153,.28),0 0 75px rgba(6,18,20,.39);
+}
 .entrance-lab.is-departing{animation:ritual-crossing 1150ms ease-in-out both}
-.entrance-lab.is-departing .ritual-portal{
- opacity:1;clip-path:circle(145vmax at var(--portal-x,50%) var(--portal-y,45%));
- transition:clip-path .98s cubic-bezier(.23,.65,.12,1),opacity .28s}
+.entrance-lab.is-departing:not(.is-skipping) .ritual-portal-photo{
+ opacity:1;
+ transform:translate3d(0,0,0) scale(1);
+ transition:transform 1.02s cubic-bezier(.16,.69,.15,1),
+  opacity .28s ease .03s;
+}
 .entrance-lab.is-departing .ritual-eye-targets,
 .entrance-lab.is-departing .ritual-hud,
 .entrance-lab.is-departing .ritual-bottom{opacity:0;transition:opacity .3s}
@@ -909,7 +922,7 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 }
 @media(prefers-reduced-motion:reduce){
  .entrance-lab.is-departing{animation:none;opacity:0;transition:opacity .15s}
- .entrance-lab.is-departing .ritual-portal{transition:none;clip-path:circle(145vmax at var(--portal-x,50%) var(--portal-y,45%))}
+ .entrance-lab.is-departing .ritual-portal-photo{transition:none!important;transform:none!important;opacity:1}
  .entrance-lab .ritual-eye-targets button{transition:none}
 }
 
