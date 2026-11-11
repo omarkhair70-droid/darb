@@ -71,3 +71,12 @@ This document is an execution plan for the **same Darb Archive / The Living Memo
 - **Working technical baseline:** the original 72 placed works, 17 clusters, 16 guided beats, AR/EN, archive compass, search, #39→#41→#42 route, reversible journey and route-sensitive memory ending; 64/64 desktop/mobile browser checks passed before merge.
 - **Not aesthetically accepted:** fabric realism, eye→world continuity, individual material craftsmanship, identity legibility, ending direction and multi-device polish.
 - **No rewrite from scratch, no merge with the other Vercel project, no replacement of the archived public baseline while experiments are underway.**
+
+## Execution record — first material/source passage study
+- **Branch PR:** [#5](https://github.com/omarkhair70-droid/darb/pull/5) remains Draft, separate from the published production baseline.
+- `src/passage-geometry.mjs` and unit tests project a genuine photograph's on-screen rectangle relative to the selected textile eye. Cases include narrow phone, portrait phone and desktop, and fail-soft incomplete measurements.
+- `web/entrance-lab.mjs` now carries the **original #39/#41/#42 source image** from the actual rendered aperture point toward its projected atlas frame. It also draws departure threads toward the same target instead of made-up screen coordinates.
+- `web/styles.css` replaces the cropped/sepia full-viewport circle wipe with the source's native aspect and transform; the source photographs themselves are not recolored.
+- `e2e/entrance-lab.spec.mjs` checks the selected source, eye/portal center and exact target frame. `e2e/entrance-capture.spec.mjs` requests intermediate arrival frames for visual critique.
+- **User navigation note:** the `/` URL currently intentionally displays the earlier entrance on **all devices**. The new textile is at `/?entrance=v2`. This is not a mobile-specific failure; no default-route switch is authorized before visual acceptance.
+- **Visual acceptance remains OPEN.** Even correct spatial registration does not establish physical cloth quality, motion pacing, letter recognition, or mobile art direction. Do not conflate passing CI with finishing this shot. The screenshots/videos need review, and any discovered aesthetic defect should be improved in this same branch before promoting.
