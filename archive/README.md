@@ -8,7 +8,9 @@
 
 The related source image appears in the **same world** with a different material-specific lighting/camera rhythm, a legible AR/EN cue and reversible object history; interactive content still works without choreography in reduced motion. Do not generalize one CSS treatment to all 72 works.
 
-**Entrances:** \`/?entrance=v2\` is still an opt-in entrance within this application. Current sound is an *intro-only* tactile generator attempted on the first browser-permitted visitor gesture, with silent fallback — there is **no longer a visible SOUND ON/OFF button**. Default \`/\` remains the previously accepted entry route, not a second independent archive.
+**Entrances (11 Nov):** The default `/` now opens the existing **woven textile ritual** for mobile and desktop. `/?entrance=v2` continues to work as a legacy shared link to the same ritual. The *earlier visual entrance* is retained at `/?entrance=legacy` for comparison and technical fallback. After the textile, visitors enter the same 72-object atlas and can use Follow Story / Explore. Intro sound starts only with a browser-permitted user gesture; no obligatory audio.
+
+**Release note:** Default entrance changed by explicit direction, independently of the still-draft PR #5 photographic/artistic experiment. Root and legacy e2e flows must both pass before promotion. The artistic approval of the textile and four identity letterforms remains an open, distinct issue.
 
 **Publication warning:** Preview-ready is not rights-cleared. The media catalog's \`approved_by_project_owner\` field does not resolve the unverified photographer/maker credits and participant-consent fields still marked \`publication: blocked\` in \`data/tales-of-fustat-001.json\`. Restrict previews and resolve source permissions for a genuine public release. Nothing in this project grants publication rights.
 
