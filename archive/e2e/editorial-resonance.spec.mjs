@@ -4,7 +4,7 @@ test("writing and voice become one camera passage, not two pages or a fictional 
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
  await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
- await page.locator('.artifact[data-id="44"] button').evaluate(button=>button.click());
+ await page.locator('.artifact[data-id="44"] .artifact-inner').evaluate(button=>button.click());
  await expect(page.locator("#detailTitle")).toContainText("A Room of One's Own");
  const invitation=page.locator('#relatedObjects [data-editorial-thread="voice"]');
  await expect(invitation).toHaveCount(1);
@@ -50,7 +50,7 @@ test("Arabic and reduced-motion preserve truth and instant return",async({page})
  await page.goto("/?entrance=legacy");
  await page.locator("#localeBtn").click();
  await page.locator("#modeBtn").click();
- await page.locator('.artifact[data-id="47"] button').evaluate(button=>button.click());
+ await page.locator('.artifact[data-id="47"] .artifact-inner').evaluate(button=>button.click());
  const bridge=page.locator('#relatedObjects [data-editorial-thread="voice"]');
  await expect(bridge).toHaveCount(1);
  await expect(bridge).toHaveAttribute("data-editorial-to","44");
