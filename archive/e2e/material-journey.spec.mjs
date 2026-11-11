@@ -18,7 +18,7 @@ test("documentary → cyanotype → notebooks travels via one truthful source pr
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
  await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
- await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await page.locator('.artifact[data-id="39"] .artifact-inner').evaluate(b=>b.click());
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
  await expect(page.locator("#experience")).toHaveAttribute("data-material-stage","photography");
  await expect(page.locator("#detailTitle")).toContainText("Tales of Fustat");
@@ -65,7 +65,7 @@ test("material path retains genuine Arabic editorial limits and a quiet reduced-
  expect(catalog.items.find(x=>x.id===41).xref).toBe(402);
  await page.locator("#localeBtn").click();
  await page.locator("#modeBtn").click();
- await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await page.locator('.artifact[data-id="39"] .artifact-inner').evaluate(b=>b.click());
  const route=page.locator("#relatedObjects .is-material-trace");
  await expect(route).toContainText("من الحكاية لأثر الضوء");
  await expect(route).toHaveAttribute("aria-label",/مش ادعاء/);
@@ -84,7 +84,7 @@ test("rapid rebranching doesn't leave obsolete source images highlighted",async(
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
  await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
- await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await page.locator('.artifact[data-id="39"] .artifact-inner').evaluate(b=>b.click());
  await page.locator("#relatedObjects .is-material-trace").evaluate(b=>b.click());
  await page.locator("#relatedObjects .is-material-trace").evaluate(b=>b.click());
  await expect(page.locator("#experience")).toHaveAttribute("data-material-stage","print");
