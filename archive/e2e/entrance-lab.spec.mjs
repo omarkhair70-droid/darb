@@ -74,7 +74,7 @@ test("touching a physical eye opens its real image in the same archive",async({p
  await expect(page.locator("#experience")).toHaveAttribute("data-woven-source","41");
  await expect(page.locator(".artifact[data-id='41']")).toHaveClass(/is-woven-source/);
  // The visitor opens this object's details only after choosing its real work.
- await page.locator(".artifact[data-id='41'] button").evaluate(button=>button.click());
+ await page.locator(".artifact[data-id='41'] .artifact-inner").evaluate(button=>button.click());
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
  await expect(page.locator("#detail")).toBeVisible();
  await page.locator("#closeDetail").click();
