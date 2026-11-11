@@ -606,6 +606,10 @@ html[lang="ar"] #index .atlas-node-copy{direction:rtl;text-align:right}
 /* STAGE 06A — THE ARCHIVE UNFURLS / experimental material entrance only.
    A self-contained, opt-in visual study, not the live homepage. */
 #entranceLab[hidden],#ritualEnter[hidden],#ritualPull[hidden]{display:none!important}
+/* Avoid flashing the previous introduction while the default textile module loads.
+   The 'load' fail-safe in index.html restores the archive if JS fails. */
+html.woven-entry-loading body{background:#0d1614}
+html.woven-entry-loading #experience,html.woven-entry-loading #reading{visibility:hidden!important}
 html.ritual-lab-active,html.ritual-lab-active body{overflow:hidden!important}
 .entrance-lab{position:fixed;inset:0;z-index:400;background:#0d1614;color:#e5dec9;
  isolation:isolate;overflow:hidden;touch-action:none;overscroll-behavior:none;
