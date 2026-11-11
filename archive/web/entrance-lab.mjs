@@ -16,6 +16,7 @@ function mountEntranceLab(){
  if(!root)return;
  root.hidden=false;
  document.documentElement.classList.add("ritual-lab-active");
+ document.documentElement.classList.remove("woven-entry-loading");
  const archive=document.querySelector("#experience");
  const reading=document.querySelector("#reading");
  if(archive)archive.inert=true;
