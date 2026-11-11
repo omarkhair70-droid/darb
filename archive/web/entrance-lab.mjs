@@ -8,7 +8,11 @@ import {drawThresholdBehind,drawThresholdInFront,projectWovenEye,thresholdEchoes
 // The original opening remains available for QA/return visits at
 // ?entrance=legacy. ?entrance=v2 is an unchanged backward-compatible link.
 // This is an authored new textile, not a historical Darb-owned carpet.
-const active=new URLSearchParams(location.search).get("entrance")!=="legacy";
+const entranceParams=new URLSearchParams(location.search);
+// A direct editorial-study link starts *inside* the archive world. It is
+// neither the default visitor experience nor a return to the legacy opening.
+const active=entranceParams.get("entrance")!=="legacy"&&
+ entranceParams.get("study")!=="writing-voice";
 if(active)mountEntranceLab();
 
 function mountEntranceLab(){
