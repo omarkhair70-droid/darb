@@ -404,6 +404,7 @@ function markMaterialArrival(id){
 }
 function inspect(id){
  const item=mediaRecord(id);if(!item)return;
+ delete $("#experience").dataset.sourceOpen;
  // Another source selection interrupts, rather than leaves an editorial
  // transition floating under an unrelated photograph.
  if($("#experience").dataset.editorialPassage&&
@@ -516,6 +517,7 @@ function emphasizeSourceThreads(item){
 }
 function retraceEncounter(){
  if(!encounter)return;
+ delete $("#experience").dataset.sourceOpen;
  if($("#experience").dataset.editorialPassage)clearEditorialResonance();
  if(encounter.history.length>1){
   encounter.history.pop();
@@ -531,6 +533,21 @@ function retraceEncounter(){
   fillDetail(previous.id);
  }else closeDetail();
 }
+/**
+ * The source note is a deliberately optional reading state. It temporarily
+ * replaces the secondary thumbnails instead of piling source paragraphs on
+ * top of their art. Works for touch, keyboard, and Arabic.
+ */
+function setSourceOpen(open){
+ const note=$("#detailSourceNote"),related=$("#relatedObjects"),button=$("#sourceBtn");
+ const root=$("#experience");
+ if(!note||!related||!button)return;
+ root.dataset.sourceOpen=String(Boolean(open));
+ note.hidden=!open;
+ related.hidden=Boolean(open);
+ button.setAttribute("aria-expanded",String(Boolean(open)));
+ button.textContent=open?copy[lang].sourceClose:copy[lang].source;
+}
 function fillDetail(id){
  const item=mediaRecord(id);if(!item)return;
  // The source catalog retains PDF/XREF, filenames and audit data. Those are
@@ -542,12 +559,20 @@ function fillDetail(id){
  $("#detailText").textContent=local(item.title);
  $("#detailMeta").textContent=lang==="ar"?"صورة من أرشيف البرنامج":"FROM THE PROGRAMME";
  $("#detailSourceLabel").textContent=copy[lang].sourceLabel;
- $("#detailSourceBody").textContent=lang==="ar"
-  ?"الصورة دي جزء من مواد برنامج «"+local(item.project)+"» في أرشيف درب ١٧١٨. تقدر تتابع الأعمال المرتبطة بيها من هنا."
-  :"This image belongs to the "+local(item.project)+" programme in the Darb 1718 archive. Continue through the related works without leaving this space.";
- $("#detailSourceNote").hidden=true;
- $("#sourceBtn").setAttribute("aria-expanded","false");
- $("#sourceBtn").textContent=copy[lang].source;
+ // Show actual archive evidence, not a second paragraph that repeats the
+ // same promotional sentence on every single artwork.
+ const page=Number.isFinite(Number(item.page))?Number(item.page):null;
+ const reference=String(item.source||"Darb 1718 Overview 2026");
+ const citation=lang==="ar"
+  ?"المصدر: "+reference+(page===null?"":" · صفحة "+page)+"."
+  :"Source: "+reference+(page===null?"":" · page "+page)+".";
+ const editorial=([44,47].includes(item.id))
+  ?(lang==="ar"
+    ?" الربط بين الكتابة والصوت هنا مقارنة فنية تحريرية بين برنامجين، مش توثيق لتعاون بينهما."
+    :" The writing–voice link is an editorial comparison of separate programmes, not a documented collaboration.")
+  :"";
+ $("#detailSourceBody").textContent=citation+editorial;
+ $("#detailSourceLabel").textContent=lang==="ar"?"مصدر الصورة وسياقها":"IMAGE SOURCE / CONTEXT";
  $("#followBtn").textContent=copy[lang].follow;
  const beat=nearestChapterFor(item);
  $("#followBtn").hidden=beat<0;
@@ -613,6 +638,7 @@ function fillDetail(id){
    host.append(btn);
   }
  }
+ setSourceOpen($("#experience").dataset.sourceOpen==="true");
 }
 function nearestChapterFor(item){
  let index=moments.findIndex(ch=>ch.focusId===item.id);
@@ -620,6 +646,7 @@ function nearestChapterFor(item){
  return moments.findIndex(ch=>ch.focusId!==null&&mediaRecord(ch.focusId)?.cluster===item.cluster);
 }
 function closeDetail(){
+ delete $("#experience").dataset.sourceOpen;
  if($("#experience").dataset.editorialPassage)clearEditorialResonance();
  if(encounter){
   const previous=encounter;
@@ -895,11 +922,7 @@ function installInput(){
  });
  $("#sourceBtn").addEventListener("click",()=>{
   if(openItem===null)return;
-  const note=$("#detailSourceNote");
-  note.hidden=!note.hidden;
-  const expanded=!note.hidden;
-  $("#sourceBtn").setAttribute("aria-expanded",String(expanded));
-  $("#sourceBtn").textContent=expanded?copy[lang].sourceClose:copy[lang].source;
+  setSourceOpen($("#experience").dataset.sourceOpen!=="true");
  });
  $("#backToScene").addEventListener("click",()=>jumpTo(currentBeat));
  addEventListener("scroll",()=>{
