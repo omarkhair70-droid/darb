@@ -6,8 +6,21 @@ async function unfold(page){
  await expect(page.locator("#ritualEyeTargets button:enabled")).toHaveCount(3);
 }
 
-test("the same Darb archive stays intact when the textile study is not selected",async({page})=>{
+test("the public root opens the woven rug immediately and legacy remains optional",async({page})=>{
  await page.goto("/");
+ await expect(page.locator("#entranceLab")).toBeVisible();
+ await expect(page.locator("#entranceLab")).toHaveAttribute("data-study","06b");
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
+ await expect(page.locator(".artifact")).toHaveCount(72);
+ await page.goto("/?entrance=v2");
+ await expect(page.locator("#entranceLab")).toBeVisible();
+ await page.goto("/?entrance=legacy");
+ await expect(page.locator("#entranceLab")).toBeHidden();
+ await expect(page.locator("#memorySignature")).toBeVisible();
+});
+
+test("the same Darb archive stays intact when the textile study is not selected",async({page})=>{
+ await page.goto("/?entrance=legacy");
  await expect(page.locator("#entranceLab")).toBeHidden();
  await expect(page.locator("#memorySignature")).toBeVisible();
  await expect(page.locator(".artifact")).toHaveCount(72);

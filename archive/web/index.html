@@ -6,6 +6,14 @@
 <meta name="theme-color" content="#edeee9"/>
 <meta name="description" content="Darb Archive — The Living Memory. Follow an ever-changing constellation of artworks, people, and places."/>
 <title>Darb Archive / The Living Memory</title>
+<script>
+// Start with the woven entrance's background on the very first paint. The
+// existing archive is still the fallback if the enhanced module cannot mount.
+if(new URLSearchParams(location.search).get("entrance")!=="legacy"){
+ document.documentElement.classList.add("woven-entry-loading");
+ addEventListener("load",()=>document.documentElement.classList.remove("woven-entry-loading"),{once:true});
+}
+</script>
 <link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
@@ -161,8 +169,9 @@
 </section>
 
 
-<!-- Optional 06A material lab. Only shown at ?entrance=v2; it never changes
-     the working Stage 05 default entrance or creates a parallel website. -->
+<!-- The woven textile is the default Darb Archive entrance on /.
+     ?entrance=v2 remains supported, and ?entrance=legacy restores the earlier
+     opening for comparison. All routes lead into the same source-driven world. -->
 <section class="entrance-lab" id="entranceLab" hidden role="dialog" aria-modal="true" aria-label="Entrance Ritual V2 original textile material study">
   <canvas id="ritualCanvas" aria-label="Interactive unfurling textile with a first stitched aperture"></canvas>
   <div class="ritual-hud">

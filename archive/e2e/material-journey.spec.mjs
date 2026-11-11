@@ -16,7 +16,7 @@ async function verifySettledSource(page,id){
 
 test("documentary → cyanotype → notebooks travels via one truthful source programme and reverses",async({page},testInfo)=>{
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
  await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
@@ -60,7 +60,7 @@ await page.screenshot({path:"test-results/"+testInfo.project.name+"-12-printed-t
 
 test("material path retains genuine Arabic editorial limits and a quiet reduced-motion alternative",async({page})=>{
  await page.emulateMedia({reducedMotion:"reduce"});
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  const catalog=await(await page.request.get("/catalog.json")).json();
  expect(catalog.items.find(x=>x.id===41).xref).toBe(402);
  await page.locator("#localeBtn").click();
@@ -82,7 +82,7 @@ test("material path retains genuine Arabic editorial limits and a quiet reduced-
 
 test("rapid rebranching doesn't leave obsolete source images highlighted",async({page})=>{
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
  await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
  await page.locator("#relatedObjects .is-material-trace").evaluate(b=>b.click());

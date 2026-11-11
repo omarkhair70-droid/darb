@@ -3,7 +3,7 @@ import {test,expect} from "@playwright/test";
 test("seventy-two archival objects inhabit a continuous world, on desktop and mobile",async({page},info)=>{
  const errors=[];
  page.on("pageerror",error=>errors.push(String(error)));
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await expect(page.locator("#canvas")).toBeVisible();
  await expect(page.locator(".artifact")).toHaveCount(72);
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
@@ -32,7 +32,7 @@ test("seventy-two archival objects inhabit a continuous world, on desktop and mo
 });
 
 test("the full archive is searchable, indexable and accessible as real source assets",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  for(const path of ["/media/1.jpeg","/media/39.jpeg","/media/40.jpeg","/media/41.jpeg","/media/42.jpeg","/media/53.png","/media/56.png","/media/61.png","/media/75.jpeg","/catalog.json","/chapters.json"]){
   const response=await page.request.get(path);
   expect(response.status(),path).toBe(200);
@@ -56,7 +56,7 @@ test("the full archive is searchable, indexable and accessible as real source as
 });
 
 test("all program clusters and source captions survive locale switching",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await expect(page.locator(".zone-label")).toHaveCount(17);
  const catalog=await (await page.request.get("/catalog.json")).json();
  expect(catalog.items).toHaveLength(77);
@@ -71,7 +71,7 @@ test("all program clusters and source captions survive locale switching",async({
 
 
 test("a visitor can follow a labelled editorial thread between different programmes",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  const threads=await (await page.request.get("/threads.json")).json();
  expect(threads.connections).toHaveLength(9);
  await page.locator("#modeBtn").click();
@@ -86,7 +86,7 @@ test("a visitor can follow a labelled editorial thread between different program
 
 
 test("real pointer interaction reaches visible archive objects; scale controls work",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
  await expect(page.locator("#spatialControls")).toBeVisible();
  await page.waitForTimeout(500);
@@ -119,7 +119,7 @@ test("real pointer interaction reaches visible archive objects; scale controls w
 test("D identity grows from real archive knots into an artwork, then reverses without a drawer",async({page},info)=>{
  const errors=[];
  page.on("pageerror",error=>errors.push(String(error)));
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await expect(page.locator("#memorySignature")).toBeVisible();
  await expect(page.locator("#memorySignature [data-open-object]")).toHaveCount(4);
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","journey");
@@ -160,7 +160,7 @@ test("D identity grows from real archive knots into an artwork, then reverses wi
 });
 
 test("a documentary image has its own contextual atmosphere and Arabic copy",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator('.signature-knot[data-open-object="39"]').click();
  await expect(page.locator("#canvas")).toHaveAttribute("data-material","photography");
  await page.locator("#localeBtn").click();
@@ -173,7 +173,7 @@ test("a documentary image has its own contextual atmosphere and Arabic copy",asy
 test("black circle opens an archive constellation, not the old heading and list",async({page},info)=>{
  const errors=[];
  page.on("pageerror",e=>errors.push(e.message));
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await expect(page.locator("#index")).toBeHidden();
  const before=await page.locator("#world").evaluate(el=>el.style.transform);
  await page.locator("#indexBtn").click();
@@ -199,7 +199,7 @@ test("black circle opens an archive constellation, not the old heading and list"
 });
 
 test("a real archive constellation click moves the camera into its own image cluster",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator("#indexBtn").click();
  await page.locator('.atlas-node[data-cluster="fustat"]').click();
  await expect(page.locator("#index")).toBeHidden();
@@ -220,7 +220,7 @@ test("a real archive constellation click moves the camera into its own image clu
 
 
 test("the editorial compass keeps its title clear and its selected thread enters the same world",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator("#indexBtn").click();
  await expect(page.locator("#indexItems .atlas-node")).toHaveCount(17);
  if(page.viewportSize().width>800){
@@ -241,7 +241,7 @@ test("the editorial compass keeps its title clear and its selected thread enters
 
 
 test("the last moment weaves the visitor's actual route instead of opening a final page",async({page},info)=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  for(const beat of [2,4,6,9,12,15]){
   await page.evaluate(i=>{
    const e=document.getElementById("experience");
@@ -266,7 +266,7 @@ test("the visitor sees image captions and provenance inside Darb, never develope
  const errors=[];let popups=0;
  page.on("pageerror",e=>errors.push(e.message));
  page.on("popup",()=>popups++);
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  const originalCatalog=await (await page.request.get("/catalog.json")).json();
  const image=originalCatalog.items.find(entry=>entry.id===18);
  expect(image.page).toBe(5);
@@ -298,7 +298,7 @@ test("the visitor sees image captions and provenance inside Darb, never develope
 });
 
 test("reader and archive search show human descriptions, not PDF pagination",async({page})=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await expect(page.locator("#readingList figcaption").first()).not.toContainText("PDF");
  await page.locator("#indexBtn").click();
  await page.locator("#archiveSearch").fill("cyanotype");
@@ -307,7 +307,7 @@ test("reader and archive search show human descriptions, not PDF pagination",asy
 });
 
 test("the first identity filament network is earned by visiting real material sources",async({page},info)=>{
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator("#experience")).toHaveAttribute("data-identity-bridge","unseen");
@@ -335,7 +335,7 @@ test("the first identity filament network is earned by visiting real material so
 
 test("four identities are discovered out of sequence without overlays or invented archive sources",async({page},info)=>{
  test.setTimeout(90_000);
- await page.goto("/");
+ await page.goto("/?entrance=legacy");
  await page.locator("#modeBtn").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  const constellations=page.locator("#identityConstellations");
