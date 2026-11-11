@@ -111,15 +111,15 @@ if(openingParams.get("study")==="writing-voice"){
     <h2 id="detailTitle"></h2>
     <p id="detailText"></p>
     <div class="detail-meta" id="detailMeta"></div>
-    <div class="detail-source-note" id="detailSourceNote" hidden>
-      <span id="detailSourceLabel">ABOUT THIS IMAGE</span>
+    <div class="detail-controls">
+      <button id="followBtn" type="button" class="text-action" hidden>FOLLOW THIS THREAD ↗</button>
+      <button id="sourceBtn" type="button" class="text-action" aria-controls="detailSourceNote" aria-expanded="false">ABOUT THIS IMAGE</button>
+    </div>
+    <div class="detail-source-note" id="detailSourceNote" role="region" aria-labelledby="detailSourceLabel" hidden>
+      <span id="detailSourceLabel">SOURCE / CONTEXT</span>
       <p id="detailSourceBody"></p>
     </div>
     <div class="related" id="relatedObjects" aria-label="Other records in this programme"></div>
-    <div class="detail-controls">
-      <button id="followBtn" type="button" class="text-action" hidden>FOLLOW THIS THREAD ↗</button>
-      <button id="sourceBtn" type="button" class="text-action">VIEW RECORD ↗</button>
-    </div>
   </section>
 
   <section class="index" id="index" hidden role="dialog" aria-modal="true" aria-label="Explore Darb Archive connections">
