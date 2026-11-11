@@ -183,12 +183,28 @@ test("each woven aperture shares its exact center with the photographic portal",
     eyeX:r.left+r.width/2,eyeY:r.top+r.height/2,
     portalX:Number.parseFloat(root.style.getPropertyValue("--portal-x")),
     portalY:Number.parseFloat(root.style.getPropertyValue("--portal-y")),
-    photo:portal.style.backgroundImage
+    photo:portal.querySelector(".ritual-portal-photo")?.getAttribute("src"),
+    projection:root.dataset.passageProjection,
+    projectedFrame:{
+     left:Number.parseFloat(portal.querySelector(".ritual-portal-photo").style.left),
+     top:Number.parseFloat(portal.querySelector(".ritual-portal-photo").style.top),
+     width:Number.parseFloat(portal.querySelector(".ritual-portal-photo").style.width),
+     height:Number.parseFloat(portal.querySelector(".ritual-portal-photo").style.height)
+    },
+    sourceFrame:(()=>{
+     const frame=document.querySelector('.artifact[data-id="'+({witness:39,retained:41,visitor:42}[button.dataset.eyeEntry])+'"] .artifact-inner img')?.getBoundingClientRect();
+     return frame?{left:frame.left,top:frame.top,width:frame.width,height:frame.height}:null;
+    })()
    };
   });
   expect(Math.abs(measurement.eyeX-measurement.portalX)).toBeLessThan(1);
   expect(Math.abs(measurement.eyeY-measurement.portalY)).toBeLessThan(1);
-  expect(measurement.photo).toContain("/media/"+source+".jpeg");
+  expect(measurement.photo).toBe("/media/"+source+".jpeg");
+  expect(measurement.projection).toBe("source-frame");
+  expect(measurement.sourceFrame).not.toBeNull();
+  for(const key of ["left","top","width","height"]){
+   expect(Math.abs(measurement.projectedFrame[key]-measurement.sourceFrame[key])).toBeLessThan(1.2);
+  }
   await expect(page.locator("#experience")).toHaveAttribute("data-woven-source",String(source));
  }
 });
