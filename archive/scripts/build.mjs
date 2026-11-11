@@ -23,7 +23,7 @@ const files=[
  ["web/threshold-world.mjs","threshold-world.mjs"],
  ["src/entrance-ritual-v2.mjs","entrance-ritual-v2.mjs"],["src/ritual-material.mjs","ritual-material.mjs"],["src/cloth-dynamics.mjs","cloth-dynamics.mjs"],["src/woven-sound.mjs","woven-sound.mjs"],["src/graph.mjs","graph.mjs"],
  ["src/material-score.mjs","material-score.mjs"],["src/identity-relations.mjs","identity-relations.mjs"],["src/identity-score.mjs","identity-score.mjs"],
- ["src/world-layout.mjs","world-layout.mjs"],
+ ["src/world-layout.mjs","world-layout.mjs"],["src/passage-geometry.mjs","passage-geometry.mjs"],
  ["data/tales-of-fustat-001.json","story.json"],
  ["data/media-catalog.json","catalog.json"],
  ["data/world-chapters.json","chapters.json"],
