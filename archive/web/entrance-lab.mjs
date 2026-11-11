@@ -54,6 +54,7 @@ function mountEntranceLab(){
  let lang="en",ritual=initialRitual({reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches});
  let progress=0,targetProgress=0,clothVelocity=0,last=0,raf=0,drag=null,departed=false;
  let gaze=.5,selectedSourceId=39,departureAmount=0,departureStartedAt=0,returnFocus=null,hoveredEyeKey=null;
+ let departureProjection=null;
  const photo=new Image();
  photo.src="/media/39.jpeg";
  photo.decoding="async";
@@ -431,8 +432,11 @@ function mountEntranceLab(){
   for(let i=0;i<23;i++){
    const k=(i-11)/11;
    const side=k*(9+amount*score.fan);
-   const xEnd=score.endX+side*.75;
-   const yEnd=score.endY+side*(aperture.key==="visitor"?1.25:1.5);
+   // During departure each fiber follows the real projected photograph;
+   // the three source materials retain different tension and curvature.
+   const xEnd=(departureProjection?.targetCenter.x??score.endX)+side*.75;
+   const yEnd=(departureProjection?.targetCenter.y??score.endY)+
+    side*(aperture.key==="visitor"?1.25:1.5);
    c.beginPath();c.moveTo(sx+side*.18,sy+side*.18);
    c.bezierCurveTo(
     sx+(xEnd-sx)*score.bend,sy+side*(1.05+score.bend),
@@ -653,6 +657,7 @@ function mountEntranceLab(){
    const actual=document.querySelector('.artifact[data-id="'+selectedSourceId+'"] .artifact-inner img');
    const rect=actual?.getBoundingClientRect();
    const projected=passageProjection(point,rect,{width:innerWidth,height:innerHeight});
+   departureProjection=projected;
    portalPhoto.style.left=projected.left+"px";
    portalPhoto.style.top=projected.top+"px";
    portalPhoto.style.width=projected.width+"px";
