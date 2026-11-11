@@ -87,3 +87,25 @@ test("the visited artwork itself reveals the crossing without opening a menu",as
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator(".artifact")).toHaveCount(72);
 });
+
+test("direct study URL opens the two real artworks without flashing the legacy or textile opening",async({page},info)=>{
+ const errors=[];page.on("pageerror",error=>errors.push(error.message));
+ await page.goto("/?study=writing-voice");
+ await expect(page.locator("#entranceLab")).toBeHidden();
+ await expect(page.locator("#experience")).toHaveAttribute("data-direct-study","writing-voice");
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
+ await expect(page.locator("#experience")).toHaveAttribute("data-editorial-passage","writing-voice",{timeout:7000});
+ await expect(page.locator("#experience")).toHaveAttribute("data-editorial-from","44");
+ await expect(page.locator("#experience")).toHaveAttribute("data-editorial-to","47");
+ await expect(page.locator("#detailTitle")).toContainText("Voice in Motion");
+ await expect(page.locator("#editorialResonance path")).toHaveCount(8);
+ await page.screenshot({path:"test-results/"+info.project.name+"-direct-writing-voice-mid-flight.png"});
+ await expect(page.locator("#experience")).not.toHaveAttribute("data-editorial-passage",/.+/,{timeout:6000});
+ await expect(page.locator(".artifact")).toHaveCount(72);
+ await expect(page.locator("#detailTitle")).toContainText("Voice in Motion");
+ await page.locator("#closeDetail").click();
+ await expect(page.locator("#detailTitle")).toContainText("A Room of One's Own");
+ await page.locator("#closeDetail").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ expect(errors).toEqual([]);
+});
