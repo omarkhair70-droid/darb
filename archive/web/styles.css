@@ -1166,3 +1166,72 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 @media(prefers-reduced-motion:reduce){
  .identity-constellations .identity-lens{transition:none}
 }
+
+
+/* Living relation no. 01 — actual writing and voice source records.
+   This is an editorial comparison of distinct programmes, never a
+   documentary collaboration. Light and filaments live BEHIND the images. */
+.editorial-resonance{
+ position:absolute;inset:0;width:9200px;height:6400px;
+ z-index:1;pointer-events:none;overflow:visible;
+ opacity:0;transition:opacity .55s ease;
+}
+.experience[data-editorial-passage="writing-voice"] .editorial-resonance{opacity:1}
+.editorial-resonance path{fill:none;vector-effect:non-scaling-stroke;
+ stroke-linecap:round;stroke-linejoin:round;
+ stroke:#9b7967;stroke-width:1.55;stroke-opacity:.74;
+ stroke-dasharray:5 14;stroke-dashoffset:130;
+}
+.editorial-resonance path[data-kind="axis"]{
+ stroke:#406a65;stroke-width:2.3;stroke-opacity:.65;
+ stroke-dasharray:1 0;
+}
+.editorial-resonance path[data-kind="voice"]{
+ stroke:#5c9393;stroke-width:1.2;stroke-dasharray:2 17;
+}
+.experience[data-editorial-passage="writing-voice"] .editorial-resonance path{
+ animation:written-to-voice 1.85s cubic-bezier(.13,.65,.24,1) both;
+}
+.experience[data-editorial-passage="writing-voice"] .editorial-resonance path[data-kind="voice"]{
+ animation-duration:2.1s;
+}
+@keyframes written-to-voice{
+ 0%{stroke-dashoffset:500;stroke-opacity:.1}
+ 38%{stroke-opacity:.85}
+ 100%{stroke-dashoffset:0;stroke-opacity:.46}
+}
+.experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-origin{
+ filter:drop-shadow(0 10px 33px #bfa1847a);
+}
+.experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-destination{
+ z-index:10;filter:drop-shadow(0 13px 34px #527e848c);
+}
+.experience[data-editorial-passage="writing-voice"] .world-links .curatorial-thread[data-thread="voice"]{
+ stroke:#7b9696;stroke-width:4;stroke-opacity:.75;stroke-dasharray:2 13;
+}
+.experience[data-editorial-passage="writing-voice"] .veil{
+ background:linear-gradient(108deg,rgba(236,222,202,.21),rgba(179,211,209,.19) 62%,rgba(226,239,233,0) 90%);
+}
+/* The camera leads. The contextual description arrives AFTER the image. */
+.experience[data-editorial-passage="writing-voice"] .object-detail{
+ opacity:0;pointer-events:none;transform:translateY(11px);
+}
+.experience[data-editorial-passage="writing-voice"] .object-detail,
+.experience:not([data-editorial-passage]) .object-detail{
+ transition:opacity .45s ease,transform .45s ease;
+}
+.related-item.is-editorial-resonance{position:relative}
+.related-item.is-editorial-resonance span small{display:block;margin-top:5px;
+ font-size:10px;font-style:italic;line-height:1.42;color:#668077}
+.related-item.is-editorial-resonance:before{
+ content:"";position:absolute;left:-12px;top:9px;bottom:9px;
+ border-left:1px solid #ae8568;
+}
+@media(prefers-reduced-motion:reduce){
+ .editorial-resonance,.editorial-resonance path{
+  transition:none!important;animation:none!important;stroke-dashoffset:0!important;
+ }
+ .experience[data-editorial-passage="writing-voice"] .object-detail{
+  opacity:1;transform:none;pointer-events:auto;
+ }
+}
