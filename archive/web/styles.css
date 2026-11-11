@@ -1235,3 +1235,27 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
   opacity:1;transform:none;pointer-events:auto;
  }
 }
+
+
+/* A visited photograph holds its own next doorway, embedded in the moving
+   atlas rather than a fixed navigation tile. No marker before discovery. */
+.artifact .editorial-seed{
+ position:absolute;right:-54px;top:40%;width:74px;height:74px;
+ display:grid;place-items:center;z-index:11;border-radius:50%;
+ border:1px solid rgba(99,124,114,.62);
+ background:radial-gradient(circle,rgba(229,225,202,.94),rgba(232,231,215,.58) 62%,transparent 73%);
+ color:#41645d;font:400 45px/1 Georgia,serif;cursor:pointer;
+ opacity:0;transform:translateX(-9px) rotate(-15deg);
+ pointer-events:none;
+ transition:opacity .55s ease,transform .75s cubic-bezier(.2,.7,.26,1);
+}
+.artifact .editorial-seed[hidden]{display:none!important}
+.experience[data-mode="explore"] .artifact.has-been-visited .editorial-seed{
+ opacity:.89;transform:translateX(0) rotate(0deg);pointer-events:auto;
+}
+.experience[data-mode="explore"] .artifact.has-been-visited .editorial-seed:hover,
+.experience[data-mode="explore"] .artifact.has-been-visited .editorial-seed:focus-visible{
+ opacity:1;outline:2px solid #9b7354;outline-offset:4px;
+ background:#f0e4ce;transform:translateX(5px) rotate(4deg);
+}
+@media(prefers-reduced-motion:reduce){.artifact .editorial-seed{transition:none!important}}
