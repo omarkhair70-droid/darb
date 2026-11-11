@@ -109,3 +109,28 @@ test("direct study URL opens the two real artworks without flashing the legacy o
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  expect(errors).toEqual([]);
 });
+
+test("chosen art direction holds an unseen voice before release, without overlay narration",async({page},info)=>{
+ await page.goto("/?entrance=legacy");
+ await page.locator("#modeBtn").click();
+ await page.locator('.artifact[data-id="44"] .artifact-inner').evaluate(button=>button.click());
+ const origin=page.locator('#relatedObjects [data-editorial-thread="voice"]');
+ const initial=await origin.evaluate(button=>{
+  button.click();
+  const root=document.querySelector("#experience");
+  const paths=[...document.querySelectorAll("#editorialResonance path")];
+  return {phase:root.dataset.editorialPhase,interpretation:root.dataset.editorialInterpretation,
+   pathLengths:paths.map(path=>path.getAttribute("pathLength")),
+   sourceVisible:!document.querySelector("#detailSourceNote").hidden};
+ });
+ expect(initial.phase).toBe("held");
+ expect(initial.interpretation).toBe("voice-held-inside-writing");
+ expect(initial.pathLengths).toEqual(Array(8).fill("100"));
+ expect(initial.sourceVisible).toBe(false);
+ await expect(page.locator("#experience")).toHaveAttribute("data-editorial-phase","release",{timeout:2500});
+ await expect(page.locator("#detailSourceNote")).toBeHidden();
+ await page.screenshot({path:"test-results/"+info.project.name+"-held-voice-release.png"});
+ await expect(page.locator("#experience")).not.toHaveAttribute("data-editorial-passage",/.+/,{timeout:5500});
+ await expect(page.locator("#detailTitle")).toContainText("Voice in Motion");
+ await expect(page.locator(".artifact")).toHaveCount(72);
+});
