@@ -65,3 +65,25 @@ test("Arabic and reduced-motion preserve truth and instant return",async({page})
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator(".artifact")).toHaveCount(72);
 });
+
+test("the visited artwork itself reveals the crossing without opening a menu",async({page})=>{
+ await page.goto("/?entrance=legacy");
+ await page.locator("#modeBtn").click();
+ const marker=page.locator('.artifact[data-id="44"] .editorial-seed');
+ await expect(marker).toBeHidden();
+ await page.locator('.artifact[data-id="44"] .artifact-inner').evaluate(button=>button.click());
+ await page.locator("#closeDetail").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(marker).toBeVisible();
+ await expect(marker).toHaveAttribute("data-editorial-to","47");
+ // Source marker is in the same transformed world as its photograph.
+ await marker.evaluate(button=>button.click());
+ await expect(page.locator("#experience")).toHaveAttribute("data-editorial-to","47");
+ await expect(page.locator("#detailTitle")).toContainText("Voice in Motion");
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
+ await page.locator("#closeDetail").click();
+ await expect(page.locator("#detailTitle")).toContainText("A Room of One's Own");
+ await page.locator("#closeDetail").click();
+ await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
+ await expect(page.locator(".artifact")).toHaveCount(72);
+});
