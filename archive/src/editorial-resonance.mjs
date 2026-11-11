@@ -3,6 +3,20 @@
  * This is a curatorial comparison, not evidence of collaboration or a
  * chronological relationship. Every strand starts/ends at real atlas items.
  */
+// Curatorial interpretation chosen for the #44 → #47 study:
+// A voice was already inside the writing, under pressure, and is released.
+// This is an emotional metaphor, NEVER a documented claim about participants.
+export const WRITING_VOICE_DRAMATURGY=Object.freeze({
+ direction:"voice-held-inside-writing",
+ durationMs:3000,
+ holdMs:950,
+ acts:Object.freeze([
+  Object.freeze({id:"held",fromMs:0,toMs:650}),
+  Object.freeze({id:"strain",fromMs:650,toMs:1100}),
+  Object.freeze({id:"release",fromMs:1100,toMs:3000})
+ ])
+});
+
 export function writingVoiceResonance(fromId,toId,records,threads){
  const order=(fromId===44&&toId===47)||(fromId===47&&toId===44);
  if(!order||!Array.isArray(records)||!Array.isArray(threads?.connections))return null;
