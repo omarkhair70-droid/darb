@@ -14,7 +14,7 @@ test("seventy-two archival objects inhabit a continuous world, on desktop and mo
  await page.locator("#modeBtn").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");
  await expect(page.locator("#spatialHint")).toBeVisible();
- await page.locator('.artifact[data-id="39"] button').evaluate(button=>button.click());
+ await page.locator('.artifact[data-id="39"] .artifact-inner').evaluate(button=>button.click());
  await expect(page.locator("#detail")).toBeVisible();
  await expect(page.locator("#detail")).toContainText("Tales of Fustat");
  await expect(page.locator("#relatedObjects .related-item:not(.thread-item)")).toHaveCount(3);
@@ -75,7 +75,7 @@ test("a visitor can follow a labelled editorial thread between different program
  const threads=await (await page.request.get("/threads.json")).json();
  expect(threads.connections).toHaveLength(9);
  await page.locator("#modeBtn").click();
- await page.locator('.artifact[data-id="41"] button').evaluate(button=>button.click());
+ await page.locator('.artifact[data-id="41"] .artifact-inner').evaluate(button=>button.click());
  await expect(page.locator("#detail")).toBeVisible();
  await expect(page.locator("#detailTitle")).toContainText("Tales of Fustat");
  await expect(page.locator("#relatedObjects .thread-item")).toHaveCount(2);
@@ -272,7 +272,7 @@ test("the visitor sees image captions and provenance inside Darb, never develope
  expect(image.page).toBe(5);
  expect(image.xref).toBe(345);
  await page.locator("#modeBtn").click();
- await page.locator('.artifact[data-id="18"] button').evaluate(button=>button.click());
+ await page.locator('.artifact[data-id="18"] .artifact-inner').evaluate(button=>button.click());
  await expect(page.locator("#detailTitle")).toHaveText("UNSPOKEN");
  await expect(page.locator("#detailText")).toHaveText(image.title.en);
  await expect(page.locator("#detailMarker")).not.toContainText(/PDF|XREF/);
@@ -315,7 +315,7 @@ test("the first identity filament network is earned by visiting real material so
  await expect(network.locator("path")).toHaveCount(3);
  await expect(network.locator('[data-kind="editorial-comparison"]')).toHaveCount(2);
  await expect(network.locator('[data-kind="shared-programme"]')).toHaveCount(1);
- await page.locator('.artifact[data-id="39"] button').evaluate(b=>b.click());
+ await page.locator('.artifact[data-id="39"] .artifact-inner').evaluate(b=>b.click());
  await expect(page.locator("#experience")).toHaveAttribute("data-identity-bridge","unseen");
  await page.locator("#relatedObjects .is-material-trace").click();
  await expect(page.locator("#experience")).toHaveAttribute("data-identity-bridge","discovered");
@@ -346,7 +346,7 @@ test("four identities are discovered out of sequence without overlays or invente
  await expect(page.locator("#identityTrace path")).toHaveCount(3);
  await expect(page.locator("#experience")).toHaveAttribute("data-identity-letters","none");
  const unlock=async(id)=>{
-  await page.locator('.artifact[data-id="'+id+'"] button').evaluate(button=>button.click());
+  await page.locator('.artifact[data-id="'+id+'"] .artifact-inner').evaluate(button=>button.click());
   await expect(page.locator("#experience")).toHaveAttribute("data-mode","encounter");
   await page.locator("#closeDetail").click();
   await expect(page.locator("#experience")).toHaveAttribute("data-mode","explore");

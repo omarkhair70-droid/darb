@@ -9,7 +9,13 @@
 <script>
 // Start with the woven entrance's background on the very first paint. The
 // existing archive is still the fallback if the enhanced module cannot mount.
-if(new URLSearchParams(location.search).get("entrance")!=="legacy"){
+const openingParams=new URLSearchParams(location.search);
+if(openingParams.get("study")==="writing-voice"){
+ // Hide the old introduction while the original archive positions its
+ // two authentic works for a direct, filmed editorial study.
+ document.documentElement.classList.add("editorial-study-loading");
+ setTimeout(()=>document.documentElement.classList.remove("editorial-study-loading"),8500);
+}else if(openingParams.get("entrance")!=="legacy"){
  document.documentElement.classList.add("woven-entry-loading");
  addEventListener("load",()=>document.documentElement.classList.remove("woven-entry-loading"),{once:true});
 }
@@ -22,6 +28,7 @@ if(new URLSearchParams(location.search).get("entrance")!=="legacy"){
   <div class="canvas" id="canvas" aria-label="A spatial archive of Darb cultural projects">
     <div class="world" id="world" aria-hidden="false">
       <svg class="world-links" id="worldLinks" viewBox="0 0 9200 6400" aria-hidden="true"></svg>
+      <svg class="editorial-resonance" id="editorialResonance" viewBox="0 0 9200 6400" aria-hidden="true"></svg>
       <svg class="identity-trace" id="identityTrace" viewBox="0 0 9200 6400" aria-hidden="true"></svg>
       <svg class="identity-constellations" id="identityConstellations" viewBox="0 0 9200 6400" aria-hidden="true"></svg>
       <svg class="memory-trail" id="memoryTrail" viewBox="0 0 9200 6400" aria-label="The route this visitor has woven through the archive"></svg>
@@ -104,15 +111,15 @@ if(new URLSearchParams(location.search).get("entrance")!=="legacy"){
     <h2 id="detailTitle"></h2>
     <p id="detailText"></p>
     <div class="detail-meta" id="detailMeta"></div>
-    <div class="detail-source-note" id="detailSourceNote" hidden>
-      <span id="detailSourceLabel">ABOUT THIS IMAGE</span>
+    <div class="detail-controls">
+      <button id="followBtn" type="button" class="text-action" hidden>FOLLOW THIS THREAD ↗</button>
+      <button id="sourceBtn" type="button" class="text-action" aria-controls="detailSourceNote" aria-expanded="false">ABOUT THIS IMAGE</button>
+    </div>
+    <div class="detail-source-note" id="detailSourceNote" role="region" aria-labelledby="detailSourceLabel" hidden>
+      <span id="detailSourceLabel">SOURCE / CONTEXT</span>
       <p id="detailSourceBody"></p>
     </div>
     <div class="related" id="relatedObjects" aria-label="Other records in this programme"></div>
-    <div class="detail-controls">
-      <button id="followBtn" type="button" class="text-action" hidden>FOLLOW THIS THREAD ↗</button>
-      <button id="sourceBtn" type="button" class="text-action">VIEW RECORD ↗</button>
-    </div>
   </section>
 
   <section class="index" id="index" hidden role="dialog" aria-modal="true" aria-label="Explore Darb Archive connections">

@@ -3,6 +3,7 @@ import {layoutCatalog,validateAtlas,cameraForObject,WORLD_WIDTH,WORLD_HEIGHT,CLU
 import {materialLanguage,nextMaterialTrace} from "/material-score.mjs";
 import {materialBridgeSegments} from "/identity-relations.mjs";
 import {createIdentityLenses,discoveredIdentityLenses,identityViewAlignment} from "/identity-score.mjs";
+import {writingVoiceResonance,WRITING_VOICE_DRAMATURGY} from "/editorial-resonance.mjs";
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
@@ -40,6 +41,7 @@ const copy={
 let moments=[],media=[],catalog=null,chapterBook=null,threads=null;
 let story=null,lang="en",mode="journey",reading=false,openItem=null,currentBeat=0,encounter=null;
 let materialTransitionUntil=0,materialTransitionSerial=0,materialArrivalSerial=0;
+let editorialPassageUntil=0,editorialPassageSerial=0;
 let atlasState=null,atlasSelected="fustat",atlasClosing=0;
 const visitedRoute=[];
 let identityLenses=[];
@@ -128,6 +130,10 @@ function drawMemoryTrail(){
  svg.setAttribute("aria-label",lang==="ar"
   ?"خيوط الرحلة التي نسجها الزائر عبر الأعمال الأرشيفية"
   :"The path this visitor has woven through archival works");
+ // The source itself quietly reveals its connected doorway after a visit.
+ $$(".editorial-seed").forEach(seed=>{
+  seed.hidden=!seen.has(Number(seed.dataset.editorialFrom));
+ });
  updateIdentityReveal();
 }
 const atlasPositions={
@@ -175,6 +181,22 @@ function makeWorld(){
   const caption=document.createElement("figcaption");
   caption.textContent=local(item.title)+" · "+local(item.project);
   figure.append(button,caption);
+  if(item.id===44||item.id===47){
+   const seed=document.createElement("button");
+   seed.type="button";seed.className="editorial-seed";
+   seed.dataset.editorialFrom=String(item.id);
+   seed.dataset.editorialTo=String(item.id===44?47:44);
+   seed.hidden=true;
+   seed.textContent="⟿";
+   const relation=threads.connections.find(edge=>edge.id==="voice");
+   seed.setAttribute("aria-label",local(relation?.title)+": "+local(relation?.description));
+   seed.title=local(relation?.description);
+   seed.addEventListener("click",event=>{
+    event.stopPropagation();
+    followEditorialResonance(relation,Number(seed.dataset.editorialTo),item.id);
+   });
+   figure.append(seed);
+  }
   frag.append(figure);
  });
  root.append(frag);
@@ -264,6 +286,12 @@ function setLanguage(next){
   button.setAttribute("aria-label",local(item.title));
   const image=fig.querySelector("img");
   if(image)image.alt=local(item.title);
+  const seed=fig.querySelector(".editorial-seed");
+  if(seed){
+   const relation=threads.connections.find(edge=>edge.id==="voice");
+   seed.setAttribute("aria-label",local(relation?.title)+": "+local(relation?.description));
+   seed.title=local(relation?.description);
+  }
  });
  $$(".zone-label").forEach(el=>{const zone=CLUSTERS[el.dataset.cluster];el.querySelector("strong").textContent=lang==="ar"?zone.ar:zone.en;});
  renderNarrative(currentBeat);
@@ -325,7 +353,9 @@ function frame(now=0){
  lastFrameAt=now;
  // Time-dependent easing: slow/mobile browsers cannot stretch a camera move indefinitely.
  const materialInFlight=now<materialTransitionUntil;
- const tau=materialInFlight?($("#experience").dataset.materialTransit==="cyanotype"?440:335):280;
+ const editorialInFlight=now<editorialPassageUntil;
+ const tau=editorialInFlight?570:
+  materialInFlight?($("#experience").dataset.materialTransit==="cyanotype"?440:335):280;
  const speed=window.matchMedia("(prefers-reduced-motion: reduce)").matches
   ? 1 : 1-Math.exp(-elapsed/tau);
  for(const key of ["x","y","z","r","fx"])current[key]=lerp(current[key],target[key],speed);
@@ -374,6 +404,11 @@ function markMaterialArrival(id){
 }
 function inspect(id){
  const item=mediaRecord(id);if(!item)return;
+ delete $("#experience").dataset.sourceOpen;
+ // Another source selection interrupts, rather than leaves an editorial
+ // transition floating under an unrelated photograph.
+ if($("#experience").dataset.editorialPassage&&
+    Number($("#experience").dataset.editorialTo)!==id)clearEditorialResonance();
  rememberSource(id);
  if(!encounter){
   encounter={originMode:mode,originCamera:{...current},originTarget:{...target},
@@ -425,6 +460,74 @@ function followMaterialTrace(targetId){
   originFigure?.classList.remove("is-material-origin");
  },reduced?0:1050);
 }
+/**
+ * Physical bridge between two distinct documented programmes, activated by a
+ * deliberate visitor choice. The source photographs remain untouched.
+ * The link is expressly an editorial comparison: no historical collaboration
+ * or material chronology is inferred from the visual choreography.
+ */
+function clearEditorialResonance(){
+ ++editorialPassageSerial;
+ editorialPassageUntil=0;
+ const root=$("#experience");
+ delete root.dataset.editorialPassage;
+ delete root.dataset.editorialFrom;
+ delete root.dataset.editorialTo;
+ delete root.dataset.editorialPhase;
+ delete root.dataset.editorialInterpretation;
+ $("#editorialResonance")?.replaceChildren();
+ $$(".artifact.is-editorial-origin,.artifact.is-editorial-destination").forEach(fig=>
+  fig.classList.remove("is-editorial-origin","is-editorial-destination"));
+}
+function followEditorialResonance(thread,toId,fromId=openItem){
+ const passage=writingVoiceResonance(fromId,toId,media,threads);
+ if(!passage||passage.threadId!==thread?.id){inspect(toId);return;}
+ // World-side choice: preserve the actual source as a reversible step.
+ if(openItem!==fromId)inspect(fromId);
+ clearEditorialResonance();
+ const serial=++editorialPassageSerial;
+ const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const root=$("#experience"),svg=$("#editorialResonance");
+ root.dataset.editorialPassage=passage.id;
+ root.dataset.editorialFrom=String(passage.fromId);
+ root.dataset.editorialTo=String(passage.toId);
+ root.dataset.editorialPhase="held";
+ root.dataset.editorialInterpretation="voice-held-inside-writing";
+ svg.setAttribute("viewBox","0 0 "+WORLD_WIDTH+" "+WORLD_HEIGHT);
+ svg.innerHTML=passage.strands.map(strand=>
+  '<path data-kind="'+strand.kind+'" data-thread="'+passage.threadId+
+  '" data-from="'+passage.fromId+'" data-to="'+passage.toId+
+  '" pathLength="100" d="'+strand.d+'"/>').join("");
+ $('.artifact[data-id="'+passage.fromId+'"]')?.classList.add("is-editorial-origin");
+ $('.artifact[data-id="'+passage.toId+'"]')?.classList.add("is-editorial-destination");
+ const duration=reduced?0:WRITING_VOICE_DRAMATURGY.durationMs;
+ editorialPassageUntil=performance.now()+duration;
+ inspect(passage.toId);
+ // Do not pan away while the feeling is still trapped within writing.
+ // We hold at the current optical source, then let the camera breathe outward.
+ const arrivalCamera={...target};
+ if(!reduced){
+  target={...current};
+  setTimeout(()=>{
+   if(serial!==editorialPassageSerial)return;
+   root.dataset.editorialPhase="strain";
+  },WRITING_VOICE_DRAMATURGY.acts[1].fromMs);
+  setTimeout(()=>{
+   if(serial!==editorialPassageSerial)return;
+   root.dataset.editorialPhase="release";
+   target=arrivalCamera;
+  },WRITING_VOICE_DRAMATURGY.holdMs);
+ }else{
+  root.dataset.editorialPhase="release";
+ }
+ // Source text remains withheld until the image settles. An interruption
+ // invalidates every queued act, so the previous camera cannot resurrect.
+ setTimeout(()=>{
+  if(serial!==editorialPassageSerial)return;
+  clearEditorialResonance();
+  if(encounter&&openItem===passage.toId)$("#closeDetail").focus({preventScroll:true});
+ },duration);
+}
 function emphasizeSourceThreads(item){
  const relevant=new Set(threads.connections
    .filter(t=>t.fromCluster===item.cluster||t.toCluster===item.cluster)
@@ -436,6 +539,8 @@ function emphasizeSourceThreads(item){
 }
 function retraceEncounter(){
  if(!encounter)return;
+ delete $("#experience").dataset.sourceOpen;
+ if($("#experience").dataset.editorialPassage)clearEditorialResonance();
  if(encounter.history.length>1){
   encounter.history.pop();
   const previous=mediaRecord(encounter.history.at(-1));
@@ -450,6 +555,21 @@ function retraceEncounter(){
   fillDetail(previous.id);
  }else closeDetail();
 }
+/**
+ * The source note is a deliberately optional reading state. It temporarily
+ * replaces the secondary thumbnails instead of piling source paragraphs on
+ * top of their art. Works for touch, keyboard, and Arabic.
+ */
+function setSourceOpen(open){
+ const note=$("#detailSourceNote"),related=$("#relatedObjects"),button=$("#sourceBtn");
+ const root=$("#experience");
+ if(!note||!related||!button)return;
+ root.dataset.sourceOpen=String(Boolean(open));
+ note.hidden=!open;
+ related.hidden=Boolean(open);
+ button.setAttribute("aria-expanded",String(Boolean(open)));
+ button.textContent=open?copy[lang].sourceClose:copy[lang].source;
+}
 function fillDetail(id){
  const item=mediaRecord(id);if(!item)return;
  // The source catalog retains PDF/XREF, filenames and audit data. Those are
@@ -461,12 +581,20 @@ function fillDetail(id){
  $("#detailText").textContent=local(item.title);
  $("#detailMeta").textContent=lang==="ar"?"صورة من أرشيف البرنامج":"FROM THE PROGRAMME";
  $("#detailSourceLabel").textContent=copy[lang].sourceLabel;
- $("#detailSourceBody").textContent=lang==="ar"
-  ?"الصورة دي جزء من مواد برنامج «"+local(item.project)+"» في أرشيف درب ١٧١٨. تقدر تتابع الأعمال المرتبطة بيها من هنا."
-  :"This image belongs to the "+local(item.project)+" programme in the Darb 1718 archive. Continue through the related works without leaving this space.";
- $("#detailSourceNote").hidden=true;
- $("#sourceBtn").setAttribute("aria-expanded","false");
- $("#sourceBtn").textContent=copy[lang].source;
+ // Show actual archive evidence, not a second paragraph that repeats the
+ // same promotional sentence on every single artwork.
+ const page=Number.isFinite(Number(item.page))?Number(item.page):null;
+ const reference=String(item.source||"Darb 1718 Overview 2026");
+ const citation=lang==="ar"
+  ?"المصدر: "+reference+(page===null?"":" · صفحة "+page)+"."
+  :"Source: "+reference+(page===null?"":" · page "+page)+".";
+ const editorial=([44,47].includes(item.id))
+  ?(lang==="ar"
+    ?" الربط بين الكتابة والصوت هنا مقارنة فنية تحريرية بين برنامجين، مش توثيق لتعاون بينهما."
+    :" The writing–voice link is an editorial comparison of separate programmes, not a documented collaboration.")
+  :"";
+ $("#detailSourceBody").textContent=citation+editorial;
+ $("#detailSourceLabel").textContent=lang==="ar"?"مصدر الصورة وسياقها":"IMAGE SOURCE / CONTEXT";
  $("#followBtn").textContent=copy[lang].follow;
  const beat=nearestChapterFor(item);
  $("#followBtn").hidden=beat<0;
@@ -512,10 +640,27 @@ function fillDetail(id){
      escaped(local(thread.title))+'</strong><small>'+escaped(local(target.project))+
      '</small></span><b>↗</b>';
    btn.title=local(thread.description);
-   btn.addEventListener("click",()=>inspect(target.id));
+   // A direct, source-evidenced parallel can be explored as a change in the
+   // WORLD rather than another thumbnail/detail-card transition.
+   const passage=writingVoiceResonance(item.id,target.id,media,threads);
+   if(passage&&passage.threadId===thread.id){
+    btn.classList.add("is-editorial-resonance");
+    btn.dataset.editorialThread=thread.id;
+    btn.dataset.editorialFrom=String(item.id);
+    btn.dataset.editorialTo=String(target.id);
+    btn.setAttribute("aria-label",local(thread.title)+". "+
+     (lang==="ar"?"مقارنة تحريرية بين برنامجين مختلفين. ":"Editorial comparison between separate programmes. ")+
+     local(thread.description));
+    btn.innerHTML='<img src="'+target.src+'" loading="lazy" alt=""/><span><strong>'+
+     escaped(local(thread.title))+'</strong><small>'+
+     escaped(local(thread.description))+'</small></span><b>↗</b>';
+   }
+   btn.addEventListener("click",()=>passage&&passage.threadId===thread.id?
+    followEditorialResonance(thread,target.id):inspect(target.id));
    host.append(btn);
   }
  }
+ setSourceOpen($("#experience").dataset.sourceOpen==="true");
 }
 function nearestChapterFor(item){
  let index=moments.findIndex(ch=>ch.focusId===item.id);
@@ -523,6 +668,8 @@ function nearestChapterFor(item){
  return moments.findIndex(ch=>ch.focusId!==null&&mediaRecord(ch.focusId)?.cluster===item.cluster);
 }
 function closeDetail(){
+ delete $("#experience").dataset.sourceOpen;
+ if($("#experience").dataset.editorialPassage)clearEditorialResonance();
  if(encounter){
   const previous=encounter;
   mode=previous.originMode;
@@ -797,11 +944,7 @@ function installInput(){
  });
  $("#sourceBtn").addEventListener("click",()=>{
   if(openItem===null)return;
-  const note=$("#detailSourceNote");
-  note.hidden=!note.hidden;
-  const expanded=!note.hidden;
-  $("#sourceBtn").setAttribute("aria-expanded",String(expanded));
-  $("#sourceBtn").textContent=expanded?copy[lang].sourceClose:copy[lang].source;
+  setSourceOpen($("#experience").dataset.sourceOpen!=="true");
  });
  $("#backToScene").addEventListener("click",()=>jumpTo(currentBeat));
  addEventListener("scroll",()=>{
@@ -880,6 +1023,40 @@ function installInput(){
   target.z=clamp(target.z*Math.exp(-event.deltaY*.0008),.2,2.7);
  },{passive:false});
 }
+/**
+ * One direct preview URL for the curatorial movement under review. This is
+ * not a second website, new home, or generic site navigation. Ordinary /
+ * still opens the woven rug; the film study starts with REAL source #44
+ * in the same living atlas and travels toward REAL source #47.
+ */
+function openWritingVoiceStudy(){
+ if(new URLSearchParams(location.search).get("study")!=="writing-voice")return;
+ const root=$("#experience");
+ const thread=threads.connections.find(link=>link.id==="voice");
+ if(!writingVoiceResonance(44,47,media,threads)||!thread){
+  document.documentElement.classList.remove("editorial-study-loading");
+  return;
+ }
+ enterMode("explore");
+ inspect(44);
+ // Directly position this OPTIONAL deep-link at its actual source image,
+ // without showing an unrelated 16-beat intro before playback.
+ current={...target};positionWorld();
+ root.dataset.directStudy="writing-voice";
+ const pictures=[44,47].map(id=>$('.artifact[data-id="'+id+'"] .artifact-inner img')).filter(Boolean);
+ pictures.forEach(img=>img.loading="eager");
+ const imageReady=Promise.allSettled(pictures.map(img=>img.decode().catch(()=>{})));
+ const timeout=new Promise(resolve=>setTimeout(resolve,1600));
+ void Promise.race([imageReady,timeout]).then(()=>{
+  document.documentElement.classList.remove("editorial-study-loading");
+  requestAnimationFrame(()=>setTimeout(()=>{
+   // Manual intervention supersedes the automated study. Never hijack a
+   // visitor who has already chosen a different artwork.
+   if(mode==="encounter"&&openItem===44&&root.dataset.directStudy==="writing-voice")
+    followEditorialResonance(thread,47,44);
+  },1250));
+ });
+}
 async function boot(){
  try{
   const endpoints=["/story.json","/catalog.json","/chapters.json","/threads.json"];
@@ -911,8 +1088,10 @@ async function boot(){
   target={...moments[0].camera};current={...target};
   makeWorld();installInput();setLanguage("en");renderNarrative(0);
   updateScroll();rafId=requestAnimationFrame(frame);
+  openWritingVoiceStudy();
  }catch(error){
   console.error(error);
+  document.documentElement.classList.remove("editorial-study-loading");
   $("#narrativeBody").textContent="Archive material could not load. The reading mode is temporarily unavailable.";
  }
 }

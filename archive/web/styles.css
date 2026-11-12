@@ -1166,3 +1166,196 @@ html[lang="ar"] .experience[data-mode="encounter"] .detail-source-note p{
 @media(prefers-reduced-motion:reduce){
  .identity-constellations .identity-lens{transition:none}
 }
+
+
+/* Living relation no. 01 — actual writing and voice source records.
+   This is an editorial comparison of distinct programmes, never a
+   documentary collaboration. Light and filaments live BEHIND the images. */
+.editorial-resonance{
+ position:absolute;inset:0;width:9200px;height:6400px;
+ z-index:1;pointer-events:none;overflow:visible;
+ opacity:0;transition:opacity .55s ease;
+}
+.experience[data-editorial-passage="writing-voice"] .editorial-resonance{opacity:1}
+/* The entire long relation exists as a possible route, but only a few
+   millimetres are visible while the voice feels trapped inside the writing.
+   pathLength=100 normalizes the score on narrow phones and large displays. */
+.editorial-resonance path{fill:none;vector-effect:non-scaling-stroke;
+ stroke-linecap:round;stroke-linejoin:round;
+ stroke:#9b7967;stroke-width:1.55;stroke-opacity:0;
+ stroke-dasharray:100 100;stroke-dashoffset:100;
+}
+.editorial-resonance path[data-kind="axis"]{
+ stroke:#665749;stroke-width:1.9;
+}
+.editorial-resonance path[data-kind="voice"]{
+ stroke:#537f7d;stroke-width:1.22;
+}
+.experience[data-editorial-passage="writing-voice"] .editorial-resonance path{
+ animation:held-voice-release 3s cubic-bezier(.28,.08,.23,1) both;
+}
+/* One-held-breath, resistance, then release. No captions that narrate this. */
+@keyframes held-voice-release{
+ 0%{stroke-dashoffset:100;stroke-opacity:0}
+ 18%{stroke-dashoffset:97;stroke-opacity:.42}
+ 29%{stroke-dashoffset:93;stroke-opacity:.75}
+ 36%{stroke-dashoffset:95;stroke-opacity:.6}
+ 43%{stroke-dashoffset:88;stroke-opacity:.78}
+ 68%{stroke-dashoffset:31;stroke-opacity:.65}
+ 91%{stroke-dashoffset:0;stroke-opacity:.47}
+ 100%{stroke-dashoffset:0;stroke-opacity:.39}
+}
+.experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-origin{
+ animation:held-voice-pressure 3s ease both;
+}
+@keyframes held-voice-pressure{
+ 0%,8%{filter:drop-shadow(0 8px 10px rgba(85,69,48,.13))}
+ 24%{filter:drop-shadow(0 5px 27px rgba(99,71,55,.48))}
+ 34%{filter:drop-shadow(0 5px 36px rgba(99,71,55,.55))}
+ 48%{filter:drop-shadow(0 9px 21px rgba(99,71,55,.19))}
+ 100%{filter:drop-shadow(0 11px 8px rgba(83,122,111,.04))}
+}
+.experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-origin{
+ filter:drop-shadow(0 10px 33px #bfa1847a);
+}
+.experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-destination{
+ z-index:10;filter:drop-shadow(0 13px 34px #527e848c);
+}
+.experience[data-editorial-passage="writing-voice"] .world-links .curatorial-thread[data-thread="voice"]{
+ stroke:#7b9696;stroke-width:4;stroke-opacity:.75;stroke-dasharray:2 13;
+}
+.experience[data-editorial-passage="writing-voice"] .veil{
+ background:linear-gradient(108deg,rgba(236,222,202,.18),rgba(179,211,209,.13) 62%,rgba(226,239,233,0) 90%);
+ transition:background 1s ease;
+}
+/* Pressure is expressed by light and camera restraint, never by distorting
+   or darkening the documented photograph itself. */
+.experience[data-editorial-phase="held"] .veil{
+ background:linear-gradient(104deg,rgba(225,219,197,.46),rgba(36,61,51,.21) 54%,transparent 85%);
+}
+.experience[data-editorial-phase="strain"] .veil{
+ background:linear-gradient(104deg,rgba(223,216,196,.37),rgba(91,103,83,.16) 54%,transparent 90%);
+}
+.experience[data-editorial-phase="release"] .veil{
+ background:linear-gradient(104deg,rgba(230,233,213,.13),rgba(176,211,209,.1) 58%,transparent 92%);
+}
+/* The camera leads. The contextual description arrives AFTER the image. */
+.experience[data-editorial-passage="writing-voice"] .object-detail{
+ opacity:0;pointer-events:none;transform:translateY(11px);
+}
+.experience[data-editorial-passage="writing-voice"] .object-detail,
+.experience:not([data-editorial-passage]) .object-detail{
+ transition:opacity .45s ease,transform .45s ease;
+}
+.related-item.is-editorial-resonance{position:relative}
+.related-item.is-editorial-resonance span small{display:block;margin-top:5px;
+ font-size:10px;font-style:italic;line-height:1.42;color:#668077}
+.related-item.is-editorial-resonance:before{
+ content:"";position:absolute;left:-12px;top:9px;bottom:9px;
+ border-left:1px solid #ae8568;
+}
+@media(prefers-reduced-motion:reduce){
+ .editorial-resonance,.editorial-resonance path,
+ .experience[data-editorial-passage="writing-voice"] .artifact.is-editorial-origin{
+  transition:none!important;animation:none!important;stroke-dashoffset:0!important;
+ }
+ .experience[data-editorial-passage="writing-voice"] .editorial-resonance path{stroke-opacity:.35}
+ .experience[data-editorial-passage="writing-voice"] .object-detail{
+  opacity:1;transform:none;pointer-events:auto;
+ }
+}
+
+
+/* A visited photograph holds its own next doorway, embedded in the moving
+   atlas rather than a fixed navigation tile. No marker before discovery. */
+.artifact .editorial-seed{
+ position:absolute;right:-54px;top:40%;width:74px;height:74px;
+ display:grid;place-items:center;z-index:11;border-radius:50%;
+ border:1px solid rgba(99,124,114,.62);
+ background:radial-gradient(circle,rgba(229,225,202,.94),rgba(232,231,215,.58) 62%,transparent 73%);
+ color:#41645d;font:400 45px/1 Georgia,serif;cursor:pointer;
+ opacity:0;transform:translateX(-9px) rotate(-15deg);
+ pointer-events:none;
+ transition:opacity .55s ease,transform .75s cubic-bezier(.2,.7,.26,1);
+}
+.artifact .editorial-seed[hidden]{display:none!important}
+.experience[data-mode="explore"] .artifact.has-been-visited .editorial-seed{
+ opacity:.89;transform:translateX(0) rotate(0deg);pointer-events:auto;
+}
+.experience[data-mode="explore"] .artifact.has-been-visited .editorial-seed:hover,
+.experience[data-mode="explore"] .artifact.has-been-visited .editorial-seed:focus-visible{
+ opacity:1;outline:2px solid #9b7354;outline-offset:4px;
+ background:#f0e4ce;transform:translateX(5px) rotate(4deg);
+}
+@media(prefers-reduced-motion:reduce){.artifact .editorial-seed{transition:none!important}}
+
+
+/* Direct editorial film: preserve the woven home for ordinary visits, but
+   suppress the previous archive heading while the requested work is staged. */
+html.editorial-study-loading,html.editorial-study-loading body{
+ background:#10211e!important;
+}
+html.editorial-study-loading #experience,
+html.editorial-study-loading #reading{
+ visibility:hidden!important;
+}
+
+
+/* ARTWORK FIRST / SOURCE ONLY WHEN ASKED
+   The source reading state is mutually exclusive with the thumbnail rail.
+   The archival image keeps its own uninterrupted visual region above. */
+#relatedObjects[hidden],#detailSourceNote[hidden]{display:none!important}
+.experience[data-mode="encounter"] #sourceBtn{
+ min-height:42px;
+ padding-block:10px;
+ text-align:start;
+}
+.experience[data-mode="encounter"] #sourceBtn:focus-visible,
+.experience[data-mode="encounter"] #followBtn:focus-visible{
+ outline:2px solid #477d71;outline-offset:5px;
+}
+.experience[data-mode="encounter"][data-source-open="true"] .object-detail{
+ max-height:min(64svh,610px);overflow-y:auto;
+ background:rgba(236,243,235,.96);
+ border:1px solid rgba(70,104,91,.2);
+ box-shadow:0 20px 60px rgba(13,44,37,.13);
+ border-radius:3px;
+ padding:20px 22px;
+}
+.experience[data-mode="encounter"][data-source-open="true"] #detailSourceNote{
+ margin-top:12px;
+ border-top:1px solid #59766959;
+ padding-top:14px;
+ max-width:50ch;
+}
+.experience[data-mode="encounter"][data-source-open="true"] #detailSourceBody{
+ font-size:clamp(13px,1vw,15px);
+ line-height:1.65;
+ overflow-wrap:anywhere;
+}
+.experience[data-mode="encounter"][data-source-open="true"] .detail-controls{
+ position:relative;
+ z-index:1;
+}
+@media(max-width:800px){
+ .experience[data-mode="encounter"][data-source-open="true"] .object-detail{
+  top:auto;left:clamp(12px,4vw,24px);right:clamp(12px,4vw,24px);
+  bottom:calc(18px + env(safe-area-inset-bottom));
+  width:auto;max-width:none;
+  max-height:min(56svh,480px);
+  padding:17px 19px 20px;
+  background:rgba(235,243,237,.98);
+  -webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+ }
+ .experience[data-mode="encounter"][data-source-open="true"] #detailSourceBody{
+  font-size:13px;line-height:1.65;
+ }
+ .experience[data-mode="encounter"][data-source-open="true"] #sourceBtn{
+  font-size:12px;min-height:44px;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .experience[data-mode="encounter"][data-source-open="true"] .object-detail{
+  transition:none!important;
+ }
+}
