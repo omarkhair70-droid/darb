@@ -12,7 +12,7 @@ on:
       - ".github/workflows/darb-archive-integrity.yml"
 jobs:
   archive-graph:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
@@ -28,7 +28,7 @@ jobs:
 
   archive-browser:
     needs: archive-graph
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
@@ -42,7 +42,9 @@ jobs:
         run: npm install --no-package-lock
         working-directory: archive
       - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+        # Avoid apt mirror outages on ubuntu-latest/26.04: the hosted image already
+        # provides the runtime libraries; only the versioned browser is needed.
+        run: npx playwright install chromium
         working-directory: archive
       - name: Build research experience
         run: npm run build
